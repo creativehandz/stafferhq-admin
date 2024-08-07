@@ -1,3 +1,4 @@
 <template>
-    <h1>StafferHQ</h1>
+     <img src="../../img/logo.png"/>
 </template>
+ 
