@@ -2,8 +2,11 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "TFC",
     "require": {
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^1.0",
