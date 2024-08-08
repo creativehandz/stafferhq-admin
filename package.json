@@ -21,6 +21,8 @@
     },
     "dependencies": {
         "@vueuse/core": "^10.11.0",
-        "flatpickr": "^4.6.13"
+        "flatpickr": "^4.6.13",
+        "pinia": "^2.2.1",
+        "vue-router": "^4.4.3"
     }
 }

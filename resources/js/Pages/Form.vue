@@ -85,7 +85,7 @@ import { Head } from '@inertiajs/vue3';
             <!-- Time and date input Start -->
             <DefaultCard cardTitle="Time and date">
             <div class="flex flex-col gap-5 p-6">
- 
+          
             </div>
             </DefaultCard>
             <!-- Time and date input End -->
