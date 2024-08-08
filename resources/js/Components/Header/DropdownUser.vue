@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
+import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue'
 
 const target = ref(null)
@@ -18,7 +19,7 @@ onClickOutside(target, () => {
       @click.prevent="dropdownOpen = !dropdownOpen"
     >
       <span class="hidden text-right lg:block">
-        <span class="block text-sm font-medium text-black dark:text-white">Thomas Anree</span>
+        <span class="block text-sm font-medium text-black dark:text-white">{{ $page.props.auth.user.name }}</span>
         <span class="block text-xs font-medium">UX Designer</span>
       </span>
 
@@ -51,6 +52,7 @@ onClickOutside(target, () => {
     >
       <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
         <li>
+ <Link :href="route('profile.edit')">
           <router-link
             to="/profile"
             class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -74,6 +76,7 @@ onClickOutside(target, () => {
             </svg>
             My Profile
           </router-link>
+          </Link>
         </li>
         <li>
           <router-link
@@ -122,6 +125,7 @@ onClickOutside(target, () => {
           </router-link>
         </li>
       </ul>
+      <Link :href="route('logout')" method="post" as="button">                                 
       <button
         class="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
       >
@@ -144,6 +148,7 @@ onClickOutside(target, () => {
         </svg>
         Log Out
       </button>
+      </Link>
     </div>
     <!-- Dropdown End -->
   </div>

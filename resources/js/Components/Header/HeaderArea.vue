@@ -4,6 +4,7 @@ import DarkModeSwitcher from './DarkModeSwitcher.vue'
 import DropdownMessage from './DropdownMessage.vue'
 import DropdownNotification from './DropdownNotification.vue'
 import DropdownUser from './DropdownUser.vue'
+import { Link } from '@inertiajs/vue3';
 
 const { toggleSidebar } = useSidebarStore()
 const sidebarStore = useSidebarStore()
@@ -53,9 +54,11 @@ const sidebarStore = useSidebarStore()
           </span>
         </button>
         <!-- Hamburger Toggle BTN -->
+        <Link :href="route('dashboard')">
         <router-link class="block flex-shrink-0 lg:hidden" to="/">
         <img src="../../../img/logo.png" alt="Logo" class="h-9" />
         </router-link>
+        </Link>
       </div>
       <div class="hidden sm:block">
         <form action="https://formbold.com/s/unique_form_id" method="POST">
