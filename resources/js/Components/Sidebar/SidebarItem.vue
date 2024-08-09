@@ -8,6 +8,7 @@ import SidebarDropdown from './SidebarDropdown.vue'
 const sidebarStore = useSidebarStore()
 
 const props = defineProps(['item', 'index'])
+// const currentPage = useRoute().name 
 
 
 interface SidebarItem {
@@ -58,6 +59,14 @@ const handleItemClick = () => {
     </router-link>
 
     <!-- Dropdown Menu Start -->
-   
+    <div class="translate transform overflow-hidden" v-show="sidebarStore.page === item.label">
+      <SidebarDropdown
+        v-if="item.children"
+        :items="item.children"
+      
+        :page="item.label"
+      />
+      <!-- Dropdown Menu End -->
+    </div>
   </li>
 </template>
