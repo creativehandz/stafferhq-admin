@@ -45,7 +45,7 @@ const menuGroups = ref([
                 </svg>`,
         label: 'Dashboard',
         route: '#',
-        children: [{ label: 'Analytics', route: '/' }]
+        children: [{ label: 'Analytics', route: 'analytics' }]
       },
       {
         icon: `<svg
@@ -58,8 +58,8 @@ const menuGroups = ref([
         label: 'User/Companies',
         route: '#',
         children: [
-         { label: 'Users', route: '/' },
-         { label: 'Add new company', route: '/' }
+         { label: 'Users', route: 'users' },
+         { label: 'Add new company', route: 'add-new-company' }
         ]
       },
             {
@@ -84,7 +84,7 @@ const menuGroups = ref([
                   </defs>
                 </svg>`,
         label: 'Post a job',
-        route: '/tables'
+        route: 'post-a-job'
       },
       {
         icon: `<svg
@@ -105,7 +105,7 @@ const menuGroups = ref([
                   />
                 </svg>`,
         label: 'Profile',
-        route: '/profile'
+        route: 'profile'
       },
             {
         icon: `<svg
@@ -126,7 +126,7 @@ const menuGroups = ref([
                   />
                 </svg>`,
         label: 'Talent',
-        route: '/talent'
+        route: 'talent'
       },
       {
         icon: `<svg
@@ -161,8 +161,8 @@ const menuGroups = ref([
         label: 'Forms',
         route: '#',
         children: [
-          { label: 'Form Elements', route: '/forms/form-elements' },
-          { label: 'Form Layout', route: '/forms/form-layout' }
+          { label: 'Form Elements', route: 'form' },
+          { label: 'Form Layout', route: 'form' }
         ]
       },
       {
@@ -201,7 +201,7 @@ const menuGroups = ref([
                 </svg>`,
         label: 'Pages',
         route: '#',
-        children: [{ label: 'Settings', route: '/pages/settings' }]
+        children: [{ label: 'Settings', route: 'setting' }]
       }
     ]
   },
@@ -235,7 +235,7 @@ const menuGroups = ref([
                 </svg>`,
         label: 'Charts',
         route: '#',
-        children: [{ label: 'Basic Chart', route: '/charts/basic-chart' }]
+        children: [{ label: 'Basic Chart', route: 'form' }]
       },
       {
         icon: `<svg
@@ -269,8 +269,8 @@ const menuGroups = ref([
         label: 'UI Elements',
         route: '#',
         children: [
-          { label: 'Alerts', route: '/ui-elements/alerts' },
-          { label: 'Buttons', route: '/ui-elements/buttons' }
+          { label: 'Alerts', route: 'form' },
+          { label: 'Buttons', route: 'form' }
         ]
       },
       {
@@ -301,8 +301,8 @@ const menuGroups = ref([
         label: 'Authentication',
         route: '#',
         children: [
-          { label: 'Sign In', route: '/auth/signin' },
-          { label: 'Sign Up', route: '/auth/signup' }
+          { label: 'Sign In', route: 'login' },
+          { label: 'Sign Up', route: 'register' }
         ]
       }
     ]
@@ -326,7 +326,7 @@ const menuGroups = ref([
         <img src="../../../img/logo.png" alt="Logo" class="h-9" />
         <h1 class="font-bold text-2xl font text-white">StafferHQ</h1>
       </div>
-      </Link>
+      </Link> 
 
       <button class="block lg:hidden" @click="sidebarStore.isSidebarOpen = false">
         <svg

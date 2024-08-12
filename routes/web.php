@@ -22,9 +22,30 @@ Route::get('/form', function () {
     return Inertia::render('Form');
 })->name('form');
 
-Route::get('/table', function () {
-    return Inertia::render('Table');
-})->name('table');
+Route::get('/users', function () {
+    return Inertia::render('Users');
+})->name('users');
+
+Route::get('/analytics', function () {
+    return Inertia::render('Analytics');
+})->name('analytics');
+
+Route::get('/post-a-job', function () {
+    return Inertia::render('PostAJob');
+})->name('post-a-job');
+
+Route::get('/add-new-company', function () {
+    return Inertia::render('AddNewCompany');
+})->name('add-new-company');
+
+Route::get('/setting', function () {
+    return Inertia::render('Setting');
+})->name('setting');
+
+Route::get('/talent', function () {
+    return Inertia::render('Talent');
+})->name('talent');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

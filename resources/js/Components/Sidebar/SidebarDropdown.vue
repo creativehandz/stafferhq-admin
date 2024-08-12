@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useSidebarStore } from '@/stores/sidebar'
 import { ref } from 'vue'
+import { Link } from '@inertiajs/vue3';
+
 
 const sidebarStore = useSidebarStore()
 
@@ -18,6 +20,7 @@ const handleItemClick = (index: number) => {
   <ul class="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
     <template v-for="(childItem, index) in items" :key="index">
       <li>
+        <Link  :href="childItem.route">
         <router-link
           :to="childItem.route"
           @click="handleItemClick(index)"
@@ -28,6 +31,7 @@ const handleItemClick = (index: number) => {
         >
           {{ childItem.label }}
         </router-link>
+      </Link>
       </li>
     </template>
   </ul>

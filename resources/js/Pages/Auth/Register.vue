@@ -8,6 +8,7 @@ import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import DefaultAuthCard from "@/Components/Auths/DefaultAuthCard.vue";
+import SelectUserType from "@/Components/Forms/SelectGroup/SelectUserType.vue";
 
 const form = useForm({
     name: "",
@@ -197,6 +198,8 @@ const submit = () => {
                         :message="form.errors.password_confirmation"
                     />
                 </div>
+
+                <SelectUserType />
 
                 <div class="mb-5 mt-6">
                     <input

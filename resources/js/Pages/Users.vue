@@ -50,7 +50,7 @@ const products = ref([
 <template>
   <AuthenticatedLayout>
     <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Table</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Users</h2>
     </template>
 <div class="flex flex-col">
     <div
