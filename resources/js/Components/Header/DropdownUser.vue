@@ -78,7 +78,7 @@ onClickOutside(target, () => {
           </router-link>
           </Link>
         </li>
-        <li>
+        <!-- <li>
           <router-link
             to="#"
             class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -98,7 +98,7 @@ onClickOutside(target, () => {
             </svg>
             My Contacts
           </router-link>
-        </li>
+        </li> -->
         <li>
           <router-link
             to="/pages/settings"

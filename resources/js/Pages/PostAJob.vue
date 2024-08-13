@@ -103,8 +103,7 @@ import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
                         </DefaultCard>
                         <!-- Input Fields End -->
                     </div>
-
-                                    </div>
+                </div>
                 <!-- ====== Form Elements Section End -->
             </div>
         </div>
