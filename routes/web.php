@@ -25,6 +25,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/employer-dashboard', function () {
+    return Inertia::render('EmployerDashboard');
+})->middleware(['auth', 'verified'])->name('employer-dashboard');
+
+
 Route::get('/form', function () {
     return Inertia::render('Form');
 })->name('form');
@@ -40,6 +45,10 @@ Route::get('/analytics', function () {
 Route::get('/post-a-job', function () {
     return Inertia::render('PostAJob');
 })->name('post-a-job');
+
+Route::get('/all-job-posts', function () {
+    return Inertia::render('AllJobPosts');
+})->name('all-job-posts');
 
 Route::get('/add-new-company', function () {
     return Inertia::render('AddNewCompany');

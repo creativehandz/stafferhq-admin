@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ref } from "vue";
+import { Head } from "@inertiajs/vue3";
 
 import ProductOne from "../../img/product/product-01.png";
 import ProductTwo from "../../img/product/product-02.png";
 import ProductThree from "../../img/product/product-03.png";
 import ProductFour from "../../img/product/product-04.png";
+import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
+
+const pageTitle = ref("Talent");
 
 const products = ref([
     {
@@ -49,6 +53,19 @@ const products = ref([
 
 <template>
     <AuthenticatedLayout>
+
+        <Head title="Analytics" />
+
+        <template #header>
+            <h2
+                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+            >
+                Talent
+            </h2>
+        </template>
+
+        <BreadcrumbDefault :pageTitle="pageTitle" />
+
         <div class="flex flex-col">
             <div
                 class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"

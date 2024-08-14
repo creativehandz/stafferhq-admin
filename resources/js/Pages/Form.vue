@@ -15,6 +15,7 @@ import MultiSelect from "@/Components/Forms/MultiSelect.vue";
 import SelectGroupOne from "@/Components/Forms/SelectGroup/SelectGroupOne.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import Card from "@/Components/Cards/Card.vue";
 </script>
 
 <template>
@@ -196,10 +197,13 @@ import { Head } from "@inertiajs/vue3";
                             </div>
                         </DefaultCard>
                         <!-- Select input End -->
+                         
+                      <Card></Card>
                     </div>
                 </div>
                 <!-- ====== Form Elements Section End -->
             </div>
         </div>
+
     </AuthenticatedLayout>
 </template>

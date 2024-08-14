@@ -6,6 +6,9 @@ import ProductOne from "../../img/product/product-01.png";
 import ProductTwo from "../../img/product/product-02.png";
 import ProductThree from "../../img/product/product-03.png";
 import ProductFour from "../../img/product/product-04.png";
+import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
+
+const pageTitle = ref("Users");
 
 const products = ref([
     {
@@ -60,6 +63,9 @@ const products = ref([
                 Users
             </h2>
         </template>
+
+        <BreadcrumbDefault :pageTitle="pageTitle"/>
+
         <div class="flex flex-col">
             <div
                 class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"

@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import { ref } from 'vue'
+
+const pageTitle = ref('Dashboard')
 </script>
 
 <template>
@@ -14,6 +18,10 @@ import { Head } from "@inertiajs/vue3";
                 Dashboard
             </h2>
         </template>
+
+        <!-- Breadcrumb Start -->
+    <BreadcrumbDefault :pageTitle="pageTitle" />
+    <!-- Breadcrumb End -->
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

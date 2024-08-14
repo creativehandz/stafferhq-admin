@@ -12,10 +12,16 @@ import SwitchOne from "@/Components/Forms/Switchers/SwitchOne.vue";
 import SwitchThree from "@/Components/Forms/Switchers/SwitchThree.vue";
 import SwitchTwo from "@/Components/Forms/Switchers/SwitchTwo.vue";
 import MultiSelect from "@/Components/Forms/MultiSelect.vue";
+import MultiSelectTwo from "@/Components/Forms/MultiSelectTwo.vue";
 import SelectGroupOne from "@/Components/Forms/SelectGroup/SelectGroupOne.vue";
+import SelectJobCategory from "@/Components/Forms/SelectGroup/SelectJobCategory.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
+import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
+import { ref } from "vue";
+
+const pageTitle = ref("Post A Job");
 </script>
 
 <template>
@@ -30,6 +36,8 @@ import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
             </h2>
         </template>
 
+        <BreadcrumbDefault :pageTitle="pageTitle" />
+
         <div class="py-12">
             <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                 <!-- ====== Form Elements Section Start -->
@@ -43,7 +51,38 @@ import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
                                         >
-                                            Job Title
+                                            I Want To Create A New Job Post
+                                        </label>
+                                        <div class="flex flex-col gap-4">
+                                            <div
+                                                class="flex cursor-pointer select-none items-center gap-2"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="project_term"
+                                                    id="long_term"
+                                                />
+                                                Long Term Project : >= 30
+                                                Hours/week or 3 months
+                                            </div>
+                                            <div
+                                                class="flex cursor-pointer select-none items-center gap-2"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="project_term"
+                                                    id="short_term"
+                                                />
+                                                Short Term Project : <= 30
+                                                Hours/week or 3 months
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        >
+                                            Write A Title For Your Job Post
                                         </label>
                                         <input
                                             type="text"
@@ -52,19 +91,59 @@ import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
                                         />
                                     </div>
 
+                                    <SelectJobCategory />
+
+                                    <MultiSelectTwo />
+
                                     <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
                                         >
-                                            Job Description
+                                            What Level Of Experience Will It
+                                            Need?
                                         </label>
-                                        <textarea
-                                            rows="6"
-                                            placeholder="Enter Job Description"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        ></textarea>
+                                        <div class="flex flex-col gap-4">
+                                            <div
+                                                class="flex cursor-pointer select-none items-center gap-2"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="experience_level"
+                                                    id="entry"
+                                                />
+                                                Entry: Looking for someone
+                                                relatively new to this field
+                                            </div>
+                                            <div
+                                                class="flex cursor-pointer select-none items-center gap-2"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="experience_level"
+                                                    id="intermediate"
+                                                />
+                                                Intermediate: Looking for
+                                                substantial experience in this
+                                                field
+                                            </div>
+                                            <div
+                                                class="flex cursor-pointer select-none items-center gap-2"
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="experience_level"
+                                                    id="expert"
+                                                />
+                                                Expert: Looking for
+                                                comprehensive and deep expertise
+                                                in this field
+                                            </div>
+                                        </div>
                                     </div>
 
+                                    
+
+                                    <SelectBudget />
                                     <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
@@ -76,7 +155,19 @@ import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
                                             placeholder="Enter Budget"
                                             class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                                         />
-                                        <SelectBudget />
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        >
+                                            Describe What You Need
+                                        </label>
+                                        <textarea
+                                            rows="6"
+                                            placeholder="Enter Job Description"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        ></textarea>
                                     </div>
 
                                     <div>
