@@ -22,7 +22,7 @@ const pageTitle = ref("All Job Posts");
         <BreadcrumbDefault :pageTitle="pageTitle" />
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
                 <div
                     class="bg-white dark:bg-boxdark overflow-hidden shadow-sm sm:rounded-lg"
                 >

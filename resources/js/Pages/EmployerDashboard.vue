@@ -5,6 +5,16 @@ import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import Card from "@/Components/Cards/Card.vue";
 import { ref } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import BreadcrumbDefaultTwo from "@/Components/Breadcrumbs/BreadcrumbDefaultTwo.vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper-bundle.css";
+import { Navigation, Pagination } from 'swiper/modules';
+
+// Import Swiper modules
+import SwiperCore from "swiper";
+
+// Use the modules
+SwiperCore.use([Navigation, Pagination]);
 
 const pageTitle = ref("Employer Dashboard");
 </script>
@@ -21,40 +31,106 @@ const pageTitle = ref("Employer Dashboard");
             </h2>
         </template>
 
-        <BreadcrumbDefault :pageTitle="pageTitle" />
+        <BreadcrumbDefaultTwo :pageTitle="pageTitle" />
 
-        <div class="py-6">
-        <div
-            class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-        >
-            <h2 class="text-title-md2 font-semibold text-black dark:text-white">
-                Your jobs
-            </h2>
-            <PrimaryButton>Post a job</PrimaryButton>
-        </div>
+        <div class="py-3">
+            <div
+                class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+                <h2
+                    class="text-title-md2 font-semibold text-black dark:text-white"
+                >
+                    Your jobs
+                </h2>
+                <PrimaryButton>Post a job</PrimaryButton>
+            </div>
 
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Card></Card>
+            <div
+                class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+                <div class="flex gap-3">
+                    <button
+                        class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                        style="
+                            border-color: rgb(249, 193, 7);
+                            color: rgb(249, 193, 7);
+                        "
+                    >
+                        In Progress
+                    </button>
+                    <button
+                        class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                        style="
+                            border-color: rgb(60, 167, 69);
+                            color: rgb(60, 167, 69);
+                        "
+                    >
+                        Action Needed
+                    </button>
+                    <button
+                        class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                        style="
+                            border-color: rgb(59, 162, 184);
+                            color: rgb(59, 162, 184);
+                        "
+                    >
+                        Drafts
+                    </button>
+                </div>
+                <div class="flex gap-3">
+                    <a href="" class="font-medium text-primary"
+                        >View All Job Posts</a
+                    >
+                    <a href="" class="font-medium text-primary"
+                        >View All Contracts</a
+                    >
+                </div>
+            </div>
+
+            <div class="py-6">
+                <div class="max-w-7xl">
+                    <swiper
+                        :slides-per-view="3"
+                        space-between="30"
+                        navigation
+                        pagination
+                        class="mySwiper"
+                    >
+                        <swiper-slide v-for="n in 4" :key="n">
+                            <Card />
+                        </swiper-slide>
+                    </swiper>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="py-6">
-        <div
-            class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-        >
-            <h2 class="text-title-md2 font-semibold text-black dark:text-white">
-                Your Hires
-            </h2>
-            <PrimaryButton>View all your hires</PrimaryButton>
-        </div>
 
         <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Card></Card>
+            <div
+                class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+                <h2
+                    class="text-title-md2 font-semibold text-black dark:text-white"
+                >
+                    Your Hires
+                </h2>
+                <PrimaryButton>View all your hires</PrimaryButton>
+            </div>
+
+            <div class="py-6">
+                <div class="max-w-7xl">
+                    <swiper
+                        :slides-per-view="3"
+                        space-between="30"
+                        navigation
+                        pagination
+                        class="mySwiper"
+                    >
+                        <swiper-slide v-for="n in 4" :key="n">
+                            <Card />
+                        </swiper-slide>
+                    </swiper>
+                </div>
             </div>
         </div>
-    </div>
     </AuthenticatedLayout>
 </template>

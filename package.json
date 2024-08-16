@@ -23,6 +23,9 @@
         "@vueuse/core": "^10.11.0",
         "flatpickr": "^4.6.13",
         "pinia": "^2.2.1",
-        "vue-router": "^4.4.3"
+        "slick-carousel": "^1.8.1",
+        "swiper": "^11.1.9",
+        "vue-router": "^4.4.3",
+        "vue-slick-carousel": "^1.0.6"
     }
 }

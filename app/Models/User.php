@@ -46,4 +46,10 @@ class User extends Authenticatable
             'role' => 'integer', 
         ];
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
+
 }
