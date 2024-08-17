@@ -41,11 +41,11 @@ class JobController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'project_type' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
             'skills' => 'nullable|array|max:10',
-            'skills.*' => 'string|max:255',
+            'skills.*' => 'nullable|max:255',
             'experience_level' => 'required|string|max:255',
-            'budget_type' => 'required|string|max:255',
+            'budget_type' => 'nullable|string|max:255',
             'budget' => 'required|numeric',
             'description' => 'required|string',
             'location' => 'nullable|string|max:255',
@@ -66,7 +66,7 @@ class JobController extends Controller
             'attachment' => $request->file('attachment') ? $request->file('attachment')->store('attachments') : null,
         ]);
 
-        return redirect(route('jobs.index'))->with('success', 'Job posted successfully!');
+        return redirect(route('employer-dashboard'))->with('success', 'Job posted successfully!');
     }
 
     /**

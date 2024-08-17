@@ -19,9 +19,35 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
+import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const pageTitle = ref("Post A Job");
+
+const form = useForm({
+    title: "",
+    project_type: "",
+    category: "",
+    skills: "",
+    experience_level: "",
+    budget_type: "",
+    budget: "",
+    description: "",
+    attachment: null,
+});
+
+const submit = () => {
+    form.post(route("post-a-job"), {
+        onSuccess: () => {
+            // Optional: Handle success, like showing a notification
+            console.log("Success");
+        },
+        onError: () => {
+            // Optional: Handle error, like showing a notification
+            console.log("Error", form.errors);
+        },
+    });
+};
 </script>
 
 <template>
@@ -45,7 +71,7 @@ const pageTitle = ref("Post A Job");
                     <div class="flex flex-col gap-9">
                         <!-- Input Fields Start -->
                         <DefaultCard cardTitle="Post A Job">
-                            <form action="">
+                            <form @submit.prevent="submit">
                                 <div class="flex flex-col gap-5 p-6">
                                     <div>
                                         <label
@@ -59,8 +85,10 @@ const pageTitle = ref("Post A Job");
                                             >
                                                 <input
                                                     type="radio"
-                                                    name="project_term"
+                                                    name="project_type"
                                                     id="long_term"
+                                                    v-model="form.project_type"
+                                                    value="long_term"
                                                 />
                                                 Long Term Project : >= 30
                                                 Hours/week or 3 months
@@ -70,8 +98,10 @@ const pageTitle = ref("Post A Job");
                                             >
                                                 <input
                                                     type="radio"
-                                                    name="project_term"
+                                                    name="project_type"
                                                     id="short_term"
+                                                    v-model="form.project_type"
+                                                    value="short_term"
                                                 />
                                                 Short Term Project : <= 30
                                                 Hours/week or 3 months
@@ -86,14 +116,17 @@ const pageTitle = ref("Post A Job");
                                         </label>
                                         <input
                                             type="text"
+                                            v-model="form.title"
                                             placeholder="Enter Job Title"
                                             class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                         />
                                     </div>
 
-                                    <SelectJobCategory />
+                                    <SelectJobCategory
+                                        v-model="form.category"
+                                    />
 
-                                    <MultiSelectTwo />
+                                    <MultiSelectTwo v-model="form.skills" />
 
                                     <div>
                                         <label
@@ -110,6 +143,10 @@ const pageTitle = ref("Post A Job");
                                                     type="radio"
                                                     name="experience_level"
                                                     id="entry"
+                                                    v-model="
+                                                        form.experience_level
+                                                    "
+                                                    value="entry"
                                                 />
                                                 Entry: Looking for someone
                                                 relatively new to this field
@@ -121,6 +158,10 @@ const pageTitle = ref("Post A Job");
                                                     type="radio"
                                                     name="experience_level"
                                                     id="intermediate"
+                                                    v-model="
+                                                        form.experience_level
+                                                    "
+                                                    value="intermediate"
                                                 />
                                                 Intermediate: Looking for
                                                 substantial experience in this
@@ -133,6 +174,10 @@ const pageTitle = ref("Post A Job");
                                                     type="radio"
                                                     name="experience_level"
                                                     id="expert"
+                                                    v-model="
+                                                        form.experience_level
+                                                    "
+                                                    value="expert"
                                                 />
                                                 Expert: Looking for
                                                 comprehensive and deep expertise
@@ -141,9 +186,7 @@ const pageTitle = ref("Post A Job");
                                         </div>
                                     </div>
 
-                                    
-
-                                    <SelectBudget />
+                                    <SelectBudget v-model="form.budget_type" />
                                     <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
@@ -153,6 +196,7 @@ const pageTitle = ref("Post A Job");
                                         <input
                                             type="text"
                                             placeholder="Enter Budget"
+                                            v-model="form.budget"
                                             class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                                         />
                                     </div>
@@ -166,6 +210,7 @@ const pageTitle = ref("Post A Job");
                                         <textarea
                                             rows="6"
                                             placeholder="Enter Job Description"
+                                            v-model="form.description"
                                             class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                         ></textarea>
                                     </div>
@@ -187,6 +232,10 @@ const pageTitle = ref("Post A Job");
                                             type="submit"
                                             value="Post Job"
                                             class="flex w-full cursor-pointer border border-primary bg-primary p-3 font-medium text-white transition hover:bg-opacity-90"
+                                            :class="{
+                                                'opacity-25': form.processing,
+                                            }"
+                                            :disabled="form.processing"
                                         />
                                     </div>
                                 </div>

@@ -20,7 +20,7 @@ const form = useForm({
     password_confirmation: "",
     role: "",
 });
-
+ 
 const submit = () => {
     form.post(route("register"), {
         onFinish: () => {

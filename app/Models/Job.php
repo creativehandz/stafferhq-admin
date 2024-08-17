@@ -9,7 +9,11 @@ class Job extends Model
 {
     use HasFactory;
 
+     // Explicitly specify the table name
+     protected $table = 'jobs_table';
+
     protected $fillable = [
+        'user_id',
         'title',
         'project_type',
         'category',
