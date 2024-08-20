@@ -67,6 +67,10 @@ Route::get('/talent', function () {
     return Inertia::render('Talent');
 })->name('talent');
 
+Route::get('/messages', function () {
+    return Inertia::render('Messages');
+})->name('messages');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
