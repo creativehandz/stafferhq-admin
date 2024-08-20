@@ -9,6 +9,7 @@ import BreadcrumbDefaultTwo from "@/Components/Breadcrumbs/BreadcrumbDefaultTwo.
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from 'swiper/modules';
+import CardTwo from "@/Components/Cards/CardTwo.vue";
 
 // Import Swiper modules
 import SwiperCore from "swiper";
@@ -81,6 +82,7 @@ const pageTitle = ref("Employer Dashboard");
                     <a href="" class="font-medium text-primary"
                         >View All Job Posts</a
                     >
+                    <span> | </span>
                     <a href="" class="font-medium text-primary"
                         >View All Contracts</a
                     >
@@ -88,15 +90,15 @@ const pageTitle = ref("Employer Dashboard");
             </div>
 
             <div class="py-6">
-                <div class="max-w-7xl">
+                <div class="max-w-fit">
                     <swiper
                         :slides-per-view="3"
                         space-between="30"
+                        
                         navigation
-                        pagination
                         class="mySwiper"
                     >
-                        <swiper-slide v-for="n in 4" :key="n">
+                        <swiper-slide v-for="n in 8" :key="n">
                             <Card />
                         </swiper-slide>
                     </swiper>
@@ -117,16 +119,16 @@ const pageTitle = ref("Employer Dashboard");
             </div>
 
             <div class="py-6">
-                <div class="max-w-7xl">
+                <div class="max-w-fit">
                     <swiper
                         :slides-per-view="3"
                         space-between="30"
                         navigation
-                        pagination
+                    
                         class="mySwiper"
                     >
-                        <swiper-slide v-for="n in 4" :key="n">
-                            <Card />
+                        <swiper-slide v-for="n in 8" :key="n">
+                            <CardTwo />
                         </swiper-slide>
                     </swiper>
                 </div>

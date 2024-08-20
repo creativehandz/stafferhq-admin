@@ -10,8 +10,11 @@ const props = defineProps(['pageTitle'])
       <a href="">Freelancers</a>
       <span> | </span>
       <a href="">Web Mobile & Software Dev</a>
+      <span> | </span>
       <a href="">AI Service</a>
+      <span> | </span>
       <a href="">Admin Support</a>
+      <span> | </span>
       <a href="">More</a>
     </div>
 

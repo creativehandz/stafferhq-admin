@@ -51,6 +51,10 @@ Route::get('/all-job-posts', function () {
     return Inertia::render('AllJobPosts');
 })->name('all-job-posts');
 
+Route::get('/all-contracts', function () {
+    return Inertia::render('AllContracts');
+})->name('all-contracts');
+
 Route::get('/add-new-company', function () {
     return Inertia::render('AddNewCompany');
 })->name('add-new-company');

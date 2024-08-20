@@ -37,6 +37,7 @@ const form = useForm({
 });
 
 const submit = () => {
+    console.log(form);
     form.post(route("post-a-job"), {
         onSuccess: () => {
             // Optional: Handle success, like showing a notification
