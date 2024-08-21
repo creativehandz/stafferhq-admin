@@ -75,32 +75,50 @@ const pageTitle = ref("All Contracts");
                             <div
                                 class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
                             >
+                                <div class="flex justify-between items-center pb-5">
+                                    <div class="flex ">
+                                        <h4
+                                            class="mb-[3px] text-title-md2 font-bold text-black dark:text-white"
+                                        >
+                                            Vanilla JS or Nuxt JS Text animation
+                                        </h4>
+                                    </div>
+                                    <div class="flex gap-5 items-center">
+                                        <PrimaryButton>
+                                            Activate Milestone
+                                        </PrimaryButton>
+                                        <button
+                                            class="text-black dark:text-white"
+                                        >
+                                            ...
+                                        </button>
+                                    </div>
+                                </div>
                                 <div
                                     class="flex flex-wrap items-center justify-between gap-5"
                                 >
                                     <div class="flex gap-5">
-                                        <!-- <div
-                                    class="relative h-11.5 w-full max-w-11.5 rounded-full"
-                                >
-                                    <img
-                                        src="/assets/user-03-l9Ao8BuR.png"
-                                        alt="user"
-                                    /><span
-                                        class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
-                                    ></span>
-                                </div> -->
+                                        <div
+                                            class="relative h-11.5 w-full max-w-11.5 rounded-full"
+                                        >
+                                            <img
+                                                src="../../img/user/user-03.png"
+                                                alt="user"
+                                            /><span
+                                                class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
+                                            ></span>
+                                        </div>
                                         <div class="w-full">
                                             <h4
                                                 class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
                                             >
-                                                Create strategy alert in trading
-                                                view using pi...
+                                                Victor Peramud
                                             </h4>
                                             <p class="mb-[3px] font-medium">
-                                                Created last year by You
+                                                2:35 PM local time
                                             </p>
                                             <span class="text-sm font-medium"
-                                                >Closed - May 6, 2023</span
+                                                >Jul 15 - Present</span
                                             >
                                         </div>
                                     </div>
@@ -110,24 +128,60 @@ const pageTitle = ref("All Contracts");
                             > -->
 
                                     <div class="flex items-center space-x-4">
-                                        <div
-                                            class="flex items-center space-x-10"
-                                        >
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Proposals</p>
+                                        <div class="flex-col">
+                                            <div class="flex gap-2">
+                                                <button
+                                                    class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                                    style="
+                                                        border-color: rgb(
+                                                            60,
+                                                            167,
+                                                            69
+                                                        );
+                                                        color: rgb(60, 167, 69);
+                                                    "
+                                                >
+                                                    Active
+                                                </button>
+                                                <p class="font-medium text-red">
+                                                    Waiting for you to fund a
+                                                    new milestone
+                                                </p>
                                             </div>
                                             <div class="font-medium">
-                                                <p>5</p>
-                                                <p>Messaged</p>
+                                                <p>$150.00 Budget</p>
                                             </div>
                                             <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Hired</p>
+                                                <p>$0.00 in Escrow</p>
+                                            </div>
+
+                                            <div class="font-bold">
+                                                <p>
+                                                    Contract to hire opportunity
+                                                </p>
                                             </div>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
+                            >
+                                <div class="flex justify-between items-center pb-5">
+                                    <div class="flex ">
+                                        <h4
+                                            class="mb-[3px] text-title-md2 font-bold text-black dark:text-white"
+                                        >
+                                            Create laravel Dashboard
+                                        </h4>
+                                    </div>
+                                    <div class="flex gap-5 items-center">
                                         <PrimaryButton>
-                                            Reuse posting
+                                            Activate Milestone
                                         </PrimaryButton>
                                         <button
                                             class="text-black dark:text-white"
@@ -136,36 +190,31 @@ const pageTitle = ref("All Contracts");
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div
-                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
-                            >
                                 <div
                                     class="flex flex-wrap items-center justify-between gap-5"
                                 >
                                     <div class="flex gap-5">
-                                        <!-- <div
-                                    class="relative h-11.5 w-full max-w-11.5 rounded-full"
-                                >
-                                    <img
-                                        src="/assets/user-22-sQ1aGBoD.png"
-                                        alt="user"
-                                    /><span
-                                        class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
-                                    ></span>
-                                </div> -->
+                                        <div
+                                            class="relative h-11.5 w-full max-w-11.5 rounded-full"
+                                        >
+                                            <img
+                                                src="../../img/user/user-04.png"
+                                                alt="user"
+                                            /><span
+                                                class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
+                                            ></span>
+                                        </div>
                                         <div class="w-full">
                                             <h4
                                                 class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
                                             >
-                                                Create high converting landing
-                                                page
+                                                Prem Gupta
                                             </h4>
                                             <p class="mb-[3px] font-medium">
-                                                Created last year by You
+                                                2:35 PM local time
                                             </p>
                                             <span class="text-sm font-medium"
-                                                >Draft saved Feb 10, 2023</span
+                                                >Jul 15 - Present</span
                                             >
                                         </div>
                                     </div>
@@ -175,24 +224,60 @@ const pageTitle = ref("All Contracts");
                             > -->
 
                                     <div class="flex items-center space-x-4">
-                                        <div
-                                            class="flex items-center space-x-10"
-                                        >
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Proposals</p>
+                                        <div class="flex-col">
+                                            <div class="flex gap-2">
+                                                <button
+                                                    class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                                    style="
+                                                        border-color: rgb(
+                                                            60,
+                                                            167,
+                                                            69
+                                                        );
+                                                        color: rgb(60, 167, 69);
+                                                    "
+                                                >
+                                                    Active
+                                                </button>
+                                                <p class="font-medium text-red">
+                                                    Waiting for you to fund a
+                                                    new milestone
+                                                </p>
                                             </div>
                                             <div class="font-medium">
-                                                <p>5</p>
-                                                <p>Messaged</p>
+                                                <p>$150.00 Budget</p>
                                             </div>
                                             <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Hired</p>
+                                                <p>$0.00 in Escrow</p>
+                                            </div>
+
+                                            <div class="font-bold">
+                                                <p>
+                                                    Contract to hire opportunity
+                                                </p>
                                             </div>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
+                            >
+                                <div class="flex justify-between items-center pb-5">
+                                    <div class="flex ">
+                                        <h4
+                                            class="mb-[3px] text-title-md2 font-bold text-black dark:text-white"
+                                        >
+                                            Need a PHP developer for payment gateway integration
+                                        </h4>
+                                    </div>
+                                    <div class="flex gap-5 items-center">
                                         <PrimaryButton>
-                                            Reuse posting
+                                            Rehire
                                         </PrimaryButton>
                                         <button
                                             class="text-black dark:text-white"
@@ -201,228 +286,65 @@ const pageTitle = ref("All Contracts");
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div
-                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
-                            >
                                 <div
                                     class="flex flex-wrap items-center justify-between gap-5"
                                 >
                                     <div class="flex gap-5">
-                                        <!-- <div
-                                    class="relative h-11.5 w-full max-w-11.5 rounded-full"
-                                >
-                                    <img
-                                        src="/assets/user-23-3B4z8FNt.png"
-                                        alt="user"
-                                    /><span
-                                        class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
-                                    ></span>
-                                </div> -->
+                                        <div
+                                            class="relative h-11.5 w-full max-w-11.5 rounded-full"
+                                        >
+                                            <img
+                                                src="../../img/user/user-05.png"
+                                                alt="user"
+                                            /><span
+                                                class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
+                                            ></span>
+                                        </div>
                                         <div class="w-full">
                                             <h4
                                                 class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
                                             >
-                                                Install SSL or HTTPS on my
-                                                website
+                                                Rajat Dalal
                                             </h4>
                                             <p class="mb-[3px] font-medium">
-                                                Created 2 years ago by you
+                                                2:35 PM local time
                                             </p>
                                             <span class="text-sm font-medium"
-                                                >Closed - 12 min ago</span
+                                                >Jul 15 - Present</span
                                             >
                                         </div>
                                     </div>
                                     <!-- <span
                                 class="inline-flex rounded-md bg-gray px-2.5 py-1.5 text-sm font-medium leading-[22px] dark:bg-graydark"
-                                >12, Jan 2027</span
+                                >24, Nov 2027</span
                             > -->
 
-                                    <div class="flex items-center space-x-4">
-                                        <div
-                                            class="flex items-center space-x-10"
-                                        >
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Proposals</p>
+                                    <div class=" flex items-center space-x-4">
+                                        <div class="flex-col">
+                                            <div class="flex items-center gap-2">
+                                                <button
+                                                    class="inline-flex rounded-md bg-gray px-2.5 py-1.5 text-sm font-medium leading-[22px] dark:bg-graydark"
+                                                >
+                                                    Ended
+                                                </button>
+                                                <p class="font-medium">
+                                                    5 star
+                                                </p>
                                             </div>
                                             <div class="font-medium">
-                                                <p>5</p>
-                                                <p>Messaged</p>
+                                                <p>$550.00 Budget</p>
                                             </div>
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Hired</p>
-                                            </div>
+                                            
                                         </div>
-                                        <PrimaryButton>
-                                            Reuse posting
-                                        </PrimaryButton>
-                                        <button
-                                            class="text-black dark:text-white"
-                                        >
-                                            ...
-                                        </button>
+                                        
                                     </div>
+                                    <div class="">
+                                        
+                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div
-                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-red"
-                            >
-                                <div
-                                    class="flex flex-wrap items-center justify-between gap-5"
-                                >
-                                    <div class="flex gap-5">
-                                        <!-- <div
-                                    class="relative h-11.5 w-full max-w-11.5 rounded-full"
-                                >
-                                    <img
-                                        src="/assets/user-24-UtLCsKhv.png"
-                                        alt="user"
-                                    /><span
-                                        class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-red"
-                                    ></span>
-                                </div> -->
-                                        <div class="w-full">
-                                            <h4
-                                                class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
-                                            >
-                                                Need python dev for Trading view
-                                                app
-                                            </h4>
-                                            <p class="mb-[3px] font-medium">
-                                                Created 2 years ago by you
-                                            </p>
-                                            <span class="text-sm font-medium"
-                                                >Closed 1 year ago</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <!-- <span
-                                class="inline-flex rounded-md bg-gray px-2.5 py-1.5 text-sm font-medium leading-[22px] dark:bg-graydark"
-                                >09, Dec 2026</span
-                            > -->
-                                    <!-- <div class="flex items-center space-x-10">
-                                <div class="">
-                                    <p>0</p>
-                                    <p>Proposals</p>
-                                </div>
-                                <div class="">
-                                    <p>5</p>
-                                    <p>Messaged</p>
-                                </div>
-                                <div class="">
-                                    <p>0</p>
-                                    <p>Hired</p>
-                                </div>
-                            </div> -->
-                                    <div class="flex items-center space-x-4">
-                                        <div
-                                            class="flex items-center space-x-10"
-                                        >
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Proposals</p>
-                                            </div>
-                                            <div class="font-medium">
-                                                <p>5</p>
-                                                <p>Messaged</p>
-                                            </div>
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Hired</p>
-                                            </div>
-                                        </div>
-                                        <PrimaryButton>
-                                            Reuse posting
-                                        </PrimaryButton>
-                                        <button
-                                            class="text-black dark:text-white"
-                                        >
-                                            ...
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3"
-                            >
-                                <div
-                                    class="flex flex-wrap items-center justify-between gap-5"
-                                >
-                                    <div class="flex gap-5">
-                                        <!-- <div
-                                    class="relative h-11.5 w-full max-w-11.5 rounded-full"
-                                >
-                                    <img
-                                        src="/assets/user-25-vk7qvY78.png"
-                                        alt="user"
-                                    /><span
-                                        class="absolute -top-0.5 right-0.5 h-4 w-full max-w-4 rounded-full border-[2.3px] border-white bg-[#219653]"
-                                    ></span>
-                                </div> -->
-                                        <div class="w-full">
-                                            <h4
-                                                class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
-                                            >
-                                                Jordyn Torff
-                                            </h4>
-                                            <p class="mb-[3px] font-medium">
-                                                You have changed your password
-                                                successfully
-                                            </p>
-                                            <span class="text-sm font-medium"
-                                                >1 year ago</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <!-- <span
-                                class="inline-flex rounded-md bg-gray px-2.5 py-1.5 text-sm font-medium leading-[22px] dark:bg-graydark"
-                                >30, Mar 2026</span
-                            > -->
-                                    <!-- <div class="flex items-center space-x-10">
-                                <div class="">
-                                    <p>0</p>
-                                    <p>Proposals</p>
-                                </div>
-                                <div class="">
-                                    <p>5</p>
-                                    <p>Messaged</p>
-                                </div>
-                                <div class="">
-                                    <p>0</p>
-                                    <p>Hired</p>
-                                </div>
-                            </div> -->
-                                    <div class="flex items-center space-x-4">
-                                        <div
-                                            class="flex items-center space-x-10"
-                                        >
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Proposals</p>
-                                            </div>
-                                            <div class="font-medium">
-                                                <p>5</p>
-                                                <p>Messaged</p>
-                                            </div>
-                                            <div class="font-medium">
-                                                <p>0</p>
-                                                <p>Hired</p>
-                                            </div>
-                                        </div>
-                                        <PrimaryButton>
-                                            Reuse posting
-                                        </PrimaryButton>
-                                        <button
-                                            class="text-black dark:text-white"
-                                        >
-                                            ...
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

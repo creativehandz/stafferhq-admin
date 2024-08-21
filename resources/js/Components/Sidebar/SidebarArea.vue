@@ -324,8 +324,8 @@ if (userRole === 0) {
             label: "Talent",
             route: "#",
             children: [
-                { label: "Discover", route: "talent" },
-                { label: "Saved Talent", route: "talent" },
+                { label: "Discover", route: "discover" },
+                { label: "Saved Talent", route: "saved-talent" },
             ],
         },
         {
