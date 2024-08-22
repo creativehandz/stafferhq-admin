@@ -79,6 +79,10 @@ Route::get('/saved-talent', function () {
     return Inertia::render('SavedTalent');
 })->name('saved-talent');
 
+Route::get('/create-resume', function () {
+    return Inertia::render('CreateResume');
+})->name('create-resume');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

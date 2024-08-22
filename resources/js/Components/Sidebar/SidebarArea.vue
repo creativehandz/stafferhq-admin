@@ -386,7 +386,7 @@ if (userRole === 0) {
                   />
                 </svg>`,
             label: "Create Your Resume",
-            route: "profile",
+            route: "create-resume",
         },
         {
             icon: `<svg
