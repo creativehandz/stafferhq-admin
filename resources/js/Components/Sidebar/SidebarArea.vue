@@ -385,8 +385,12 @@ if (userRole === 0) {
                     fill=""
                   />
                 </svg>`,
-            label: "Create Your Resume",
-            route: "create-resume",
+            label: "Your Resume",
+            route: "#",
+            children: [{ label: "Create Your Resume", route: "create-resume" },
+            { label: "Design", route: "create-resume" },
+            { label: "Setting", route: "create-resume" }
+            ],
         },
         {
             icon: `<svg
@@ -412,25 +416,42 @@ if (userRole === 0) {
         },
 
         {
-            icon: `<svg
-                  class="fill-current"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
-                    fill=""
-                  />
-                  <path
-                    d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
-                    fill=""
-                  />
-                </svg>`,
-            label: "Your Link",
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/></svg>`,
+            label: "Find Work",
             route: "#",
+            children: [{ label: "Find Work", route: "create-resume" },
+            { label: "Proposals and Offer", route: "create-resume" },
+            { label: "Your Service", route: "create-resume" }
+            ],
+        },
+
+        {
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/></svg>`,
+            label: "Deliver Work",
+            route: "#",
+            children: [{ label: "Your Active Contracts", route: "create-resume" },
+            { label: "Contract History", route: "create-resume" },
+            { label: "Hourly Work Diary", route: "create-resume" }
+            ],
+        },
+
+        {
+            icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 32 32" id="OBJECT" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#b2b2b2;}</style></defs><title/><rect class="cls-1" height="10" rx="1" ry="1" width="6" x="17" y="17"/><rect class="cls-1" height="16" rx="1" ry="1" width="6" x="25" y="11"/><rect class="cls-1" height="12" rx="1" ry="1" width="6" x="9" y="15"/><rect class="cls-1" height="7" rx="1" ry="1" width="6" x="1" y="20"/><path d="M31,25H1v3a3,3,0,0,0,3,3H28a3,3,0,0,0,3-3Z"/><path class="cls-1" d="M4,17H2a1,1,0,0,1,0-2H3.52L10,6.94a1,1,0,1,1,1.56,1.24L4.78,16.62A1,1,0,0,1,4,17Z"/><path class="cls-1" d="M21.25,11.44a1,1,0,0,1-.62-.22,1,1,0,0,1-.16-1.4l6.75-8.44A1,1,0,0,1,28,1h2a1,1,0,0,1,0,2H28.48L22,11.06A1,1,0,0,1,21.25,11.44Z"/><rect class="cls-1" height="6" transform="translate(-0.8 16.4) rotate(-53.14)" width="2" x="15" y="6"/><circle cx="12" cy="6" r="3"/><circle cx="20" cy="11.99" r="3"/></svg>`,
+            label: "Manage Finance",
+            route: "#",
+            children: [{ label: "Financial overview", route: "create-resume" },
+            { label: "Your Report", route: "create-resume" },
+            { label: "Billing and Earning", route: "create-resume" },
+            { label: "Transaction and Invoices", route: "create-resume" },
+            { label: "Certificate of Earning", route: "create-resume" },
+            { label: "Withdraw Earning", route: "create-resume" }
+            ],
+        },
+
+        {
+            icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-4.586l-2.707 2.707a1 1 0 0 1-1.414 0L8.586 19H4a2 2 0 0 1-2-2V6zm18 0H4v11h5a1 1 0 0 1 .707.293L12 19.586l2.293-2.293A1 1 0 0 1 15 17h5V6zM6 9.5a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1z" fill=""/></svg>`,
+            label: "Messages",
+            route: "messages",
         },
     ];
 }
