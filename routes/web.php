@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\ResumeController;
 use Inertia\Inertia;
 
 //Redirect to welcome page when logout
@@ -91,6 +92,13 @@ Route::middleware('auth')->group(function () {
 
      //create routes for jobs
      Route::post('post-a-job', [JobController::class, 'store']);
+
+     //create route for create resume
+     Route::post('/create-resume', [ResumeController::class, 'store']);
+
+     //display resume data
+     Route::get('/setting', [ResumeController::class, 'getResumeData']);
+
 });
 
 

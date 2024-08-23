@@ -1,26 +1,12 @@
 <script setup lang="ts">
-import CheckboxFive from "@/Components/Forms/Checkboxes/CheckboxFive.vue";
-import CheckboxFour from "@/Components/Forms/Checkboxes/CheckboxFour.vue";
-import CheckboxOne from "@/Components/Forms/Checkboxes/CheckboxOne.vue";
-import CheckboxThree from "@/Components/Forms/Checkboxes/CheckboxThree.vue";
-import CheckboxTwo from "@/Components/Forms/Checkboxes/CheckboxTwo.vue";
-import DatePickerOne from "@/Components/Forms/DatePicker/DatePickerOne.vue";
-import DatePickerTwo from "@/Components/Forms/DatePicker/DatePickerTwo.vue";
 import DefaultCard from "@/Components/Forms/DefaultCard.vue";
-import SwitchFour from "@/Components/Forms/Switchers/SwitchFour.vue";
-import SwitchOne from "@/Components/Forms/Switchers/SwitchOne.vue";
-import SwitchThree from "@/Components/Forms/Switchers/SwitchThree.vue";
-import SwitchTwo from "@/Components/Forms/Switchers/SwitchTwo.vue";
-import MultiSelect from "@/Components/Forms/MultiSelect.vue";
-import MultiSelectTwo from "@/Components/Forms/MultiSelectTwo.vue";
-import SelectGroupOne from "@/Components/Forms/SelectGroup/SelectGroupOne.vue";
-import SelectJobCategory from "@/Components/Forms/SelectGroup/SelectJobCategory.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
-import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import { useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
+import Multiselect from "vue-multiselect";
+import "vue-multiselect/dist/vue-multiselect.css";
 
 const pageTitle = ref("Create Your Resume");
 
@@ -40,84 +26,36 @@ interface WhatIDo {
 const form = useForm({
     name: "",
     occupation: "",
-    email: "",
-    experience: "",
-    phone: "",
-    facebook: "",
-    instagram: "",
-    linkedin: "",
-    youtube: "",
-    address: "",
     about: "",
-    age: "",
-    citizen: "",
-    favorate_quote: "",
-    expertise: "",
-    educations: [{ institution: "", degree: "", year: "" }],
-    experiences: [{ company: "", role: "", duration: "" }],
-    skills: [{ name: "" }],
-
+    phone: "",
+    email: "",
     socialLinks: [
         { platform: "Facebook", url: "" },
         { platform: "Instagram", url: "" },
         { platform: "LinkedIn", url: "" },
         { platform: "YouTube", url: "" },
     ],
+    age: "",
+    citizen: "",
+    address: "",
+    favorate_quote: "",
+    expertise: "",
+    whatIDo: [{ skillset: "", details: "", icon: null }] as WhatIDo[],
+    skills: [] as Array<{ name: string }>,
+    educations: [{ institution: "", degree: "", year: "" }],
+    experiences: [{ company: "", role: "", duration: "" }],
     projects: [
         { title: "", description: "", link: "", image: null },
     ] as Project[],
-    whatIDo: [{ skillset: "", details: "", icon: null }] as WhatIDo[],
-
-    description: "",
-    attachment: null,
 });
 
+// Functions to add or remove fields in form
 const addSocialLink = () => {
     form.socialLinks.push({ platform: "", url: "" });
 };
 
 const removeSocialLink = (index: number) => {
     form.socialLinks.splice(index, 1);
-};
-
-const addEducation = () => {
-    form.educations.push({ institution: "", degree: "", year: "" });
-};
-
-const removeEducation = (index: number) => {
-    form.educations.splice(index, 1);
-};
-
-const addExperience = () => {
-    form.experiences.push({ company: "", role: "", duration: "" });
-};
-
-const removeExperience = (index: number) => {
-    form.experiences.splice(index, 1);
-};
-
-const addSkill = () => {
-    form.skills.push({ name: "" });
-};
-
-const removeSkill = (index: number) => {
-    form.skills.splice(index, 1);
-};
-
-const addProject = () => {
-    form.projects.push({ title: "", description: "", link: "", image: null });
-};
-
-const removeProject = (index: number) => {
-    form.projects.splice(index, 1);
-};
-
-const handleFileUpload = (event: Event, index: number) => {
-    const target = event.target as HTMLInputElement;
-    const file = target?.files ? target.files[0] : null;
-    if (file) {
-        form.projects[index].image = file;
-    }
 };
 
 const addWhatIDo = () => {
@@ -136,18 +74,65 @@ const handleIconUpload = (event: Event, index: number) => {
     }
 };
 
+const availableSkills = ref([
+    { name: "JavaScript" },
+    { name: "Python" },
+    { name: "Java" },
+    { name: "PHP" },
+    { name: "C++" },
+    // Add more skills as needed
+]);
+
+const addCustomSkill = (newSkill: string) => {
+    const skill = { name: newSkill };
+    availableSkills.value.push(skill);
+    form.skills.push(skill);
+};
+
+const addEducation = () => {
+    form.educations.push({ institution: "", degree: "", year: "" });
+};
+
+const removeEducation = (index: number) => {
+    form.educations.splice(index, 1);
+};
+
+const addExperience = () => {
+    form.experiences.push({ company: "", role: "", duration: "" });
+};
+
+const removeExperience = (index: number) => {
+    form.experiences.splice(index, 1);
+};
+
+const addProject = () => {
+    form.projects.push({ title: "", description: "", link: "", image: null });
+};
+
+const removeProject = (index: number) => {
+    form.projects.splice(index, 1);
+};
+
+const handleFileUpload = (event: Event, index: number) => {
+    const target = event.target as HTMLInputElement;
+    const file = target?.files ? target.files[0] : null;
+    if (file) {
+        form.projects[index].image = file;
+    }
+};
+
 const submit = () => {
     console.log(form);
-    // form.post(route("post-a-job"), {
-    //     onSuccess: () => {
-    //         // Optional: Handle success, like showing a notification
-    //         console.log("Success");
-    //     },
-    //     onError: () => {
-    //         // Optional: Handle error, like showing a notification
-    //         console.log("Error", form.errors);
-    //     },
-    // });
+    form.post(route("create-resume"), {
+        onSuccess: () => {
+            // Optional: Handle success, like showing a notification
+            console.log("Success");
+        },
+        onError: () => {
+            // Optional0: Handle error, like showing a notification
+            console.log("Error", form.errors);
+        },
+    });
 };
 </script>
 
@@ -256,48 +241,52 @@ const submit = () => {
                                             link, index
                                         ) in form.socialLinks"
                                         :key="index"
-                                        class="mb-4 space-y-4"
+                                        class="space-y-4"
                                     >
-                                        <div>
-                                            <label
-                                                class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                            >
-                                                Platform
-                                            </label>
-                                            <input
-                                                type="text"
-                                                v-model="link.platform"
-                                                placeholder="Enter Social Media Platform"
-                                                class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label
-                                                class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                            >
-                                                URL
-                                            </label>
-                                            <input
-                                                type="text"
-                                                v-model="link.url"
-                                                placeholder="Enter URL"
-                                                class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                            />
-                                        </div>
-                                        <button
-                                            type="button"
-                                            @click="removeSocialLink(index)"
-                                            class="text-red-500"
+                                        <div
+                                            class="flex items-center space-x-4"
                                         >
-                                            Remove Link
-                                        </button>
+                                            <div class="flex-1">
+                                                <label
+                                                    class="mb-1 block text-sm font-medium text-black dark:text-white"
+                                                >
+                                                    Platform
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    v-model="link.platform"
+                                                    placeholder="Platform"
+                                                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                                />
+                                            </div>
+                                            <div class="flex-1">
+                                                <label
+                                                    class="mb-1 block text-sm font-medium text-black dark:text-white"
+                                                >
+                                                    URL
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    v-model="link.url"
+                                                    placeholder="URL"
+                                                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                                />
+                                            </div>
+                                            <button
+                                                type="button"
+                                                @click="removeSocialLink(index)"
+                                                class="text-red-500 mt-6"
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
                                     </div>
                                     <button
                                         type="button"
                                         @click="addSocialLink"
-                                        class="mt-4 inline-block rounded bg-primary py-2 px-4 text-white"
+                                        class="inline-block rounded bg-primary py-2 px-4 text-white"
                                     >
-                                        Add Social Link
+                                        Add Another Social Link
                                     </button>
 
                                     <div>
@@ -350,6 +339,15 @@ const submit = () => {
                                                 France
                                             </option>
                                             <option value="Japan">Japan</option>
+                                            <option value="Malaysia">
+                                                Malaysia
+                                            </option>
+                                            <option value="Switzerland">
+                                                Switzerland
+                                            </option>
+                                            <option value="Singapore">
+                                                Singapore
+                                            </option>
                                             <!-- Add more countries as needed -->
                                         </select>
                                     </div>
@@ -451,7 +449,7 @@ const submit = () => {
                                         <button
                                             type="button"
                                             @click="removeWhatIDo(index)"
-                                            class="text-red-500"
+                                            class="text-red-500 mt-2"
                                         >
                                             Remove Skillset
                                         </button>
@@ -459,82 +457,30 @@ const submit = () => {
 
                                     <button
                                         @click="addWhatIDo"
-                                        class="mt-4 px-6 py-2 bg-primary text-white rounded-lg"
+                                        class="px-6 py-2 bg-primary text-white rounded-lg"
                                     >
-                                        Add Another Skill
+                                        Add Another Skillset
                                     </button>
-
-                                    <div>
-                                        <label
-                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                        >
-                                            My Skillset
-                                        </label>
-                                        <!-- v-model not added till now-->
-                                        <input
-                                            type="text"
-                                            placeholder="Enter your skillset"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Details
-                                        </label>
-                                        <!-- v-model not added till now -->
-                                        <textarea
-                                            rows="6"
-                                            placeholder="Enter your details"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        ></textarea>
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Upload Icon
-                                        </label>
-                                        <!-- v-model not added till now-->
-                                        <input
-                                            type="file"
-                                            class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
 
                                     <!-- Skills -->
                                     <h2 class="text-xl font-semibold mb-4">
                                         My Programming Skills
                                     </h2>
-                                    <div
-                                        v-for="(skill, index) in form.skills"
-                                        :key="index"
+                                    <multiselect
+                                        v-model="form.skills"
+                                        :options="availableSkills"
+                                        :multiple="true"
+                                        :close-on-select="false"
+                                        :taggable="true"
+                                        :allow-duplicate="false"
+                                        tag-placeholder="Add this as a new skill"
+                                        placeholder="Select or add your skills"
+                                        label="name"
+                                        track-by="name"
+                                        @tag="addCustomSkill"
                                         class="mb-4"
                                     >
-                                        <input
-                                            type="text"
-                                            v-model="skill.name"
-                                            placeholder="Enter Skill"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        />
-                                        <button
-                                            type="button"
-                                            @click="removeSkill(index)"
-                                            class="text-red-500"
-                                        >
-                                            Remove Skill
-                                        </button>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        @click="addSkill"
-                                        class="mt-4 inline-block rounded bg-primary py-2 px-4 text-white"
-                                    >
-                                        Add Skill
-                                    </button>
+                                    </multiselect>
 
                                     <h2 class="text-xl font-semibold mb-4">
                                         Education
@@ -596,7 +542,7 @@ const submit = () => {
                                     <button
                                         type="button"
                                         @click="addEducation"
-                                        class="mt-4 inline-block rounded bg-primary py-2 px-4 text-white"
+                                        class="inline-block rounded bg-primary py-2 px-4 text-white"
                                     >
                                         Add Education
                                     </button>
@@ -662,7 +608,7 @@ const submit = () => {
                                     <button
                                         type="button"
                                         @click="addExperience"
-                                        class="mt-4 inline-block rounded bg-primary py-2 px-4 text-white"
+                                        class="inline-block rounded bg-primary py-2 px-4 text-white"
                                     >
                                         Add Experience
                                     </button>
@@ -749,7 +695,7 @@ const submit = () => {
                                     <button
                                         type="button"
                                         @click="addProject"
-                                        class="mt-4 inline-block rounded bg-primary py-2 px-4 text-white"
+                                        class="inline-block rounded bg-primary py-2 px-4 text-white"
                                     >
                                         Add Project
                                     </button>

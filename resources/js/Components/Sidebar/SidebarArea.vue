@@ -389,7 +389,7 @@ if (userRole === 0) {
             route: "#",
             children: [{ label: "Create Your Resume", route: "create-resume" },
             { label: "Design", route: "create-resume" },
-            { label: "Setting", route: "create-resume" }
+            { label: "Setting", route: "setting" }
             ],
         },
         {
