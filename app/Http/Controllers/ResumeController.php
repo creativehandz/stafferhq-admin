@@ -53,7 +53,7 @@ class ResumeController extends Controller
         }
 
         // Pass data to the Inertia view
-        return Inertia::render('Setting', [
+        return Inertia::render('Talent/Setting', [
             'resume' => $resume
         ]);
     }

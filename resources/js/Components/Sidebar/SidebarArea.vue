@@ -368,27 +368,16 @@ if (userRole === 0) {
 } else if (userRole === 2) {
     menuGroups.value[0].menuItems = [
         {
-            icon: `<svg
-                  class="fill-current"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
-                    fill=""
-                  />
-                  <path
-                    d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
-                    fill=""
-                  />
-                </svg>`,
+            icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.5 11.25C6.08579 11.25 5.75 10.9142 5.75 10.5C5.75 10.0858 6.08579 9.75 6.5 9.75H13.5C13.9142 9.75 14.25 10.0858 14.25 10.5C14.25 10.9142 13.9142 11.25 13.5 11.25H6.5Z" fill=""/>
+<path d="M6.5 14.25C6.08579 14.25 5.75 13.9142 5.75 13.5C5.75 13.0858 6.08579 12.75 6.5 12.75H13.5C13.9142 12.75 14.25 13.0858 14.25 13.5C14.25 13.9142 13.9142 14.25 13.5 14.25H6.5Z" fill=""/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.1854 0.5H4.5C3.39543 0.5 2.5 1.39543 2.5 2.5V17.5C2.5 18.6046 3.39543 19.5 4.5 19.5H15.5C16.6046 19.5 17.5 18.6046 17.5 17.5V7.20179C17.5 6.70104 17.3122 6.21851 16.9736 5.84956L12.659 1.14777C12.2802 0.734983 11.7457 0.5 11.1854 0.5ZM4.5 17.5V2.5H11.1854L15.5 7.20179V17.5H4.5Z" fill=""/>
+<path d="M11.5 6.5H16.5C17.0523 6.5 17.5 6.94772 17.5 7.5C17.5 8.05228 17.0523 8.5 16.5 8.5H10.5C9.94772 8.5 9.5 8.05228 9.5 7.5V1.5C9.5 0.947715 9.94772 0.5 10.5 0.5C11.0523 0.5 11.5 0.947715 11.5 1.5V6.5Z" fill=""/>
+</svg>`,
             label: "Your Resume",
             route: "#",
             children: [{ label: "Create Your Resume", route: "create-resume" },
-            { label: "Design", route: "create-resume" },
+            { label: "Design", route: "design" },
             { label: "Setting", route: "setting" }
             ],
         },
@@ -412,16 +401,16 @@ if (userRole === 0) {
                 </svg>`,
             label: "Profile",
             route: "#",
-            children: [{ label: "Hourly Price", route: "analytics" }],
+            children: [{ label: "Hourly Price", route: "hourly-price" }],
         },
 
         {
-            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/></svg>`,
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.035,18.069a7.981,7.981,0,0,0,3.938-1.035l3.332,3.332a2.164,2.164,0,0,0,3.061-3.061l-3.332-3.332A8.032,8.032,0,0,0,4.354,4.354a8.034,8.034,0,0,0,5.681,13.715ZM5.768,5.768A6.033,6.033,0,1,1,4,10.035,5.989,5.989,0,0,1,5.768,5.768Z"/></svg>`,
             label: "Find Work",
             route: "#",
-            children: [{ label: "Find Work", route: "create-resume" },
-            { label: "Proposals and Offer", route: "create-resume" },
-            { label: "Your Service", route: "create-resume" }
+            children: [{ label: "Find Work", route: "find-work" },
+            { label: "Proposals and Offer", route: "proposals-and-offer" },
+            { label: "Your Service", route: "your-service" }
             ],
         },
 
@@ -429,27 +418,29 @@ if (userRole === 0) {
             icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/></svg>`,
             label: "Deliver Work",
             route: "#",
-            children: [{ label: "Your Active Contracts", route: "create-resume" },
-            { label: "Contract History", route: "create-resume" },
-            { label: "Hourly Work Diary", route: "create-resume" }
+            children: [{ label: "Your Active Contracts", route: "your-active-contracts" },
+            { label: "Contract History", route: "contract-history" },
+            { label: "Hourly Work Diary", route: "hourly-work-diary" }
             ],
         },
 
         {
-            icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 32 32" id="OBJECT" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#b2b2b2;}</style></defs><title/><rect class="cls-1" height="10" rx="1" ry="1" width="6" x="17" y="17"/><rect class="cls-1" height="16" rx="1" ry="1" width="6" x="25" y="11"/><rect class="cls-1" height="12" rx="1" ry="1" width="6" x="9" y="15"/><rect class="cls-1" height="7" rx="1" ry="1" width="6" x="1" y="20"/><path d="M31,25H1v3a3,3,0,0,0,3,3H28a3,3,0,0,0,3-3Z"/><path class="cls-1" d="M4,17H2a1,1,0,0,1,0-2H3.52L10,6.94a1,1,0,1,1,1.56,1.24L4.78,16.62A1,1,0,0,1,4,17Z"/><path class="cls-1" d="M21.25,11.44a1,1,0,0,1-.62-.22,1,1,0,0,1-.16-1.4l6.75-8.44A1,1,0,0,1,28,1h2a1,1,0,0,1,0,2H28.48L22,11.06A1,1,0,0,1,21.25,11.44Z"/><rect class="cls-1" height="6" transform="translate(-0.8 16.4) rotate(-53.14)" width="2" x="15" y="6"/><circle cx="12" cy="6" r="3"/><circle cx="20" cy="11.99" r="3"/></svg>`,
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-coin"><path d='M9 13v-2a3 3 0 1 1 0-6V4a1 1 0 1 1 2 0v1h.022A2.978 2.978 0 0 1 14 7.978a1 1 0 0 1-2 0A.978.978 0 0 0 11.022 7H11v2a3 3 0 0 1 0 6v1a1 1 0 0 1-2 0v-1h-.051A2.949 2.949 0 0 1 6 12.051a1 1 0 1 1 2 0 .95.95 0 0 0 .949.949H9zm2 0a1 1 0 0 0 0-2v2zM9 7a1 1 0 1 0 0 2V7zm1 13C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z'/></svg>`,
             label: "Manage Finance",
             route: "#",
-            children: [{ label: "Financial overview", route: "create-resume" },
-            { label: "Your Report", route: "create-resume" },
-            { label: "Billing and Earning", route: "create-resume" },
-            { label: "Transaction and Invoices", route: "create-resume" },
-            { label: "Certificate of Earning", route: "create-resume" },
-            { label: "Withdraw Earning", route: "create-resume" }
+            children: [{ label: "Financial overview", route: "financial-overview" },
+            { label: "Your Report", route: "your-report" },
+            { label: "Billing and Earning", route: "billing-and-earning" },
+            { label: "Transaction and Invoices", route: "transaction-and-invoices" },
+            { label: "Certificate of Earning", route: "certificate-of-earning" },
+            { label: "Withdraw Earning", route: "withdraw-earning" }
             ],
         },
 
         {
-            icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-4.586l-2.707 2.707a1 1 0 0 1-1.414 0L8.586 19H4a2 2 0 0 1-2-2V6zm18 0H4v11h5a1 1 0 0 1 .707.293L12 19.586l2.293-2.293A1 1 0 0 1 15 17h5V6zM6 9.5a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1z" fill=""/></svg>`,
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8.35078106,18 L3.62469505,21.7808688 C2.9699317,22.3046795 2,21.8385062 2,21 L2,5 C2,3.34314575 3.34314575,2 5,2 L19,2 C20.6568542,2 22,3.34314575 22,5 L22,15 C22,16.6568542 20.6568542,18 19,18 L8.35078106,18 Z M4,18.9193752 L7.37530495,16.2191312 C7.552618,16.0772808 7.7729285,16 8,16 L19,16 C19.5522847,16 20,15.5522847 20,15 L20,5 C20,4.44771525 19.5522847,4 19,4 L5,4 C4.44771525,4 4,4.44771525 4,5 L4,18.9193752 Z"/>
+</svg>`,
             label: "Messages",
             route: "messages",
         },

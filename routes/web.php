@@ -27,6 +27,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
+//Routes for Employer Starts
 Route::get('/employer-dashboard', function () {
     return Inertia::render('EmployerDashboard');
 })->middleware(['auth', 'verified'])->name('employer-dashboard');
@@ -60,9 +63,6 @@ Route::get('/add-new-company', function () {
     return Inertia::render('AddNewCompany');
 })->name('add-new-company');
 
-Route::get('/setting', function () {
-    return Inertia::render('Setting');
-})->name('setting');
 
 Route::get('/talent', function () {
     return Inertia::render('Talent');
@@ -79,11 +79,72 @@ Route::get('/discover', function () {
 Route::get('/saved-talent', function () {
     return Inertia::render('SavedTalent');
 })->name('saved-talent');
+//Routes for Employer end
 
+
+//Routes for Talent start
 Route::get('/create-resume', function () {
-    return Inertia::render('CreateResume');
+    return Inertia::render('Talent/CreateResume');
 })->name('create-resume');
 
+Route::get('/design', function () {
+    return Inertia::render('Talent/Design');
+})->name('design');
+
+Route::get('/hourly-price', function () {
+    return Inertia::render('Talent/HourlyPrice');
+})->name('hourly-price');
+
+Route::get('/find-work', function () {
+    return Inertia::render('Talent/FindWork');
+})->name('find-work');
+
+Route::get('/your-service', function () {
+    return Inertia::render('Talent/YourService');
+})->name('your-service');
+
+Route::get('/proposals-and-offer', function () {
+    return Inertia::render('Talent/ProposalsAndOffer');
+})->name('proposals-and-offer');
+
+Route::get('/your-active-contracts', function () {
+    return Inertia::render('Talent/YourActiveContracts');
+})->name('your-active-contracts');
+
+Route::get('/contract-history', function () {
+    return Inertia::render('Talent/ContractHistory');
+})->name('contract-history');
+
+Route::get('/hourly-work-diary', function () {
+    return Inertia::render('Talent/HourlyWorkDiary');
+})->name('hourly-work-diary');
+
+Route::get('/financial-overview', function () {
+    return Inertia::render('Talent/FinancialOverview');
+})->name('financial-overview');
+
+Route::get('/your-report', function () {
+    return Inertia::render('Talent/YourReport');
+})->name('your-report');
+
+Route::get('/billing-and-earning', function () {
+    return Inertia::render('Talent/BillingAndEarning');
+})->name('billing-and-earning');
+
+Route::get('/transaction-and-invoices', function () {
+    return Inertia::render('Talent/TransactionAndInvoices');
+})->name('transaction-and-invoices');
+
+
+Route::get('/certificate-of-earning', function () {
+    return Inertia::render('Talent/CertificateOfEarning');
+})->name('certificate-of-earning');
+
+Route::get('/withdraw-earning', function () {
+    return Inertia::render('Talent/WithdrawEarning');
+})->name('withdraw-earning');
+
+//Routes for Talent end
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
