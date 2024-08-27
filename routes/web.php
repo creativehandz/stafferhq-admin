@@ -144,6 +144,15 @@ Route::get('/withdraw-earning', function () {
     return Inertia::render('Talent/WithdrawEarning');
 })->name('withdraw-earning');
 
+Route::get('/setting', function () {
+    return Inertia::render('Talent/Setting');
+})->name('setting');
+
+
+// Route::get('/edit-resume', function () {
+//     return Inertia::render('Talent/EditResume');
+// })->name('edit-resume');
+
 //Routes for Talent end
 
 Route::middleware('auth')->group(function () {
@@ -160,6 +169,9 @@ Route::middleware('auth')->group(function () {
      //display resume data
      Route::get('/setting', [ResumeController::class, 'getResumeData']);
 
+     
+    Route::get('/edit-resume', [ResumeController::class,'editResume'])->name('resume.edit');
+    Route::patch('/edit-resume', [ResumeController::class, 'updateResume'])->name('resume.update');
 });
 
 

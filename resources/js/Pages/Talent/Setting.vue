@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/vue3";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import { ref } from "vue";
 import ProfileCard from "@/Components/ProfileCard.vue";
+import { Link } from '@inertiajs/vue3';
 
 const pageTitle = ref("Setting");
 
@@ -17,17 +18,17 @@ interface Resume {
   about: string;
   phone: string;
   email: string;
-  social_links: string[]; // Assuming this is a JSON string or similar
+  social_links: string; // Assuming this is a JSON string or similar
   age: number;
   citizen: string;
   address: string;
   favorate_quote: string;
   expertise: string;
-  what_i_do: string[];
-  skills: string[];
-  educations: string[];
-  experiences: string[];
-  projects: string[];
+  what_i_do: string;
+  skills: string;
+  educations: string;
+  experiences: string;
+  projects: string;
 }
 
 // Define props from Inertia
@@ -52,6 +53,11 @@ const props = defineProps<{
 
         <BreadcrumbDefault :pageTitle="pageTitle" />
 
+        
+        <Link :href="route('resume.edit')">
+            <button  class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4">Edit Resume</button>
+        </Link>
+
         <ProfileCard
             :name="props.resume.name"
             :occupation="props.resume.occupation"
@@ -66,7 +72,7 @@ const props = defineProps<{
             :expertise="props.resume.expertise"
             :what_i_do="props.resume.what_i_do"
             :skills="props.resume.skills"
-            :educations="props.resume.skills"
+            :educations="props.resume.educations"
             :experiences="props.resume.experiences"
             :projects="props.resume.projects"
         />
