@@ -121,8 +121,18 @@ const handleFileUpload = (event: Event, index: number) => {
     }
 };
 
+const getIconUrl = (icon: File | string | null): string => {
+    if (icon instanceof File) {
+        // Create a temporary URL for the file object
+        return URL.createObjectURL(icon);
+    }
+    // If icon is a string, it's already a URL or file path
+    return icon ? (icon as string) : "";
+};
+
 const submit = () => {
     console.log(form);
+
     form.post(route("create-resume"), {
         onSuccess: () => {
             // Optional: Handle success, like showing a notification
@@ -429,6 +439,18 @@ const submit = () => {
                                                 class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                             ></textarea>
                                         </div>
+                                        <div v-if="item.icon">
+                                            <label
+                                                class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
+                                            >
+                                                Icon Preview
+                                            </label>
+                                            <img
+                                                :src="getIconUrl(item.icon)"
+                                                alt="Icon Preview"
+                                                class="w-16 h-16 rounded-lg object-contain"
+                                            />
+                                        </div>
                                         <div>
                                             <label
                                                 class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
@@ -624,6 +646,18 @@ const submit = () => {
                                         :key="index"
                                         class="mb-6 space-y-4"
                                     >
+                                        <div v-if="project.image">
+                                            <label
+                                                class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
+                                            >
+                                                Icon Preview
+                                            </label>
+                                            <img
+                                                :src="getIconUrl(project.image)"
+                                                alt="Project Img Preview"
+                                                class="w-16 h-16 rounded-lg object-contain"
+                                            />
+                                        </div>
                                         <div>
                                             <label
                                                 class="mb-3 block text-sm font-medium text-black dark:text-white"

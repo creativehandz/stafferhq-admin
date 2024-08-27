@@ -10,17 +10,54 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Http\Requests\ResumeUpdateRequest; 
+use Illuminate\Support\Facades\Redirect;
 
 class ResumeController extends Controller
 {
     //
     public function store(Request $request)
     {
+
+        // Check if a resume already exists for the authenticated user
+    $existingResume = Resume::where('user_id', Auth::id())->first();
+
+    if ($existingResume) {
+        // If a resume exists, redirect to the edit resume page
+        return redirect()->route('resume.edit')->with('info', 'Resume already exists. You can edit it.');
+    }
+
         $request->validate([
             'name' => 'required|string|max:255',
+            'whatIDo.*.icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'projects.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // Add validation rules for other fields as necessary
         ]);
 
+            // Handle the 'whatIDo' icons
+            $whatIDo = $request->input('whatIDo', []);
+            foreach ($whatIDo as $key => $item) {
+                if ($request->hasFile("whatIDo.$key.icon")) {
+                    $file = $request->file("whatIDo.$key.icon");
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $path = $file->storeAs('uploads/icons', $filename, 'public');
+                    $whatIDo[$key]['icon'] = $path;
+                } else {
+                    $whatIDo[$key]['icon'] = null;
+                }
+            }
+
+    // Handle the 'projects' images
+    $projects = $request->input('projects', []);
+    foreach ($projects as $key => $project) {
+        if ($request->hasFile("projects.$key.image")) {
+            $file = $request->file("projects.$key.image");
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads/projects', $filename, 'public');
+            $projects[$key]['image'] = $path;
+        } else {
+            $projects[$key]['image'] = null;
+        }
+    }
         // Save the resume data
         $resume = Resume::create([
             'user_id' => Auth::id(),
@@ -35,14 +72,14 @@ class ResumeController extends Controller
             'address' => $request->input('address'),
             'favorate_quote' => $request->input('favorate_quote'),
             'expertise' => $request->input('expertise'),
-            'what_i_do' => json_encode($request->input('whatIDo')),
+            'what_i_do' => json_encode($whatIDo),
             'skills' => json_encode($request->input('skills')),
             'educations' => json_encode($request->input('educations')),
             'experiences' => json_encode($request->input('experiences')),
-            'projects' => json_encode($request->input('projects')),
+            'projects' => json_encode($projects),
         ]);
 
-        return redirect()->route('setting')->with('success', 'Resume created successfully.');
+        return Redirect::route('setting')->with('success', 'Resume created successfully.');
     }
 
     public function getResumeData()
@@ -50,7 +87,7 @@ class ResumeController extends Controller
         $resume = Resume::where('user_id', Auth::id())->first();
     
         if (!$resume) {
-            return response()->json(['message' => 'No resume found'], 404);
+            return redirect()->route('error-page')->with('error', 'Resume not found.');
         }
 
         // Pass data to the Inertia view
@@ -64,7 +101,7 @@ class ResumeController extends Controller
     $resume = Resume::where('user_id', Auth::id())->first();
 
     if (!$resume) {
-        return response()->json(['message' => 'No resume found'], 404);
+        return redirect()->route('error-page')->with('error', 'Resume not found.');
     }
 
     // Pass data to the Inertia view for the "Edit Resume" page
@@ -85,7 +122,7 @@ class ResumeController extends Controller
         $resume = Resume::where('user_id', Auth::id())->first();
 
         if (!$resume) {
-            return redirect()->route('setting')->with('error', 'Resume not found.');
+            return redirect()->route('error-page')->with('error', 'Resume not found.');
         }
 
         // Update the resume with new data

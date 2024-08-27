@@ -149,6 +149,10 @@ Route::get('/setting', function () {
 })->name('setting');
 
 
+Route::get('/error-page', function () {
+    return Inertia::render('ErrorPage');
+})->name('error-page');
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');

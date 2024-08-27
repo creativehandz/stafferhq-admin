@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { defineProps } from "vue";
 // Assuming the what_i_do field in props is still a JSON string
 import { onMounted } from "vue";
+import { Link } from "@inertiajs/vue3";
 
 // Define a ref to store the parsed data
 const parsedSocialLinks = ref<Array<{ platform: string; url: string }>>([]);
@@ -80,7 +81,7 @@ const props = defineProps<ProfileProps>();
                 class="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
             />
             <div
-                class="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4"
+                class="absolute flex gap-2 bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4"
             >
                 <label
                     for="cover"
@@ -117,6 +118,35 @@ const props = defineProps<ProfileProps>();
                     </span>
                     <span>Edit</span>
                 </label>
+                
+                <Link :href="route('resume.edit')">
+                    <button
+                        class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4"
+                    >
+                        <span>
+                            <svg
+                                class="fill-current"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#000000"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"
+                                />
+                                <path
+                                    d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
+                                />
+                            </svg>
+                        </span>
+                        <span>Edit Resume</span>
+                    </button>
+                </Link>
             </div>
         </div>
         <div class="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
@@ -432,9 +462,9 @@ const props = defineProps<ProfileProps>();
                         <p><strong>Details : </strong>{{ item.details }}</p>
                         <img
                             v-if="item.icon"
-                            :src="item.icon"
+                            :src="`storage/${item.icon}`"
                             alt="Project Image"
-                            class="mt-2 w-32 h-32 object-cover"
+                            class="mx-auto w-16 h-16 rounded-lg object-contain"
                         />
                     </li>
                 </ul>
@@ -505,9 +535,9 @@ const props = defineProps<ProfileProps>();
                     >
                     <img
                         v-if="project.image"
-                        :src="project.image"
+                        :src="`storage/${project.image}`"
                         alt="Project Image"
-                        class="mt-2 w-32 h-32 object-cover"
+                        class="mx-auto w-32 h-32 object-contain"
                     />
                 </li>
             </div>

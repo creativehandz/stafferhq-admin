@@ -53,10 +53,10 @@ const props = defineProps<{
 
         <BreadcrumbDefault :pageTitle="pageTitle" />
 
-        
+<!--         
         <Link :href="route('resume.edit')">
-            <button  class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4">Edit Resume</button>
-        </Link>
+            <button class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 xsm:px-4">Edit Resume</button>
+        </Link> -->
 
         <ProfileCard
             :name="props.resume.name"
@@ -76,8 +76,5 @@ const props = defineProps<{
             :experiences="props.resume.experiences"
             :projects="props.resume.projects"
         />
-
-
-      
     </AuthenticatedLayout>
 </template>
