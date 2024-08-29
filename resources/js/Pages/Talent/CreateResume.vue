@@ -136,7 +136,7 @@ const submit = () => {
     form.post(route("create-resume"), {
         onSuccess: () => {
             // Optional: Handle success, like showing a notification
-            console.log("Success");
+            console.log("Resume Created Successfully");
         },
         onError: () => {
             // Optional0: Handle error, like showing a notification

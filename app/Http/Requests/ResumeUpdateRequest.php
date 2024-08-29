@@ -39,6 +39,8 @@ class ResumeUpdateRequest extends FormRequest
             // 'educations' => ['sometimes', 'json'],
             // 'experiences' => ['sometimes', 'json'],
             // 'projects' => ['sometimes', 'json'],
+            // 'whatIDo.*.icon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            // 'projects.*.image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ];
     }
 }

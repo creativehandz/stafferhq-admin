@@ -151,6 +151,7 @@ const handleIconUpload = (event: Event, index: number) => {
     const file = target?.files ? target.files[0] : null;
     if (file) {
         form.whatIDo[index].icon = file;
+        
     }
 };
 
@@ -207,7 +208,7 @@ const submit = () => {
     form.patch(route("resume.update"), {
         onSuccess: () => {
             // Optional: Handle success, like showing a notification
-            console.log("Success");
+            console.log("Resume Upadated Successfully!");
         },
         onError: () => {
             // Optional0: Handle error, like showing a notification
@@ -510,6 +511,20 @@ const submit = () => {
                                                 class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                             ></textarea>
                                         </div>
+
+                                        <div v-if="item.icon">
+                                            <label
+                                                class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
+                                            >
+                                                Icon Preview
+                                            </label>
+                                            <img
+                                                :src="`storage/${item.icon}`"
+                                                alt="Project Img Preview"
+                                                class="w-16 h-16 rounded-lg object-contain"
+                                            />
+                                        </div>
+
                                         <div>
                                             <label
                                                 class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
@@ -705,6 +720,18 @@ const submit = () => {
                                         :key="index"
                                         class="mb-6 space-y-4"
                                     >
+                                    <div v-if="project.image">
+                                            <label
+                                                class="mb-3 block text-sm font-medium text-black dark:text-white mt-4"
+                                            >
+                                                Imgae Preview
+                                            </label>
+                                            <img
+                                                :src="`storage/${project.image}`"
+                                                alt="Project Img Preview"
+                                                class="w-16 h-16 rounded-lg object-contain"
+                                            />
+                                        </div>
                                         <div>
                                             <label
                                                 class="mb-3 block text-sm font-medium text-black dark:text-white"
