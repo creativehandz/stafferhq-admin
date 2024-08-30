@@ -95,9 +95,9 @@ Route::get('/hourly-price', function () {
     return Inertia::render('Talent/HourlyPrice');
 })->name('hourly-price');
 
-Route::get('/find-work', function () {
-    return Inertia::render('Talent/FindWork');
-})->name('find-work');
+// Route::get('/find-work', function () {
+//     return Inertia::render('Talent/FindWork');
+// })->name('find-work');
 
 Route::get('/your-service', function () {
     return Inertia::render('Talent/YourService');
@@ -176,6 +176,9 @@ Route::middleware('auth')->group(function () {
      
     Route::get('/edit-resume', [ResumeController::class,'editResume'])->name('resume.edit');
     Route::patch('/edit-resume', [ResumeController::class, 'updateResume'])->name('resume.update');
+
+
+    Route::get('/find-work', [JobController::class, 'showAllJobs'])->name('find-work');
 });
 
 

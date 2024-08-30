@@ -23,6 +23,20 @@ class JobController extends Controller
         ]);
     }
 
+
+/**
+     * Show all jobs in find-work.
+     */
+    public function showAllJobs(): Response
+{
+    // Fetch all job records, 
+    $jobs = Job::all(); 
+
+    return Inertia::render('Talent/FindWork', [
+        'jobs' => $jobs,
+    ]);
+}
+
     /**
      * Show the form for creating a new job.
      */
