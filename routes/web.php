@@ -157,6 +157,8 @@ Route::get('/error-page', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');
 
+
+
 //Routes for Talent end
 
 Route::middleware('auth')->group(function () {
@@ -179,6 +181,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/find-work', [JobController::class, 'showAllJobs'])->name('find-work');
+
+    Route::get('/find-work/{id}', [JobController::class, 'show'])->name('job.show');
+
+    Route::get('/find-work/{id}/submit-proposal', [JobController::class, 'showJobInProposal'])->name('job.showJobInProposal');
 });
 
 

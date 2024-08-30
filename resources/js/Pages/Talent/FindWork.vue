@@ -4,6 +4,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 import { formatDate } from "@/stores/formateDistanceToNow";
+import {Link} from "@inertiajs/vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 // Define a type for a Job
 // Define the Job type
@@ -64,14 +66,13 @@ const pageTitle = ref("Find Work");
             </div>
 
             <div class="space-y-4">
-<!-- Loop through jobs array and display each job -->
-<div 
-                  v-for="job in props.jobs" 
-                  :key="job.id" 
-                  class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+               <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
                     <div class="p-4 sm:p-6 xl:p-10">
-                        <div class="flex flex-col gap-5">
+                         <!-- Loop through jobs array and display each job -->
+                        <div  v-for="job in props.jobs" 
+                        :key="job.id"  class="flex flex-col gap-5">
+                        <Link :href="route('job.show', { id: job.id })">
                             <div class="rounded-[10px] border-l-[5px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5 border-meta-3">
                                 <div class="flex-col flex-wrap items-center justify-between gap-5">
                                     <div class="flex gap-5">
@@ -82,9 +83,12 @@ const pageTitle = ref("Find Work");
                                                     <!-- Icons, e.g., favorite or share -->
                                                 </div>
                                             </div>
+                                            <div class="flex justify-between">
                                             <h4 class="mb-[3px] text-title-xsm font-bold text-black dark:text-white">
                                                 {{ job.title }}
                                             </h4>
+                                            <PrimaryButton>View Details</PrimaryButton>
+                                        </div>
                                             <span class="text-xs font-medium">Hourly ${{ job.budget }} - ${{ job.budget }}</span>
                                             <span class="text-xs font-medium"> - {{ job.experience_level }}</span>
                                             <span class="text-xs font-medium"> - Est. Time: {{ job.project_type }}</span>
@@ -134,15 +138,11 @@ const pageTitle = ref("Find Work");
                                     </div>
                                 </div>
                             </div>
+                        </Link>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-                
+ 
                 <div
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
@@ -170,11 +170,14 @@ const pageTitle = ref("Find Work");
 <svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.5,4.609A5.811,5.811,0,0,0,16,2.5a5.75,5.75,0,0,0-4,1.455A5.75,5.75,0,0,0,8,2.5,5.811,5.811,0,0,0,3.5,4.609c-.953,1.156-1.95,3.249-1.289,6.66,1.055,5.447,8.966,9.917,9.3,10.1a1,1,0,0,0,.974,0c.336-.187,8.247-4.657,9.3-10.1C22.45,7.858,21.453,5.765,20.5,4.609Zm-.674,6.28C19.08,14.74,13.658,18.322,12,19.34c-2.336-1.41-7.142-4.95-7.821-8.451-.513-2.646.189-4.183.869-5.007A3.819,3.819,0,0,1,8,4.5a3.493,3.493,0,0,1,3.115,1.469,1.005,1.005,0,0,0,1.76.011A3.489,3.489,0,0,1,16,4.5a3.819,3.819,0,0,1,2.959,1.382C19.637,6.706,20.339,8.243,19.826,10.889Z"/></svg>
                                             </div>
                                         </div>
+                                        <div class="flex justify-between">
                                             <h4
                                                 class="mb-[3px] text-title-xsm font-bold text-black dark:text-white"
                                             >
                                                 Website Devloper Hostinger and GoDaddy expert
                                             </h4>
+                                            <PrimaryButton>View Details</PrimaryButton>
+                                        </div>
                                             <span class="text-xs font-medium"
                                                 >Hourly $15 -$30</span
                                             >
