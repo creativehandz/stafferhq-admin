@@ -27,6 +27,6 @@
         "swiper": "^11.1.9",
         "vue-multiselect": "^3.0.0",
         "vue-router": "^4.4.3",
-        "vue-slick-carousel": "^1.0.6"
+        "vue-slick-carousel": "^1.0.5"
     }
 }
