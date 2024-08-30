@@ -34,7 +34,7 @@ const pageTitle = ref("All Job Posts");
                 </div>
             </div>
         </div> -->
-
+ 
         <div class="min-h-screen text-black dark:text-white p-4">
             <div class="flex justify-between items-center mb-6">
                 <div>
