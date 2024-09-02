@@ -153,6 +153,18 @@ Route::get('/error-page', function () {
     return Inertia::render('ErrorPage');
 })->name('error-page');
 
+Route::get('/find-work/best-matches', function () {
+    return Inertia::render('Talent/BestMatches');
+})->name('best-matches');
+
+Route::get('/find-work/most-recent', function () {
+    return Inertia::render('Talent/MostRecent');
+})->name('most-recent');
+
+Route::get('/find-work/saved-jobs', function () {
+    return Inertia::render('Talent/SavedJobs');
+})->name('saved-jobs');
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');
