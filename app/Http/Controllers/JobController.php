@@ -90,14 +90,29 @@ class JobController extends Controller
     {
         $job = Job::findOrFail($id);
 
-        if ($job->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if ($job->user_id !== Auth::id()) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
-        return Inertia::render('Jobs/Show', [
+        return Inertia::render('Talent/JobDetail', [
             'job' => $job,
         ]);
     }
+
+
+    public function showJobInProposal($id): Response
+    {
+        $job = Job::findOrFail($id);
+
+        // if ($job->user_id !== Auth::id()) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+
+        return Inertia::render('Talent/SubmitProposal', [
+            'job' => $job,
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified job.
