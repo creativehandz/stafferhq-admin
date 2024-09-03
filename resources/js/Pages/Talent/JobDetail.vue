@@ -173,7 +173,7 @@ const props = defineProps<Props>();
                                             {{ "$" + props.job.budget }}
                                         </p>
                                         <p class="text-xs font-medium">
-                                            Fixed Price
+                                            {{ props.job.budget_type }} Price
                                         </p>
                                     </div>
                                 </div>
