@@ -64,8 +64,16 @@ const submit = () => {
         </template>
 
         <BreadcrumbDefault :pageTitle="pageTitle" />
-
-        <div class="py-12">
+        <div class="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-174px)]">
+            <div class="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:flex">
+                <div class="fixed top-22.5 bottom-0 z-999 flex w-[230px] -translate-x-[120%] flex-col rounded-md border border-stroke bg-white dark:border-strokedark dark:bg-boxdark lg:static lg:w-1/5 lg:translate-x-0 lg:border-none"></div>
+            </div>
+           
+        </div>
+        
+        
+        
+        <div class="">
             <div class="mx-auto max-w-screen-2xl">
                 <!-- ====== Form Elements Section Start -->
                 <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
