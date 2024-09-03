@@ -1,12 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineEmits, defineProps, watch } from 'vue';
 
-const selectedOption = ref<string>('')
+const props = defineProps({
+  modelValue: String,
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const selectedOption = ref(props.modelValue);
+// const selectedOption = ref<string>('')
 const isOptionSelected = ref<boolean>(false)
+
+watch(() => props.modelValue, (newValue) => {
+  selectedOption.value = newValue;
+});
+
 
 const changeTextColor = () => {
   isOptionSelected.value = true
 }
+
+const handleChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  emit('update:modelValue', target.value);
+  changeTextColor();
+};
 </script>
 
 <template>
@@ -21,7 +39,7 @@ const changeTextColor = () => {
       <select
         v-model="selectedOption"
         :class="{ 'text-black dark:text-white': isOptionSelected }"
-        @change="changeTextColor"
+        @change="handleChange"
         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
       >
         <option value="" disabled selected>Select Budget Type</option>

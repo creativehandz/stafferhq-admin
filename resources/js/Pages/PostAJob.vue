@@ -20,6 +20,8 @@ import { Head } from "@inertiajs/vue3";
 import SelectBudget from "@/Components/Forms/SelectGroup/SelectBudget.vue";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import { useForm } from "@inertiajs/vue3";
+import Multiselect from "vue-multiselect";
+import "vue-multiselect/dist/vue-multiselect.css";
 import { ref } from "vue";
 
 const pageTitle = ref("Post A Job");
@@ -28,13 +30,28 @@ const form = useForm({
     title: "",
     project_type: "",
     category: "",
-    skills: "",
+    skills: [] as Array<{ name: string }>,
     experience_level: "",
     budget_type: "",
     budget: "",
     description: "",
     attachment: null,
 });
+
+const availableSkills = ref([
+    { name: "JavaScript" },
+    { name: "Python" },
+    { name: "Java" },
+    { name: "PHP" },
+    { name: "C++" },
+    // Add more skills as needed
+]);
+
+const addCustomSkill = (newSkill: string) => {
+    const skill = { name: newSkill };
+    availableSkills.value.push(skill);
+    form.skills.push(skill);
+};
 
 const submit = () => {
     console.log(form);
@@ -64,15 +81,13 @@ const submit = () => {
         </template>
 
         <BreadcrumbDefault :pageTitle="pageTitle" />
-        <div class="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-174px)]">
+        <!-- <div class="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-174px)]">
             <div class="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:flex">
                 <div class="fixed top-22.5 bottom-0 z-999 flex w-[230px] -translate-x-[120%] flex-col rounded-md border border-stroke bg-white dark:border-strokedark dark:bg-boxdark lg:static lg:w-1/5 lg:translate-x-0 lg:border-none"></div>
             </div>
            
-        </div>
-        
-        
-        
+        </div> -->
+
         <div class="">
             <div class="mx-auto max-w-screen-2xl">
                 <!-- ====== Form Elements Section Start -->
@@ -97,7 +112,7 @@ const submit = () => {
                                                     name="project_type"
                                                     id="long_term"
                                                     v-model="form.project_type"
-                                                    value="long_term"
+                                                    value="Long Term Project more than 30 Hours/week or 3 months"
                                                 />
                                                 Long Term Project : >= 30
                                                 Hours/week or 3 months
@@ -110,7 +125,7 @@ const submit = () => {
                                                     name="project_type"
                                                     id="short_term"
                                                     v-model="form.project_type"
-                                                    value="short_term"
+                                                    value="Short Term Project less than 30 Hours/week or 3 months"
                                                 />
                                                 Short Term Project : <= 30
                                                 Hours/week or 3 months
@@ -135,7 +150,29 @@ const submit = () => {
                                         v-model="form.category"
                                     />
 
-                                    <MultiSelectTwo v-model="form.skills" />
+                                    <!-- <MultiSelectTwo v-model="form.skills" /> -->
+
+                                    <label
+                                        class="block text-sm font-medium text-black dark:text-white"
+                                    >
+                                        Skills
+                                    </label>
+
+                                    <multiselect
+                                        v-model="form.skills"
+                                        :options="availableSkills"
+                                        :multiple="true"
+                                        :close-on-select="false"
+                                        :taggable="true"
+                                        :allow-duplicate="false"
+                                        tag-placeholder="Add this as a new skill"
+                                        placeholder="Select or add your skills"
+                                        label="name"
+                                        track-by="name"
+                                        @tag="addCustomSkill"
+                                        class="mb-4"
+                                    >
+                                    </multiselect>
 
                                     <div>
                                         <label
@@ -155,7 +192,7 @@ const submit = () => {
                                                     v-model="
                                                         form.experience_level
                                                     "
-                                                    value="entry"
+                                                    value="Entry"
                                                 />
                                                 Entry: Looking for someone
                                                 relatively new to this field
@@ -166,7 +203,7 @@ const submit = () => {
                                                 <input
                                                     type="radio"
                                                     name="experience_level"
-                                                    id="intermediate"
+                                                    id="Intermediate"
                                                     v-model="
                                                         form.experience_level
                                                     "
@@ -182,7 +219,7 @@ const submit = () => {
                                                 <input
                                                     type="radio"
                                                     name="experience_level"
-                                                    id="expert"
+                                                    id="Expert"
                                                     v-model="
                                                         form.experience_level
                                                     "

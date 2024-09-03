@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { formatDate } from "@/stores/formateDistanceToNow";
 import { Head } from "@inertiajs/vue3";
@@ -164,7 +165,7 @@ const props = defineProps<Props>();
                                             {{ "$" + props.job.budget }}
                                         </p>
                                         <p class="text-xs font-medium">
-                                            Fixed Price
+                                            {{ props.job.budget_type }} Price
                                         </p>
                                     </div>
                                 </div>
@@ -244,6 +245,7 @@ const props = defineProps<Props>();
                                     type="file"
                                     class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                                 />
+                                <PrimaryButton>Submit</PrimaryButton>
                             </div>
                         </div>
                     </div>

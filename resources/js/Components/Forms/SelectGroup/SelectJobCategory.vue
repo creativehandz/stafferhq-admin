@@ -1,12 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineEmits, defineProps, watch } from 'vue';
 
-const selectedOption = ref<string>('')
+// Define props to receive the modelValue from the parent component
+const props = defineProps({
+  modelValue: String
+});
+
+// Define emits to update the modelValue in the parent component
+const emit = defineEmits(['update:modelValue']);
+
+
+//  Initialize selectedOption with the prop value
+const selectedOption = ref(props.modelValue);
+// const selectedOption = ref<string>('')
 const isOptionSelected = ref<boolean>(false)
+
+watch(() => props.modelValue, (newValue) => {
+  selectedOption.value = newValue;
+});
 
 const changeTextColor = () => {
   isOptionSelected.value = true
 }
+
+const handleChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement;
+  // Emit the updated value to the parent component
+  emit('update:modelValue', target.value);
+  changeTextColor();
+};
 </script>
 
 <template>
@@ -21,10 +43,11 @@ const changeTextColor = () => {
       <select
         v-model="selectedOption"
         :class="{ 'text-black dark:text-white': isOptionSelected }"
-        @change="changeTextColor"
+        @change="handleChange"
         class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
       >
         <option value="" disabled selected>Select Job Category</option>
+        <option value="Technology" class="text-body dark:text-bodydark">Technology</option>
         <option value="Makeup artist" class="text-body dark:text-bodydark">Makeup artist</option>
         <option value="Graphic Designer" class="text-body dark:text-bodydark">Graphic Designer</option>
         <option value="Cafe Manager" class="text-body dark:text-bodydark">Cafe Manager</option>

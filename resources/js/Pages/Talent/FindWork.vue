@@ -76,93 +76,67 @@ const pageTitle = ref("Find Work");
             </div>
 
             <div class="space-y-4">
+                <!-- Loop through jobs array and display each job -->
                 <div
+                    v-for="job in props.jobs"
+                    :key="job.id"
                     class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
-                    <div class="p-4 sm:p-6 xl:p-10">
-                        <!-- Loop through jobs array and display each job -->
-                        <div
-                            v-for="job in props.jobs"
-                            :key="job.id"
-                            class="flex flex-col gap-5"
-                        >
-                            <Link :href="route('job.show', { id: job.id })">
+                    <Link :href="route('job.show', { id: job.id })">
+                        <div class="p-4 sm:p-6 xl:p-10">
+                            <div class="flex flex-col gap-5">
                                 <div
-                                    class="rounded-[10px] bg-white px-4 py-6 shadow-card dark:bg-boxdark sm:px-5 xl:px-7.5"
+                                    class="flex-col flex-wrap items-center justify-between gap-5"
                                 >
-                                    <div
-                                        class="flex-col flex-wrap items-center justify-between gap-5"
-                                    >
-                                        <div class="flex gap-5">
-                                            <div class="w-full">
-                                                <div
-                                                    class="flex justify-between"
-                                                >
-                                                    <p
-                                                        class="text-xs font-medium"
-                                                    >
-                                                        Posted
-                                                        {{
-                                                            formatDate(
-                                                                job.created_at
-                                                            )
-                                                        }}
-                                                    </p>
-                                                    <div class="flex gap-5">
-                                                        <!-- Icons, e.g., favorite or share -->
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="flex justify-between"
-                                                >
-                                                    <h4
-                                                        class="mb-[3px] text-title-md2 font-bold text-black dark:text-white"
-                                                    >
-                                                        {{ job.title }}
-                                                    </h4>
-                                                    <PrimaryButton
-                                                        >View
-                                                        Details</PrimaryButton
-                                                    >
-                                                </div>
-                                                <span
-                                                    class="text-xs font-medium"
-                                                    >Hourly ${{ job.budget }} -
-                                                    ${{ job.budget }}</span
-                                                >
-                                                <span
-                                                    class="text-xs font-medium"
-                                                >
-                                                    -
+                                    <div class="flex gap-5">
+                                        <div class="w-full">
+                                            <div class="flex justify-between">
+                                                <p class="text-xs font-medium">
+                                                    Posted
                                                     {{
-                                                        job.experience_level
-                                                    }}</span
-                                                >
-                                                <span
-                                                    class="text-xs font-medium"
-                                                >
-                                                    - Est. Time:
-                                                    {{ job.project_type }}</span
-                                                >
-                                                <span
-                                                    class="text-xs font-medium"
-                                                >
-                                                    -
-                                                    {{ job.project_type }}</span
-                                                >
-                                                <p
-                                                    class="mt-2 mb-[3px] font-medium"
-                                                >
-                                                    {{ job.description }}
+                                                        formatDate(
+                                                            job.created_at
+                                                        )
+                                                    }}
                                                 </p>
+                                                <div class="flex gap-5">
+                                                    <!-- Icons, e.g., favorite or share -->
+                                                </div>
                                             </div>
+                                            <div class="flex justify-between">
+                                                <h4
+                                                    class="mb-[3px] text-title-md2 font-bold text-black dark:text-white"
+                                                >
+                                                    {{ job.title }}
+                                                </h4>
+                                                <PrimaryButton
+                                                    >View Details</PrimaryButton
+                                                >
+                                            </div>
+                                            <span class="text-xs font-medium"
+                                                >{{ job.budget_type }} ${{ job.budget }} - ${{
+                                                    job.budget
+                                                }}</span
+                                            >
+                                            <span class="text-xs font-medium">
+                                                -
+                                                {{ job.experience_level }}</span
+                                            >
+                                            <span class="text-xs font-medium">
+                                                - Est. Time:
+                                                {{ job.project_type }}</span
+                                            >
+                                            <p class="mt-2 mb-[3px]">
+                                                {{ job.description }}
+                                            </p>
                                         </div>
+                                    </div>
 
-                                        <div
-                                            class="my-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-                                        >
-                                            <div class="flex gap-3">
-                                                <!-- <button 
+                                    <div
+                                        class="my-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+                                    >
+                                        <div class="flex gap-3">
+                                            <!-- <button 
                                               v-for="skill in job.skills" 
                                               :key="skill" 
                                               class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
@@ -170,16 +144,14 @@ const pageTitle = ref("Find Work");
                                             >
                                                 {{ skill.name }}
                                             </button> -->
-                                            </div>
                                         </div>
+                                    </div>
 
+                                    <div class="flex items-center space-x-4">
                                         <div
-                                            class="flex items-center space-x-4"
+                                            class="flex items-center space-x-10"
                                         >
-                                            <div
-                                                class="flex items-center space-x-10"
-                                            >
-                                                <!-- <div class="font-medium flex gap-1 justify-center items-center">
+                                            <!-- <div class="font-medium flex gap-1 justify-center items-center">
                                                 <span>svg</span>
                                                 <p>{{ job.payment_status }}</p>
                                             </div>
@@ -191,33 +163,35 @@ const pageTitle = ref("Find Work");
                                                 <p>{{ job.spent }}</p>
                                                 <p>Total Spent</p>
                                             </div> -->
-                                                <div class="flex gap-1">
-                                                    <svg
-                                                        class="fill-current"
-                                                        width="18"
-                                                        height="18"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            d="M12 2c-4.4 0-8 3.6-8 8 0 5.4 7 11.5 7.3 11.8.2.1.5.2.7.2.2 0 .5-.1.7-.2.3-.3 7.3-6.4 7.3-11.8 0-4.4-3.6-8-8-8zm0 17.7c-2.1-2-6-6.3-6-9.7 0-3.3 2.7-6 6-6s6 2.7 6 6-3.9 7.7-6 9.7zM12 6c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
-                                                            fill=""
-                                                        />
-                                                    </svg>
-                                                    <p
-                                                        class="text-sm font-medium"
-                                                    >
-                                                        {{ job.location }}
-                                                    </p>
-                                                </div>
+                                            <div class="flex gap-1">
+                                                <svg
+                                                    class="fill-current"
+                                                    width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M12 2c-4.4 0-8 3.6-8 8 0 5.4 7 11.5 7.3 11.8.2.1.5.2.7.2.2 0 .5-.1.7-.2.3-.3 7.3-6.4 7.3-11.8 0-4.4-3.6-8-8-8zm0 17.7c-2.1-2-6-6.3-6-9.7 0-3.3 2.7-6 6-6s6 2.7 6 6-3.9 7.7-6 9.7zM12 6c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                                                        fill=""
+                                                    />
+                                                </svg>
+                                                <p class="text-sm font-medium">
+                                                    {{ job.location }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="mt-2">
+                                        <p class="text-sm font-medium">
+                                            Proposal less than 5
+                                        </p>
+                                    </div>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 <div
