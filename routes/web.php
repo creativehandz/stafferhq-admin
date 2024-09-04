@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\ProposalController;
 use Inertia\Inertia;
 
 //Redirect to welcome page when logout
@@ -197,6 +198,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/find-work/{id}', [JobController::class, 'show'])->name('job.show');
 
     Route::get('/find-work/{id}/submit-proposal', [JobController::class, 'showJobInProposal'])->name('job.showJobInProposal');
+
+
+
+    Route::post('/find-work/{id}/submit-proposal', [ProposalController::class, 'submit'])->name('proposals.submit');
 });
 
 

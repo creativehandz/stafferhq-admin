@@ -5,6 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { formatDate } from "@/stores/formateDistanceToNow";
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
 
 const pageTitle = ref("Submit a Proposal");
 
@@ -32,6 +33,40 @@ type Props = {
 
 // Receive the jobs data passed from the backend with correct type
 const props = defineProps<Props>();
+
+
+
+
+const form = useForm({
+    cover_letter: "",
+    attachment: null as File | null, // Define attachment as File or null
+});
+
+// Handle file input change
+const handleFileChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target?.files ? target.files[0] : null;
+    if (file) {
+        form.attachment = file; // Now this assignment is valid
+    } else {
+        form.attachment = null; // Keep the null option
+    }
+};
+
+const submit = () => {
+    console.log(form);
+    form.post(route("proposals.submit", {id:props.job.id} ), {
+        onSuccess: () => {
+            // Optional: Handle success, like showing a notification
+            console.log("Success");
+        },
+        onError: () => {
+            // Optional: Handle error, like showing a notification
+            console.log("Error", form.errors);
+        },
+    });
+};
+
 </script>
 
 <template>
@@ -228,6 +263,7 @@ const props = defineProps<Props>();
                             </div>
                         </div>
                         <div class="py-2 sm:py-3 xl:py-5">
+                            <form @submit.prevent="submit">
                             <div class="flex-col space-y-5">
                                 <h2
                                     class="text-title-md2 font-semibold text-black dark:text-white"
@@ -235,6 +271,8 @@ const props = defineProps<Props>();
                                     Cover Letter
                                 </h2>
                                 <textarea
+                                 id="coverLetter"
+                                    v-model=form.cover_letter
                                     rows="6"
                                     placeholder="Write your cover letter"
                                     class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -243,10 +281,21 @@ const props = defineProps<Props>();
                                 ></textarea>
                                 <input
                                     type="file"
+                                    id="attachment"
+                                    @change="handleFileChange"
                                     class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                                 />
-                                <PrimaryButton>Submit</PrimaryButton>
+                                <input
+                                            type="submit"
+                                            value="Submit Proposal"
+                                            class="flex w-full cursor-pointer border border-primary bg-primary p-3 font-medium text-white transition hover:bg-opacity-90"
+                                            :class="{
+                                                'opacity-25': form.processing,
+                                            }"
+                                            :disabled="form.processing"
+                                        />
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -254,3 +303,4 @@ const props = defineProps<Props>();
         </div>
     </AuthenticatedLayout>
 </template>
+ 
