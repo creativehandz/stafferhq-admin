@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,18 +67,44 @@ class JobController extends Controller
             'attachment' => 'nullable|file|max:10240', // Max file size 10MB
         ]);
 
+        //Skills
+        $skills = $request->skills;
+        $skillIds = [];
+
+        foreach ($skills as $skill) {
+            $existingSkill = Skill::where('name', $skill['name'])->first();
+
+            if ($existingSkill) {
+                $skillIds[] = $existingSkill->id;
+            } else {
+                $newSkill = Skill::create(['name' => $skill['name']]);
+                $skillIds[] = $newSkill->id;
+            }
+        }
+        //Attachment
+        if ($request->hasFile('attachment')) {
+            // Get the original file name without the extension
+            $originalFileName = pathinfo($request->file('attachment')->getClientOriginalName(), PATHINFO_FILENAME);
+            // Trim the file name to 10 characters
+            $trimmedFileName = substr($originalFileName, 0, 10);
+            // Generate the final file name with timestamp and user ID
+            $attachmentFileName = time() . '_' . Auth::id() . '_' . $trimmedFileName . '.' . $request->file('attachment')->getClientOriginalExtension();
+            // Store the file
+            $request->file('attachment')->storeAs('attachments', $attachmentFileName);
+        }
+
         $job = Job::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'project_type' => $request->project_type,
             'category' => $request->category,
-            'skills' => $request->skills,
+            'skills' => implode(',', $skillIds),
             'experience_level' => $request->experience_level,
             'budget_type' => $request->budget_type,
             'budget' => $request->budget,
             'description' => $request->description,
             'location' => $request->location,
-            'attachment' => $request->file('attachment') ? $request->file('attachment')->store('attachments') : null,
+            'attachment' => $attachmentFileName ?? null,
         ]);
 
         return redirect(route('employer-dashboard'))->with('success', 'Job posted successfully!');

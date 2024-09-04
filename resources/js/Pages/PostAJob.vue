@@ -36,6 +36,31 @@ const form = useForm({
     budget: "",
     description: "",
     attachment: null,
+    fileInputRef: ref(null),
+
+    onFileChange(event) {
+      const file = event.target.files[0];
+      this.attachment = file;
+    },
+
+    submit() {
+      const formData = new FormData();
+      formData.append("attachment", this.attachment);
+      // Add other form data properties to the formData object
+
+      console.log(formData);
+      form.post(route("post-a-job"), {
+        onSuccess: () => {
+          // Optional: Handle success, like showing a notification
+          console.log("Success");
+        },
+        onError: () => {
+          // Optional: Handle error, like showing a notification
+          console.log("Error", form.errors);
+        },
+      });
+    },
+
 });
 
 const availableSkills = ref([
@@ -269,6 +294,8 @@ const submit = () => {
                                         </label>
                                         <input
                                             type="file"
+                                            @change="form.onFileChange"
+                                            ref="form.fileInputRef"
                                             class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                                         />
                                     </div>
