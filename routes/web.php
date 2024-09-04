@@ -174,6 +174,7 @@ Route::get('/applicants', function () {
     return Inertia::render('Applicants');
 })->name('applicants');
 
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');

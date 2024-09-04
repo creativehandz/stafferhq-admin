@@ -339,14 +339,17 @@ const props = defineProps<Props>();
                                 >
                                     Skills and Expertise
                                 </h2>
+                                <!-- Loop through the skill names and display each one -->
                                 <button
-                                    class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                    v-for="(skill, index) in props.job.skills"
+                                    :key="index"
+                                    class="inline-flex rounded-full border py-1 px-3 mx-1 text-sm font-medium hover:opacity-80"
                                     style="
                                         border-color: rgb(60, 167, 69);
                                         color: rgb(60, 167, 69);
                                     "
                                 >
-                                    Skill here
+                                    {{ skill }}
                                 </button>
                             </div>
                         </div>
@@ -610,12 +613,24 @@ const props = defineProps<Props>();
                             </Link>
                         </div>
                         <div class="flex gap-1 justify-start items-center">
-                            <svg class="fill-current" fill="none" width="18" height="18" viewBox="-4 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin"><path d='M2 1h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H2v7a1 1 0 0 1-2 0V1a1 1 0 1 1 2 0zm0 9h12V3H2v7z'/></svg>
+                            <svg
+                                class="fill-current"
+                                fill="none"
+                                width="18"
+                                height="18"
+                                viewBox="-4 -2 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                                preserveAspectRatio="xMinYMin"
+                            >
+                                <path
+                                    d="M2 1h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H2v7a1 1 0 0 1-2 0V1a1 1 0 1 1 2 0zm0 9h12V3H2v7z"
+                                />
+                            </svg>
                             <a href="" class="font-medium text-primary"
-                            >Flag as inappropriate</a
-                        >
+                                >Flag as inappropriate</a
+                            >
                         </div>
-                       
+
                         <p class="text-sm font-medium">
                             Send a proposal for: 0 Connects
                         </p>

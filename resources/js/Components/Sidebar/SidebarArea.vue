@@ -361,6 +361,28 @@ if (userRole === 0) {
                     fill=""
                   />
                 </svg>`,
+            label: "Applicants",
+            route: "applicants",
+        },
+
+        {
+            icon: `<svg
+                  class="fill-current"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
+                    fill=""
+                  />
+                  <path
+                    d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
+                    fill=""
+                  />
+                </svg>`,
             label: "Profile",
             route: "profile",
         },
@@ -376,9 +398,10 @@ if (userRole === 0) {
 </svg>`,
             label: "Your Resume",
             route: "#",
-            children: [{ label: "Create Your Resume", route: "create-resume" },
-            { label: "Design", route: "design" },
-            { label: "Setting", route: "setting" }
+            children: [
+                { label: "Create Your Resume", route: "create-resume" },
+                { label: "Design", route: "design" },
+                { label: "Setting", route: "setting" },
             ],
         },
         {
@@ -408,9 +431,10 @@ if (userRole === 0) {
             icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.035,18.069a7.981,7.981,0,0,0,3.938-1.035l3.332,3.332a2.164,2.164,0,0,0,3.061-3.061l-3.332-3.332A8.032,8.032,0,0,0,4.354,4.354a8.034,8.034,0,0,0,5.681,13.715ZM5.768,5.768A6.033,6.033,0,1,1,4,10.035,5.989,5.989,0,0,1,5.768,5.768Z"/></svg>`,
             label: "Find Work",
             route: "#",
-            children: [{ label: "Find Work", route: "find-work" },
-            { label: "Proposals and Offer", route: "proposals-and-offer" },
-            { label: "Your Service", route: "your-service" }
+            children: [
+                { label: "Find Work", route: "find-work" },
+                { label: "Proposals and Offer", route: "proposals-and-offer" },
+                { label: "Your Service", route: "your-service" },
             ],
         },
 
@@ -418,9 +442,13 @@ if (userRole === 0) {
             icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/></svg>`,
             label: "Deliver Work",
             route: "#",
-            children: [{ label: "Your Active Contracts", route: "your-active-contracts" },
-            { label: "Contract History", route: "contract-history" },
-            { label: "Hourly Work Diary", route: "hourly-work-diary" }
+            children: [
+                {
+                    label: "Your Active Contracts",
+                    route: "your-active-contracts",
+                },
+                { label: "Contract History", route: "contract-history" },
+                { label: "Hourly Work Diary", route: "hourly-work-diary" },
             ],
         },
 
@@ -428,12 +456,19 @@ if (userRole === 0) {
             icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-coin"><path d='M9 13v-2a3 3 0 1 1 0-6V4a1 1 0 1 1 2 0v1h.022A2.978 2.978 0 0 1 14 7.978a1 1 0 0 1-2 0A.978.978 0 0 0 11.022 7H11v2a3 3 0 0 1 0 6v1a1 1 0 0 1-2 0v-1h-.051A2.949 2.949 0 0 1 6 12.051a1 1 0 1 1 2 0 .95.95 0 0 0 .949.949H9zm2 0a1 1 0 0 0 0-2v2zM9 7a1 1 0 1 0 0 2V7zm1 13C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z'/></svg>`,
             label: "Manage Finance",
             route: "#",
-            children: [{ label: "Financial overview", route: "financial-overview" },
-            { label: "Your Report", route: "your-report" },
-            { label: "Billing and Earning", route: "billing-and-earning" },
-            { label: "Transaction and Invoices", route: "transaction-and-invoices" },
-            { label: "Certificate of Earning", route: "certificate-of-earning" },
-            { label: "Withdraw Earning", route: "withdraw-earning" }
+            children: [
+                { label: "Financial overview", route: "financial-overview" },
+                { label: "Your Report", route: "your-report" },
+                { label: "Billing and Earning", route: "billing-and-earning" },
+                {
+                    label: "Transaction and Invoices",
+                    route: "transaction-and-invoices",
+                },
+                {
+                    label: "Certificate of Earning",
+                    route: "certificate-of-earning",
+                },
+                { label: "Withdraw Earning", route: "withdraw-earning" },
             ],
         },
 
@@ -443,13 +478,6 @@ if (userRole === 0) {
 </svg>`,
             label: "Messages",
             route: "messages",
-        },
-        {
-            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8.35078106,18 L3.62469505,21.7808688 C2.9699317,22.3046795 2,21.8385062 2,21 L2,5 C2,3.34314575 3.34314575,2 5,2 L19,2 C20.6568542,2 22,3.34314575 22,5 L22,15 C22,16.6568542 20.6568542,18 19,18 L8.35078106,18 Z M4,18.9193752 L7.37530495,16.2191312 C7.552618,16.0772808 7.7729285,16 8,16 L19,16 C19.5522847,16 20,15.5522847 20,15 L20,5 C20,4.44771525 19.5522847,4 19,4 L5,4 C4.44771525,4 4,4.44771525 4,5 L4,18.9193752 Z"/>
-</svg>`,
-            label: "Applicants",
-            route: "applicants",
         },
     ];
 }
