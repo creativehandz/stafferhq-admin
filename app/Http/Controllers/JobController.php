@@ -121,6 +121,8 @@ class JobController extends Controller
         // if ($job->user_id !== Auth::id()) {
         //     abort(403, 'Unauthorized action.');
         // }
+         // Fetch skill names using the method defined in the Job model
+        $job->skills = $job->getSkillNames();
 
         return Inertia::render('Talent/JobDetail', [
             'job' => $job,
@@ -135,6 +137,8 @@ class JobController extends Controller
         // if ($job->user_id !== Auth::id()) {
         //     abort(403, 'Unauthorized action.');
         // }
+        // Fetch skill names using the method defined in the Job model
+        $job->skills = $job->getSkillNames();
 
         return Inertia::render('Talent/SubmitProposal', [
             'job' => $job,

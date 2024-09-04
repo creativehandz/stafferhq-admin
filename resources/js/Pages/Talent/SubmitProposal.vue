@@ -242,13 +242,15 @@ const submit = () => {
                                     Skills and Expertise
                                 </h2>
                                 <button
-                                    class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                    v-for="(skill, index) in props.job.skills"
+                                    :key="index"
+                                    class="inline-flex rounded-full border py-1 px-3 mx-1 text-sm font-medium hover:opacity-80"
                                     style="
                                         border-color: rgb(60, 167, 69);
                                         color: rgb(60, 167, 69);
                                     "
                                 >
-                                    Skill here
+                                    {{ skill }}
                                 </button>
                             </div>
                         </div>

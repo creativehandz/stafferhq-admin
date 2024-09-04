@@ -35,4 +35,20 @@ class Job extends Model
     {
         return $this->hasMany(Proposal::class);
     }
+
+
+    // Method to get skill names based on stored skill IDs
+    public function getSkillNames()
+    {
+        // Check if 'skills' field is not empty
+        if (!$this->skills) {
+            return [];
+        }
+
+        // Convert comma-separated string of IDs into an array
+        $skillIds = explode(',', $this->skills);
+
+        // Fetch skill names using the skill IDs
+        return Skill::whereIn('id', $skillIds)->pluck('name')->toArray();
+    }
 }
