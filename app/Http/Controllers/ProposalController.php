@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -60,7 +61,7 @@ class ProposalController extends Controller
         $proposal->save();
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Proposal submitted successfully!');
+        return Redirect::to('/thank-you')->with('success', 'Proposal submitted successfully!');
     }
 
 }
