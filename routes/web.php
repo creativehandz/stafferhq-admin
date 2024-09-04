@@ -166,6 +166,14 @@ Route::get('/find-work/saved-jobs', function () {
     return Inertia::render('Talent/SavedJobs');
 })->name('saved-jobs');
 
+Route::get('/thank-you', function () {
+    return Inertia::render('ThankyouPage');
+})->name('thank-you');
+
+Route::get('/applicants', function () {
+    return Inertia::render('Applicants');
+})->name('applicants');
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');

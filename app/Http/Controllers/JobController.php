@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -107,7 +108,7 @@ class JobController extends Controller
             'attachment' => $attachmentFileName ?? null,
         ]);
 
-        return redirect(route('employer-dashboard'))->with('success', 'Job posted successfully!');
+        return Redirect::to('/employer-dashboard')->with('success', 'Job posted successfully!');
     }
 
     /**
