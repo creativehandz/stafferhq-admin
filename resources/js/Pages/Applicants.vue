@@ -7,7 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import NotFound from "@/Components/NotFound.vue";
 import SwitchOne from "@/Components/Forms/Switchers/SwitchOne.vue";
 
-const pageTitle = ref("Applicants");
+const pageTitle = ref("Create Laravel Dashboard");
 const activeTab = ref("viewJobPost");
 const activeInviteFreeTab = ref("search");
 const activeReviewProposalTab = ref("allProposals");
@@ -31,18 +31,18 @@ const activeHireTab = ref("others");
         <div
             class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
         >
-            <div
+            <!-- <div
                 class="border-b border-stroke px-4 py-4 dark:border-strokedark sm:px-6 xl:px-7.5"
             >
                 <h3
-                    class="text-title-md2 font-semibold text-black dark:text-white"
+                    class="text-title-md2 font-medium text-black dark:text-white"
                 >
                     Create Laravel Dashboard
                 </h3>
-            </div>
+            </div> -->
             <div class="mb-14 w-full p-7.5">
                 <div
-                    class=" flex flex-wrap gap-3 border-b border-stroke pb-5 dark:border-strokedark"
+                    class="flex flex-wrap gap-3 border-b border-stroke pb-5 dark:border-strokedark"
                 >
                     <!-- Tab style 1 -->
                     <button
@@ -91,7 +91,6 @@ const activeHireTab = ref("others");
                     </button>
                 </div>
                 <div>
-
                     <div v-if="activeTab === 'viewJobPost'">
                         <div
                             class="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5"
@@ -258,7 +257,7 @@ const activeHireTab = ref("others");
                                             <div class="flex justify-between">
                                                 <div class="flex-col space-y-2">
                                                     <h2
-                                                        class="text-title-md2 font-semibold text-black dark:text-white"
+                                                        class="text-title-sm font-semibold text-black dark:text-white"
                                                     >
                                                         Contract-to-hire
                                                         opportunity
@@ -393,18 +392,19 @@ const activeHireTab = ref("others");
                                                     Skills and Expertise
                                                 </h2>
                                                 <!-- Loop through the skill names and display each one -->
-                                                <!-- <button
-                                            v-for="(skill, index) in props.job
-                                                .skills"
-                                            :key="index"
-                                            class="inline-flex rounded-full border py-1 px-3 mx-1 text-sm font-medium hover:opacity-80"
-                                            style="
-                                                border-color: rgb(60, 167, 69);
-                                                color: rgb(60, 167, 69);
-                                            "
-                                        >
-                                            {{ skill }}
-                                        </button> -->
+                                                <button
+                                                    class="inline-flex rounded-full border py-1 px-3 mx-1 text-sm font-medium hover:opacity-80"
+                                                    style="
+                                                        border-color: rgb(
+                                                            60,
+                                                            167,
+                                                            69
+                                                        );
+                                                        color: rgb(60, 167, 69);
+                                                    "
+                                                >
+                                                    Skills Here
+                                                </button>
                                             </div>
                                         </div>
 
@@ -633,7 +633,7 @@ const activeHireTab = ref("others");
                                             </div>
                                         </div>
 
-                                        <div class="py-2 sm:py-3 xl:py-5">
+                                        <!-- <div class="py-2 sm:py-3 xl:py-5">
                                             <div class="flex-col space-y-1">
                                                 <h2
                                                     class="text-title-md2 font-semibold text-black dark:text-white"
@@ -673,21 +673,7 @@ const activeHireTab = ref("others");
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="py-2 sm:py-3 xl:py-5">
-                                            <div class="flex-col space-y-1">
-                                                <h2
-                                                    class="text-title-md2 font-semibold text-black dark:text-white"
-                                                >
-                                                    Similar Jobs on StafferHQ
-                                                </h2>
-                                                <button
-                                                    class="font-medium text-amber-500 border-b-2 border-amber-500 pb-0"
-                                                >
-                                                    Zoho CRM Expert
-                                                </button>
-                                            </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -862,16 +848,13 @@ const activeHireTab = ref("others");
                             </div>
 
                             <div class="flex items-center my-4 gap-3">
-                                <input
+                                <!-- <input
                                     type="text"
                                     placeholder=" Search..."
                                     class="w-[50%] p-2 rounded-lg bg-gray-800 placeholder-gray-500 border-none"
-                                />
-                                <SwitchOne />
-                                Available Now
-                                <button class="ml-2 font-semibold text-primary">
-                                    Filters
-                                </button>
+                                /> -->
+                                <input type="text" placeholder="Search..."class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                
                             </div>
                             <!-- Tab Contents -->
                             <div
@@ -964,32 +947,7 @@ const activeHireTab = ref("others");
                                                                     $1M+ earned
                                                                 </p>
                                                             </div>
-                                                            <div class="flex">
-                                                                <p>
-                                                                    Lorem ipsum
-                                                                    dolor sit,
-                                                                    amet
-                                                                    consectetur
-                                                                    adipisicing
-                                                                    elit.
-                                                                    Doloribus
-                                                                    quam ducimus
-                                                                    at totam,
-                                                                    repellendus
-                                                                    ullam,
-                                                                    aperiam eius
-                                                                    maiores
-                                                                    cumque ad,
-                                                                    nulla veniam
-                                                                    ipsum
-                                                                    similique
-                                                                    reiciendis
-                                                                    quos
-                                                                    assumenda
-                                                                    labore
-                                                                    possimus in.
-                                                                </p>
-                                                            </div>
+                                                            
                                                             <div
                                                                 class="mt-3 flex gap-5"
                                                             >
@@ -1169,7 +1127,7 @@ const activeHireTab = ref("others");
                                         'py-4 text-sm font-medium hover:text-primary md:text-base',
                                     ]"
                                 >
-                                    Others
+                                    Offers
                                 </button>
                                 <button
                                     @click="activeHireTab = 'hired'"
@@ -1329,5 +1287,712 @@ const activeHireTab = ref("others");
             </div>
         </div>
 
+        <div
+            class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-5"
+        >
+            <div
+                class="border-b border-stroke px-4 py-4 dark:border-strokedark sm:px-6 xl:px-7.5"
+            >
+                <h3 class="font-normal text-black dark:text-white">
+                    Client's recent history
+                </h3>
+            </div>
+            <div class="w-full px-7.5">
+                <div class="py-2 sm:py-3 xl:py-5">
+                    <div class="flex justify-between items-center py-2">
+                        <div class="flex-col">
+                            <h3 class="font-medium text-black dark:text-white">
+                                Create Home page in three.js
+                            </h3>
+
+                            <div class="flex items-center gap-2">
+                               
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <p>5.0</p>
+                            </div>
+                            <p class="text-sm font-medium">
+                                To freelancer: <a href="" class="text-primary underline"> Lalit K</a>
+                                  
+                                <div class="flex gap-2">
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    version="1.1"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 256 256"
+                                    class="fill-current"
+                                    xml:space="preserve"
+                                >
+                                    <defs></defs>
+                                    <g
+                                        style="
+                                            stroke: none;
+                                            stroke-width: 0;
+                                            stroke-dasharray: none;
+                                            stroke-linecap: butt;
+                                            stroke-linejoin: miter;
+                                            stroke-miterlimit: 10;
+                                            fill: none;
+                                            fill-rule: nonzero;
+                                            opacity: 1;
+                                        "
+                                        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+                                    >
+                                        <path
+                                            d="M 89.95 34.92 c -0.135 -0.411 -0.519 -0.688 -0.95 -0.688 H 56.508 L 45.948 2.814 C 45.811 2.408 45.43 2.133 45 2.133 s -0.811 0.274 -0.948 0.681 l -10.56 31.417 H 1 c -0.432 0 -0.815 0.277 -0.95 0.688 s 0.009 0.861 0.357 1.117 l 26.246 19.314 l -10 31.21 c -0.131 0.409 0.014 0.856 0.36 1.11 c 0.348 0.257 0.817 0.261 1.168 0.012 L 45 68.795 l 26.818 18.889 c 0.173 0.122 0.375 0.183 0.576 0.183 c 0.208 0 0.416 -0.064 0.592 -0.194 c 0.347 -0.254 0.491 -0.701 0.36 -1.11 l -10 -31.21 l 26.246 -19.314 C 89.94 35.781 90.085 35.331 89.95 34.92 z"
+                                            style="
+                                                stroke: none;
+                                                stroke-width: 1;
+                                                stroke-dasharray: none;
+                                                stroke-linecap: butt;
+                                                stroke-linejoin: miter;
+                                                stroke-miterlimit: 10;
+                                                fill: rgb(255, 212, 0);
+                                                fill-rule: nonzero;
+                                                opacity: 1;
+                                            "
+                                            transform=" matrix(1 0 0 1 0 0) "
+                                            stroke-linecap="round"
+                                        />
+                                    </g>
+                                </svg>
+                                <p>5.0</p>
+                                <p>  He is very knowledgeable</p>
+                                </div>
+                               
+                            </p>
+                        </div>
+                        <div class="flex-col">
+                            <p class="text-sm font-medium">
+                                Jun 2024 - Aug 2024
+                            </p>
+                            <p class="text-sm font-medium">Fixed Price $330</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-5"
+        >
+        <div
+                class="border-b border-stroke px-4 py-4 dark:border-strokedark sm:px-6 xl:px-7.5"
+            >
+                <h3 class="font-normal text-black dark:text-white">
+                    Similar jobs on StafferHQ
+                </h3>
+            </div>
+            <div class="w-full p-7.5">
+                <div class="py-2 sm:py-3 xl:py-5">
+                    <div class="flex-col space-y-1">
+                    
+                        <div
+                                                    class="min-w-[370px] max-w-max rounded-md border border-stroke py-1 dark:border-strokedark"
+                                                >
+                                                    <ul class="flex flex-col">
+                                                        <li
+                                                            class="flex items-center gap-2.5 border-b border-stroke px-5 py-3 last:border-b-0 dark:border-strokedark"
+                                                        >
+                                                            <span
+                                                                class="text-primary"
+                                                                ><svg
+                                                                    class="fill-current"
+                                                                    width="21"
+                                                                    height="21"
+                                                                    viewBox="0 0 21 21"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g
+                                                                        clip-path="url(#clip0_1890_16515)"
+                                                                    >
+                                                                        <path
+                                                                            d="M10.8672 0.949463C5.64844 0.949463 1.42969 5.16821 1.42969 10.387C1.42969 15.6057 5.64844 19.8557 10.8672 19.8557C16.0859 19.8557 20.3359 15.6057 20.3359 10.387C20.3359 5.16821 16.0859 0.949463 10.8672 0.949463ZM10.8672 18.4495C6.42969 18.4495 2.83594 14.8245 2.83594 10.387C2.83594 5.94946 6.42969 2.35571 10.8672 2.35571C15.3047 2.35571 18.9297 5.98071 18.9297 10.4182C18.9297 14.8245 15.3047 18.4495 10.8672 18.4495Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                        <path
+                                                                            d="M13.5549 7.48076L9.83611 11.1058L8.14861 9.44951C7.86736 9.16826 7.42986 9.19951 7.14861 9.44951C6.86736 9.73076 6.89861 10.1683 7.14861 10.4495L9.14861 12.387C9.33611 12.5745 9.58611 12.6683 9.83611 12.6683C10.0861 12.6683 10.3361 12.5745 10.5236 12.387L14.5549 8.51201C14.8361 8.23076 14.8361 7.79326 14.5549 7.51201C14.2736 7.23076 13.8361 7.23076 13.5549 7.48076Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath
+                                                                            id="clip0_1890_16515"
+                                                                        >
+                                                                            <rect
+                                                                                width="20"
+                                                                                height="20"
+                                                                                fill="white"
+                                                                                transform="translate(0.867188 0.386963)"
+                                                                            ></rect>
+                                                                        </clipPath>
+                                                                    </defs></svg></span
+                                                            ><span
+                                                                >
+                                                               <a href="" class="text-primary"> Zoho CRM Expert</a></span
+                                                            >
+                                                        </li>
+                                                        <li
+                                                            class="flex items-center gap-2.5 border-b border-stroke px-5 py-3 last:border-b-0 dark:border-strokedark"
+                                                        >
+                                                            <span
+                                                                class="text-primary"
+                                                                ><svg
+                                                                    class="fill-current"
+                                                                    width="21"
+                                                                    height="21"
+                                                                    viewBox="0 0 21 21"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g
+                                                                        clip-path="url(#clip0_1890_16515)"
+                                                                    >
+                                                                        <path
+                                                                            d="M10.8672 0.949463C5.64844 0.949463 1.42969 5.16821 1.42969 10.387C1.42969 15.6057 5.64844 19.8557 10.8672 19.8557C16.0859 19.8557 20.3359 15.6057 20.3359 10.387C20.3359 5.16821 16.0859 0.949463 10.8672 0.949463ZM10.8672 18.4495C6.42969 18.4495 2.83594 14.8245 2.83594 10.387C2.83594 5.94946 6.42969 2.35571 10.8672 2.35571C15.3047 2.35571 18.9297 5.98071 18.9297 10.4182C18.9297 14.8245 15.3047 18.4495 10.8672 18.4495Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                        <path
+                                                                            d="M13.5549 7.48076L9.83611 11.1058L8.14861 9.44951C7.86736 9.16826 7.42986 9.19951 7.14861 9.44951C6.86736 9.73076 6.89861 10.1683 7.14861 10.4495L9.14861 12.387C9.33611 12.5745 9.58611 12.6683 9.83611 12.6683C10.0861 12.6683 10.3361 12.5745 10.5236 12.387L14.5549 8.51201C14.8361 8.23076 14.8361 7.79326 14.5549 7.51201C14.2736 7.23076 13.8361 7.23076 13.5549 7.48076Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath
+                                                                            id="clip0_1890_16515"
+                                                                        >
+                                                                            <rect
+                                                                                width="20"
+                                                                                height="20"
+                                                                                fill="white"
+                                                                                transform="translate(0.867188 0.386963)"
+                                                                            ></rect>
+                                                                        </clipPath>
+                                                                    </defs></svg></span
+                                                            ><span
+                                                                >
+                                                               <a href="" class="text-primary"> Zoho CRM Expert</a></span
+                                                            >
+                                                        </li>
+                                                        <li
+                                                            class="flex items-center gap-2.5 border-b border-stroke px-5 py-3 last:border-b-0 dark:border-strokedark"
+                                                        >
+                                                            <span
+                                                                class="text-primary"
+                                                                ><svg
+                                                                    class="fill-current"
+                                                                    width="21"
+                                                                    height="21"
+                                                                    viewBox="0 0 21 21"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g
+                                                                        clip-path="url(#clip0_1890_16515)"
+                                                                    >
+                                                                        <path
+                                                                            d="M10.8672 0.949463C5.64844 0.949463 1.42969 5.16821 1.42969 10.387C1.42969 15.6057 5.64844 19.8557 10.8672 19.8557C16.0859 19.8557 20.3359 15.6057 20.3359 10.387C20.3359 5.16821 16.0859 0.949463 10.8672 0.949463ZM10.8672 18.4495C6.42969 18.4495 2.83594 14.8245 2.83594 10.387C2.83594 5.94946 6.42969 2.35571 10.8672 2.35571C15.3047 2.35571 18.9297 5.98071 18.9297 10.4182C18.9297 14.8245 15.3047 18.4495 10.8672 18.4495Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                        <path
+                                                                            d="M13.5549 7.48076L9.83611 11.1058L8.14861 9.44951C7.86736 9.16826 7.42986 9.19951 7.14861 9.44951C6.86736 9.73076 6.89861 10.1683 7.14861 10.4495L9.14861 12.387C9.33611 12.5745 9.58611 12.6683 9.83611 12.6683C10.0861 12.6683 10.3361 12.5745 10.5236 12.387L14.5549 8.51201C14.8361 8.23076 14.8361 7.79326 14.5549 7.51201C14.2736 7.23076 13.8361 7.23076 13.5549 7.48076Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath
+                                                                            id="clip0_1890_16515"
+                                                                        >
+                                                                            <rect
+                                                                                width="20"
+                                                                                height="20"
+                                                                                fill="white"
+                                                                                transform="translate(0.867188 0.386963)"
+                                                                            ></rect>
+                                                                        </clipPath>
+                                                                    </defs></svg></span
+                                                            ><span
+                                                                >
+                                                               <a href="" class="text-primary"> Zoho CRM Expert</a></span
+                                                            >
+                                                        </li>
+                                                        <li
+                                                            class="flex items-center gap-2.5 border-b border-stroke px-5 py-3 last:border-b-0 dark:border-strokedark"
+                                                        >
+                                                            <span
+                                                                class="text-primary"
+                                                                ><svg
+                                                                    class="fill-current"
+                                                                    width="21"
+                                                                    height="21"
+                                                                    viewBox="0 0 21 21"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g
+                                                                        clip-path="url(#clip0_1890_16515)"
+                                                                    >
+                                                                        <path
+                                                                            d="M10.8672 0.949463C5.64844 0.949463 1.42969 5.16821 1.42969 10.387C1.42969 15.6057 5.64844 19.8557 10.8672 19.8557C16.0859 19.8557 20.3359 15.6057 20.3359 10.387C20.3359 5.16821 16.0859 0.949463 10.8672 0.949463ZM10.8672 18.4495C6.42969 18.4495 2.83594 14.8245 2.83594 10.387C2.83594 5.94946 6.42969 2.35571 10.8672 2.35571C15.3047 2.35571 18.9297 5.98071 18.9297 10.4182C18.9297 14.8245 15.3047 18.4495 10.8672 18.4495Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                        <path
+                                                                            d="M13.5549 7.48076L9.83611 11.1058L8.14861 9.44951C7.86736 9.16826 7.42986 9.19951 7.14861 9.44951C6.86736 9.73076 6.89861 10.1683 7.14861 10.4495L9.14861 12.387C9.33611 12.5745 9.58611 12.6683 9.83611 12.6683C10.0861 12.6683 10.3361 12.5745 10.5236 12.387L14.5549 8.51201C14.8361 8.23076 14.8361 7.79326 14.5549 7.51201C14.2736 7.23076 13.8361 7.23076 13.5549 7.48076Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath
+                                                                            id="clip0_1890_16515"
+                                                                        >
+                                                                            <rect
+                                                                                width="20"
+                                                                                height="20"
+                                                                                fill="white"
+                                                                                transform="translate(0.867188 0.386963)"
+                                                                            ></rect>
+                                                                        </clipPath>
+                                                                    </defs></svg></span
+                                                            ><span
+                                                                >
+                                                               <a href="" class="text-primary"> Zoho CRM Expert</a></span
+                                                            >
+                                                        </li>
+                                                        <li
+                                                            class="flex items-center gap-2.5 border-b border-stroke px-5 py-3 last:border-b-0 dark:border-strokedark"
+                                                        >
+                                                            <span
+                                                                class="text-primary"
+                                                                ><svg
+                                                                    class="fill-current"
+                                                                    width="21"
+                                                                    height="21"
+                                                                    viewBox="0 0 21 21"
+                                                                    fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <g
+                                                                        clip-path="url(#clip0_1890_16515)"
+                                                                    >
+                                                                        <path
+                                                                            d="M10.8672 0.949463C5.64844 0.949463 1.42969 5.16821 1.42969 10.387C1.42969 15.6057 5.64844 19.8557 10.8672 19.8557C16.0859 19.8557 20.3359 15.6057 20.3359 10.387C20.3359 5.16821 16.0859 0.949463 10.8672 0.949463ZM10.8672 18.4495C6.42969 18.4495 2.83594 14.8245 2.83594 10.387C2.83594 5.94946 6.42969 2.35571 10.8672 2.35571C15.3047 2.35571 18.9297 5.98071 18.9297 10.4182C18.9297 14.8245 15.3047 18.4495 10.8672 18.4495Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                        <path
+                                                                            d="M13.5549 7.48076L9.83611 11.1058L8.14861 9.44951C7.86736 9.16826 7.42986 9.19951 7.14861 9.44951C6.86736 9.73076 6.89861 10.1683 7.14861 10.4495L9.14861 12.387C9.33611 12.5745 9.58611 12.6683 9.83611 12.6683C10.0861 12.6683 10.3361 12.5745 10.5236 12.387L14.5549 8.51201C14.8361 8.23076 14.8361 7.79326 14.5549 7.51201C14.2736 7.23076 13.8361 7.23076 13.5549 7.48076Z"
+                                                                            fill=""
+                                                                        ></path>
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath
+                                                                            id="clip0_1890_16515"
+                                                                        >
+                                                                            <rect
+                                                                                width="20"
+                                                                                height="20"
+                                                                                fill="white"
+                                                                                transform="translate(0.867188 0.386963)"
+                                                                            ></rect>
+                                                                        </clipPath>
+                                                                    </defs></svg></span
+                                                            ><span
+                                                                >
+                                                               <a href="" class="text-primary"> Zoho CRM Expert</a></span
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
