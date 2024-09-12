@@ -52,9 +52,7 @@ Route::get('/post-a-job', function () {
     return Inertia::render('PostAJob');
 })->name('post-a-job');
 
-Route::get('/all-job-posts', function () {
-    return Inertia::render('AllJobPosts');
-})->name('all-job-posts');
+Route::get('/all-job-posts', [JobController::class, 'index'])->name('all-job-posts');
 
 Route::get('/all-contracts', function () {
     return Inertia::render('AllContracts');
@@ -190,6 +188,7 @@ Route::middleware('auth')->group(function () {
 
      //create routes for jobs
      Route::post('post-a-job', [JobController::class, 'store']);
+     //Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
 
      //create route for create resume
      Route::post('/create-resume', [ResumeController::class, 'store']);

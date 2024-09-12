@@ -19,9 +19,10 @@ class JobController extends Controller
      */
     public function index(): Response
     {
-        $jobs = Auth::user()->jobs; // Get all jobs posted by the authenticated user
-        return Inertia::render('Jobs/Index', [
-            'jobs' => $jobs,
+        $jobs = Job::select('id', 'title', 'description', 'created_at')->get();
+        
+        return Inertia::render('AllJobPosts', [
+            'jobs' => $jobs
         ]);
     }
 
