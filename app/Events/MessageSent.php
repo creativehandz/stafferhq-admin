@@ -20,9 +20,9 @@ class MessageSent implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(Message $msg)
     {
-        $this->message = $message;
+        $this->message = $msg;
     }
 
     /**
@@ -33,7 +33,7 @@ class MessageSent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         // Use private channel for direct user-to-user messages
-        return new PrivateChannel('chat.' . $this->message->receiver_id);
+        return [new PrivateChannel('chat.' . $this->message->receiver_id)];
     }
 
     public function broadcastWith()

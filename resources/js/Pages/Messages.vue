@@ -2,10 +2,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted} from "vue";
 import { usePage } from "@inertiajs/vue3";
 import { formatDate } from "@/stores/formateDistanceToNow";
-import {useForm} from "@inertiajs/vue3";
 
 const pageTitle = ref("Messages");
 
@@ -13,7 +12,6 @@ import axios from "axios";
 
 const messages = ref<Message[]>([]);
 const newMessage = ref<String>("");
-// const receiverId = 2;
 const receiverId = ref<number | null>(null);
 const selectedUser = ref<User | null>(null);
 const currentUserId = usePage().props.auth.user.id;
@@ -61,8 +59,6 @@ const fetchMessages = async () => {
 
 const sendMessage = async () => {
     if (!newMessage.value || receiverId.value === null) return;
-    console.log(newMessage.value);
-
     try {
         await axios
             .post("/messages", {
@@ -73,8 +69,6 @@ const sendMessage = async () => {
                 messages.value.push(response.data);
             });
             newMessage.value = "";
-
-            console.log("Message sent successfully: ",newMessage.value);
     } catch (error) {
         console.error("Failed to send message:", error);
     }
@@ -88,16 +82,39 @@ const selectReceiver = (user: User) => {
     fetchMessages(); // Fetch messages for the selected user
 };
 
-onMounted(() => {
-    fetchMessages();
 
-    window.Echo.private(`chat.${receiverId}`).listen(
-        "MessageSent",
-        (e: MessageEvent) => {
-            messages.value.push(e.message);
-        }
-    );
+
+// Manage Echo listeners
+const setupEcho = () => {
+    if (receiverId.value) {
+        window.Echo.private(`chat.${receiverId.value}`).listen(
+            "MessageSent",
+            (e: MessageEvent) => {
+                messages.value.push(e.message);
+            }
+        );
+    }
+};
+
+const removeEchoListener = () => {
+    if (receiverId.value) {
+        window.Echo.private(`chat.${receiverId.value}`).stopListening("MessageSent");
+    }
+};
+
+onMounted(() => {
+    // Initialize with the first user if desired
+    if (props.users.length > 0) {
+        selectReceiver(props.users[0]);
+    }
+    // fetchMessages();
+    setupEcho();
 });
+
+onUnmounted(() => {
+    removeEchoListener();
+});
+
 </script>
 
 <template>

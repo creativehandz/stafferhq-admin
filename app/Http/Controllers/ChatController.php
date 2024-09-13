@@ -33,7 +33,6 @@ class ChatController extends Controller
         //     'messages' => $messages,
         // ]);
         return response()->json($messages);
-    
     }
 
     /**
@@ -45,17 +44,22 @@ class ChatController extends Controller
             'message' => 'required|string',
             'receiver_id' => 'required|exists:users,id',
         ]);
+        try {
+            $message = new Message();
+            $message->user_id = Auth::id(); // Sender is the currently authenticated user
+            $message->receiver_id = $request->receiver_id;
+            $message->message = $request->message;
+            $message->save();
 
-        $message = new Message();
-        $message->user_id = Auth::id(); // Sender is the currently authenticated user
-        $message->receiver_id = $request->receiver_id;
-        $message->message = $request->message;
-        $message->save();
+            // Broadcast the message to other users
+            broadcast(new MessageSent($message))->toOthers();
 
-        // Broadcast the message to other users
-        broadcast(new MessageSent($message))->toOthers();
-
-        return response()->json(['status' => 'Message Sent!', 'message' => $message]);
+            return response()->json(['status' => 'Message Sent!', 'message' => $message]);
+        }catch (\Exception $e) {
+            // Log the exception and return an error response
+            \Log::error('Message sending failed: '.$e->getMessage());
+            return response()->json(['error' => 'Failed to send message'], 500);
+        }
     }
 
     public function fetchUsers()
