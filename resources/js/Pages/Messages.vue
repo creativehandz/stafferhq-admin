@@ -2,9 +2,119 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted} from "vue";
+import { usePage } from "@inertiajs/vue3";
+import { formatDate } from "@/stores/formateDistanceToNow";
 
 const pageTitle = ref("Messages");
+
+import axios from "axios";
+
+const messages = ref<Message[]>([]);
+const newMessage = ref<String>("");
+const receiverId = ref<number | null>(null);
+const selectedUser = ref<User | null>(null);
+const currentUserId = usePage().props.auth.user.id;
+
+
+
+type User = {
+    id: number;
+    name: string;
+    email: string;
+    role: number;
+};
+
+// Define the type for the props
+type Props = {
+    users: User[];
+};
+
+// Receive the jobs data passed from the backend with correct type
+const props = defineProps<Props>();
+
+type Message = {
+    id: number;
+    user_id: number;
+    receiver_id: number;
+    message: string;
+    created_at: string;
+    updated_at: string; // Ensure this matches your actual event structure
+};
+
+type MessageEvent = {
+    message: Message;
+};
+
+const fetchMessages = async () => {
+    if (receiverId.value === null) return;
+
+    try {
+        const response = await axios.get(`/messages/${receiverId.value}`);
+        messages.value = response.data;
+    } catch (error) {
+        console.error("Failed to fetch messages:", error);
+    }
+};
+
+const sendMessage = async () => {
+    if (!newMessage.value || receiverId.value === null) return;
+    try {
+        await axios
+            .post("/messages", {
+                message: newMessage.value,
+                receiver_id: receiverId.value,
+            })
+            .then((response) => {
+                messages.value.push(response.data);
+            });
+            newMessage.value = "";
+    } catch (error) {
+        console.error("Failed to send message:", error);
+    }
+};
+
+
+// Handle user selection from the list
+const selectReceiver = (user: User) => {
+    selectedUser.value = user;
+    receiverId.value = user.id;
+    fetchMessages(); // Fetch messages for the selected user
+};
+
+
+
+// Manage Echo listeners
+const setupEcho = () => {
+    if (receiverId.value) {
+        window.Echo.private(`chat.${receiverId.value}`).listen(
+            "MessageSent",
+            (e: MessageEvent) => {
+                messages.value.push(e.message);
+            }
+        );
+    }
+};
+
+const removeEchoListener = () => {
+    if (receiverId.value) {
+        window.Echo.private(`chat.${receiverId.value}`).stopListening("MessageSent");
+    }
+};
+
+onMounted(() => {
+    // Initialize with the first user if desired
+    if (props.users.length > 0) {
+        selectReceiver(props.users[0]);
+    }
+    // fetchMessages();
+    setupEcho();
+});
+
+onUnmounted(() => {
+    removeEchoListener();
+});
+
 </script>
 
 <template>
@@ -19,11 +129,8 @@ const pageTitle = ref("Messages");
             </h2>
         </template>
 
-       
-
         <div class="">
-            
-             <BreadcrumbDefault :pageTitle="pageTitle" />
+            <BreadcrumbDefault :pageTitle="pageTitle" />
 
             <div
                 class="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-174px)]"
@@ -41,7 +148,7 @@ const pageTitle = ref("Messages");
                                 Active Conversations
                                 <span
                                     class="rounded-md border-[.5px] border-stroke bg-gray-2 py-0.5 px-2 text-base font-medium text-black dark:border-strokedark dark:bg-boxdark-2 dark:text-white 2xl:ml-4"
-                                    >5</span
+                                    >{{ props.users.length }}</span
                                 >
                             </h3>
                         </div>
@@ -79,130 +186,43 @@ const pageTitle = ref("Messages");
                             <div
                                 class="no-scrollbar max-h-full space-y-2.5 overflow-auto"
                             >
-                                <div
-                                    class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
-                                >
-                                    <div
-                                        class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
-                                    >
-                                        <img
-                                            src="../../img/user/user-03.png"
-                                            alt="profile"
-                                            class="h-full w-full object-cover object-center"
-                                        /><span
-                                            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
-                                        ></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <h5
-                                            class="text-sm font-medium text-black dark:text-white"
+                                <div class="user-list">
+                                    <ul>
+                                        <li
+                                            v-for="user in props.users"
+                                            :key="user.id"
+                                            @click="selectReceiver(user)"
                                         >
-                                            Henry Dholi
-                                        </h5>
-                                        <p class="text-sm font-medium">
-                                            I cam across your profile and...
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
-                                >
-                                    <div
-                                        class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
-                                    >
-                                        <img
-                                            src="../../img/user/user-04.png"
-                                            alt="profile"
-                                            class="h-full w-full object-cover object-center"
-                                        /><span
-                                            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
-                                        ></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <h5
-                                            class="text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Mariya Desoja
-                                        </h5>
-                                        <p class="text-sm font-medium">
-                                            I like your confidence 💪
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
-                                >
-                                    <div
-                                        class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
-                                    >
-                                        <img
-                                            src="../../img/user/user-05.png"
-                                            alt="profile"
-                                            class="h-full w-full object-cover object-center"
-                                        /><span
-                                            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
-                                        ></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <h5
-                                            class="text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Robert Jhon
-                                        </h5>
-                                        <p class="text-sm font-medium">
-                                            Can you share your offer?
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
-                                >
-                                    <div
-                                        class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
-                                    >
-                                        <img
-                                            src="../../img/user/user-01.png"
-                                            alt="profile"
-                                            class="h-full w-full object-cover object-center"
-                                        /><span
-                                            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
-                                        ></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <h5
-                                            class="text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Cody Fisher
-                                        </h5>
-                                        <p class="text-sm font-medium">
-                                            I'm waiting for you response!
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
-                                >
-                                    <div
-                                        class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
-                                    >
-                                        <img
-                                            src="../../img/user/user-02.png"
-                                            alt="profile"
-                                            class="h-full w-full object-cover object-center"
-                                        /><span
-                                            class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
-                                        ></span>
-                                    </div>
-                                    <div class="w-full">
-                                        <h5
-                                            class="text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Jenny Wilson
-                                        </h5>
-                                        <p class="text-sm font-medium">
-                                            I cam across your profile and...
-                                        </p>
-                                    </div>
+                                            <div
+                                                class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark"
+                                            >
+                                                <div
+                                                    class="relative mr-3.5 h-11 w-full max-w-11 rounded-full"
+                                                >
+                                                    <img
+                                                        src="../../img/user/user-03.png"
+                                                        alt="profile"
+                                                        class="h-full w-full object-cover object-center"
+                                                    /><span
+                                                        class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
+                                                    ></span>
+                                                </div>
+                                                <div class="w-full">
+                                                    <h5
+                                                        class="text-sm font-medium text-black dark:text-white"
+                                                    >
+                                                        {{ user.name }}
+                                                    </h5>
+                                                    <p
+                                                        class="text-sm font-medium"
+                                                    >
+                                                        Last Message will
+                                                        display here
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +247,7 @@ const pageTitle = ref("Messages");
                                     <h5
                                         class="font-medium text-black dark:text-white"
                                     >
-                                        Henry Dholi
+                                        {{ selectedUser?.name }}
                                     </h5>
                                     <p class="text-sm font-medium">
                                         Reply to message
@@ -331,119 +351,53 @@ const pageTitle = ref("Messages");
                         <div
                             class="max-h-full space-y-3.5 overflow-auto px-6 py-7.5"
                         >
-                            <div class="max-w-125">
-                                <p class="mb-2.5 text-sm font-medium">
-                                    Andri Thomas
-                                </p>
+
+                            <div v-for="message in messages" :key="message.id">
+                                <!-- Message from another user -->
                                 <div
-                                    class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2"
+                                    v-if="message.user_id !== currentUserId"
+                                    class="max-w-125"
                                 >
-                                    <p class="font-medium">
-                                        I want to make an appointment tomorrow
-                                        from 2:00 to 5:00pm?
+                                    <div
+                                        class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2"
+                                    >
+                                        <!-- Optional, display sender info -->
+                                        <p class="font-medium">
+                                            {{ message.message }}
+                                        </p>
+                                    </div>
+                                    <p class="text-xs font-medium">
+                                        {{  formatDate(message.created_at) }}
                                     </p>
+                                    <!-- Display the message time -->
                                 </div>
-                                <p class="text-xs font-medium">1:55pm</p>
-                            </div>
-                            <div class="ml-auto max-w-125">
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5"
-                                >
-                                    <p class="font-medium text-white">
-                                        Hello, Thomas! I will check the schedule
-                                        and inform you
+
+                                <!-- Message sent by the current user -->
+                                <div v-else class="ml-auto max-w-125">
+                                    <div
+                                        class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5"
+                                    >
+                                        <p class="font-medium text-white">
+                                            {{ message.message }}
+                                        </p>
+                                    </div>
+                                    <p class="text-right text-xs font-medium">
+                                        {{  formatDate(message.created_at) }}
                                     </p>
+                                    <!-- Display the message time -->
                                 </div>
-                                <p class="text-right text-xs font-medium">
-                                    1:55pm
-                                </p>
-                            </div>
-                            <div class="max-w-125">
-                                <p class="mb-2.5 text-sm font-medium">
-                                    Andri Thomas
-                                </p>
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2"
-                                >
-                                    <p class="font-medium">
-                                        Ok, Thanks for your reply.
-                                    </p>
-                                </div>
-                                <p class="text-xs font-medium">1:55pm</p>
-                            </div>
-                            <div class="ml-auto max-w-125">
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5"
-                                >
-                                    <p class="font-medium text-white">
-                                        You are welcome!
-                                    </p>
-                                </div>
-                                <p class="text-right text-xs font-medium">
-                                    1:55pm
-                                </p>
-                            </div>
-                            <div class="max-w-125">
-                                <p class="mb-2.5 text-sm font-medium">
-                                    Andri Thomas
-                                </p>
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2"
-                                >
-                                    <p class="font-medium">
-                                        I want to make an appointment tomorrow
-                                        from 2:00 to 5:00pm?
-                                    </p>
-                                </div>
-                                <p class="text-xs font-medium">1:55pm</p>
-                            </div>
-                            <div class="ml-auto max-w-125">
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5"
-                                >
-                                    <p class="font-medium text-white">
-                                        Hello, Thomas! I will check the schedule
-                                        and inform you
-                                    </p>
-                                </div>
-                                <p class="text-right text-xs font-medium">
-                                    1:55pm
-                                </p>
-                            </div>
-                            <div class="max-w-125">
-                                <p class="mb-2.5 text-sm font-medium">
-                                    Andri Thomas
-                                </p>
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2"
-                                >
-                                    <p class="font-medium">
-                                        Ok, Thanks for your reply.
-                                    </p>
-                                </div>
-                                <p class="text-xs font-medium">1:55pm</p>
-                            </div>
-                            <div class="ml-auto max-w-125">
-                                <div
-                                    class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5"
-                                >
-                                    <p class="font-medium text-white">
-                                        You are welcome!
-                                    </p>
-                                </div>
-                                <p class="text-right text-xs font-medium">
-                                    1:55pm
-                                </p>
                             </div>
                         </div>
                         <div
                             class="sticky bottom-0 border-t border-stroke bg-white py-5 px-6 dark:border-strokedark dark:bg-boxdark"
                         >
                             <form
+                                @submit.prevent="sendMessage"
                                 class="flex items-center justify-between space-x-4.5"
                             >
                                 <div class="relative w-full">
                                     <input
+                                        v-model="newMessage"
                                         type="text"
                                         placeholder="Type something here"
                                         class="h-13 w-full rounded-md border border-stroke bg-gray pl-5 pr-19 font-medium text-black placeholder-body outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark-2 dark:text-white"
@@ -496,7 +450,9 @@ const pageTitle = ref("Messages");
                                     </div>
                                 </div>
                                 <button
+                                    type="submit"
                                     class="flex h-13 w-full max-w-13 items-center justify-center rounded-md bg-primary text-white hover:bg-opacity-90"
+                                 
                                 >
                                     <svg
                                         width="24"

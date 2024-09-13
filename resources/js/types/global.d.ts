@@ -2,6 +2,7 @@ import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { AxiosInstance } from 'axios';
 import { route as ziggyRoute } from 'ziggy-js';
 import { PageProps as AppPageProps } from './';
+import Echo from 'laravel-echo';
 
 declare global {
     interface Window {
@@ -19,4 +20,11 @@ declare module 'vue' {
 
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps, AppPageProps {}
+}
+
+declare global {
+    interface Window {
+        Echo: Echo;
+        Pusher: any; // Also declare Pusher if you're using it
+    }
 }

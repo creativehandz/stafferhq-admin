@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\ChatController;
 use Inertia\Inertia;
 
 //Redirect to welcome page when logout
@@ -67,9 +68,6 @@ Route::get('/talent', function () {
     return Inertia::render('Talent');
 })->name('talent');
 
-Route::get('/messages', function () {
-    return Inertia::render('Messages');
-})->name('messages');
 
 Route::get('/discover', function () {
     return Inertia::render('Discover');
@@ -177,6 +175,9 @@ Route::get('/applicants', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');
 
+// Route::get('/messages', function () {
+//     return Inertia::render('Messages');
+// })->name('messages');
 
 
 //Routes for Talent end
@@ -210,6 +211,15 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/find-work/{id}/submit-proposal', [ProposalController::class, 'submit'])->name('proposals.submit');
+
+
+    // Route for fetching messages
+    Route::get('/messages/{receiver}', [ChatController::class, 'fetchMessages'])->name('messages.fetch');
+
+    Route::get('/messages', [ChatController::class, 'fetchUsers'])->name('messages.users');
+
+    // // Route for sending messages
+    Route::post('/messages', [ChatController::class, 'sendMessage'])->name('messages.send');
 });
 
 

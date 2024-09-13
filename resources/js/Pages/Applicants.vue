@@ -11,7 +11,7 @@ const pageTitle = ref("Create Laravel Dashboard");
 const activeTab = ref("viewJobPost");
 const activeInviteFreeTab = ref("search");
 const activeReviewProposalTab = ref("allProposals");
-const activeHireTab = ref("others");
+const activeHireTab = ref("offers");
 </script>
 
 <template>
@@ -1119,9 +1119,9 @@ const activeHireTab = ref("others");
                             >
                                 <!-- Tab Buttons -->
                                 <button
-                                    @click="activeHireTab = 'others'"
+                                    @click="activeHireTab = 'offers'"
                                     :class="[
-                                        activeHireTab === 'others'
+                                        activeHireTab === 'offers'
                                             ? 'text-primary border-primary border-b-2'
                                             : 'text-gray-500 border-transparent',
                                         'py-4 text-sm font-medium hover:text-primary md:text-base',
@@ -1144,7 +1144,7 @@ const activeHireTab = ref("others");
 
                             <!-- Tab Contents -->
                             <div
-                                v-if="activeHireTab === 'others'"
+                                v-if="activeHireTab === 'offers'"
                                 class="font-medium leading-relaxed"
                             >
                                 <NotFound></NotFound>
@@ -1287,7 +1287,7 @@ const activeHireTab = ref("others");
             </div>
         </div>
 
-        <div
+        <div v-if="activeTab === 'viewJobPost'"
             class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-5"
         >
             <div
@@ -1760,7 +1760,7 @@ const activeHireTab = ref("others");
             </div>
         </div>
 
-        <div
+        <div  v-if="activeTab === 'viewJobPost'"
             class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-5"
         >
         <div
