@@ -26,6 +26,7 @@ import { ref } from "vue";
 
 const pageTitle = ref("Post A Job");
 
+
 const form = useForm({
     title: "",
     project_type: "",
@@ -34,6 +35,18 @@ const form = useForm({
     experience_level: "",
     budget_type: "",
     budget: "",
+    email: "",
+    hourlyRate: "",
+    salaryType: "",
+    minSalary: "",
+    maxSalary: "",    
+    experience: "",
+    careerLevel: "",
+    qualification: "",
+    deadline: "",
+    location: "",
+    address: "",
+    // today: new Date().toISOString().split('T')[0],
     description: "",
     attachment: null,
     fileInputRef: ref(null),
@@ -91,6 +104,8 @@ const submit = () => {
         },
     });
 };
+
+
 </script>
 
 <template>
@@ -101,7 +116,7 @@ const submit = () => {
             <h2
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
             >
-                Post A Job
+                Post Job
             </h2>
         </template>
 
@@ -113,16 +128,270 @@ const submit = () => {
            
         </div> -->
 
-        <div class="">
+        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div class="mx-auto max-w-screen-2xl">
                 <!-- ====== Form Elements Section Start -->
-                <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+                <div class="grid grid-cols-1 gap-9 ">
                     <div class="flex flex-col gap-9">
                         <!-- Input Fields Start -->
-                        <DefaultCard cardTitle="Post A Job">
+                        <DefaultCard cardTitle="Post Job">
                             <form @submit.prevent="submit">
                                 <div class="flex flex-col gap-5 p-6">
+
+                            
+                                    <!-- Featured image -->
+                                    <div class="mb-5">
+                                        <label
+                                            class="mb-3 block text-sm font-medium text-black dark:text-white "
+                                        >
+                                            Featured Image
+                                        </label>
+                                        <input
+                                            type="file" @change="form.onFileChange" accept="image/*" 
+                                            
+                                            class="flex w-full cursor-pointer border border-primary bg-primary p-3 font-medium text-white transition hover:bg-opacity-90"       
+                                        />
+                                        <!-- Display the selected image preview -->
+                                         
+                                        <!-- <div v-if="image">
+                                        <h3>Preview:</h3>
+                                        <img :src="image" alt="Selected Image" width="300">
+                                        </div> -->
+                                    </div>
+
+                                    <!-- Job Title -->
                                     <div>
+                                        <label
+                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        >
+                                            Job Title
+                                        </label>
+                                        <input
+                                            type="text"
+                                            v-model="form.title"
+                                            placeholder="Enter Job Title"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <!-- Job Description -->
+                                    <div>
+                                        <label
+                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        >
+                                            Job Description
+                                        </label>
+                                        <textarea
+                                            rows="6"
+                                            placeholder="Enter Job Description"
+                                            v-model="form.description"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        ></textarea>
+                                    </div>
+
+                                    <!-- cateogry | type -->
+                                    <SelectJobCategory v-model="form.category"/>
+                                    <label
+                                        class="block text-sm font-medium text-black dark:text-white"
+                                    >
+                                        Type
+                                    </label>
+
+                                        <select  class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                        <option class="text-body dark:text-bodydark">Full Time</option>
+                                        <option class="text-body dark:text-bodydark">Part Time</option>                                        
+                                    </select>
+                                    <!-- tag | gender -->
+                                    <label
+                                        class="block text-sm font-medium text-black dark:text-white"
+                                    >
+                                        Tag
+                                    </label>
+
+                                    <multiselect
+                                        v-model="form.skills"
+                                        :options="availableSkills"
+                                        :multiple="true"
+                                        :close-on-select="false"
+                                        :taggable="true"
+                                        :allow-duplicate="false"
+                                        tag-placeholder="Add this as a new skill"
+                                        placeholder="Select or add your skills"
+                                        label="name"
+                                        track-by="name"
+                                        @tag="addCustomSkill"
+                                        class="mb-4"
+                                    >
+                                    </multiselect>
+                                    <label
+                                        class="block text-sm font-medium text-black dark:text-white"
+                                    >
+                                        Gender
+                                    </label>
+
+                                        <select  class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                        <option class="text-body dark:text-bodydark">Male</option>
+                                        <option class="text-body dark:text-bodydark">Female</option>                                        
+                                    </select>
+
+
+                                    <!-- Job Apply Email -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Job Apply Email</label>
+                                        <input
+                                            type="email"
+                                            v-model="form.email"
+                                            placeholder="Enter Apply Email"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            required
+                                        />
+                                        </div>
+
+
+                                        <!-- Salary Type and Range -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Salary Type</label>
+                                        <select v-model="form.salaryType" class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                            <option value="hourly">Hourly</option>
+                                            <option value="fixed">Fixed</option>
+                                        </select>
+                                        </div>
+
+                                        <!-- Hourly Range (Conditional) -->
+                                        <div v-if="form.salaryType === 'hourly'">
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Hourly Rate</label>
+                                        <input
+                                            type="range"
+                                            v-model="form.hourlyRate"
+                                            min="10"
+                                            max="20"
+                                            class="w-full"
+                                        />
+                                        <span>{{ form.hourlyRate }} $/hour</span>
+                                        </div>
+
+                                        <!-- Fixed Salary (Conditional) -->
+                                        <div v-if="form.salaryType === 'fixed'">
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Min Salary</label>
+                                        <input
+                                            type="number"
+                                            v-model="form.minSalary"
+                                            placeholder="Min Salary"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        />
+
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Max Salary</label>
+                                        <input
+                                            type="number"
+                                            v-model="form.maxSalary"
+                                            placeholder="Max Salary"
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        />
+                                        </div>
+
+                                        <!-- Experience -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Experience</label>
+                                        <select v-model="form.experience" class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                            <option value="1">1 Year</option>
+                                            <option value="2">2 Years</option>
+                                            <option value="3">3 Years</option>
+                                            <option value="4">4 Years</option>
+                                        </select>
+                                        </div>
+
+                                        <!-- Career Level -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Career Level</label>
+                                        <select v-model="form.careerLevel" class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                            <option value="manager">Manager</option>
+                                            <option value="officer">Officer</option>
+                                            <option value="executive">Executive</option>
+                                            <option value="student">Student</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        </div>
+                                
+
+                                        <!-- Qualification -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Qualification</label>
+                                        <select v-model="form.qualification" class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                                            <option value="associate">Associate Degree</option>
+                                            <option value="bachelor">Bachelor's Degree</option>
+                                            <option value="master">Master's Degree</option>
+                                            <option value="doctorate">Doctorate Degree</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        </div>
+
+
+                                        <!-- Application Deadline Date -->
+                                        <div>
+                                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Application Deadline</label>
+                                        <input
+                                            type="date"
+                                            v-model="form.deadline"
+                                            
+                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                        />
+                                        <!-- :value="today" -->
+                                        </div>
+
+
+                                    <!-- Qualification | Intro video URL -->
+                                    <!-- Photo, with browse option --> 
+                                    <!-- application deadline date -->
+                                    <!-- friendly address -->
+                                    <!-- Location -->
+                                    <!-- maps location-->
+                                    <!-- map  -->
+                                     <!-- Friendly Address -->
+                                    <div>
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Friendly Address</label>
+                                    <input
+                                        type="text"
+                                        v-model="form.address"
+                                        placeholder="Enter Friendly Address"
+                                        class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                    />
+                                    </div>
+
+                                    <!-- Location (Coordinates) -->
+                                    <div>
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Location (Lat, Lng)</label>
+                                    <input
+                                        type="text"
+                                        v-model="form.location"
+                                        placeholder="Enter Location (Lat, Lng)"
+                                        class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                    />
+                                    </div>
+
+                                    <!-- latitude, longitude -->
+                                    <!-- logo image, browse -->
+
+                                    <!-- Logo Image Upload -->
+                                    <div class="mb-5">
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Company Logo</label>
+                                    <input
+                                        type="file"
+                                        @change="form.onLogoChange"
+                                        accept="image/*"
+                                        class="flex w-full cursor-pointer border border-primary bg-primary p-3 font-medium text-white transition hover:bg-opacity-90"
+                                    />
+                                    <!-- Display the selected logo preview -->
+                                    <div v-if="logo">
+                                        <h3>Logo Preview:</h3>
+                                        <img :src="logo" alt="Selected Logo" width="150">
+                                    </div>
+                                    </div>
+
+                                    <!-- Button, save and preview -->
+                                    
+
+
+                                    <!-- <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
                                         >
@@ -156,28 +425,11 @@ const submit = () => {
                                                 Hours/week or 3 months
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <label
-                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Write A Title For Your Job Post
-                                        </label>
-                                        <input
-                                            type="text"
-                                            v-model="form.title"
-                                            placeholder="Enter Job Title"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        />
-                                    </div>
-
-                                    <SelectJobCategory
-                                        v-model="form.category"
-                                    />
-
+                                    </div> -->
+                         
                                     <!-- <MultiSelectTwo v-model="form.skills" /> -->
 
-                                    <label
+                                    <!-- <label
                                         class="block text-sm font-medium text-black dark:text-white"
                                     >
                                         Skills
@@ -197,9 +449,9 @@ const submit = () => {
                                         @tag="addCustomSkill"
                                         class="mb-4"
                                     >
-                                    </multiselect>
+                                    </multiselect> -->
 
-                                    <div>
+                                    <!-- <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
                                         >
@@ -255,10 +507,10 @@ const submit = () => {
                                                 in this field
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <SelectBudget v-model="form.budget_type" />
-                                    <div>
+                                    <!-- <SelectBudget v-model="form.budget_type" /> -->
+                                    <!-- <div>
                                         <label
                                             class="mb-3 block text-sm font-medium text-black dark:text-white"
                                         >
@@ -270,21 +522,7 @@ const submit = () => {
                                             v-model="form.budget"
                                             class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                                         />
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            class="mb-3 block text-sm font-medium text-black dark:text-white"
-                                        >
-                                            Describe What You Need
-                                        </label>
-                                        <textarea
-                                            rows="6"
-                                            placeholder="Enter Job Description"
-                                            v-model="form.description"
-                                            class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                        ></textarea>
-                                    </div>
+                                    </div>                                     -->
 
                                     <div>
                                         <label
