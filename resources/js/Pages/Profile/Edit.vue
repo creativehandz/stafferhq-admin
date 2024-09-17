@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DeleteUserForm from "./Partials/DeleteUserForm.vue";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import { Link } from "@inertiajs/vue3";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -19,11 +19,14 @@ defineProps<{
     status?: string;
 }>();
 
+const user = usePage().props.auth.user;
+
+
 const pageTitle = "Edit Profile";
 
 const form = useForm({
-    name: "",
-    email: "",
+    name: user.name,
+    email: user.email,
     phone: "",
     website: "",
     foundedDate: "",
@@ -90,11 +93,10 @@ const handleProfPhotoUpload = (event: Event) => {
         </template>
 
         <BreadcrumbDefault :pageTitle="pageTitle" />
-
-        <div
-            class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
-        >
-            <form>
+        <form class="space-y-6">
+            <div
+                class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+            >
                 <div class="relative z-20 h-35 md:h-65">
                     <img
                         src="../../../img/cover/cover-01.png"
@@ -185,147 +187,169 @@ const handleProfPhotoUpload = (event: Event) => {
                         </div>
                     </div>
                 </div>
+                <div class="md:flex">
+                    <div class="space-y-6 p-4 sm:p-8 w-full">
+                        <div>
+                            <InputLabel for="name" value="Employer Name" />
 
-                <div class="space-y-6 p-4 sm:p-8 max-w-xl">
-                    <div>
-                        <InputLabel for="name" value="Employer Name" />
+                            <TextInput
+                                id="name"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.name"
+                                required
+                                autofocus
+                                autocomplete="name"
+                            />
 
-                        <TextInput
-                            id="name"
-                            type="text"
-                            class="mt-1 block w-full"
-                            v-model="form.name"
-                            required
-                            autofocus
-                            autocomplete="name"
-                        />
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.name"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel for="phone" value="Phone" />
 
-                        <InputError class="mt-2" :message="form.errors.name" />
+                            <TextInput
+                                id="phone"
+                                type="tel"
+                                class="mt-1 block w-full"
+                                v-model="form.phone"
+                                required
+                                autocomplete="phone"
+                            />
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.phone"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel
+                                for="foundedDate"
+                                value="Founded Date"
+                            />
+
+                            <TextInput
+                                id="foundedDate"
+                                type="date"
+                                class="mt-1 block w-full"
+                                v-model="form.foundedDate"
+                                required
+                                autocomplete="url"
+                            />
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.foundedDate"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel for="Categories" value="Categories" />
+
+                            <multiselect
+                                v-model="form.categories"
+                                :options="availableCategories"
+                                :multiple="true"
+                                :close-on-select="false"
+                                :taggable="true"
+                                :allow-duplicate="false"
+                                tag-placeholder="Add this as a new category"
+                                placeholder="Select or add your category"
+                                label="name"
+                                track-by="name"
+                                @tag="addCustomCategories"
+                                class="mt-1"
+                            >
+                            </multiselect>
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.categories"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <InputLabel for="email" value="Email" />
+                    <div class="space-y-6 p-4 sm:p-8 w-full">
+                        <div>
+                            <InputLabel for="email" value="Email" />
 
-                        <TextInput
-                            id="email"
-                            type="email"
-                            class="mt-1 block w-full"
-                            v-model="form.email"
-                            required
-                            autocomplete="username"
-                        />
+                            <TextInput
+                                id="email"
+                                type="email"
+                                class="mt-1 block w-full"
+                                v-model="form.email"
+                                required
+                                autocomplete="username"
+                            />
 
-                        <InputError class="mt-2" :message="form.errors.email" />
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.email"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel for="website" value="Website" />
+
+                            <TextInput
+                                id="website"
+                                type="url"
+                                class="mt-1 block w-full"
+                                v-model="form.website"
+                                required
+                                autocomplete="url"
+                            />
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.website"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel
+                                for="companySize"
+                                value="Company Size"
+                            />
+
+                            <TextInput
+                                id="companySize"
+                                type="number"
+                                class="mt-1 block w-full"
+                                v-model="form.companySize"
+                                required
+                                autocomplete="url"
+                                min="1"
+                            />
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.companySize"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel
+                                for="introVideoUrl"
+                                value="Introduction Video Url"
+                            />
+
+                            <TextInput
+                                id="IntroVideoUrl"
+                                type="url"
+                                class="mt-1 block w-full"
+                                v-model="form.introVideoUrl"
+                                required
+                                autocomplete="url"
+                            />
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.introVideoUrl"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <InputLabel for="phone" value="Phone" />
+                </div>
 
-                        <TextInput
-                            id="phone"
-                            type="tel"
-                            class="mt-1 block w-full"
-                            v-model="form.phone"
-                            required
-                            autocomplete="phone"
-                        />
-
-                        <InputError class="mt-2" :message="form.errors.phone" />
-                    </div>
-                    <div>
-                        <InputLabel for="website" value="Website" />
-
-                        <TextInput
-                            id="website"
-                            type="url"
-                            class="mt-1 block w-full"
-                            v-model="form.website"
-                            required
-                            autocomplete="url"
-                        />
-
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.website"
-                        />
-                    </div>
-                    <div>
-                        <InputLabel for="foundedDate" value="Founded Date" />
-
-                        <TextInput
-                            id="foundedDate"
-                            type="date"
-                            class="mt-1 block w-full"
-                            v-model="form.foundedDate"
-                            required
-                            autocomplete="url"
-                        />
-
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.foundedDate"
-                        />
-                    </div>
-                    <div>
-                        <InputLabel for="companySize" value="Company Size" />
-
-                        <TextInput
-                            id="companySize"
-                            type="number"
-                            class="mt-1 block w-full"
-                            v-model="form.companySize"
-                            required
-                            autocomplete="url"
-                            min="1"
-                        />
-
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.companySize"
-                        />
-                    </div>
-                    <div>
-                        <InputLabel for="Categories" value="Categories" />
-
-                        <multiselect
-                                        v-model="form.categories"
-                                        :options="availableCategories"
-                                        :multiple="true"
-                                        :close-on-select="false"
-                                        :taggable="true"
-                                        :allow-duplicate="false"
-                                        tag-placeholder="Add this as a new category"
-                                        placeholder="Select or add your category"
-                                        label="name"
-                                        track-by="name"
-                                        @tag="addCustomCategories"
-                                        class="mt-1"
-                                    >
-                                    </multiselect>
-
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.categories"
-                        />
-                    </div>
-                    <div>
-                        <InputLabel
-                            for="introVideoUrl"
-                            value="Introduction Video Url"
-                        />
-
-                        <TextInput
-                            id="IntroVideoUrl"
-                            type="url"
-                            class="mt-1 block w-full"
-                            v-model="form.introVideoUrl"
-                            required
-                            autocomplete="url"
-                        />
-
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.introVideoUrl"
-                        />
-                    </div>
+                <div class="space-y-6 p-4 sm:p-8 w-full">
                     <div>
                         <InputLabel for="profileUrl" value="Profile Url" />
 
@@ -361,14 +385,16 @@ const handleProfPhotoUpload = (event: Event) => {
                             :message="form.errors.aboutCompany"
                         />
                     </div>
+                </div>
+            </div>
 
-                    <div>
-                        <InputLabel
-                            for="profilePhotos"
-                            value="Profile Photos"
-                        />
+            <div
+                class="p-4 sm:p-8 bg-white dark:bg-boxdark shadow sm:rounded-lg"
+            >
+                <div>
+                    <InputLabel for="profilePhotos" value="Profile Photos" />
 
-                        <!-- <TextInput
+                    <!-- <TextInput
                             id="ProfilePhotos"
                             type="url"
                             class="mt-1 block w-full"
@@ -376,73 +402,85 @@ const handleProfPhotoUpload = (event: Event) => {
                             required
                             autocomplete="url"
                         /> -->
-                        <input
-                            type="file"
-                            @change="handleProfPhotoUpload($event)"
-                            class="mt-1 w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
-                        />
+                    <input
+                        type="file"
+                        @change="handleProfPhotoUpload($event)"
+                        class="mt-1 w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                    />
 
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.profilePhotos"
-                        />
-                    </div>
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.profilePhotos"
+                    />
+                </div>
+            </div>
 
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4">
-                            Social Media Links
-                        </h2>
+            <div
+                class="p-4 sm:p-8 bg-white dark:bg-boxdark shadow sm:rounded-lg"
+            >
+                <div>
+                    <h2 class="text-xl font-semibold mb-4">
+                        Social Media Links
+                    </h2>
 
-                        <div
-                            v-for="(link, index) in form.socialLinks"
-                            :key="index"
-                            class="space-y-4"
-                        >
-                            <div class="flex items-center space-x-4">
-                                <div class="flex-1">
-                                    <label
-                                        class="mb-1 block text-sm font-medium text-black dark:text-white"
-                                    >
-                                        Platform
-                                    </label>
-                                    <input
-                                        type="text"
-                                        v-model="link.platform"
-                                        placeholder="Platform"
-                                        class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                    />
-                                </div>
-                                <div class="flex-1">
-                                    <label
-                                        class="mb-1 block text-sm font-medium text-black dark:text-white"
-                                    >
-                                        URL
-                                    </label>
-                                    <input
-                                        type="text"
-                                        v-model="link.url"
-                                        placeholder="URL"
-                                        class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                                    />
-                                </div>
-                                <button
-                                    type="button"
-                                    @click="removeSocialLink(index)"
-                                    class="text-red-500 mt-6"
+                    <div
+                        v-for="(link, index) in form.socialLinks"
+                        :key="index"
+                        class="space-y-4"
+                    >
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1">
+                                <label
+                                    class="mb-1 block text-sm font-medium text-black dark:text-white"
                                 >
-                                    Remove
-                                </button>
+                                    Platform
+                                </label>
+                                <input
+                                    type="text"
+                                    v-model="link.platform"
+                                    placeholder="Platform"
+                                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                />
                             </div>
+                            <div class="flex-1">
+                                <label
+                                    class="mb-1 block text-sm font-medium text-black dark:text-white"
+                                >
+                                    URL
+                                </label>
+                                <input
+                                    type="text"
+                                    v-model="link.url"
+                                    placeholder="URL"
+                                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-2 px-4 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-white dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                @click="removeSocialLink(index)"
+                                class="text-red-500 mt-6"
+                            >
+                                Remove
+                            </button>
                         </div>
-                        <button
-                            type="button"
-                            @click="addSocialLink"
-                            class="mt-2 inline-block rounded bg-primary py-2 px-4 text-white"
-                        >
-                            Add Another Social Link
-                        </button>
                     </div>
+                    <button
+                        type="button"
+                        @click="addSocialLink"
+                        class="mt-2 inline-block rounded bg-primary py-2 px-4 text-white"
+                    >
+                        Add Another Social Link
+                    </button>
+                </div>
+            </div>
 
+            <div
+                class="p-4 sm:p-8 bg-white dark:bg-boxdark shadow sm:rounded-lg"
+            >
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold mb-4">
+                        Contact Information
+                    </h2>
                     <div>
                         <InputLabel for="location" value="Location" />
 
@@ -503,9 +541,9 @@ const handleProfPhotoUpload = (event: Event) => {
                         />
                     </div>
                 </div>
-                <div class="p-4 sm:p-8">
+                <div class="py-4 sm:py-8">
                     <PrimaryButton :disabled="form.processing"
-                        >Save</PrimaryButton
+                        >Update Profile</PrimaryButton
                     >
 
                     <Transition
@@ -522,8 +560,8 @@ const handleProfPhotoUpload = (event: Event) => {
                         </p>
                     </Transition>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">

@@ -28,12 +28,12 @@ class Job extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function proposals()
     {
-        return $this->hasMany(Proposal::class);
+        return $this->hasMany(Proposal::class,'job_id');
     }
 
 

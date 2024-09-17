@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\Skill;
+use App\Models\Proposal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +18,44 @@ class JobController extends Controller
     /**
      * Display a listing of the jobs for the authenticated user.
      */
-    public function index(): Response
-    {
-        $jobs = Job::select('id', 'title', 'description', 'created_at')->get();
+    // public function index(): Response
+    // {
+    //     $jobs = Job::select('id', 'title', 'description', 'created_at')->get();
         
-        return Inertia::render('AllJobPosts', [
-            'jobs' => $jobs
-        ]);
-    }
+    //     return Inertia::render('AllJobPosts', [
+    //         'jobs' => $jobs
+    //     ]);
+    // }
+
+    public function showTotalJobs(): Response
+{
+    // Get the authenticated user ID
+    $userId = Auth::id();
+    
+    // Fetch the jobs posted by the authenticated user
+    // $jobs = Job::where('user_id', $userId)
+    //     ->select('id', 'title', 'description', 'created_at')
+    //     ->get();
+
+    // Fetch the jobs posted by the authenticated user from 'jobs_table'
+    $jobs = Job::where('user_id', $userId)
+        ->select('id', 'title', 'description', 'created_at')
+        ->withCount('proposals') // Count the proposals for each job
+        ->get();
+
+    
+    // Count the total number of jobs posted by the user
+    $totalJobsPosted = Job::where('user_id', $userId)->count();
+
+    // Count the total number of proposals for all jobs posted by the user
+    $totalProposalsReceived = Proposal::whereIn('job_id', $jobs->pluck('id'))->count();
+
+
+    return Inertia::render('EmployerDashboard', [
+        'totalJobsPosted' => $totalJobsPosted, // Pass the count to the view
+        'totalProposalsReceived' => $totalProposalsReceived
+    ]);
+}
 
 
 /**

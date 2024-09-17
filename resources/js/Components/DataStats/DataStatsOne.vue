@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const info= defineProps<{
+    totalJobsPosted: number;
+    totalProposalsReceived: number;
+}>();
+
 const cardItems = ref([
   {
     icon: `<svg
@@ -14,7 +19,7 @@ const cardItems = ref([
           <path d="M19,6.5H16v-1a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v1H5a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3v-9A3,3,0,0,0,19,6.5Zm-9-1a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1v1H10Zm10,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V13.45H7V14.5a1,1,0,0,0,2,0V13.45h6V14.5a1,1,0,0,0,2,0V13.45h3Zm0-7H4V9.5a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Z"/>
         </svg>`,
     title: 'Posted Jobs',
-    total: '0',
+    total: info.totalJobsPosted,
     growthRate: 0.43
   },
   {
@@ -29,7 +34,7 @@ const cardItems = ref([
             <path fill-rule="evenodd" d="M15,3.41421356 L15,7 L18.5857864,7 L15,3.41421356 Z M19,9 L15,9 C13.8954305,9 13,8.1045695 13,7 L13,3 L5,3 L5,21 L19,21 L19,9 Z M5,1 L15.4142136,1 L21,6.58578644 L21,21 C21,22.1045695 20.1045695,23 19,23 L5,23 C3.8954305,23 3,22.1045695 3,21 L3,3 C3,1.8954305 3.8954305,1 5,1 Z"/>
           </svg>`,
     title: 'Application',
-    total: '0',
+    total: info.totalProposalsReceived,
     growthRate: 4.35
   },
   {
