@@ -7,6 +7,13 @@ import DataStatsOne from "@/Components/DataStats/DataStatsOne.vue";
 import ChartOne from "@/Components/Charts/ChartOne.vue";
 import ChatCard from "@/Components/ChatCard.vue";
 const pageTitle = ref("Applications Statistics");
+
+
+defineProps<{
+    totalJobsPosted: number;
+    totalProposalsReceived: number;
+}>();
+
 </script>
 
 <template>
@@ -27,7 +34,7 @@ const pageTitle = ref("Applications Statistics");
         <div
             class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5"
         >
-            <DataStatsOne />
+            <DataStatsOne :totalJobsPosted="totalJobsPosted" :totalProposalsReceived="totalProposalsReceived" />
         </div>
 
         <div

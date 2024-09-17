@@ -220,6 +220,9 @@ Route::middleware('auth')->group(function () {
 
     // // Route for sending messages
     Route::post('/messages', [ChatController::class, 'sendMessage'])->name('messages.send');
+
+    Route::get('/employer-dashboard', [JobController::class,'showTotalJobs'])->name('employer-dashboard');
+    
 });
 
 
