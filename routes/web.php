@@ -10,19 +10,19 @@ use App\Http\Controllers\ChatController;
 use Inertia\Inertia;
 
 //Redirect to welcome page when logout
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 // Redirect to login page when logout
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
 
 
 Route::get('/dashboard', function () {
