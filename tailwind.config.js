@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import animate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,7 +12,10 @@ export default {
     ],
 
     darkMode: 'class',
+    safelist: ["dark"],
+    prefix: "",
     theme: {
+      // This is Tailadmin theme starts here
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
@@ -61,8 +65,53 @@ export default {
               'meta-10': '#0FADCF',
               success: '#219653',
               danger: '#D34053',
-              warning: '#FFA70B'
+              warning: '#FFA70B',
+
+              // This is shadcn theme colors
+              border: "hsl(var(--border))",
+              input: "hsl(var(--input))",
+              ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+              destructive: {
+                DEFAULT: "hsl(var(--destructive))",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              accent: {
+                DEFAULT: "hsl(var(--accent))",
+                foreground: "hsl(var(--accent-foreground))",
+              },
+              popover: {
+                DEFAULT: "hsl(var(--popover))",
+                foreground: "hsl(var(--popover-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
+              // shadcn colors ends
             },
+            // shadcn code
+            borderRadius: {
+              xl: "calc(var(--radius) + 4px)",
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+            // shadcn code ends
+            
             fontSize: {
               'title-xxl': ['44px', '55px'],
               'title-xxl2': ['42px', '58px'],
@@ -300,7 +349,28 @@ export default {
               bottomtop: {
                 '0%, 100%': { transform: 'translate3d(0, 0, 0)' },
                 '50%': { transform: 'translate3d(0, -100%, 0)' }
-              }
+              },
+
+              // This is tailadmin theme ends here
+
+              // This is shadcn theme
+"accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+        "collapsible-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-collapsible-content-height)" },
+        },
+        "collapsible-up": {
+          from: { height: "var(--radix-collapsible-content-height)" },
+          to: { height: 0 },
+        },
+              // shadcn keyframes ends
             },
             animation: {
               linspin: 'linspin 1568.2353ms linear infinite',
@@ -313,10 +383,28 @@ export default {
               bottomtop: 'bottomtop 60s infinite alternate linear',
               'spin-1.5': 'spin 1.5s linear infinite',
               'spin-2': 'spin 2s linear infinite',
-              'spin-3': 'spin 3s linear infinite'
+              'spin-3': 'spin 3s linear infinite',
+
+              // This is shadcn theme animation
+              "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "collapsible-down": "collapsible-down 0.2s ease-in-out",
+        "collapsible-up": "collapsible-up 0.2s ease-in-out",
             }
-          }      
+          },     
+          // This is tailadmin theme ends here 
+
+          // This is shadcn theme
+          container: {
+            center: true,
+            padding: "2rem",
+            screens: {
+              "2xl": "1400px",
+            },
+          },
+          // This is shadcn theme ends here
+          
     },
 
-    plugins: [forms],
+    plugins: [forms, animate],
 };
