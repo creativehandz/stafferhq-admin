@@ -24,6 +24,7 @@
     "dependencies": {
         "@vueuse/core": "^10.11.0",
         "apexcharts": "^3.53.0",
+        "daisyui": "^4.12.10",
         "date-fns": "^3.6.0",
         "flatpickr": "^4.6.13",
         "pinia": "^2.2.1",
