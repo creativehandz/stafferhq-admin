@@ -33,7 +33,7 @@ function handleImageError() {
 <template>
     <Head title="Welcome" />
     <div class="bg-white text-black dark:bg-black-2 dark:text-white">
-        <Navbar />
+        <Navbar :can-login="canLogin" :can-register="canRegister" />
         <Hero />
         <Sponsors />
         <Benefits />
