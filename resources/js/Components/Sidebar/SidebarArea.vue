@@ -438,14 +438,11 @@ if (userRole === 0) {
         //     ],
         // },
         {
-            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.035,18.069a7.981,7.981,0,0,0,3.938-1.035l3.332,3.332a2.164,2.164,0,0,0,3.061-3.061l-3.332-3.332A8.032,8.032,0,0,0,4.354,4.354a8.034,8.034,0,0,0,5.681,13.715ZM5.768,5.768A6.033,6.033,0,1,1,4,10.035,5.989,5.989,0,0,1,5.768,5.768Z"/></svg>`,
-            label: "Find Work",
-            route: "#",
-            children: [
-                { label: "Find Work", route: "find-work" },
-                { label: "Proposals and Offer", route: "proposals-and-offer" },
-                { label: "Your Service", route: "your-service" },
-            ],
+            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8.35078106,18 L3.62469505,21.7808688 C2.9699317,22.3046795 2,21.8385062 2,21 L2,5 C2,3.34314575 3.34314575,2 5,2 L19,2 C20.6568542,2 22,3.34314575 22,5 L22,15 C22,16.6568542 20.6568542,18 19,18 L8.35078106,18 Z M4,18.9193752 L7.37530495,16.2191312 C7.552618,16.0772808 7.7729285,16 8,16 L19,16 C19.5522847,16 20,15.5522847 20,15 L20,5 C20,4.44771525 19.5522847,4 19,4 L5,4 C4.44771525,4 4,4.44771525 4,5 L4,18.9193752 Z"/>
+</svg>`,
+            label: "Dashboard",
+            route: "/dashboard",
         },
 
         // {
@@ -524,15 +521,7 @@ if (userRole === 0) {
                 { label: "Top keywords", route: "", },
                 { label: "Keyword resarch", route: "", }
             ],
-        },
-
-        {
-            icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8.35078106,18 L3.62469505,21.7808688 C2.9699317,22.3046795 2,21.8385062 2,21 L2,5 C2,3.34314575 3.34314575,2 5,2 L19,2 C20.6568542,2 22,3.34314575 22,5 L22,15 C22,16.6568542 20.6568542,18 19,18 L8.35078106,18 Z M4,18.9193752 L7.37530495,16.2191312 C7.552618,16.0772808 7.7729285,16 8,16 L19,16 C19.5522847,16 20,15.5522847 20,15 L20,5 C20,4.44771525 19.5522847,4 19,4 L5,4 C4.44771525,4 4,4.44771525 4,5 L4,18.9193752 Z"/>
-</svg>`,
-            label: "Messages",
-            route: "messages",
-        },
+        },        
     ];
 }
 </script>
@@ -586,27 +575,51 @@ if (userRole === 0) {
             <!-- Sidebar Menu -->
             <nav class="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
                 <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
-                  <div
-                        class="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark py-6 px-4  shadow-default"
-                      >                                              
-                        <div class="avatar online">
-                        <div class="w-20 rounded-full">
-                          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                        </div>
-                      </div>
-                      <div class="avatar offline">
-                        <div class="w-20 rounded-full">
-                          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                        </div>
-                      </div>
+                  <!-- Card Starts -->
+                      <div class="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark py-6 px-4  shadow-default">                                              
+                        <!-- Profile Picture -->
+                         <div class="flex justify-between items-center">
+                           <span>
+                            <img src="https://www.svgrepo.com/show/497407/profile-circle.svg" alt="Profile Picture" class="w-16 h-16 rounded-full bg-white">
+                           </span>
+                            
+                            <!-- User Information -->
+                            <span>
+                              <div class="ml-4">
+                                <h3 class="text-xl font-bold text-white">Username</h3>                                
+                            </div> 
+                            </span>
+                          </div>  <br>                   
+                          <div class="flex justify-between">
+                            <span><p class="text-gray-500">My level</p></span>
+                            <span><p class="text-gray-800 font-semibold">New seller</p></span>
+                            
+                          </div>
+                        <!-- Statistics Section -->
+                            <div class="mt-4 space-y-2">
+                                <hr/><div class="flex justify-between text-gray-500">
+                                    <span>Success score</span>
+                                    <span>-</span>
+                                </div>
 
-                        <h3 class="mb-4 ml-4 font-semibold text-white">Username</h3><hr/>
-                        <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Success score</h3>
-                        <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Rating</h3>
-                        <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">Response rate</h3>
-                        
+                                <div class="flex justify-between text-gray-500">
+                                    <span>Rating</span>
+                                    <span>
+                                        <svg class="w-5 h-5 text-yellow-500 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 8.12l-3.86 3.87.91 5.27L12 15.89l-4.95 2.36.91-5.27L4 8.12l5.61-.88L12 2z"/></svg>
+                                        -
+                                    </span>
+                                </div>
+
+                                <div class="flex justify-between text-gray-500">
+                                    <span>Response rate</span>
+                                    <span>-</span>
+                                </div><br/>
+                            </div>
+
+                            <!-- Button -->
+                                                    
                         <a
-                          href="https://tailadmin.com/pricing"
+                          href=""
                           target="_blank"
                           rel="nofollow"
                           class="flex items-center justify-center rounded-md bg-primary p-2 font-medium text-white hover:bg-opacity-90"
@@ -614,6 +627,7 @@ if (userRole === 0) {
                           Go to level overview
                         </a>
                       </div>
+                      <!-- Card ends -->
                     <div>
                         <h3
                             class="mb-4 ml-4 text-sm font-medium text-bodydark2"
