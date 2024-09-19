@@ -28,3 +28,6 @@ declare global {
         Pusher: any; // Also declare Pusher if you're using it
     }
 }
+
+declare module "radix-vue";
+declare module 'lucide-vue-next';

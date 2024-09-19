@@ -5,6 +5,16 @@
         "dev": "vite",
         "build": "vue-tsc && vite build"
     },
+    "keywords": [
+        "vue",
+        "typescript",
+        "shadcn",
+        "shadcn/vue",
+        "tailwind",
+        "landing-page",
+        "template",
+        "responsive-design"
+    ],
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
@@ -22,14 +32,20 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "@selemondev/vue3-marquee": "^0.0.8",
         "@vueuse/core": "^10.11.0",
         "apexcharts": "^3.53.0",
-        "daisyui": "^4.12.10",
+        "class-variance-authority": "^0.7.0",
         "date-fns": "^3.6.0",
+        "embla-carousel-vue": "^8.3.0",
         "flatpickr": "^4.6.13",
+        "lucide-vue-next": "^0.441.0",
         "pinia": "^2.2.1",
+        "radix-vue": "^1.9.5",
         "slick-carousel": "^1.8.1",
         "swiper": "^11.1.9",
+        "tailwind-merge": "^2.5.2",
+        "tailwindcss-animate": "^1.0.7",
         "vue-multiselect": "^3.0.0",
         "vue-router": "^4.4.3",
         "vue-slick-carousel": "^1.0.5",
