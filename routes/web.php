@@ -104,9 +104,9 @@ Route::get('/proposals-and-offer', function () {
     return Inertia::render('Talent/ProposalsAndOffer');
 })->name('proposals-and-offer');
 
-Route::get('/your-active-contracts', function () {
+Route::get('/manage-orders', function () {
     return Inertia::render('Talent/YourActiveContracts');
-})->name('your-active-contracts');
+})->name('manage-orders');
 
 Route::get('/contract-history', function () {
     return Inertia::render('Talent/ContractHistory');

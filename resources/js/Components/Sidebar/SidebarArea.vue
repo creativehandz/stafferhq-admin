@@ -468,7 +468,7 @@ if (userRole === 0) {
             children: [
                 {
                     label: "Order",
-                    route: "your-active-contracts",
+                    route: "manage-orders",
                 },
                 { label: "Gigs", route: "contract-history" },
                 { label: "Profile", route: "hourly-work-diary" },
