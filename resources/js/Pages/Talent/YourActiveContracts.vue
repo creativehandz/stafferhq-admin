@@ -5,6 +5,26 @@ import { Head } from "@inertiajs/vue3";
 import { ref } from 'vue'
 
 const pageTitle = ref('Manage Orders')
+const activeTab = ref("priorityOrders");
+type Order = {
+    id: number;
+    buyer: string;
+    gig: string;
+    due_on: number;
+    total: number;
+    note: string;
+    status: string;
+    created_at: string;
+    // Add any other fields that are present in your job object
+};
+
+// Define the type for the props
+type Props = {
+    orders: Order[];
+};
+
+// Receive the jobs data passed from the backend with correct type
+const props = defineProps<Props>();
 </script>
 
 <template>
@@ -34,10 +54,25 @@ const pageTitle = ref('Manage Orders')
                 </div>
             </div>
         </div> -->
+       
         <div class="mb-14 w-full p-7.5">
                 <div
                     class="flex flex-wrap gap-3 border-b border-stroke pb-5 dark:border-strokedark"
                 >
+
+                <div
+                    v-for="order in props.orders"
+                    :key="order.id"
+                    class=""
+                >
+                 <h1>{{ order.buyer }}  </h1>
+                 <h1>{{ order.gig }}  </h1>
+                 <h1>{{ order.due_on }}  </h1>
+                 <h1>{{ order.total }}  </h1>
+                 
+                 <h1>{{ order.status }}  </h1>
+                 <h1>{{ order.total }}  </h1>
+                 </div>
                     <!-- Tab style 1 -->
                     <button
                         @click="activeTab = 'priorityOrders'"
@@ -118,7 +153,13 @@ const pageTitle = ref('Manage Orders')
                     </button>
                 </div>
                 <!-- v-if logics and content -->
-                 
+                <div
+                    v-for="order in props.orders"
+                    :key="order.id"
+                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                >
+                 <h1>{{  order.buyer  }}</h1>
+                 </div>
                 </div>
     </AuthenticatedLayout>
 </template>
