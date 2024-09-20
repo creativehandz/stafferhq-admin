@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ChatController;
 use Inertia\Inertia;
+
 
 //Redirect to welcome page when logout
 Route::get('/', function () {
@@ -223,6 +225,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/employer-dashboard', [JobController::class,'showTotalJobs'])->name('employer-dashboard');
     
+
+    Route::get('/manage-orders', [OrderController::class,'getOrdersByStatus'])->name('manage-orders');
 });
 
 
