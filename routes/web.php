@@ -7,8 +7,10 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use Inertia\Inertia;
+
 
 
 //Redirect to welcome page when logout
@@ -110,9 +112,13 @@ Route::get('/manage-orders', function () {
     return Inertia::render('Talent/YourActiveContracts');
 })->name('manage-orders');
 
-Route::get('/contract-history', function () {
-    return Inertia::render('Talent/ContractHistory');
-})->name('contract-history');
+Route::get('/gigs-record', function () {
+    return Inertia::render('Talent/GigsRecord');
+})->name('gigs-record');
+
+// Route::get('/gigs-record', function () {
+//     return Inertia::render('Talent/ContractHistory');
+// })->name('gigs-record');
 
 Route::get('/hourly-work-diary', function () {
     return Inertia::render('Talent/HourlyWorkDiary');
@@ -227,6 +233,9 @@ Route::middleware('auth')->group(function () {
     
 
     Route::get('/manage-orders', [OrderController::class,'getOrdersByStatus'])->name('manage-orders');
+
+    Route::get('/gigs-record', [GigController::class,'getGigByStatus'])->name('gigs-record');
+
 });
 
 

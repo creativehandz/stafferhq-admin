@@ -4,23 +4,20 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref } from 'vue'
 
-const pageTitle = ref('Manage Orders')
-const activeTab = ref("priorityOrders");
-type Order = {
+const pageTitle = ref('Gigs')
+const activeTab = ref("activeGigs");
+type Gig = {
     id: number;
-    buyer: string;
     gig: string;
-    due_on: number;
-    total: number;
-    note: string;
-    status: string;
-    created_at: string;
-    // Add any other fields that are present in your job object
+    impressions: number;
+    clicks: number;
+    orders: number;
+    cancellations: number;
 };
 
 // Define the type for the props
 type Props = {
-    orders: Order[];
+    gigs: Gig[];
 };
 
 // Receive the jobs data passed from the backend with correct type
@@ -40,32 +37,20 @@ const props = defineProps<Props>();
         </template>
 
         <!-- Breadcrumb Start -->
-        <BreadcrumbDefault :pageTitle="pageTitle" />
-        <!-- Breadcrumb End -->
+    <BreadcrumbDefault :pageTitle="pageTitle" />
+    <!-- Breadcrumb End -->
 
-        <!-- Main Content Start -->
-        <div class="mb-14 w-full p-7.5">
+    <!-- Main Content Start -->
+    <div class="mb-14 w-full p-7.5">
             <!-- Tabs for Order Status -->
             <div
                 class="flex flex-wrap gap-3 pb-5 border-b border-stroke dark:border-strokedark"
             >
                 <!-- Tab Buttons -->
                 <button
-                    @click="activeTab = 'priorityOrders'"
+                    @click="activeTab = 'activeGigs'"
                     :class="[
-                        activeTab === 'priorityOrders'
-                            ? 'bg-primary text-white'
-                            : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
-                        'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
-                    ]"
-                >
-                    Priority
-                </button>
-
-                <button
-                    @click="activeTab = 'activeOrders'"
-                    :class="[
-                        activeTab === 'activeOrders'
+                        activeTab === 'activeGigs'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
@@ -75,79 +60,83 @@ const props = defineProps<Props>();
                 </button>
 
                 <button
-                    @click="activeTab = 'lateOrders'"
+                    @click="activeTab = 'pendingApproval'"
                     :class="[
-                        activeTab === 'lateOrders'
+                        activeTab === 'pendingApproval'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
                     ]"
                 >
-                    Late
+                    Pending Approval
                 </button>
 
                 <button
-                    @click="activeTab = 'deliveredOrders'"
+                    @click="activeTab = 'requiresModification'"
                     :class="[
-                        activeTab === 'deliveredOrders'
+                        activeTab === 'requiresModification'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
                     ]"
                 >
-                    Delivered
+                    Requires Modification
                 </button>
 
                 <button
-                    @click="activeTab = 'completedOrders'"
+                    @click="activeTab = 'draftGigs'"
                     :class="[
-                        activeTab === 'completedOrders'
+                        activeTab === 'draftGigs'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
                     ]"
                 >
-                    Completed
+                    Draft
                 </button>
 
                 <button
-                    @click="activeTab = 'cancelledOrders'"
+                    @click="activeTab = 'deniedGigs'"
                     :class="[
-                        activeTab === 'cancelledOrders'
+                        activeTab === 'deniedGigs'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
                     ]"
                 >
-                    Cancelled
+                    Denied
                 </button>
 
                 <button
-                    @click="activeTab = 'starredOrders'"
+                    @click="activeTab = 'pausedGigs'"
                     :class="[
-                        activeTab === 'starredOrders'
+                        activeTab === 'pausedGigs'
                             ? 'bg-primary text-white'
                             : 'bg-gray dark:bg-meta-4 text-black dark:text-white',
                         'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6',
                     ]"
                 >
-                    Starred
-                </button>
+                    Paused
+                </button> 
+                <button class="px-6 py-3 ml-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-755">
+                    CREATE A NEW GIG
+                </button>               
             </div>
+           
+            
 
             <!-- Orders Display -->
             <div class="mt-5">
                 <div
-                    v-for="order in props.orders"
-                    :key="order.id"
+                    v-for="gig in props.gigs"
+                    :key="gig.id"
                     class="p-4 mb-3 bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
-                    <h3 class="text-lg font-semibold">{{ order.buyer }}</h3>
-                    <p><strong>Gig:</strong> {{ order.gig }}</p>
-                    <p><strong>Due on:</strong> {{ order.due_on }}</p>
-                    <p><strong>Total:</strong> {{ order.total }}</p>
-                    <p><strong>Status:</strong> {{ order.status }}</p>
-                    <p><strong>Note:</strong> {{ order.note }}</p>
+                    <p><strong>Gig:</strong> {{ gig.gig }}</p> <!-- Display Gig title -->
+                    <p><strong>Impressions:</strong> {{ gig.impressions }}</p> <!-- Display Impressions -->
+                    <p><strong>Clicks:</strong> {{ gig.clicks }}</p> <!-- Display Clicks -->
+                    <p><strong>Orders:</strong> {{ gig.orders }}</p> <!-- Display Orders -->
+                    <p><strong>Cancellations:</strong> {{ gig.cancellations }}</p> <!-- Display Cancellations -->
                 </div>
             </div>
         </div>
