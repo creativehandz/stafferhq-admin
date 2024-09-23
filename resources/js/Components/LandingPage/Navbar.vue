@@ -109,7 +109,7 @@ defineProps<{
             StafferHQ</a
         >
         <!-- Mobile -->
-        <div class="flex items-center lg:hidden">
+        <div class=" lg:hidden">
             <Sheet v-model:open="isOpen">
                 <SheetTrigger as-child>
                     <Menu @click="isOpen = true" class="cursor-pointer" />
@@ -117,7 +117,7 @@ defineProps<{
 
                 <SheetContent
                     side="left"
-                    class="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card"
+                    class="top-0 flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card"
                 >
                     <div>
                         <SheetHeader class="mb-4 ml-4">
