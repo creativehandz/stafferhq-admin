@@ -60,7 +60,7 @@ onClickOutside(target, () => {
             <ul
                 class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark"
             >
-                <li>
+                <li> 
                     <Link :href="route('profile.edit')">
                         <router-link
                             to="/profile"
