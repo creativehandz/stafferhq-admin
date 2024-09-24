@@ -544,9 +544,9 @@ if (userRole === 0) {
             class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5"
         >
             <Link :href="route('dashboard')">
-                <div class="flex justify-center items-center gap-4">
+                <div class="flex items-center justify-center gap-4">
                     <img src="../../../img/logo.png" alt="Logo" class="h-9" />
-                    <h1 class="font-bold text-2xl font text-white">
+                    <h1 class="text-2xl font-bold text-white font">
                         StafferHQ
                     </h1>
                 </div>
@@ -574,29 +574,29 @@ if (userRole === 0) {
         <!-- SIDEBAR HEADER -->
 
         <div
-            class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear"
+            class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar"
         >
             <!-- Sidebar Menu -->
-            <nav class="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
+            <nav class="px-4 py-4 mt-5 lg:mt-9 lg:px-6">
                 <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
                   <!-- Card Starts -->
-                      <div class="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark py-6 px-4  shadow-default">                                              
+                      <div class="w-full px-4 py-6 mx-auto mb-10 border rounded-sm max-w-60 border-strokedark bg-boxdark shadow-default">                                              
                         <!-- Profile Picture -->
-                         <div class="flex justify-between items-center">
+                         <div class="flex items-center justify-between">
                            <span>
-                            <img src="https://www.svgrepo.com/show/497407/profile-circle.svg" alt="Profile Picture" class="w-16 h-16 rounded-full bg-white">
+                            <img src="https://www.svgrepo.com/show/497407/profile-circle.svg" alt="Profile Picture" class="w-16 h-16 bg-white rounded-full">
                            </span>
                             
                             <!-- User Information -->
                             <span>
                               <div class="ml-4">
-                                <h3 class="text-xl font-bold text-white">Username</h3>                                
+                                <h3 class="text-xl font-bold text-white"> {{ $page.props.auth.user.name }} </h3>                                
                             </div> 
                             </span>
                           </div>  <br>                   
                           <div class="flex justify-between">
                             <span><p class="text-gray-500">My level</p></span>
-                            <span><p class="text-gray-800 font-semibold">New seller</p></span>
+                            <span><p class="font-semibold text-gray-800">New seller</p></span>
                             
                           </div>
                         <!-- Statistics Section -->
@@ -609,7 +609,7 @@ if (userRole === 0) {
                                 <div class="flex justify-between text-gray-500">
                                     <span>Rating</span>
                                     <span>
-                                        <svg class="w-5 h-5 text-yellow-500 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 8.12l-3.86 3.87.91 5.27L12 15.89l-4.95 2.36.91-5.27L4 8.12l5.61-.88L12 2z"/></svg>
+                                        <svg class="inline-block w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 8.12l-3.86 3.87.91 5.27L12 15.89l-4.95 2.36.91-5.27L4 8.12l5.61-.88L12 2z"/></svg>
                                         -
                                     </span>
                                 </div>
@@ -626,7 +626,7 @@ if (userRole === 0) {
                           href=""
                           target="_blank"
                           rel="nofollow"
-                          class="flex items-center justify-center rounded-md bg-primary p-2 font-medium text-white hover:bg-opacity-90"
+                          class="flex items-center justify-center p-2 font-medium text-white rounded-md bg-primary hover:bg-opacity-90"
                         >
                           Go to level overview
                         </a>
@@ -639,7 +639,7 @@ if (userRole === 0) {
                             {{ menuGroup.name }}
                         </h3>
 
-                        <ul class="mb-6 flex flex-col gap-1">
+                        <ul class="flex flex-col gap-1 mb-6">
                             <SidebarItem
                                 v-for="(menuItem, index) in menuGroup.menuItems"
                                 :item="menuItem"
@@ -655,7 +655,7 @@ if (userRole === 0) {
 
             <!-- Promo Box -->
             <!-- <div
-        class="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark py-6 px-4 text-center shadow-default"
+        class="w-full px-4 py-6 mx-auto mb-10 text-center border rounded-sm max-w-60 border-strokedark bg-boxdark shadow-default"
       >
         <h3 class="mb-1 font-semibold text-white">StafferHQ Pro</h3>
         <p class="mb-4 text-xs">Get All Dashboards and 300+ UI Elements</p>
@@ -663,7 +663,7 @@ if (userRole === 0) {
           href="https://tailadmin.com/pricing"
           target="_blank"
           rel="nofollow"
-          class="flex items-center justify-center rounded-md bg-primary p-2 font-medium text-white hover:bg-opacity-90"
+          class="flex items-center justify-center p-2 font-medium text-white rounded-md bg-primary hover:bg-opacity-90"
         >
           Purchase Now
         </a>
