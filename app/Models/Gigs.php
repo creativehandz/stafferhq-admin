@@ -15,6 +15,7 @@ class Gigs extends Model
         'impressions',
         'clicks',
         'orders',
+        'status',
         'cancellations',
     ];
 

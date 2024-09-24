@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('clicks')->nullable();
             $table->integer('orders')->nullable();
             $table->integer('cancellations')->nullable();
-            $table->timestamps();           
+            $table->string('status')->nullable();
+            $table->timestamps();      
         });
         
     }
