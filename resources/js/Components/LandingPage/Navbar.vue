@@ -33,6 +33,7 @@ import DropdownNotification from "../Header/DropdownNotification.vue";
 import DropdownMessage from "../Header/DropdownMessage.vue";
 import DropdownUser from "../Header/DropdownUser.vue";
 import DropdownUserTwo from "../Header/DropdownUserTwo.vue";
+import DropdownHeart from "../Header/DropdownHeart.vue";
 
 interface RouteProps {
     href: string;
@@ -257,7 +258,7 @@ defineProps<{
       </div>
 
         <div class="hidden lg:flex">
-            <ToggleTheme />
+            <!-- <ToggleTheme /> -->
 
             <!-- <Button
                 as-child
@@ -273,6 +274,8 @@ defineProps<{
                     <GithubIcon class="size-5" />
                 </a>
             </Button> -->
+
+           
         </div>
         <div v-if="canLogin" class="hidden lg:flex">
             <!-- <Link
@@ -296,6 +299,8 @@ defineProps<{
                     <DropdownMessage />
                     <!-- Chat Notification Area -->
 
+                    <DropdownHeart/>
+
                     <Button as-child size="sm" variant="secondary">
                         <div
                             class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
@@ -304,7 +309,7 @@ defineProps<{
                         </div>
                     </Button>
 
-                    <Button as-child size="sm" variant="ghost">
+                    <Button as-child size="sm" variant="outline">
                         <div
                             class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
@@ -319,6 +324,13 @@ defineProps<{
             </div>
 
             <template v-else>
+                <Button as-child size="sm" variant="outline">
+                        <div
+                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
+                        >
+                            Become a Seller
+                        </div>
+                    </Button>
                 <Button size="sm" variant="secondary">
                     <Link
                         :href="route('login')"
