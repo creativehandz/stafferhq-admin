@@ -248,13 +248,13 @@ const submit = () => {
                                 value="1"
                                 class="text-body dark:text-bodydark"
                             >
-                                Employer
+                                Buyer
                             </option>
                             <option
                                 value="2"
                                 class="text-body dark:text-bodydark"
                             >
-                                Employee
+                                Seller
                             </option>
                         </select>
                         <span
