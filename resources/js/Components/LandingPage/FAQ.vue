@@ -14,33 +14,39 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free Shadcn/Vue template.",
+    question: "What can I sell?",
+    answer: "Be creative! You can offer any service you wish as long as it's legal and complies with our terms. There are over 200 categories you can browse to get ideas.",
     value: "item-1",
   },
   {
-    question: "Duis aute irure dolor in reprehenderit in voluptate velit?",
+    question: "How much time will I need to invest?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam consectetur sapiente, iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "It's very flexible. You need to put in some time and effort in the beginning to learn the marketplace and then you can decide for yourself what amount of work you want to do.",
     value: "item-2",
   },
   {
     question:
-      "Lorem ipsum dolor sit amet Consectetur natus dolor minus quibusdam?",
+      "How much money can I make?",
     answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis.",
+      "It's totally up to you. You can work as much as you want. Many sellers work on StafferHQ full time and some keep their 9-5 job while using StafferHQ to make extra money.",
     value: "item-3",
   },
   {
-    question: "Excepteur sint occaecat cupidata non proident sunt?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "How do I price my service?",
+    answer: "With Gig Packages, you set your pricing anywhere from $5 - $995 and offer three versions of your service at three different prices.",
     value: "item-4",
   },
   {
     question:
-      "Enim ad minim veniam, quis nostrud exercitation ullamco laboris?",
-    answer: "consectetur adipisicing elit. Sint labore.",
+      "How much does it cost",
+    answer: "It's free to join StafferHQ. There is no subscription required or fees to list your services. You keep 80% of each transaction.",
     value: "item-5",
+  },
+  {
+    question:
+      "How do I get paid?",
+    answer: "Once you complete a buyer's order, the money is transferred to your account. No need to chase clients for payments and wait 60 or 90 days for a check.",
+    value: "item-6",
   },
 ];
 </script>
