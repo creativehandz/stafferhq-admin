@@ -154,10 +154,10 @@ import Separator from "./ui/separator/Separator.vue";
           &copy; 2024 Designed and developed by
           <a
             target="_blank"
-            href="https://thefacecraft.com/en/home/"
+            href="https://github.com/leoMirandaa"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
-            TheFaceCraft
+            Leo Miranda
           </a>
         </h3>
       </section>
