@@ -324,6 +324,8 @@ defineProps<{
             </div>
 
             <template v-else>
+                  <Link
+                        :href="route('become-a-seller')">
                 <Button as-child size="sm" variant="outline">
                         <div
                             class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
@@ -331,6 +333,7 @@ defineProps<{
                             Become a Seller
                         </div>
                     </Button>
+                </Link>
                 <Button size="sm" variant="secondary">
                     <Link
                         :href="route('login')"
