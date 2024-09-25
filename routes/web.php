@@ -178,6 +178,10 @@ Route::get('/applicants', function () {
     return Inertia::render('Applicants');
 })->name('applicants');
 
+Route::get('/become-a-seller', function () {
+    return Inertia::render('BecomeASeller');
+})->name('become-a-seller');
+
 
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
