@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
+// import { Inertia } from '@inertiajs/vue3';
 import { ref } from 'vue';
+
 
 const pageTitle = ref('Gigs');
 const activeTab = ref("activeGigs");
@@ -43,6 +45,11 @@ const filterGigs = (gigs: Gig[], activeTab: string): Gig[] => {
         default:
             return gigs;
     }
+};
+
+// Gig Create routing using router
+const goToGigCreation = () => {
+    router.visit('/create-gig'); 
 };
 </script>
 
@@ -101,7 +108,9 @@ const filterGigs = (gigs: Gig[], activeTab: string): Gig[] => {
                 >
                     Paused
                 </button>
-                <button class="px-6 py-3 ml-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+                <button 
+                    @click="goToGigCreation"
+                    class="px-6 py-3 ml-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
                     CREATE A NEW GIG
                 </button>
             </div>

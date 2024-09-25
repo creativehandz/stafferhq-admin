@@ -113,7 +113,7 @@ Route::get('/manage-orders', function () {
 })->name('manage-orders');
 
 Route::get('/gigs-record', function () {
-    return Inertia::render('Talent/GigsRecord');
+    return Inertia::render('Gigs/GigsRecord');
 })->name('gigs-record');
 
 // Route::get('/gigs-record', function () {
@@ -235,6 +235,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage-orders', [OrderController::class,'getOrdersByStatus'])->name('manage-orders');
 
     Route::get('/gigs-record', [GigController::class,'getGigByStatus'])->name('gigs-record');
+
+    Route::get('/create-gig', [GigController::class, 'create'])->name('create-gig');
 
 });
 
