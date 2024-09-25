@@ -179,7 +179,12 @@ Route::get('/applicants', function () {
 })->name('applicants');
 
 Route::get('/become-a-seller', function () {
-    return Inertia::render('BecomeASeller');
+    return Inertia::render('BecomeASeller',[
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 })->name('become-a-seller');
 
 
