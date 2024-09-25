@@ -33,7 +33,7 @@ const reviewList: ReviewProps[] = [
     name: "John Doe",
     userName: "Product Manager",
     comment:
-      "People love our logo, and we love StafferHQ ",
+      "Wow Vue + Shadcn-Vue is awesome!. This template lets me change colors, fonts and images to match my brand identity. ",
     rating: 5.0,
   },
   {
@@ -41,7 +41,7 @@ const reviewList: ReviewProps[] = [
     name: "Sophia Collins",
     userName: "Cybersecurity Analyst",
     comment:
-      "StafferHQ is an amazing resource for anyone in the startup space. ",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. ",
     rating: 4.8,
   },
 
@@ -50,7 +50,7 @@ const reviewList: ReviewProps[] = [
     name: "Adam Johnson",
     userName: "Chief Technology Officer",
     comment:
-      "There is no way I could have produced anything without StafferHQ.",
+      "Lorem ipsum dolor sit amet,exercitation. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     rating: 4.9,
   },
   {
@@ -58,7 +58,7 @@ const reviewList: ReviewProps[] = [
     name: "Ethan Parker",
     userName: "Data Scientist",
     comment:
-      "StafferHQ enables me to quickly, efficiently and cost-effectively get things done.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore et dolore magna aliqua. Ut enim ad minim veniam.",
     rating: 5.0,
   },
   {
@@ -91,7 +91,7 @@ const reviewList: ReviewProps[] = [
       </h2>
 
       <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">
-        Hear What Our 1000+ Buyers Say
+        Hear What Our 1000+ Clients Say
       </h2>
     </div>
 

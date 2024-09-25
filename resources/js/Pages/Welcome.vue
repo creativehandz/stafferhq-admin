@@ -2,21 +2,17 @@
 import Benefits from "@/Components/LandingPage/Benefits.vue";
 import Community from "@/Components/LandingPage/Community.vue";
 import Contact from "@/Components/LandingPage/Contact.vue";
-import ContactTwo from "@/Components/LandingPage/ContactTwo.vue";
 import FAQ from "@/Components/LandingPage/FAQ.vue";
 import Features from "@/Components/LandingPage/Features.vue";
 import Footer from "@/Components/LandingPage/Footer.vue";
 import Hero from "@/Components/LandingPage/Hero.vue";
-import HeroTwo from "@/Components/LandingPage/HeroTwo.vue";
 import HowItWorks from "@/Components/LandingPage/HowItWorks.vue";
-import HowItWorksTwo from "@/Components/LandingPage/HowItWorksTwo.vue";
 import Navbar from "@/Components/LandingPage/Navbar.vue";
 import Pricing from "@/Components/LandingPage/Pricing.vue";
 import Services from "@/Components/LandingPage/Services.vue";
 import Sponsors from "@/Components/LandingPage/Sponsors.vue";
 import Team from "@/Components/LandingPage/Team.vue";
 import Testimonials from "@/Components/LandingPage/Testimonials.vue";
-import Button from "@/Components/LandingPage/ui/button/Button.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps<{
@@ -38,8 +34,8 @@ function handleImageError() {
     <Head title="Welcome" />
     <div class="bg-white text-black dark:bg-black-2 dark:text-white">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
-        <!-- <Hero />
-       <Sponsors />
+        <Hero />
+        <Sponsors />
         <Benefits />
         <Features />
         <Services />
@@ -50,36 +46,20 @@ function handleImageError() {
         <Pricing />
         <Contact />
         <FAQ />
-        <Footer /> -->
-
-        <HeroTwo />
-        <Team />
-        <HowItWorksTwo />
-        <ContactTwo />
-        <Testimonials />
-        <FAQ />
-
-        <div class="flex flex-col items-center justify-center gap-5">
-            <h2 class="text-center text-xl text-muted-foreground">
-                Sign up and create your first Gig today
-            </h2>
-            <Button as-child size="sm" variant="default">
-                <div
-                    class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
-                >
-                    Get Started
-                </div>
-            </Button>
-        </div>
-
         <Footer />
+
+        <div class="flex flex-col items-center justify-center">
+            <h2 class="text-center text-2xl text-muted-foreground pb-24">
+                Below is Default Welcome Page...
+            </h2>
+        </div>
     </div>
-    <!-- <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <img
+    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+        <!-- <img
             id="background"
             class="absolute -left-20 top-0 max-w-[877px]"
             src="https://laravel.com/assets/img/welcome/background.svg"
-        />
+        /> -->
         <div
             class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white"
         >
@@ -428,5 +408,5 @@ function handleImageError() {
                 </footer>
             </div>
         </div>
-    </div> -->
+    </div>
 </template>
