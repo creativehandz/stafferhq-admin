@@ -48,11 +48,7 @@ function handleImageError() {
         <FAQ />
         <Footer />
 
-        <div class="flex flex-col items-center justify-center">
-            <h2 class="text-center text-2xl text-muted-foreground pb-24">
-                Below is Default Welcome Page...
-            </h2>
-        </div>
+       
     </div>
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <!-- <img

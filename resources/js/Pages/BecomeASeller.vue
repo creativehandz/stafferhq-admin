@@ -55,11 +55,7 @@ const pageTitle = ref("Become a seller");
         <FAQ />
         <Footer />
 
-        <div class="flex flex-col items-center justify-center">
-            <h2 class="text-center text-2xl text-muted-foreground pb-24">
-                Below is Default Welcome Page...
-            </h2>
-        </div>
+       
     </div>
         
     
