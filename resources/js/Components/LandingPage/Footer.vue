@@ -157,7 +157,7 @@ import Separator from "./ui/separator/Separator.vue";
             href="https://github.com/leoMirandaa"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
-            Leo Miranda
+            TheFaceCraft
           </a>
         </h3>
       </section>
