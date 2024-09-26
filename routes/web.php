@@ -9,6 +9,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\CategoryController;
 use Inertia\Inertia;
 
 
@@ -237,6 +238,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/gigs-record', [GigController::class,'getGigByStatus'])->name('gigs-record');
 
     Route::get('/create-gig', [GigController::class, 'create'])->name('create-gig');
+
+    Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories']);
+
 
 });
 
