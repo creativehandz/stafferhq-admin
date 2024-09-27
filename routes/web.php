@@ -179,6 +179,25 @@ Route::get('/applicants', function () {
     return Inertia::render('Applicants');
 })->name('applicants');
 
+Route::get('/become-a-seller', function () {
+    return Inertia::render('BecomeASeller',[
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('become-a-seller');
+
+
+// Route::get('/categories', function () {
+//     return Inertia::render('Categories',[
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//     ]);
+// })->name('categories');
+
+
+Route::get('/categories', [CategoryController::class, 'getAllCategoriesWithSubCategories'])->name('categories');
+
+Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategoryDetail'])->name('category.detail');
 
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
@@ -239,7 +258,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/create-gig', [GigController::class, 'create'])->name('create-gig');
 
+
     Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories']);
+
+
 
 
 });
