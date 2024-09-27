@@ -20,8 +20,6 @@ import FAQBecomeSeller from "@/Components/LandingPage/BecomeSeller/FAQBecomeSell
 defineProps<{
     canLogin?: boolean;
     canRegister?: boolean;
-    laravelVersion: string;
-    phpVersion: string;
 }>();
 
 function handleImageError() {
