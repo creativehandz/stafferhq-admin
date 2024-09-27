@@ -178,7 +178,7 @@ function handleCategoryChange() {
                             <tr class="text-black bg-gray-200 dark:text-white">
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
+                                      <option value="" disabled selected>Delivery Time</option>
                                       <option value="USA" class="text-body dark:text-bodydark">USA</option>
                                       <option value="UK" class="text-body dark:text-bodydark">UK</option>
                                       <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
@@ -186,7 +186,7 @@ function handleCategoryChange() {
                               </th>
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
+                                      <option value="" disabled selected>Delivery Time</option>
                                       <option value="USA" class="text-body dark:text-bodydark">USA</option>
                                       <option value="UK" class="text-body dark:text-bodydark">UK</option>
                                       <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
@@ -194,7 +194,7 @@ function handleCategoryChange() {
                               </th>
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
+                                      <option value="" disabled selected>Delivery Time</option>
                                       <option value="USA" class="text-body dark:text-bodydark">USA</option>
                                       <option value="UK" class="text-body dark:text-bodydark">UK</option>
                                       <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
@@ -206,29 +206,41 @@ function handleCategoryChange() {
                             <tr class="text-black bg-gray-200 dark:text-white">
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
-                                      <option value="USA" class="text-body dark:text-bodydark">USA</option>
-                                      <option value="UK" class="text-body dark:text-bodydark">UK</option>
-                                      <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
+                                      <option value="" disabled selected>Revisions</option>
+                                      <option value="0" class="text-body dark:text-bodydark">0</option>
+                                      <option value="1" class="text-body dark:text-bodydark">1</option>
+                                      <option value="2" class="text-body dark:text-bodydark">2</option>
+                                      <option value="3" class="text-body dark:text-bodydark">3</option>
+                                      <option value="Unlimited" class="text-body dark:text-bodydark">Unlimited</option>
                                     </select>
                               </th>
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
-                                      <option value="USA" class="text-body dark:text-bodydark">USA</option>
-                                      <option value="UK" class="text-body dark:text-bodydark">UK</option>
-                                      <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
+                                      <option value="" disabled selected>Revisions</option>
+                                      <option value="0" class="text-body dark:text-bodydark">0</option>
+                                      <option value="1" class="text-body dark:text-bodydark">1</option>
+                                      <option value="2" class="text-body dark:text-bodydark">2</option>
+                                      <option value="3" class="text-body dark:text-bodydark">3</option>
+                                      <option value="Unlimited" class="text-body dark:text-bodydark">Unlimited</option>
                                     </select>
                               </th>
                               <th class="p-4 border border-stroke">
                                 <select class="relative z-20 w-full px-12 py-3 transition bg-transparent border rounded outline-none appearance-none border-stroke focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" >
-                                      <option value="" disabled selected>Select Country</option>
-                                      <option value="USA" class="text-body dark:text-bodydark">USA</option>
-                                      <option value="UK" class="text-body dark:text-bodydark">UK</option>
-                                      <option value="Canada" class="text-body dark:text-bodydark">Canada</option>
+                                      <option value="" disabled selected>Revisions</option>
+                                      <option value="0" class="text-body dark:text-bodydark">0</option>
+                                      <option value="1" class="text-body dark:text-bodydark">1</option>
+                                      <option value="2" class="text-body dark:text-bodydark">2</option>
+                                      <option value="3" class="text-body dark:text-bodydark">3</option>
+                                      <option value="Unlimited" class="text-body dark:text-bodydark">Unlimited</option>
                                     </select>
                               </th>
                             </tr>
+                            <tr class="text-black bg-gray-200 dark:text-white">
+                              <th class="p-4 border border-stroke"><input placeholder="Price"/></th>
+                              <th class="p-4 border border-stroke"><input placeholder="Price"/></th>
+                              <th class="p-4 border border-stroke"><input class="" placeholder="Price"/></th>
+                              <!-- <th class="p-4 border border-stroke">Price</th> -->
+                             </tr>
                            </thead>
                           <tbody>
         
