@@ -259,6 +259,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/create-gig', [GigController::class, 'create'])->name('create-gig');
 
 
+    Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories']);
+
+
+
 
 });
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -15,7 +17,12 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-    
+  public function getCategoriesWithSubcategories() 
+  {
+    $categories = Category::with('subcategories')->get();
+    return response()->json($categories);
+  }
+  
   // Fetch all categories along with their subcategories
   public function getAllCategoriesWithSubCategories()
   {

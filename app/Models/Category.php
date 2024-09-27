@@ -9,10 +9,25 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $table = 'categories';
+    protected $fillable = [
+        'id',
+        'name',
+        'user_id'
+    ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
     public function subCategories()
     {
         return $this->hasMany(SubCategory::class, 'category_id');
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }
+
+
