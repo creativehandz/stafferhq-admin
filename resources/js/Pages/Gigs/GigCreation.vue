@@ -116,9 +116,6 @@ function handleCategoryChange() {
                   <label for="gig-title" class="block text-sm font-medium text-gray-700">Gig Title</label>
                   <input type="text" name="gig_title" id="gig-title" autocomplete="gig-title" placeholder="I will do something I'm really good at" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
 
-
-
-
                                   <!-- Categories and Subcategories -->
                       <div class="col-span-6 sm:col-span-3">
                         <label for="category" class="block text-sm font-medium text-gray-700">Select Category</label>
@@ -269,29 +266,29 @@ function handleCategoryChange() {
                         ></textarea>
                       </div>
 
-                      <div>
-                        <label class="block mb-3 text-sm font-medium text-black dark:text-white">
-                          Active textarea
-                        </label>
-                        <textarea
-                          rows="6"
-                          placeholder="Active textarea"
-                          class="w-full rounded-lg border-[1.5px] text-black border-primary bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:bg-form-input"
-                        ></textarea>
-                      </div>
+                      <div class="col-span-6">
+                          <label for="faq" class="block text-sm font-medium text-gray-700">Frequently Asked Questions (FAQ)</label>
 
-                      <div>
-                        <label class="block mb-3 text-sm font-medium text-black dark:text-white">
-                          Disabled textarea
-                        </label>
-                        <textarea
-                          rows="6"
-                          disabled
-                          placeholder="Disabled textarea"
-                          class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
-                        ></textarea>
-                      </div>
-                      
+                          <!-- Question Input -->
+                          <div class="mt-2">
+                            <input type="text" name="faq_question" id="faq-question" placeholder="Enter your question" 
+                                  class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                          </div>
+
+                          <!-- Answer Input -->
+                          <div class="mt-4">
+                            <textarea name="faq_answer" id="faq-answer" rows="4" placeholder="Enter the answer to your question" 
+                                      class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                          </div>
+
+                          <!-- Add More FAQs Button -->
+                          <div class="mt-4">
+                            <button type="button" 
+                                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                              Add More FAQ
+                            </button>
+                          </div>
+                        </div>                                            
                     </div>
                  </DefaultCard>
                   
@@ -300,10 +297,29 @@ function handleCategoryChange() {
                 <!-- Step 4: Requirements (Placeholder for future logic) -->
                 <div v-if="currentStep === 4" class="col-span-6">
                   <!-- Add Requirements fields here in the future -->
-                   <DefaultCard cardTitle="">
+                   <DefaultCard cardTitle="Frequently Asked Questions (FAQ)">
 
+                                          <div class="col-span-6">                  
+                      <!-- Question Input -->
+                      <div class="mt-2">
+                        <input type="text" name="faq_question" id="faq-question" placeholder="Enter your question" 
+                              class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                      </div>
 
-                    
+                      <!-- Answer Input -->
+                      <div class="mt-4">
+                        <textarea name="faq_answer" id="faq-answer" rows="4" placeholder="Enter the answer to your question" 
+                                  class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                      </div>
+
+                      <!-- Add More FAQs Button -->
+                      <div class="mt-4">
+                        <button type="button" 
+                                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                          Add More FAQ
+                        </button>
+                      </div>
+                    </div>                    
                    </DefaultCard>
                 </div>
 
