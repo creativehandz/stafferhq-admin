@@ -110,7 +110,7 @@ defineProps<{
             StafferHQ</a
         >
         <!-- Mobile -->
-        <div class=" lg:hidden">
+        <div class="lg:hidden">
             <Sheet v-model:open="isOpen">
                 <SheetTrigger as-child>
                     <Menu @click="isOpen = true" class="cursor-pointer" />
@@ -222,40 +222,40 @@ defineProps<{
         </NavigationMenu> -->
 
         <div class="hidden lg:block">
-        <form action="" method="POST">
-          <div class="relative">
-            <button class="absolute top-1/2 left-0 -translate-y-1/2">
-              <svg
-                class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
-                  fill=""
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
-                  fill=""
-                />
-              </svg>
-            </button>
+            <form action="" method="POST">
+                <div class="relative">
+                    <button class="absolute top-1/2 left-0 -translate-y-1/2">
+                        <svg
+                            class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
+                                fill=""
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
+                                fill=""
+                            />
+                        </svg>
+                    </button>
 
-            <input
-              type="text"
-              placeholder="Type to search..."
-              class="w-full bg-transparent pr-4 pl-9 focus:outline-none border-transparent rounded-xl"
-            />
-          </div>
-        </form>
-      </div>
+                    <input
+                        type="text"
+                        placeholder="Type to search..."
+                        class="w-full bg-transparent pr-4 pl-9 focus:outline-none border-transparent rounded-xl"
+                    />
+                </div>
+            </form>
+        </div>
 
         <div class="hidden lg:flex">
             <!-- <ToggleTheme /> -->
@@ -274,8 +274,6 @@ defineProps<{
                     <GithubIcon class="size-5" />
                 </a>
             </Button> -->
-
-           
         </div>
         <div v-if="canLogin" class="hidden lg:flex">
             <!-- <Link
@@ -299,7 +297,7 @@ defineProps<{
                     <DropdownMessage />
                     <!-- Chat Notification Area -->
 
-                    <DropdownHeart/>
+                    <DropdownHeart />
 
                     <Button as-child size="sm" variant="secondary">
                         <div
@@ -324,29 +322,33 @@ defineProps<{
             </div>
 
             <template v-else>
-                <Button as-child size="sm" variant="outline">
-                        <div
-                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
+                <div class="flex justify-center items-center gap-2">
+                    <Link :href="route('become-a-seller')">
+                        <Button as-child size="sm" variant="outline">
+                            <div
+                                class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
+                            >
+                                Become a Seller
+                            </div>
+                        </Button>
+                    </Link>
+                    <Button size="sm" variant="secondary">
+                        <Link
+                            :href="route('login')"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
-                            Become a Seller
-                        </div>
+                            Log in
+                        </Link>
                     </Button>
-                <Button size="sm" variant="secondary">
+
                     <Link
-                        :href="route('login')"
+                        v-if="canRegister"
+                        :href="route('register')"
                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
-                        Log in
+                        Register
                     </Link>
-                </Button>
-
-                <Link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                >
-                    Register
-                </Link>
+                </div>
             </template>
         </div>
     </header>

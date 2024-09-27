@@ -20,41 +20,41 @@ interface FeaturesProps {
 
 const featureList: FeaturesProps[] = [
   {
-    icon: "newspaper",
-    title: "1. Create a Gig",
+    icon: "tabletSmartphone",
+    title: "Mobile Friendly",
     description:
-      "Sign up for free, set up your Gig, and offer your work to our global audience.",
-  },
-  {
-    icon: "goal",
-    title: "2. Deliver great work",
-    description:
-      "Get notified when you get an order and use our system to discuss details with customers.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, consectetur.",
   },
   {
     icon: "badgeCheck",
-    title: "3. Get paid",
+    title: "Social Proof",
     description:
-      "Get paid on time, every time. Payment is available for withdrawal as soon as it clears.",
+      "Lorem ipsum dolor sit amet consectetur. Natus consectetur, odio ea accusamus aperiam.",
   },
-  // {
-  //   icon: "pictureInPicture",
-  //   title: "Strong Visuals",
-  //   description:
-  //     "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
-  // },
-  // {
-  //   icon: "mousePointerClick",
-  //   title: "Clear CTA",
-  //   description:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
-  // },
-  // {
-  //   icon: "tabletSmartphone",
-  //   title: "Clear Headline",
-  //   description:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
-  // },
+  {
+    icon: "goal",
+    title: "Targeted Content",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio ea accusamus aperiam.",
+  },
+  {
+    icon: "pictureInPicture",
+    title: "Strong Visuals",
+    description:
+      "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
+  },
+  {
+    icon: "mousePointerClick",
+    title: "Clear CTA",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
+  },
+  {
+    icon: "newspaper",
+    title: "Clear Headline",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
+  },
 ];
 
 const iconMap: Record<
@@ -85,18 +85,18 @@ const iconMap: Record<
     class="container py-24 sm:py-32"
   >
     <h2 class="text-lg text-primary text-center mb-2 tracking-wider">
-      How it works
+      Features
     </h2>
 
     <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">
-      Step-by-Step Process
+      What Makes Us Different
     </h2>
 
-    <!-- <h3 class="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
+    <h3 class="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem
       fugiat, odit similique quasi sint reiciendis quidem iure veritatis optio
       facere tenetur.
-    </h3> -->
+    </h3>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <div
