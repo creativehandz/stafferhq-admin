@@ -5,18 +5,17 @@ const mode = useColorMode();
 import { Badge } from "@/Components/LandingPage/ui/badge";
 import { Button } from "@/Components/LandingPage/ui/button";
 import { ArrowRight } from "lucide-vue-next";
-import heroImageLight from '../../../img/LandingPage/heroImageLight.jpg'
-import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
-import heroImageLightTwo from '../../../img/LandingPage/heroImageLightTwo.jpg'
+import heroImageLight from '../../../../img/LandingPage/heroImageLight.jpg'
+import heroImageDark from '../../../../img/LandingPage/heroImageDark.jpg'
 
 </script>
 
 <template>
   <section class="container">
     <div
-      class="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-5 md:py-8"
+      class="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32"
     >
-      <!-- <div class="text-center space-y-8">
+      <div class="text-center space-y-8">
         <Badge
           variant="outline"
           class="text-sm py-2"
@@ -65,18 +64,18 @@ import heroImageLightTwo from '../../../img/LandingPage/heroImageLightTwo.jpg'
             >
           </Button>
         </div>
-      </div> -->
+      </div>
 
-      <div class="relative group mt-1">
+      <div class="relative group mt-14">
         <!-- gradient shadow -->
-        <!-- <div
+        <div
           class="absolute -top-6 right-12 w-[90%] h-12 lg:h-[80%] bg-primary/50 blur-3xl rounded-full img-shadow-animation"
-        ></div> -->
+        ></div>
 
         <img
           class="w-full md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-t-primary/30 img-border-animation"
           :src="
-            mode == 'light' ? heroImageLightTwo : heroImageLightTwo
+            mode == 'light' ? heroImageLight : heroImageDark
           "
           alt="dashboard using shadcn-vue"
         />

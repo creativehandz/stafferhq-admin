@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { Button } from "./ui/button";
-import { Card, CardHeader, CardContent, CardFooter } from "./ui/card";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Card, CardHeader, CardContent, CardFooter } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 import {
     Select,
     SelectContent,
@@ -11,8 +11,8 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "./ui/select";
-import { Textarea } from "./ui/textarea";
+} from "../ui/select";
+import { Textarea } from "../ui/textarea";
 import {
     Alert,
     AlertDescription,
@@ -43,7 +43,7 @@ const handleSubmit = () => {
     const { firstName, lastName, email, subject, message } = contactForm;
     console.log(contactForm);
 
-    const mailToLink = `mailto:lalitkumawat1129@gmail.com?subject=${subject}&body=Hello I am ${firstName} ${lastName}, my Email is ${email}. %0D%0A${message}`;
+    const mailToLink = `mailto:leomirandadev@gmail.com?subject=${subject}&body=Hello I am ${firstName} ${lastName}, my Email is ${email}. %0D%0A${message}`;
 
     window.location.href = mailToLink;
 };
@@ -51,90 +51,67 @@ const handleSubmit = () => {
 
 <template>
     <section id="contact" class="container py-24 sm:py-32">
-        <section
-            class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-muted/60 dark:bg-card p-10 rounded-xl"
-        >
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
                 <div class="mb-4">
                     <h2 class="text-lg text-primary mb-2 tracking-wider">
-                        Learn from StafferHQ
+                        Contact
                     </h2>
 
                     <h2 class="text-3xl md:text-4xl font-bold">
-                        On-demand professional courses, led by the world’s
-                        leading experts.
+                        Connect With Us
                     </h2>
                 </div>
                 <p class="mb-8 text-muted-foreground lg:w-5/6">
-                    Discover what it takes to be a top-notch seller on StafferHQ
-                    with this complimentary Learn from StafferHQ course.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Voluptatum ipsam sint enim exercitationem ex autem corrupti
+                    quas tenetur
                 </p>
 
                 <div class="flex flex-col gap-4">
-                    <div class="">
-                        <Button as-child size="sm" variant="default">
-                            <div
-                                class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
-                            >
-                                Learn More
-                            </div>
-                        </Button>
+                    <div>
+                        <div class="flex gap-2 mb-1">
+                            <Building2 />
+                            <div class="font-bold">Find us</div>
+                        </div>
+
+                        <div>742 Evergreen Terrace, Springfield, IL 62704</div>
                     </div>
-                    <!-- <div>
-            <div class="flex gap-2 mb-1">
-              <Building2 />
-              <div class="font-bold">Find us</div>
-            </div>
 
-            <div>742 Evergreen Terrace, Springfield, IL 62704</div>
-          </div>
+                    <div>
+                        <div class="flex gap-2 mb-1">
+                            <Phone />
+                            <div class="font-bold">Call us</div>
+                        </div>
 
-          <div>
-            <div class="flex gap-2 mb-1">
-              <Phone />
-              <div class="font-bold">Call us</div>
-            </div>
+                        <div>+1 (619) 123-4567</div>
+                    </div>
 
-            <div>+1 (619) 123-4567</div>
-          </div>
+                    <div>
+                        <div class="flex gap-2 mb-1">
+                            <Mail />
+                            <div class="font-bold">Mail US</div>
+                        </div>
 
-          <div>
-            <div class="flex gap-2 mb-1">
-              <Mail />
-              <div class="font-bold">Mail US</div>
-            </div>
+                        <div>leomirandadev@gmail.com</div>
+                    </div>
 
-            <div>leomirandadev@gmail.com</div>
-          </div>
+                    <div>
+                        <div class="flex gap-2">
+                            <Clock />
+                            <div class="font-bold">Visit us</div>
+                        </div>
 
-          <div>
-            <div class="flex gap-2">
-              <Clock />
-              <div class="font-bold">Visit us</div>
-            </div>
-
-            <div>
-              <div>Monday - Friday</div>
-              <div>8AM - 4PM</div>
-            </div>
-          </div> -->
+                        <div>
+                            <div>Monday - Friday</div>
+                            <div>8AM - 4PM</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Video -->
-            <div class="">
-                <iframe
-                    class="w-full h-80"
-                    src="https://sg.fiverrcdn.com/packages_lp/cover_video.mp4"
-                    title="video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-            </div>
-
             <!-- form -->
-            <!-- <Card class="bg-muted/60 dark:bg-card">
+            <Card class="bg-muted/60 dark:bg-card">
                 <CardHeader class="text-primary text-2xl"> </CardHeader>
                 <CardContent>
                     <form @submit.prevent="handleSubmit" class="grid gap-4">
@@ -225,7 +202,7 @@ const handleSubmit = () => {
                 </CardContent>
 
                 <CardFooter></CardFooter>
-            </Card> -->
+            </Card>
         </section>
     </section>
 </template>

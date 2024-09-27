@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
     protected $table = 'categories';
     protected $fillable = [
         'id',
@@ -19,10 +20,14 @@ class Category extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
-    public function subcategories() {
-        return $this->hasMany(Subcategory::class);
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id');
     }
+
     public function category() {
         return $this->belongsTo(Category::class);
     }
 }
+
+
