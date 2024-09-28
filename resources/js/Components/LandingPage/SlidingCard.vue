@@ -32,7 +32,7 @@ defineProps<{
 <template>
   <section
     id="SlidingCard"
-    class="container py-12 sm:py-16"
+    class="container"
   >
     <div class="text-center mb-8">
       <h2 class="text-lg text-primary text-center mb-2 tracking-wider">
@@ -54,7 +54,7 @@ defineProps<{
         <CarouselItem
           v-for="subCategory in popularSubCategoryList"
           :key="subCategory.name"
-          class="md:basis-1/3 lg:basis-1/4"
+          class="sm:basis-1/2 md:basis-1/3 xl:basis-1/4"
         >
           <Card class="bg-muted/50 dark:bg-card">
            

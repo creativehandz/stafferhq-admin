@@ -17,18 +17,14 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-  public function getCategoriesWithSubcategories() 
-  {
-    $categories = Category::with('subcategories')->get();
-    return response()->json($categories);
-  }
   
-  // Fetch all categories along with their subcategories
-  public function getAllCategoriesWithSubCategories()
+  // Method to get categories along with their subcategories
+  public function getCategoriesWithSubcategories()
   {
-      // Fetch all categories with their related subcategories
+      // Fetch categories with subcategories using Eloquent relationships
       $categories = Category::with('subCategories')->get();
 
+      // Return the data to the frontend (you can use inertia or normal response based on your setup)
       return Inertia::render('Categories', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
