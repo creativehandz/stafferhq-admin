@@ -199,6 +199,13 @@ Route::get('/categories', [CategoryController::class, 'getAllCategoriesWithSubCa
 
 Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategoryDetail'])->name('category.detail');
 
+Route::get('/categories/{categoryId}/sellers', function () {
+    return Inertia::render('Sellers',[
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('sellers');
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');
