@@ -264,6 +264,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/gigs-record', [GigController::class,'getGigByStatus'])->name('gigs-record');
 
     Route::get('/create-gig', [GigController::class, 'create'])->name('create-gig');
+    Route::post('/create-gig', [GigController::class, 'store'])->name('gigs.store');
 
 
     Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories']);

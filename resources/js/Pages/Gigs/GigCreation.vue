@@ -67,9 +67,11 @@ onMounted(() => {
 
 // Handle category change to filter subcategories
 function handleCategoryChange() {
-  const selected = categories.value.find(category => category.id === selectedCategory.value);
-  subcategories.value = selected ? selected.subcategories : [];
+  const selected = categories.value.find(category => category['id'] === selectedCategory.value);
+  subcategories.value = selected ? selected['subcategories'] : [];
 }
+
+
 </script>
 
 <template>
@@ -121,8 +123,8 @@ function handleCategoryChange() {
                         <label for="category" class="block text-sm font-medium text-gray-700">Select Category</label>
                         <select v-model="selectedCategory" @change="handleCategoryChange" id="category" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                           <option disabled value="">Please select one</option>
-                          <option v-for="category in categories" :key="category.id" :value="category.id">
-                            {{ category.name }}
+                          <option v-for="category in categories" :key="category['id']" :value="category['id']">
+                            {{ category['name'] }}
                           </option>
                         </select>
                       </div>
@@ -131,8 +133,8 @@ function handleCategoryChange() {
                         <label for="subcategory" class="block text-sm font-medium text-gray-700">Select Subcategory</label>
                         <select v-model="selectedSubcategory" id="subcategory" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                           <option disabled value="">Please select one</option>
-                          <option v-for="subcategory in subcategories" :key="subcategory.id" :value="subcategory.id">
-                            {{ subcategory.name }}
+                          <option v-for="subcategory in subcategories" :key="subcategory['id']" :value="subcategory['id']">
+                            {{ subcategory['name'] }}
                           </option>
                         </select>
                       </div>
