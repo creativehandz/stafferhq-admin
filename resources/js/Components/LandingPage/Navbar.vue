@@ -97,14 +97,14 @@ defineProps<{
             'w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border z-40 rounded-2xl flex justify-between items-center p-2 bg-card shadow-md': true,
         }"
     >
-        <a href="/" class="font-bold text-lg flex items-center">
+        <a href="/" class="flex items-center text-lg font-bold">
             <!-- <ChevronsDown
-        class="bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white"
+        class="mr-2 text-white border rounded-lg bg-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
       /> -->
             <img
                 src="../../../img/logo.png"
                 alt="Logo"
-                class="g-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 text-white"
+                class="mr-2 text-white rounded-lg g-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
             />
 
             StafferHQ</a
@@ -125,12 +125,12 @@ defineProps<{
                             <SheetTitle class="flex items-center">
                                 <a href="/" class="flex items-center">
                                     <!-- <ChevronsDown
-                    class="bg-gradient-to-tr from-primary/70 via-primary to-primary/70 rounded-lg size-9 mr-2 border text-white"
+                    class="mr-2 text-white border rounded-lg bg-gradient-to-tr from-primary/70 via-primary to-primary/70 size-9"
                   /> -->
                                     <img
                                         src="../../../img/logo.png"
                                         alt="Logo"
-                                        class="g-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 text-white"
+                                        class="mr-2 text-white rounded-lg g-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
                                     />
 
                                     StafferHQ
@@ -154,7 +154,7 @@ defineProps<{
                     </div>
 
                     <SheetFooter
-                        class="flex-col sm:flex-col justify-start items-start"
+                        class="flex-col items-start justify-start sm:flex-col"
                     >
                         <Separator class="mb-2" />
 
@@ -168,7 +168,7 @@ defineProps<{
         <!-- <NavigationMenu class="hidden lg:block">
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger class="bg-card text-base">
+                    <NavigationMenuTrigger class="text-base bg-card">
                         Features
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -176,7 +176,7 @@ defineProps<{
                             <img
                                 src="https://www.radix-vue.com/logo.svg"
                                 alt="Beach"
-                                class="h-full w-full rounded-md object-cover"
+                                class="object-cover w-full h-full rounded-md"
                             />
                             <ul class="flex flex-col gap-2">
                                 <li
@@ -185,7 +185,7 @@ defineProps<{
                                         description,
                                     } in featureList"
                                     :key="title"
-                                    class="rounded-md p-3 text-sm hover:bg-muted"
+                                    class="p-3 text-sm rounded-md hover:bg-muted"
                                 >
                                     <p
                                         class="mb-1 font-semibold leading-none text-foreground"
@@ -224,7 +224,7 @@ defineProps<{
         <div class="hidden lg:block">
             <form action="" method="POST">
                 <div class="relative">
-                    <button class="absolute top-1/2 left-0 -translate-y-1/2">
+                    <button class="absolute left-0 -translate-y-1/2 top-1/2">
                         <svg
                             class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
                             width="20"
@@ -251,7 +251,7 @@ defineProps<{
                     <input
                         type="text"
                         placeholder="Type to search..."
-                        class="w-full bg-transparent pr-4 pl-9 focus:outline-none border-transparent rounded-xl"
+                        class="w-full pr-4 bg-transparent border-transparent pl-9 focus:outline-none rounded-xl"
                     />
                 </div>
             </form>
@@ -322,7 +322,7 @@ defineProps<{
             </div>
 
             <template v-else>
-                <div class="flex justify-center items-center gap-2">
+                <div class="flex items-center justify-center gap-2">
                     <Link :href="route('become-a-seller')">
                         <Button as-child size="sm" variant="outline">
                             <div
