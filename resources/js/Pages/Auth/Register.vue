@@ -105,6 +105,30 @@ const submit = () => {
 
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
+                <div class="mt-4">
+                    <InputLabel
+                        for="password_confirmation"
+                        value="Confirm Password"
+                        class="mb-2.5 block font-medium text-black dark:text-white"
+                    />
+
+                    <div class="relative">
+                        <TextInput
+                            id="password_confirmation"
+                            type="password"
+                            placeholder="Re-enter your password"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            v-model="form.password_confirmation"
+                            required
+                            autocomplete="new-password"
+                        />
+                       
+                    </div>
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.password_confirmation"
+                    />
+                </div>
 
                 <div>
                     <label class="block mt-4 mb-3 text-sm font-medium text-black dark:text-white">
