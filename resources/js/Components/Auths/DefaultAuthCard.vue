@@ -5,33 +5,33 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
 <template>
   <!-- ====== Forms Section Start -->
   <div
-    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+    class="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
   >
     <div class="flex flex-wrap items-center">
       <div class="hidden w-full xl:block xl:w-1/2">
         <div class="py-17.5 px-26 text-center">
           <router-link class="mb-5.5 flex justify-center items-center gap-4" to="/">
-            <img class="hidden dark:block h-9" src="../../../img/logo.png" alt="Logo" />
+            <!-- <img class="hidden dark:block h-9" src="../../../img/logo.png" alt="Logo" />
             <img class="dark:hidden h-9" src="../../../img/logo.png" alt="Logo" />
-            <h1 class="font-bold text-3xl text-black dark:text-white">StafferHQ</h1>
-          </router-link>
-
-          <p class="font-medium 2xl:px-20">
-            Quick Access
-            to Jobs & Talent
-          </p>
-
-          <span class="mt-15 inline-block">
-            <img src="../../../img/illustration/illustration-03.svg" alt="illustration" />
+            <h1 class="text-3xl font-bold text-black dark:text-white">StafferHQ</h1> -->
+          </router-link>        
+            
+          <span class="inline-block mt-15">
+            <div
+        class="bg-[#FB7B24] rounded-[25px] w-[480px] h-[700px] flex justify-center items-center"
+      >
+            <img src="../../../img/Business, analytics, sucess, startup, Technology _ account, setting, options, preferences.png" alt="illustration">
+            </div>
           </span>
         </div>
       </div>
-      <div class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+      <div class="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
         <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
-          <span class="mb-1.5 block font-medium">{{ props.subtitle }}</span>
-          <h2 class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+          
+          <h2 class="text-2xl  dark:text-white sm:text-title-xl2 text-[48px] font-bold font-crimsonPro text-black mb-4">
             {{ props.title }}
           </h2>
+          <span class="mb-1.5 block font-medium">{{ props.subtitle }}</span>
 
           <slot></slot>
         </div>
