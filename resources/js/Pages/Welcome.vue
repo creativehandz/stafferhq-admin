@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Benefits from "@/Components/LandingPage/Benefits.vue";
+import Buttons from "@/Components/LandingPage/Buttons.vue";
 import Community from "@/Components/LandingPage/Community.vue";
 import Contact from "@/Components/LandingPage/Contact.vue";
 import FAQ from "@/Components/LandingPage/FAQ.vue";
@@ -32,9 +33,10 @@ function handleImageError() {
 
 <template>
     <Head title="Welcome" />
-    <div class="bg-white text-black dark:bg-black-2 dark:text-white">
+    <div class="text-black bg-white dark:bg-black-2 dark:text-white">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
         <Hero />
+        <Buttons/>
         <Sponsors />
         <Benefits />
         <Features />
@@ -61,7 +63,7 @@ function handleImageError() {
         >
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header
-                    class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3"
+                    class="grid items-center grid-cols-2 gap-2 py-10 lg:grid-cols-3"
                 >
                     <div class="flex lg:justify-center lg:col-start-2">
                         <svg
@@ -76,7 +78,7 @@ function handleImageError() {
                             />
                         </svg>
                     </div>
-                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
+                    <nav v-if="canLogin" class="flex justify-end flex-1 -mx-3">
                         <Link
                             v-if="$page.props.auth.user"
                             :href="route('dashboard')"
@@ -113,7 +115,7 @@ function handleImageError() {
                         >
                             <div
                                 id="screenshot-container"
-                                class="relative flex w-full flex-1 items-stretch"
+                                class="relative flex items-stretch flex-1 w-full"
                             >
                                 <img
                                     src="https://laravel.com/assets/img/welcome/docs-light.svg"
@@ -398,7 +400,7 @@ function handleImageError() {
                 </main>
 
                 <footer
-                    class="py-16 text-center text-sm text-black dark:text-white/70"
+                    class="py-16 text-sm text-center text-black dark:text-white/70"
                 >
                     Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
                 </footer>

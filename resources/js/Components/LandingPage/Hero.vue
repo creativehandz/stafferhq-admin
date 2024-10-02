@@ -13,12 +13,12 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
 <template>
   <section class="container">
     <div
-      class="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto py-20 md:py-32"
+      class="grid gap-8 py-20 mx-auto place-items-center lg:max-w-screen-xl md:py-32"
     >
-      <div class="text-center space-y-8">
+      <!-- <div class="space-y-8 text-center">
         <Badge
           variant="outline"
-          class="text-sm py-2"
+          class="py-2 text-sm"
         >
           <span class="mr-2 text-primary">
             <Badge>New</Badge>
@@ -27,7 +27,7 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
         </Badge>
 
         <div
-          class="max-w-screen-md mx-auto text-center text-5xl md:text-6xl font-bold"
+          class="max-w-screen-md mx-auto text-5xl font-bold text-center md:text-6xl"
         >
           <h1>
             Experience the
@@ -45,17 +45,17 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
         </p>
 
         <div class="space-y-4 md:space-y-0 md:space-x-4">
-          <Button class="w-5/6 md:w-1/4 font-bold group/arrow">
+          <Button class="w-5/6 font-bold md:w-1/4 group/arrow">
             Get Started
             <ArrowRight
-              class="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform"
+              class="ml-2 transition-transform size-5 group-hover/arrow:translate-x-1"
             />
           </Button>
 
           <Button
             as-child
             variant="secondary"
-            class="w-5/6 md:w-1/4 font-bold"
+            class="w-5/6 font-bold md:w-1/4"
           >
             <a
               href="https://github.com/leoMirandaa/shadcn-vue-landing-page.git"
@@ -64,11 +64,69 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
             >
           </Button>
         </div>
+      </div> -->
+
+      <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl md:px-16">
+    <div class="container flex flex-col items-center mx-auto md:flex-row">
+      <!-- Text Section -->
+      <div class="text-center md:text-left md:w-1/2">
+        <h1 class="text-2xl leading font-crimsonPro md:text-4xl">Work. Simplified.<br>Let's get <span class="font-extrabold">ToWork.</span></h1>
+        <p class="mt-4 text-base md:text-lg">
+          Find all kinds of job opportunities in and around Malaysia. Sell your services. Or buy them.
+        </p>
       </div>
 
+      <!-- Image Section -->
+      <div class="flex justify-center mt-6 md:mt-0 md:w-1/2">
+        <img src="../../../img/womenPot.png" alt="Illustration" class="w-64 md:w-80">
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="flex flex-col items-center mt-8">
+      <div class="flex items-center w-full px-4 py-2 bg-white rounded-full md:w-1/2">
+        <input
+          type="text"
+          class="w-full px-4 py-2 text-black rounded-full focus:outline-none"
+          placeholder="Search for a service"
+        />
+        <button class="text-gray-600 focus:outline-none">          
+          <svg
+              class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+          >
+              <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
+                  fill=""
+              />
+              <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
+                  fill=""
+              />
+          </svg>
+        </button>
+      </div>
+
+
+      <p class="mt-2 text-sm text-white">
+        Discover talent in a variety of sectors, including virtual and in-person services.
+      </p>
+    </div>
+  </div>
+
+      
       <div class="relative group mt-14">
+
         <!-- gradient shadow -->
-        <div
+        <!-- <div
           class="absolute -top-6 right-12 w-[90%] h-12 lg:h-[80%] bg-primary/50 blur-3xl rounded-full img-shadow-animation"
         ></div>
 
@@ -78,14 +136,19 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
             mode == 'light' ? heroImageLight : heroImageDark
           "
           alt="dashboard using shadcn-vue"
-        />
+        /> -->
 
         <!-- gradient effect img -->
-        <div
-          class="absolute bottom-0 left-0 w-full h-20 md:h-28 bg-gradient-to-b from-background/0 via-background/50 to-background rounded-lg"
-        ></div>
+        <!-- <div
+          class="absolute bottom-0 left-0 w-full h-20 rounded-lg md:h-28 bg-gradient-to-b from-background/0 via-background/50 to-background"
+        ></div> -->
       </div>
     </div>
+  </section>
+
+
+  <section>
+    
   </section>
 </template>
 
@@ -126,4 +189,45 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
     @apply border-t-primary/60;
   }
 }
+</style>
+
+
+<!--       <form action="" method="POST" class="px-16 bg-white rounded-2xl">
+                <div class="relative">
+                    <button class="absolute left-0 -translate-y-1/2 top-1/2">
+                        <svg
+                            class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
+                                fill=""
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
+                                fill=""
+                            />
+                        </svg>
+                    </button>
+
+                    <input
+                        type="text"
+                        placeholder="Type to search..."
+                        class="w-full pr-4 bg-transparent border-transparent pl-9 focus:outline-none rounded-xl"
+                    />
+                </div>
+            </form> -->
+
+            <style>
+    body {
+        font-family: 'Crimson Pro', serif;
+    }
 </style>

@@ -36,11 +36,11 @@ const submit = () => {
 
         <DefaultAuthCard  title="Sign Up ToWork">
             <!-- Subtitle -->
-            <p class="text-[24px] mb-2.5 font-neueMontreal text-black">
+            <p class="text-[24px] mb-2.5 font-medium text-base  text-black">
                 Already have an account?
-                <span class="text-[#FB7B24] cursor-pointer">
+                <a href="/login"><span class="text-[#FB7B24] cursor-pointer">
                     Log in!
-                </span>
+                </span></a>
             </p>
             <form @submit.prevent="submit">
                 <div>
@@ -135,7 +135,7 @@ const submit = () => {
                         You're a:
                     </label>
                     <div class="flex items-center space-x-6">
-                        <label class="flex items-center text-lg font-semibold text-black dark:text-white">
+                        <label class="flex items-center text-base font-bold text-black dark:text-white">
                             <input
                                 type="radio"
                                 value="1"
@@ -145,7 +145,7 @@ const submit = () => {
                             />
                             <span class="ml-2 ">Buyer</span>
                         </label>
-                        <label class="flex items-center text-lg font-semibold text-black dark:text-white">
+                        <label class="flex items-center text-base font-bold text-black dark:text-white">
                             <input
                                 type="radio"
                                 value="2"
@@ -163,7 +163,7 @@ const submit = () => {
                     <input
                         type="submit"
                         value="Sign Up"
-                        class="w-full p-4 font-medium text-white transition border rounded-[50px] cursor-pointer border-primary bg-primary hover:bg-opacity-90"
+                        class="w-full p-4 font-bold text-black transition border rounded-[50px] cursor-pointer border-primary bg-[#F5F535] hover:bg-opacity-90"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
                     />

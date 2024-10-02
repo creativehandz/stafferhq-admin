@@ -39,11 +39,9 @@ const submit = () => {
         </div>
 
         <DefaultAuthCard  title="Log in ToWork">
-            <p class="text-[24px] mb-2.5 font-neueMontreal text-black">
+            <p class="text-[24px] mb-2.5 font-medium text-base text-black">
                 Don’t have an account? 
-                <span class="text-[#FB7B24] cursor-pointer">
-                    Sign up!
-                </span>
+                <a href="/register"><input class="text-[#FB7B24] cursor-pointer" type="submit" value="Sign Up!"/></a>
             </p>
             <form @submit.prevent="submit">
                 <div>
@@ -91,7 +89,7 @@ const submit = () => {
                     <input
                         type="submit"
                         value="Sign In"
-                        class="w-full p-4 font-medium text-white transition border rounded-[50px] cursor-pointer border-primary bg-primary hover:bg-opacity-90" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                        class="w-full p-4 font-bold text-black transition border rounded-[50px] cursor-pointer border-primary bg-[#F5F535] hover:bg-opacity-90" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                     />
                 </div>                
             </form>
