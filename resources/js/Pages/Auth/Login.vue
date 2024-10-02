@@ -41,9 +41,7 @@ const submit = () => {
         <DefaultAuthCard  title="Log in ToWork">
             <p class="text-[24px] mb-2.5 font-medium text-base text-black">
                 Don’t have an account? 
-                <span class="text-[#FB7B24] cursor-pointer">
-                    Sign up!
-                </span>
+                <a href="/register"><input class="text-[#FB7B24] cursor-pointer" type="submit" value="Sign Up!"/></a>
             </p>
             <form @submit.prevent="submit">
                 <div>

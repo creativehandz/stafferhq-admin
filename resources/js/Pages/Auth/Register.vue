@@ -38,9 +38,9 @@ const submit = () => {
             <!-- Subtitle -->
             <p class="text-[24px] mb-2.5 font-medium text-base  text-black">
                 Already have an account?
-                <span class="text-[#FB7B24] cursor-pointer">
+                <a href="/login"><span class="text-[#FB7B24] cursor-pointer">
                     Log in!
-                </span>
+                </span></a>
             </p>
             <form @submit.prevent="submit">
                 <div>
