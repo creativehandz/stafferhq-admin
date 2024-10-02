@@ -19,10 +19,6 @@ type subcategories = {
   name: string;
 };
 
-type Props = {
-    categories: Categories[];
-};
-
 const steps = [
   { number: 1, name: 'Overview' },
   { number: 2, name: 'Pricing' },
@@ -58,7 +54,7 @@ const selectedSubcategory = ref(null);
 
 // Fetch categories and subcategories from backend
 onMounted(() => {
-  axios.get('/categories').then(response => {
+  axios.get('/categoriesandsub').then(response => {
     categories.value = response.data; // assuming response contains categories with subcategories
   }).catch(error => {
     console.error('Error fetching categories:', error);
@@ -68,7 +64,7 @@ onMounted(() => {
 // Handle category change to filter subcategories
 function handleCategoryChange() {
   const selected = categories.value.find(category => category['id'] === selectedCategory.value);
-  subcategories.value = selected ? selected['subcategories'] : [];
+  subcategories.value = selected ? selected['sub_categories'] : [];
 }
 
 
@@ -369,7 +365,7 @@ function handleCategoryChange() {
                 <button type="button" class="px-6 py-2 mr-2 text-gray-700 bg-gray-300 rounded-md" @click="goToStep(currentStep - 1)" :disabled="currentStep === 1">
                   Back
                 </button>
-                <button type="button" class="px-6 py-2 text-white bg-orange-500 rounded-md" @click="goToStep(currentStep + 1)" :disabled="currentStep === steps.length">
+                <button v-if="currentStep !== 6" type="button" class="px-6 py-2 text-white bg-orange-500 rounded-md" @click="goToStep(currentStep + 1)" :disabled="currentStep === steps.length">
                   Save & Continue
                 </button>
               </div>

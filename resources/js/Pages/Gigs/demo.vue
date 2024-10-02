@@ -84,7 +84,7 @@ const subcategories = ref([]);
 
 // Fetch categories from backend on mount
 onMounted(() => {
-  axios.get('/categories')
+  axios.get('/categoriesandsub')
     .then(response => {
       categories.value = response.data;
     })
@@ -96,7 +96,7 @@ onMounted(() => {
 // Handle category change to populate subcategories
 const handleCategoryChange = () => {
   const selected = categories.value.find(category => category['id'] === gigForm.category_id);
-  subcategories.value = selected ? selected['subcategories'] : [];
+  subcategories.value = selected ? selected['sub_categories'] : [];
 };
 
 // Navigation between steps

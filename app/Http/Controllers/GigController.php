@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gig;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Gigs;
 use Illuminate\Support\Facades\Auth;
@@ -92,7 +94,8 @@ class GigController extends Controller
                 'pricing' => json_encode($validated['pricing']), // Encode pricing to JSON
             ]);
         
-            return response()->json($gig, 201); // Return created gig
+            // return response()->json($gig, 201); // Return created gig
+            return redirect()->route('gigs-record')->with('success', 'Gig created successfully.');
         }
         
  }
