@@ -5,18 +5,18 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
 <template>
   <!-- ====== Forms Section Start -->
   <div
-    class="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
+    class="bg-white rounded-sm "
   >
     <div class="flex flex-wrap items-center">
       <div class="hidden w-full xl:block xl:w-1/2">
-        <div class="py-17.5 px-26 text-center">
-          <router-link class="mb-5.5 flex justify-center items-center gap-4" to="/">
-            <!-- <img class="hidden dark:block h-9" src="../../../img/logo.png" alt="Logo" />
+        <div class="py-0 px-0 text-center">
+         <!-- <router-link class="mb-5.5 flex justify-center items-center gap-4" to="/">
+             <img class="hidden dark:block h-9" src="../../../img/logo.png" alt="Logo" />
             <img class="dark:hidden h-9" src="../../../img/logo.png" alt="Logo" />
-            <h1 class="text-3xl font-bold text-black dark:text-white">StafferHQ</h1> -->
-          </router-link>        
+            <h1 class="text-3xl font-bold text-black dark:text-white">StafferHQ</h1> 
+          </router-link>        -->
             
-          <span class="inline-block mt-15">
+          <span class="inline-block mt-0">
             <div
         class="bg-[#FB7B24] rounded-[25px] w-[480px] h-[700px] flex justify-center items-center"
       >
