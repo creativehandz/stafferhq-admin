@@ -1,166 +1,32 @@
-<script setup lang="ts">
-// import { ChevronsDown } from "lucide-vue-next";
-import Separator from "./ui/separator/Separator.vue";
+<template>
+  <div class="container px-4 py-8 mx-auto"> 
+    <!-- Join Us Section -->
+    <div class="px-6 py-12 text-center text-white bg-orange-500 rounded-3xl md:px-16">
+      <h2 class="mb-4 text-4xl font-bold text-white">Join us!</h2>
+      <p class="mb-6 text-lg text-white">Services and more, just a few clicks away</p>
+      <button class="px-8 py-3 font-bold text-black transition-all duration-300 bg-yellow-300 rounded-full shadow-md hover:bg-yellow-400">
+        Get ToWork!
+      </button>
+    </div>
 
+    <!-- Footer Section -->
+    <footer class="flex items-center justify-between px-6 pt-4 pb-6 mt-8 text-sm text-gray-600 border-t lg:px-16">
+      <div>
+        <strong class="font-bold text-black">ToWork.</strong>
+        <span> © TheFaceCraft, 2024</span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:underline">Terms of Service</a>
+        <a href="#" class="hover:underline">Privacy Policy</a>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script setup lang="ts">
+// No additional logic needed
 </script>
 
-<template>
-  <footer
-    id="footer"
-    class="container py-24 sm:py-32"
-  >
-    <div class="p-10 bg-muted/50 dark:bg-card border rounded-2xl">
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8"
-      >
-        <div class="col-span-full xl:col-span-2">
-          <a
-            href="#"
-            class="flex font-bold items-center"
-          >
-            <!-- <ChevronsDown
-              class="bg-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white"
-            /> -->
-            <img src="../../../img/logo.png" alt="Logo" class="g-gradient-to-tr from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 text-white" />
-            
-            <h3 class="text-2xl">StafferHQ</h3>
-          </a>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="font-bold text-lg">Contact</h3>
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Github
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Twitter
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Instagram
-            </a>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="font-bold text-lg">Platforms</h3>
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              iOS
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Android
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Web
-            </a>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="font-bold text-lg">Help</h3>
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Contact Us
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              FAQ
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Feedback
-            </a>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="font-bold text-lg">Socials</h3>
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Twitch
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Discord
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="opacity-60 hover:opacity-100"
-            >
-              Dribbble
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <Separator class="my-6" />
-      <section className="">
-        <h3 class="">
-          &copy; 2024 Designed and developed by
-          <a
-            target="_blank"
-            href="https://github.com/leoMirandaa"
-            className="text-primary transition-all border-primary hover:border-b-2"
-          >
-            TheFaceCraft
-          </a>
-        </h3>
-      </section>
-    </div>
-  </footer>
-</template>
+<style scoped>
+/* Additional styles (if necessary) */
+</style>
