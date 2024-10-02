@@ -1,0 +1,53 @@
+<template>
+    <section>
+        <div class="container px-4 py-8 mx-auto text-left">
+
+      <h2 class="p-4 mb-8 text-2xl font-bold text-left">Discover talented individuals that<br/> meet your requirements.</h2>
+      <div class="grid grid-cols-1 gap-6 text-left md:grid-cols-2 lg:grid-cols-4">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-lg">
+          <img src="" alt="Over 400 types of services" class="w-12 h-12 mx-auto mb-4">
+          <h3 class="text-lg font-semibold">Over 400 types of services</h3>
+          <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="p-6 rounded-lg">
+          <img src="" alt="Certified, vetted professionals" class="w-12 h-12 mx-auto mb-4">
+          <h3 class="text-lg font-semibold">Certified, vetted professionals</h3>
+          <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="p-6 rounded-lg ">
+          <img src="" alt="24/7 customer support" class="w-12 h-12 mx-auto mb-4">
+          <h3 class="text-lg font-semibold">24/7 customer support</h3>
+          <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="p-6 rounded-lg">
+          <img src="webIcon" alt="Swift, easy transactions" class="w-12 h-12 mx-auto mb-4">
+          <h3 class="text-lg font-semibold">Swift, easy transactions</h3>
+          <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
+        </div>
+        
+      </div>
+
+</div>
+</section>
+  </template>
+  
+  <script setup lang="ts">
+  // Icons will be imported dynamically with relative paths
+  import webIcon from '../../../img/logos/ai-icon.svg';
+  import aiIcon from '../../../img/logos/ai-icon.svg';
+  import customerSupportIcon from '../../../img/logos/ai-icon.svg';
+  import easyTransactionIcon from '../../../img/logos/ai-icon.svg';
+  </script>
+  
+  <style scoped>
+  /* Additional styles (if necessary) can be placed here */
+  </style>
+  
