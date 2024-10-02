@@ -8,26 +8,6 @@ import { ArrowRight } from "lucide-vue-next";
 import heroImageLight from '../../../img/LandingPage/heroImageLight.jpg'
 import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
 
-import webIcon from '../../../img/logos/ai-icon.svg';
-import translationIcon from '../../../img/logos/translation-icon.svg';
-import animationIcon from '../../../img/logos/ai-icon.svg';
-import graphicsIcon from '../../../img/logos/ai-icon.svg';
-import inpersonIcon from '../../../img/logos/ai-icon.svg';
-import aiIcon from '../../../img/logos/ai-icon.svg';
-import musicIcon from '../../../img/logos/ai-icon.svg';
-import businessIcon from '../../../img/logos/ai-icon.svg';
-
-const categories = [
-  { name: "Web and digital services", icon: webIcon },
-  { name: "Translation and linguistics", icon: translationIcon },
-  { name: "Animation and video", icon: animationIcon },
-  { name: "Graphics and design", icon: graphicsIcon },
-  { name: "In-person services", icon: inpersonIcon },
-  { name: "AI and ML", icon: aiIcon },
-  { name: "Music and audio", icon: musicIcon },
-  { name: "Business and networking", icon: businessIcon },
-];
-
 </script>
 
 <template>
@@ -144,23 +124,6 @@ const categories = [
 
       
       <div class="relative group mt-14">
-
-        <div class="container px-4 py-8 mx-auto">
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      <div 
-        v-for="(item, index) in categories" 
-        :key="index" 
-        class="flex items-center justify-between p-4 transition-shadow duration-200 border rounded-lg shadow cursor-pointer hover:shadow-lg"
-      >
-        <div class="flex items-center">
-          <!-- SVG icon as an image -->
-          <img v-if="item.icon" :src="item.icon" alt="Icon" class="w-6 h-6 mr-3">
-          <span class="text-sm md:text-base">{{ item.name }}</span>
-        </div>
-      </div>
-    </div>
-    </div>
-
 
         <!-- gradient shadow -->
         <!-- <div
