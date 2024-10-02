@@ -195,7 +195,7 @@ Route::get('/become-a-seller', function () {
 // })->name('categories');
 
 
-Route::get('/categories', [CategoryController::class, 'getAllCategoriesWithSubCategories'])->name('categories');
+Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories'])->name('categories');
 
 Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategoryDetail'])->name('category.detail');
 
@@ -267,7 +267,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-gig', [GigController::class, 'store'])->name('gigs.store');
 
 
-    Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories']);
+    Route::get('/categoriesandsub', [CategoryController::class, 'getAllCategoriesWithSubCategories']);
 
 
 

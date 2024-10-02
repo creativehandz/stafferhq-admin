@@ -32,6 +32,12 @@ class CategoryController extends Controller
     ]);
   }
 
+  public function getAllCategoriesWithSubCategories()
+  {
+    $categories = Category::with('subCategories')->get();
+    return $categories;
+  }
+
   public function getCategoryDetail($categoryId) {
     $category = Category::where('id', $categoryId)->with('subCategories')->firstOrFail();
     return Inertia::render('CategoryDetail', [
