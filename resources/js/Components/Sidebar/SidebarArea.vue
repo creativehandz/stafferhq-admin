@@ -545,7 +545,7 @@ if (userRole === 0) {
         >
             <Link :href="route('dashboard')">
                 <div class="flex items-center justify-center gap-4">
-                    <img src="../../../img/logo.png" alt="Logo" class="h-9" />
+                    <img src="" alt="Logo" class="h-9" />
                     <h1 class="text-2xl font-bold text-white font">
                         StafferHQ
                     </h1>
