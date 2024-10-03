@@ -1,13 +1,13 @@
 <template>
 <div class="container px-4 py-8 mx-auto">  
   <div class="px-6 py-12 text-black md:px-16">
-    <h2 class="mb-6 text-3xl font-semibold text-center">
+    <h2 class="mb-6 text-3xl font-semibold text-left dark:text-white">
       What people say about joining ToWork
     </h2>
 
     <div class="flex flex-col items-center justify-between space-x-0 space-y-6 md:flex-row md:space-x-6 md:space-y-0">
       <!-- Testimonial Text -->
-      <div class="max-w-lg text-center md:text-left">
+      <div class="max-w-lg text-center md:text-left dark:text-white">
         <blockquote class="text-xl italic font-light text-gray-800">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac
           vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -20,7 +20,7 @@
 
       <!-- Testimonial Image -->
       <img
-        src="../../../img/illustration/illustration-01.svg"
+        src="../../../img/people.png"
         alt="Testimonial Image"
         class="object-cover w-full h-auto max-w-xs rounded-md"
       />

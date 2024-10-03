@@ -17,14 +17,14 @@
   </template>
   
   <script setup lang="ts">
-  import webIcon from '../../../img/logos/ai-icon.svg';
+  import webIcon from '../../../img/logos/Layer_2.svg';
   import translationIcon from '../../../img/logos/translation-icon.svg';
-  import animationIcon from '../../../img/logos/ai-icon.svg';
-  import graphicsIcon from '../../../img/logos/ai-icon.svg';
-  import inpersonIcon from '../../../img/logos/ai-icon.svg';
+  import animationIcon from '../../../img/logos/camRa.svg';
+  import graphicsIcon from '../../../img/logos/amination-icon.svg';
+  import inpersonIcon from '../../../img/logos/scissors_2.svg';
   import aiIcon from '../../../img/logos/ai-icon.svg';
-  import musicIcon from '../../../img/logos/ai-icon.svg';
-  import businessIcon from '../../../img/logos/ai-icon.svg';
+  import musicIcon from '../../../img/logos/music-icon.svg';
+  import businessIcon from '../../../img/logos/businessM.svg';
   
   const categories = [
     { name: "Web and digital services", icon: webIcon },
