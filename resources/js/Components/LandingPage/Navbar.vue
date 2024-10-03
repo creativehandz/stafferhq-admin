@@ -128,7 +128,7 @@ defineProps<{
                     class="mr-2 text-white border rounded-lg bg-gradient-to-tr from-primary/70 via-primary to-primary/70 size-9"
                   /> -->
                                     <img
-                                        src="../../../img/logo.png"
+                                        src=""
                                         alt="Logo"
                                         class="mr-2 text-white rounded-lg g-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
                                     />

@@ -67,10 +67,10 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
       <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl md:px-16">
          <div class="container flex flex-col items-center mx-auto md:flex-row">
             <!-- Text Section -->
-            <div class="text-center md:text-left md:w-1/2">
-              <h1 class="text-2xl leading font-crimsonPro md:text-4xl">Work. Simplified.<br>Let's get <span class="font-extrabold">ToWork.</span></h1>
+                <div class="text-center md:text-left md:w-1/2">
+                <h1 class="text-2xl font-bold leading md:text-4xl">Work. Simplified.<br>Let's get <span class="font-extrabold">ToWork.</span></h1>
                 <p class="mt-4 text-base md:text-lg">
-                  Find all kinds of job opportunities in and around Malaysia. Sell your services. Or buy them.
+                  Find all kinds of job opportunities in and around<br/> Malaysia. Sell your services. Or buy them.
                 </p>
             </div>
 
@@ -163,8 +163,8 @@ import heroImageDark from '../../../img/LandingPage/heroImageDark.jpg'
 }
 </style>
 
-<style>
-    body {
+<style scoped>
+    h1 {
         font-family: 'Crimson Pro', serif;
-    }
+    }    
 </style>

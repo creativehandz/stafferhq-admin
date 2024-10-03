@@ -21,7 +21,12 @@
   // No additional logic needed for this template
 </script>
   
-<style scoped>
-  /* Additional styles (if necessary) can be placed here */
+<style>
+  h2 {
+    font-family: 'Crimson Pro', serif;
+  }
+  p {
+    font-family: Arial, Helvetica, sans-serif
+  }
 </style>
   

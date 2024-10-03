@@ -28,5 +28,7 @@
 </script>
 
 <style scoped>
-/* Additional styles (if necessary) */
+  h2 {
+    font-family: Helvatica Neue;
+  }
 </style>

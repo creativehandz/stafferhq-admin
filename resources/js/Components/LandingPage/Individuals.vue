@@ -7,28 +7,28 @@
         
         <!-- Card 1 -->
         <div class="p-6 rounded-lg">
-          <img src="" alt="Over 400 types of services" class="w-12 h-12 mx-auto mb-4">
+          <img src="../../../img/logos/four-icons/suitecase.png" alt="Over 400 types of services" class="w-12 h-12 mx-auto mb-4">
           <h3 class="text-lg font-semibold">Over 400 types of services</h3>
           <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
         </div>
         
         <!-- Card 2 -->
         <div class="p-6 rounded-lg">
-          <img src="" alt="Certified, vetted professionals" class="w-12 h-12 mx-auto mb-4">
+          <img src="../../../img/logos/four-icons/correct.png" alt="Certified, vetted professionals" class="w-12 h-12 mx-auto mb-4">
           <h3 class="text-lg font-semibold">Certified, vetted professionals</h3>
           <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
         </div>
         
         <!-- Card 3 -->
         <div class="p-6 rounded-lg ">
-          <img src="" alt="24/7 customer support" class="w-12 h-12 mx-auto mb-4">
+          <img src="../../../img/logos/four-icons/headphone.png" alt="24/7 customer support" class="w-12 h-12 mx-auto mb-4">
           <h3 class="text-lg font-semibold">24/7 customer support</h3>
           <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
         </div>
         
         <!-- Card 4 -->
         <div class="p-6 rounded-lg">
-          <img src="webIcon" alt="Swift, easy transactions" class="w-12 h-12 mx-auto mb-4">
+          <img src="../../../img/logos/four-icons/pointer.png" alt="Swift, easy transactions" class="w-12 h-12 mx-auto mb-4">
           <h3 class="text-lg font-semibold">Swift, easy transactions</h3>
           <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
         </div>
@@ -40,11 +40,7 @@
   </template>
   
   <script setup lang="ts">
-  // Icons will be imported dynamically with relative paths
-  import webIcon from '../../../img/logos/ai-icon.svg';
-  import aiIcon from '../../../img/logos/ai-icon.svg';
-  import customerSupportIcon from '../../../img/logos/ai-icon.svg';
-  import easyTransactionIcon from '../../../img/logos/ai-icon.svg';
+
   </script>
   
   <style scoped>
