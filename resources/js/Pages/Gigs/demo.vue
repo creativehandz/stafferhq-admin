@@ -46,10 +46,10 @@ const gigForm = useForm({
 
 // Validation rules using Vuelidate
 const rules = {
-  gig_title: { required, minLength: minLength(3) }, // Required and minimum length of 3
+  gig_title: { required }, // Required and minimum length of 3
   category_id: { required },
   subcategory_id: { required },
-  gig_description: { required, minLength: minLength(10) }, // Required and minimum length of 10
+  gig_description: { required }, // Required and minimum length of 10
 
   positive_keywords: {
     required,
@@ -90,6 +90,42 @@ const rules = {
     }
   }
 };
+
+// the initail value for each fields validation
+const formValidation = {
+  gig_title: true,
+  category_id: true,
+  subcategory_id: true,
+  gig_description: true,
+  positive_keywords: true,
+  images: true,
+  requirements: true,
+  faqs: true,
+  pricing: {
+    basic: {
+      name: true,
+      description: true,
+      delivery_time: true,
+      revisions: true,
+      price: true
+    },
+    standard: {
+      name: true,
+      description: true,
+      delivery_time: true,
+      revisions: true,
+      price: true
+    },
+    premium: {
+      name: true,
+      description: true,
+      delivery_time: true,
+      revisions: true,
+      price: true
+    }
+  },
+  message: []
+}
 
 // Initialize Vuelidate with rules
 const v$ = useVuelidate(rules, gigForm);
@@ -153,7 +189,21 @@ const steps = [
 ];
 
 const goToStep = (step: number) => {
-  currentStep.value = step;
+
+  gigForm.requirements = requirements.value;
+  gigForm.positive_keywords = positiveKeywords.value.join(',');
+
+  const validation = validateGigForm(step - 1);
+  console.log(validation)
+  if (validation.isValid) {
+    currentStep.value = step;
+
+  } else {
+    errorMessage.value = formValidation.message[step-1];
+    isModalOpen.value = true; // Open modal
+    console.error('Form validation failed: ', errorMessage.value);
+  }
+
 };
 
 // Function to add more FAQs
@@ -176,66 +226,116 @@ const handleFileUpload = (event) => {
   console.log(gigForm.images); // To see the uploaded files in the console
 };
 
-const validateGigForm = () => {
-  // Check if any of the simple fields are empty
-  if (!gigForm.gig_title) {
-    return { isValid: false, message: "Gig Title is required." };
+const validateGigForm = (step = 0) => {
+
+  let enable = true;
+
+  if (step === 1) {
+    formValidation.message[step] = ''
+    if (!gigForm.gig_title) {
+      enable = false;
+      formValidation.gig_title = false;
+      formValidation.message[step] += "Gig Title is required.<br>";
+    }
+    
+    if (!gigForm.category_id) {
+      enable = false;
+      formValidation.category_id = false;
+      formValidation.message[step] += "Category is required.<br>";
+    }
+
+    if (!gigForm.subcategory_id) {
+      enable = false;
+      formValidation.subcategory_id = false;
+      formValidation.message[step] += "Subcategory is required.<br>";
+    }
+
+    if (gigForm.positive_keywords.length === 0) {
+      enable = false;
+      formValidation.positive_keywords = false;
+      formValidation.message[step] += "At least one tag is required.<br>";
+    }
+
+    
+    return { isValid: enable };
+
+  } else if (step === 2) {
+    formValidation.message[step] = ''
+    for (const plan in gigForm.pricing) {
+      console.log("Plan is : ", plan)
+      if (!gigForm.pricing[plan].name) {
+        enable = false;
+        formValidation.pricing[plan].name = false;
+        formValidation.message[step] += `The name of the ${plan} package is required.<br>`;
+      }
+
+      if (!gigForm.pricing[plan].description) {
+        enable = false;
+        formValidation.pricing[plan].description = false;
+        formValidation.message[step] += `The description of the ${plan} package is required.<br>`;
+      }
+
+      if (!gigForm.pricing[plan].delivery_time) {
+        enable = false;
+        formValidation.pricing[plan].delivery_time = false;
+        formValidation.message[step] += `Delivery time of the ${plan} package is required.<br>`;
+      }
+
+      if (!gigForm.pricing[plan].revisions) {
+        enable = false;
+        formValidation.pricing[plan].revisions = false;
+        formValidation.message[step] += `Revisions for the ${plan} package is required.<br>`;
+      }
+
+      if (!gigForm.pricing[plan].price) {
+        enable = false;
+        formValidation.pricing[plan].price = false;
+        formValidation.message[step] += `Price for the ${plan} package is required.<br>`;
+      }
+
+    }
+    
+    return { isValid: enable };
+
+  } else if (step === 3 ){
+    formValidation.message[step] = ''
+    if (!gigForm.gig_description) {
+      enable = false;
+      formValidation.gig_description = false;
+      formValidation.message[step] += `Gig Description is required.<br>`;
+    }
+
+    if (gigForm.faqs.length > 0 && gigForm.faqs.some(faq => !faq.question || !faq.answer)) {
+      enable = false;
+      formValidation.faqs = false;
+      formValidation.message[step] += `All FAQs must have both a question and an answer.<br>`;
+    }
+
+    return { isValid: enable };
+
+  } else if (step === 4){
+    formValidation.message[step] = ''
+    if (gigForm.requirements.length === 0 || gigForm.requirements.some(req => !req)) {
+      enable = false;
+      formValidation.requirements = false;
+      formValidation.message[step] += `At least one requirement is required.<br>`;
+    }
+
+    return { isValid: enable };
+
+  } else if (step === 5) {
+    formValidation.message[step] = ''
+    if (gigForm.images.length === 0) {
+      enable = false;
+      formValidation.images = false;
+      formValidation.message[step] += `At least one image is required.<br>`;
+    }
+    return { isValid: enable };
+
+  } else {
+    return { isValid: enable };
   }
   
-  if (!gigForm.category_id) {
-    return { isValid: false, message: "Category is required." };
-  }
-
-  if (!gigForm.subcategory_id) {
-    return { isValid: false, message: "Subcategory is required." };
-  }
-
-  if (!gigForm.gig_description) {
-    return { isValid: false, message: "Gig Description is required." };
-  }
-
-  // Check arrays (e.g., tags, images, requirements)
-  if (gigForm.positive_keywords.length === 0) {
-    return { isValid: false, message: "At least one tag is required." };
-  }
-
-  if (gigForm.images.length === 0) {
-    return { isValid: false, message: "At least one image is required." };
-  }
-
-  if (gigForm.requirements.length === 0 || gigForm.requirements.some(req => !req)) {
-    return { isValid: false, message: "At least one requirement is required." };
-  }
-
-  // Check nested fields for pricing (basic, standard, premium)
-  for (const plan in gigForm.pricing) {
-    if (!gigForm.pricing[plan].name) {
-      return { isValid: false, message: `The name of the ${plan} package is required.` };
-    }
-
-    if (!gigForm.pricing[plan].description) {
-      return { isValid: false, message: `The description of the ${plan} package is required.` };
-    }
-
-    if (!gigForm.pricing[plan].delivery_time) {
-      return { isValid: false, message: `Delivery time for the ${plan} package is required.` };
-    }
-
-    if (!gigForm.pricing[plan].revisions) {
-      return { isValid: false, message: `Revisions for the ${plan} package are required.` };
-    }
-
-    if (!gigForm.pricing[plan].price) {
-      return { isValid: false, message: `Price for the ${plan} package is required.` };
-    }
-  }
-
-  // Check FAQs (if there's at least one and not empty)
-  if (gigForm.faqs.length > 0 && gigForm.faqs.some(faq => !faq.question || !faq.answer)) {
-    return { isValid: false, message: "All FAQs must have both a question and an answer." };
-  }
-
-  return { isValid: true };
 };
 
 const closeModal = () => {
@@ -247,19 +347,12 @@ const handleSubmit = async () => {
   gigForm.requirements = requirements.value;
   gigForm.positive_keywords = positiveKeywords.value.join(',');
 
-  const validation = validateGigForm();
-  console.log(validation)
-  if (validation.isValid) {
-    gigForm.post('/create-gig', {
-      onSuccess: () => {
-        router.visit('/create-gig');
-      }
-    });
-  } else {
-    console.error('Form validation failed: ', validation.message);
-    errorMessage.value = validation.message;
-    isModalOpen.value = true; // Open modal
-  }
+  gigForm.post('/create-gig', {
+    onSuccess: () => {
+      router.visit('/create-gig');
+    }
+  });
+  
 };
 
 </script>
@@ -275,23 +368,22 @@ const handleSubmit = async () => {
       <BreadcrumbDefault :pageTitle="pageTitle" />
   
       <!-- Error Modal -->
-      <Modal :show="isModalOpen" @close="closeModal">
+      <div v-if="isModalOpen" @close="closeModal" class="fixed z-50 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] mb-6 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto sm:max-w-2xl" >
         <div class="p-6">
           <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             Validation Error
           </h2>
 
-          <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Please check all fields and provide all information.
-            {{ errorMessage.value }}
-          </p>
+          <div v-html="errorMessage" class="flex items-center justify-center mt-1 text-sm text-gray-600 dark:text-gray-400">
+            
+          </div>
 
           <div class="mt-6 flex justify-end">
             <SecondaryButton @click="closeModal"> OK </SecondaryButton>
 
           </div>
         </div>
-      </Modal>
+      </div>
 
       <!-- Step indicators -->
       <div class="p-4 my-6">
@@ -610,7 +702,7 @@ const handleSubmit = async () => {
                   <div class="mt-2" v-for="(faq, index) in gigForm.faqs" :key="index">
                     <input
                       v-model="faq.question"
-                      @input="v$.faqs.question.$touch()"
+                      @input="v$.faqs[index].question.$touch()"
                       type="text"
                       placeholder="Enter question"
                       class="block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm"
@@ -618,7 +710,7 @@ const handleSubmit = async () => {
                     <div class="mt-4">
                       <textarea
                         v-model="faq.answer"
-                        @input="v$.faqs.answer.$touch()"
+                        @input="v$.faqs[index].answer.$touch()"
                         rows="4"
                         placeholder="Enter the answer to your question"
                         class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
