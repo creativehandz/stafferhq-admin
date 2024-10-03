@@ -62,7 +62,7 @@
 }
 
 @font-face {
-    font-family: 'Neue Montreal';
+    font-family: 'Neue Montreal regular';
     src: url('NeueMontreal-Regular.woff2') format('woff2'),
         url('NeueMontreal-Regular.woff') format('woff');
     font-weight: normal;
