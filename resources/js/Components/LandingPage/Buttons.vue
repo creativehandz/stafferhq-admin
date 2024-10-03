@@ -4,12 +4,12 @@
         <div 
           v-for="(item, index) in categories" 
           :key="index" 
-          class="flex items-center justify-between p-4 transition-shadow duration-200 border rounded-lg shadow cursor-pointer hover:shadow-lg"
+          class="flex items-center justify-between px-3 py-3 transition-shadow duration-200 rounded-lg shadow cursor-pointer hover:shadow-lg"
         >
           <div class="flex items-center">
             <!-- SVG icon as an image -->
             <img v-if="item.icon" :src="item.icon" alt="Icon" class="w-6 h-6 mr-3">
-            <span class="text-sm md:text-base">{{ item.name }}</span>
+            <span class="text-sm md:text-base button-items">{{ item.name }}</span>
           </div>
         </div>
       </div>
@@ -40,5 +40,10 @@
   
   <style scoped>
   /* Additional styling if required */
+  .button-items {
+    font-family: Neue Montreal;
+    font-size:24px ;
+    line-height: 38px;    
+  }
   </style>
   

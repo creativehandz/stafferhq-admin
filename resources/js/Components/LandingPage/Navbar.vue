@@ -6,14 +6,6 @@ const mode = useColorMode();
 mode.value = "dark";
 
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-} from "@/Components/LandingPage/ui/navigation-menu";
-import {
     Sheet,
     SheetContent,
     SheetFooter,
@@ -50,18 +42,6 @@ const routeList: RouteProps[] = [
         href: "#testimonials",
         label: "Testimonials",
     },
-    // {
-    //     href: "#team",
-    //     label: "Team",
-    // },
-    // {
-    //   href: "#contact",
-    //   label: "Contact",
-    // },
-    // {
-    //   href: "#faq",
-    //   label: "FAQ",
-    // },
 ];
 
 const featureList: FeatureProps[] = [
@@ -91,20 +71,15 @@ defineProps<{
 
 <template>
     <header
-        :class="{
-            'shadow-light': mode === 'light',
-            'shadow-dark': mode === 'dark',
-            'w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky z-40  flex justify-between items-center p-2 bg-card shadow-md': true,
+        :class="{            
+            'container top-5 mx-auto  z-40  flex justify-between items-center': true,
         }"
     >
         <a href="/" class="flex items-center text-lg font-bold">
-            <!-- <ChevronsDown
-        class="mr-2 text-white border rounded-lg bg-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
-      /> -->
             <img
                 src="../../../img/toworkLogo.svg"
                 alt="Logo"
-                class="mr-2 text-white rounded-lg w-25 g-gradient-to-tr from-primary via-primary/70 to-primary"
+                class="mr-2 text-white rounded-lg w-180px h-53 g-gradient-to-tr from-primary via-primary/70 to-primary"
             />
 
             </a
@@ -124,9 +99,6 @@ defineProps<{
                         <SheetHeader class="mb-4 ml-4">
                             <SheetTitle class="flex items-center">
                                 <a href="/" class="flex items-center">
-                                    <!-- <ChevronsDown
-                    class="mr-2 text-white border rounded-lg bg-gradient-to-tr from-primary/70 via-primary to-primary/70 size-9"
-                  /> -->
                                     <img
                                         src=""
                                         alt="Logo"
@@ -164,92 +136,12 @@ defineProps<{
             </Sheet>
         </div>
 
-        <!-- Desktop -->
-        <!-- <NavigationMenu class="hidden lg:block">
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger class="text-base bg-card">
-                        Features
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <div class="grid w-[600px] grid-cols-2 gap-5 p-4">
-                            <img
-                                src="https://www.radix-vue.com/logo.svg"
-                                alt="Beach"
-                                class="object-cover w-full h-full rounded-md"
-                            />
-                            <ul class="flex flex-col gap-2">
-                                <li
-                                    v-for="{
-                                        title,
-                                        description,
-                                    } in featureList"
-                                    :key="title"
-                                    class="p-3 text-sm rounded-md hover:bg-muted"
-                                >
-                                    <p
-                                        class="mb-1 font-semibold leading-none text-foreground"
-                                    >
-                                        {{ title }}
-                                    </p>
-                                    <p
-                                        class="line-clamp-2 text-muted-foreground"
-                                    >
-                                        {{ description }}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Button
-                            v-for="{ href, label } in routeList"
-                            :key="label"
-                            as-child
-                            variant="ghost"
-                            class="justify-start text-base"
-                        >
-                            <a :href="href">
-                                {{ label }}
-                            </a>
-                        </Button>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu> -->
-
         
 
         <div class="hidden lg:flex">
-            <!-- <ToggleTheme /> -->
 
-            <!-- <Button
-                as-child
-                size="sm"
-                variant="ghost"
-                aria-label="View on GitHub"
-            >
-                <a
-                    aria-label="View on GitHub"
-                    href="https://github.com/leoMirandaa/shadcn-vue-landing-page.git"
-                    target="_blank"
-                >
-                    <GithubIcon class="size-5" />
-                </a>
-            </Button> -->
         </div>
         <div v-if="canLogin" class="hidden lg:flex">
-            <!-- <Link
-                    v-if="$page.props.auth.user"
-                    :href="route('dashboard')"
-                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                >
-                    Dashboard
-                </Link> -->
-
             <div
                 v-if="$page.props.auth.user"
                 class="flex items-center gap-3 2xsm:gap-7"
@@ -289,22 +181,22 @@ defineProps<{
 
             <template v-else>
                 <div class="flex items-center justify-center gap-2">
-                    <Link
+                    <button><Link
                         v-if="canRegister"
                         :href="route('register')"
                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
                     <div class="flex display-inline"> Premium &nbsp; <img src="../../../img/crown.svg" class="w-5"/></div> 
-                    </Link>
-
+                    </Link></button>
+                    <button>
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
                         Find work
-                    </Link>
-                    
+                    </Link></button>
+                    <button>
                     <Link :href="route('become-a-seller')">
                             <div
                                 class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
@@ -312,7 +204,7 @@ defineProps<{
                                 Become a Seller
                             </div>                        
                     </Link>
-                    
+                    </button>
                     <button>
                         <Link
                             :href="route('login')"
@@ -347,44 +239,8 @@ defineProps<{
 .shadow-dark {
     box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.141);
 }
+button {
+    font-family: Neue Montreal;
+    font-size: 24px;    
+}
 </style>
-
-
-<!-- 
-    Search Box
-    
-<div class="hidden lg:block">
-            <form action="" method="POST">
-                <div class="relative">
-                    <button class="absolute left-0 -translate-y-1/2 top-1/2">
-                        <svg
-                            class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z"
-                                fill=""
-                            />
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
-                                fill=""
-                            />
-                        </svg>
-                    </button>
-
-                    <input
-                        type="text"
-                        placeholder="Type to search..."
-                        class="w-full pr-4 bg-transparent border-transparent pl-9 focus:outline-none rounded-xl"
-                    />
-                </div>
-            </form>
-        </div> -->

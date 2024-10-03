@@ -44,6 +44,21 @@
   </script>
   
   <style scoped>
-  /* Additional styles (if necessary) can be placed here */
+    h2{
+      font-family: Crimson Pro;
+      font-size: 64px;
+      font-weight: bold;
+      line-height: 76.8px;
+    }
+    h3 {
+      font-family: Neue Montreal bold;
+      font-size: 24px;
+      line-height: 28px;
+    }
+    p {
+      font-family: Neue Montreal;
+      font-size: 24px;  
+      line-height: 28px;          
+    }
   </style>
   

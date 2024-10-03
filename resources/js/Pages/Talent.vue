@@ -58,7 +58,7 @@ const products = ref([
 
         <template #header>
             <h2
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
                 Talent
             </h2>
@@ -68,7 +68,7 @@ const products = ref([
 
         <div class="flex flex-col">
             <div
-                class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                class="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
             >
                 <div class="py-6 px-4 md:px-6 xl:px-7.5">
                     <h4 class="text-xl font-bold text-black dark:text-white">
@@ -80,19 +80,19 @@ const products = ref([
                 <div
                     class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
                 >
-                    <div class="col-span-3 flex items-center">
+                    <div class="flex items-center col-span-3">
                         <p class="font-medium">Product Name</p>
                     </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
+                    <div class="items-center hidden col-span-2 sm:flex">
                         <p class="font-medium">Category</p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p class="font-medium">Price</p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p class="font-medium">Sold</p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p class="font-medium">Profit</p>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ const products = ref([
                     :key="product.id"
                     class="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
                 >
-                    <div class="col-span-3 flex items-center">
+                    <div class="flex items-center col-span-3">
                         <div
                             class="flex flex-col gap-4 sm:flex-row sm:items-center"
                         >
@@ -120,28 +120,28 @@ const products = ref([
                             </p>
                         </div>
                     </div>
-                    <div class="col-span-2 hidden items-center sm:flex">
+                    <div class="items-center hidden col-span-2 sm:flex">
                         <p
                             class="text-sm font-medium text-black dark:text-white"
                         >
                             {{ product.category }}
                         </p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p
                             class="text-sm font-medium text-black dark:text-white"
                         >
                             ${{ product.price }}
                         </p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p
                             class="text-sm font-medium text-black dark:text-white"
                         >
                             {{ product.sold }}
                         </p>
                     </div>
-                    <div class="col-span-1 flex items-center">
+                    <div class="flex items-center col-span-1">
                         <p class="text-sm font-medium text-meta-3">
                             ${{ product.profit }}
                         </p>
