@@ -1,6 +1,6 @@
 <template>
-<div class="container px-4 py-8 mx-auto">  
-  <div class="px-6 py-12 text-black md:px-16">
+<div class="container px-6 py-12 mx-auto">  
+  <!-- <div class="px-6 py-12 text-black md:px-16"> -->
     <h2 class="mb-6 text-3xl font-semibold text-left dark:text-white">
       What people say about joining ToWork
     </h2>
@@ -8,11 +8,13 @@
     <div class="flex flex-col items-center justify-between space-x-0 space-y-6 md:flex-row md:space-x-6 md:space-y-0">
       <!-- Testimonial Text -->
       <div class="max-w-lg text-center md:text-left dark:text-white">
-        <blockquote class="text-xl italic font-light text-gray-800">
+        <p class="quote-do">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac
           vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing
           elit. Etiam ac vulputate nisl.
-        </blockquote>
+        </p>
+          
+       
         <p class="mt-4 text-sm font-semibold">
           - John Doe, CEO of TheFaceCraft
         </p>
@@ -22,7 +24,7 @@
       <img
         src="../../../img/people.png"
         alt="Testimonial Image"
-        class="object-cover w-full h-auto max-w-xs rounded-md"
+        class="object-cover rounded-md h-880- w-500"
       />
     </div>
 
@@ -65,7 +67,6 @@
       </button>
     </div>
   </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -79,5 +80,15 @@ const nextSlide = () => {
 </script>
 
 <style scoped>
-
+h2 {
+  font-family: Crimson Pro;
+  font-size: 64px;
+  font-weight: bold;
+}
+.quote-do {
+  font-family: Neue Montreal regular;
+  font-size: 48px;
+  line-height: 57.6px;
+  
+}
 </style>
