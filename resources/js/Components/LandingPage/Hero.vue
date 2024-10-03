@@ -53,7 +53,7 @@ const mode = useColorMode();
         line-height: 96px;
     }    
     p {
-      font-family: Neue Montreal regular;
+      font-family: 'Neue Montreal regular';
       font-size: 32px;
       line-height: 38.2px;      
     }
