@@ -6,8 +6,8 @@
     </h2>
 
     <div class="flex flex-col items-center justify-between space-x-0 space-y-6 md:flex-row md:space-x-6 md:space-y-0">
-      <!-- Testimonial Text -->
-      <div class="max-w-lg text-center md:text-left dark:text-white">
+      <!-- Testimonial Text -->       
+      <div class="w-1/2 text-center md:text-left dark:text-white">        
         <p class="quote-do">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac
           vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -21,11 +21,14 @@
       </div>
 
       <!-- Testimonial Image -->
-      <img
+       <div class="w-1/2">
+        <img
         src="../../../img/people.png"
         alt="Testimonial Image"
         class="object-cover rounded-md h-880- w-500"
       />
+       </div>
+      
     </div>
 
     <!-- Navigation Arrows -->
