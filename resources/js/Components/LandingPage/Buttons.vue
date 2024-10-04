@@ -41,7 +41,7 @@
   <style scoped>
   /* Additional styling if required */
   .button-items {
-    font-family: Neue Montreal;
+    font-family: 'Neue Montreal regular';
     font-size:24px ;
     line-height: 38px;    
   }

@@ -2,7 +2,7 @@
     <section>
         <div class="container px-4 py-8 mx-auto text-left">
 
-      <h2 class="p-4 mb-8 text-2xl font-bold text-left">Discover talented individuals that<br/> meet your requirements.</h2>
+      <h2 class="p-4 mb-8 text-2xl text-left">Discover talented individuals that<br/> meet your requirements.</h2>
       <div class="grid grid-cols-1 gap-6 text-left md:grid-cols-2 lg:grid-cols-4">
         
         <!-- Card 1 -->
@@ -13,7 +13,7 @@
         </div>
         
         <!-- Card 2 -->
-        <div class="p-6 rounded-lg">
+        <div class="p-6 text-left rounded-lg">
           <img src="../../../img/logos/four-icons/correct.png" alt="Certified, vetted professionals" class="w-12 h-12 mx-auto mb-4">
           <h3 class="text-lg font-semibold">Certified, vetted professionals</h3>
           <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.</p>
@@ -45,7 +45,7 @@
   
   <style scoped>
     h2{
-      font-family: Crimson Pro;
+      font-family: 'Crimson Pro';
       font-size: 64px;
       font-weight: bold;
       line-height: 76.8px;

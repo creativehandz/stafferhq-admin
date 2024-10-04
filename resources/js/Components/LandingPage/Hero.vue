@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useColorMode } from "@vueuse/core";
+import ToggleTheme from "./ToggleTheme.vue";
 const mode = useColorMode();
 </script>
 
@@ -29,7 +30,7 @@ const mode = useColorMode();
             <div class="px-3 py-2">
               <input type="text" placeholder="Search for a service" class="w-full text-sm text-black border-none outline-none search-box " />   
             </div>              
-            <div class="flex items-end justify-end ">
+            <div class="flex items-center float-right px-3 ml-auto">
               <button type="submit">
                 <img src="search-icon.png" alt="search" class="w-5 h-5" />
               </button>
@@ -37,7 +38,7 @@ const mode = useColorMode();
             
         </div>      
           <div class="w-3/6 m-auto text-center">
-            <p class="text-sm text-white ">
+            <p class="text-lg white text- ">
               Discover talent in a variety of sectors, including virtual and in-person services.
             </p>
           </div>            
