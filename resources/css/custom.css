@@ -73,3 +73,21 @@
 
 
 
+
+h1, h2,h3 {
+  font-family: 'Crimson Pro', sans-serif;
+}
+.quote-do {
+  font-family: 'Neue Montreal', sans-serif;
+}
+
+.service-p, .footer-get-work {
+    font-family: 'DM sans';
+  }
+.button-get-started {
+    font-family: 'Neue Montreal bold';    
+}
+
+p, h5 {
+    font-family: 'Neue Montreal regular';
+}

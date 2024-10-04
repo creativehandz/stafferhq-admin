@@ -46,7 +46,7 @@
         "pinia": "^2.2.1",
         "radix-vue": "^1.9.5",
         "slick-carousel": "^1.8.1",
-        "swiper": "^11.1.9",
+        "swiper": "^11.1.14",
         "tailwind-merge": "^2.5.2",
         "tailwindcss-animate": "^1.0.7",
         "vue-multiselect": "^3.0.0",
