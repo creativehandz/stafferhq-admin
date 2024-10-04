@@ -2,9 +2,9 @@
   <div class="container px-4 py-8 mx-auto"> 
     <!-- Join Us Section -->
     <div class="px-6 py-12 text-center text-white bg-[#FB7B24] rounded-3xl md:px-16">
-      <h2 class="mb-4 text-4xl font-bold text-center text-white ">Join us!</h2>
-      <p class="mb-6 text-lg font-bold text-white">Services and more, just a few clicks away</p>
-      <button class="px-11 py-6 font-bold text-black transition-all duration-300 rounded-full shadow-md bg-[#F5F535] hover:bg-yellow-400">
+      <h2 class="mb-4 leading-none sm:text-[80px]  md:text-[80px] lg:text-[80px] xl:text-[80px] 2xl:text-[80px] font-bold text-center ">Join us!</h2>
+      <p class="mb-10 leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold text-white service-p">Services and more, just a few clicks away</p>
+      <button class="px-11 py-6 font-bold text-black transition-all duration-300 rounded-full shadow-md bg-[#F5F535] hover:bg-yellow-400 leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] footer-get-work">
         Get ToWork!
       </button>
     </div>
@@ -28,19 +28,5 @@
 </script>
 
 <style scoped>
-  h2 {
-    font-family: Crimson Pro;
-    font-size: 80px;    
-    line-height: 96px;
-  }
-  p {
-    font-family: DM sans;
-    font-size: 24px;
-    line-height: 30px;
-  }
-  button {
-    font-family: sans-serif;
-    font-size: 24px;
-    line-height: 30px;
-  }
+ 
 </style>

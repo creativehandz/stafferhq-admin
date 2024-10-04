@@ -32,7 +32,7 @@ const mode = useColorMode();
             </div>              
             <div class="flex items-center float-right px-3 ml-auto">
               <button type="submit">
-                <img src="search-icon.png" alt="search" class="w-5 h-5" />
+                <img src="../../../img/mag-glass.png" alt="search" class="w-5 h-5" />
               </button>
             </div>
             
@@ -49,22 +49,3 @@ const mode = useColorMode();
 
 </template>
 
-<style scoped>
-    h1 {
-        font-family: 'Crimson Pro', serif;        
-    }    
-    p {
-      font-family: 'Neue Montreal regular';
-      /* font-size: 32px; */
-
-    }
-    .below-box {
-      font-size: 20px;
-      line-height: 24px;
-    }
-    .search-box {
-      justify-content: flex-start;
-    }
-    
-    
-</style>
