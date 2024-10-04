@@ -184,7 +184,7 @@ defineProps<{
                     <button><Link
                         v-if="canRegister"
                         :href="route('register')"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        class="rounded-md px-3 py-2 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
                     <div class="flex display-inline"> Premium &nbsp; <img src="../../../img/crown.svg" class="w-5"/></div> 
                     </Link></button>
@@ -192,14 +192,14 @@ defineProps<{
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        class="rounded-md px-3 py-2 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
                         Find work
                     </Link></button>
                     <button>
                     <Link :href="route('become-a-seller')">
                             <div
-                                class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
+                                class="rounded-md leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
                             >
                                 Become a Seller
                             </div>                        
@@ -208,7 +208,7 @@ defineProps<{
                     <button>
                         <Link
                             :href="route('login')"
-                            class="rounded-full text-black bg-[#A4FCFF] shadow-md px-6 py-2 cursor-pointer hover:shadow-lg"
+                            class="rounded-full leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black bg-[#A4FCFF] shadow px-6 py-2 cursor-pointer hover:shadow-lg"
                         >
                             Log in
                         </Link>
@@ -218,7 +218,7 @@ defineProps<{
                         <Link
                             v-if="canRegister"
                             :href="route('register')"
-                            class="rounded-full text-black bg-[#A4FCFF] shadow-md px-6 py-2 cursor-pointer hover:shadow-lg"
+                            class="rounded-full text-black bg-[#A4FCFF] shadow px-6 py-2 cursor-pointer hover:shadow-lg leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]"
                         >
                             Register
                         </Link>
@@ -241,6 +241,6 @@ defineProps<{
 }
 button {
     font-family: "Neue Montreal regular";
-    font-size: 20px;    
+        
 }
 </style>
