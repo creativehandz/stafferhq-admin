@@ -5,6 +5,9 @@ import { ref } from "vue";
 import Navbar from "@/Components/LandingPage/Navbar.vue";
 import Footer from "@/Components/LandingPage/Footer.vue";
 
+import GetStarted from "./GetStarted.vue";
+import Recommendations from "./Recommendations.vue";
+
 // Define interfaces for Category and SubCategory
 interface SubCategory {
     id: number;
@@ -33,23 +36,23 @@ function handleImageError() {
 </script>
 
 <template>
-    <Head title="Categories" />
-    <div class="bg-white text-black dark:bg-black-2 dark:text-white">
+    <!-- <Head title="Categories" /> -->
+    <div class="text-black bg-white dark:bg-black-2 dark:text-white">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
+        <GetStarted/>
+        
+     
 
         <section id="categories" class="container w-[75%] py-12 sm:py-16">
             <div class="mb-10">
-                <h1 class="text-title-xl2 font-bold">
-                    StafferHQ Gigs® Directory
-                </h1>
-                <h2 class="text-title-md font-normal">
-                    One stop shop for all your needs
-                </h2>
+                <h1 class="font-bold text-title-xl2">
+                    Explore Web and Digital Services
+                </h1>                
             </div>
 
             <div v-if="categories.length">
                 <div
-                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                    class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                 >
                     <div v-for="category in categories" :key="category.id">
                         <Link
@@ -58,7 +61,7 @@ function handleImageError() {
                             "
                         >
                             <h2
-                                class="text-title-sm font-semibold hover:text-primary"
+                                class="font-semibold text-title-sm hover:text-primary"
                             >
                                 {{ category.name }}
                             </h2>
@@ -68,7 +71,7 @@ function handleImageError() {
                             <li
                                 v-for="subCategory in category.sub_categories"
                                 :key="subCategory.id"
-                                class="text-title-xs font-normal"
+                                class="font-normal text-title-xs"
                             >
                                 {{ subCategory.name }}
                             </li>
@@ -78,6 +81,8 @@ function handleImageError() {
                 </div>
             </div>
         </section>
-        <Footer />
+        <Recommendations/>
+        <Footer/>
     </div>
 </template>
+<!-- <Navbar :can-login="canLogin" :can-register="canRegister" /> -->
