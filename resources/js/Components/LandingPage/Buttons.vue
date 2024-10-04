@@ -1,15 +1,15 @@
 <template>
-    <div class="container px-4 py-8 mx-auto">
+    <div class="container px-8 py-8 mx-auto">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div 
           v-for="(item, index) in categories" 
           :key="index" 
-          class="flex items-center justify-between px-3 py-3 transition-shadow duration-200 rounded-lg shadow cursor-pointer hover:shadow-lg"
+          class="flex items-center justify-between px-3 py-8 transition-shadow duration-200 rounded-lg shadow-xl cursor-pointer hover:shadow-lg"
         >
           <div class="flex items-center">
             <!-- SVG icon as an image -->
             <img v-if="item.icon" :src="item.icon" alt="Icon" class="w-6 h-6 mr-3">
-            <span class="text-sm md:text-base button-items">{{ item.name }}</span>
+            <span class="leading-none sm:text-[20px]  md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] button-items">{{ item.name }}</span>
           </div>
         </div>
       </div>
@@ -41,9 +41,7 @@
   <style scoped>
   /* Additional styling if required */
   .button-items {
-    font-family: 'Neue Montreal regular';
-    font-size:24px ;
-    line-height: 38px;    
+    font-family: 'Neue Montreal regular';      
   }
   </style>
   
