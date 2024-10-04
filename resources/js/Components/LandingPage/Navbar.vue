@@ -72,7 +72,7 @@ defineProps<{
 <template>
     <header
         :class="{            
-            'container top-5 mx-auto  z-40  flex justify-between items-center': true,
+            'container top-5 mx-auto py-4 z-40  flex justify-between items-center': true,
         }"
     >
         <a href="/" class="flex items-center text-lg font-bold">
@@ -180,7 +180,7 @@ defineProps<{
             </div>
 
             <template v-else>
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-center gap-10">
                     <button><Link
                         v-if="canRegister"
                         :href="route('register')"
@@ -228,7 +228,7 @@ defineProps<{
                
             </template>
         </div>
-    </header> <ToggleTheme />
+    </header>
 </template>
 
 <style scoped>
@@ -240,7 +240,7 @@ defineProps<{
     box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.141);
 }
 button {
-    font-family: Neue Montreal;
-    font-size: 24px;    
+    font-family: "Neue Montreal regular";
+    font-size: 20px;    
 }
 </style>
