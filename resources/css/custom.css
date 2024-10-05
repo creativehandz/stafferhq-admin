@@ -88,6 +88,6 @@ h1, h2,h3 {
     font-family: 'Neue Montreal bold';    
 }
 
-p, h5 {
+p, h5, h4, a {
     font-family: 'Neue Montreal regular';
 }
