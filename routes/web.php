@@ -31,10 +31,12 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('BuyerDashboard/BuyerDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Routes for Employer Starts
 Route::get('/employer-dashboard', function () {

@@ -45,7 +45,7 @@ function handleImageError() {
 
         <section id="categories" class="container w-[75%] py-12 sm:py-16">
             <div class="mb-10">
-                <h1 class="font-bold text-title-xl2">
+                <h1 class="font-bold leading-none sm:text-[45px] md:text-[45px] lg:text-[45px] xl:text-[45px] 2xl:text-[45px]">
                     Explore Web and Digital Services
                 </h1>                
             </div>

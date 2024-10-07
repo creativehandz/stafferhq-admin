@@ -69,7 +69,26 @@
     font-style: normal;
     font-display: swap;
 }
+/* DM Sans font */
 
+
+@font-face {
+    font-family: 'DM Sans 9pt';
+    src: url('DMSans-9ptItalic.woff2') format('woff2'),
+        url('DMSans-9ptItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Sans regular';
+    src: url('DMSans-9ptRegular.woff2') format('woff2'),
+        url('DMSans-9ptRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 
 
@@ -82,7 +101,7 @@ h1, h2,h3 {
 }
 
 .service-p, .footer-get-work {
-    font-family: 'DM sans';
+    font-family: 'DM sans regular';
   }
 .button-get-started {
     font-family: 'Neue Montreal bold';    
