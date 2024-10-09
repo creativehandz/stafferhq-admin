@@ -47,14 +47,14 @@ const submit = () => {
                     <InputLabel
                         for="name"
                         value="Name"
-                        class="mb-2.5 block font-medium text-black dark:text-white"
+                        class="mb-2.5 block font-medium text-black "
                     />
                     <div class="relative">
                         <TextInput
                             id="name"
                             type="text"
                             placeholder="Enter your full name"
-                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none"
                             v-model="form.name"
                             required
                             autofocus
@@ -69,14 +69,14 @@ const submit = () => {
                     <InputLabel
                         for="email"
                         value="Email"
-                        class="mb-2.5 block font-medium text-black dark:text-white"
+                        class="mb-2.5 block font-medium text-black "
                     />
                     <div class="relative">
                         <TextInput
                             id="email"
                             type="email"
                             placeholder="Enter your email"
-                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none"
                             v-model="form.email"
                             required
                             autocomplete="username"
@@ -89,14 +89,14 @@ const submit = () => {
                     <InputLabel
                         for="password"
                         value="Password"
-                        class="mb-2.5 block font-medium text-black dark:text-white"
+                        class="mb-2.5 block font-medium text-black "
                     />
                     <div class="relative">
                         <TextInput
                             id="password"
                             type="password"
                             placeholder="Enter your password"
-                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none"
                             v-model="form.password"
                             required
                             autocomplete="new-password"
@@ -109,7 +109,7 @@ const submit = () => {
                     <InputLabel
                         for="password_confirmation"
                         value="Confirm Password"
-                        class="mb-2.5 block font-medium text-black dark:text-white"
+                        class="mb-2.5 block font-medium text-black "
                     />
 
                     <div class="relative">
@@ -117,7 +117,7 @@ const submit = () => {
                             id="password_confirmation"
                             type="password"
                             placeholder="Re-enter your password"
-                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none"
                             v-model="form.password_confirmation"
                             required
                             autocomplete="new-password"
@@ -131,11 +131,11 @@ const submit = () => {
                 </div>
 
                 <div>
-                    <label class="block mt-4 mb-3 text-sm font-medium text-black dark:text-white">
+                    <label class="block mt-4 mb-3 text-sm font-medium text-black ">
                         You're a:
                     </label>
                     <div class="flex items-center space-x-6">
-                        <label class="flex items-center text-base font-bold text-black dark:text-white">
+                        <label class="flex items-center text-base font-bold text-black ">
                             <input
                                 type="radio"
                                 value="1"
@@ -145,7 +145,7 @@ const submit = () => {
                             />
                             <span class="ml-2 ">Buyer</span>
                         </label>
-                        <label class="flex items-center text-base font-bold text-black dark:text-white">
+                        <label class="flex items-center text-base font-bold text-black ">
                             <input
                                 type="radio"
                                 value="2"

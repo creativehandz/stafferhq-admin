@@ -48,14 +48,14 @@ const submit = () => {
                     <InputLabel
                         for="email"
                         value="Email"
-                        class="mb-2.5 block font-medium text-black dark:text-white"
+                        class="mb-2.5 block font-medium text-black "
                     />
                     <div class="relative">
                         <TextInput
                             id="email"
                             type="email"
                             
-                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                            class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none "
                             v-model="form.email"
                             required
                             placeholder="Enter you Email"
@@ -68,13 +68,13 @@ const submit = () => {
                 </div>
 
                 <div class="mt-4">
-                <InputLabel for="password" value="Password" class="mb-2.5 block font-medium text-black dark:text-white" />
+                <InputLabel for="password" value="Password" class="mb-2.5 block font-medium text-black " />
                 <div class="relative">
                 <TextInput
                     id="password"
                     type="password"
                     
-                    class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:text-white"
+                    class="w-full py-4 pl-6 pr-10 text-black bg-transparent border rounded-[50px] outline-none border-stroke focus:border-primary focus-visible:shadow-none "
                     v-model="form.password"
                     required
                     placeholder="Enter your Password"

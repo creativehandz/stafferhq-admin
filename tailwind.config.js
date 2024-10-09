@@ -11,8 +11,7 @@ export default {
         './resources/js/**/*.vue',
     ],
 
-    darkMode: 'class',
-    safelist: ["dark"],
+
     prefix: "",
     theme: {
       // This is Tailadmin theme starts here
