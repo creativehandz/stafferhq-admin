@@ -44,7 +44,7 @@ const previousTestimonial = () => {
   <div class="container mt-10 mb-10">
     <div class="relative flex items-center justify-center">
       <div class="text-center">
-        <h2 class="leading-none sm:text-[60px] mb-5  md:text-[60px] lg:text-[60px] xl:text-[60px] 2xl:text-[60px] font-bold dark:text-white text-left">
+        <h2 class="leading-none sm:text-[60px] mb-5  md:text-[60px] lg:text-[60px] xl:text-[60px] 2xl:text-[60px] font-bold  text-left">
           What people say about joining ToWork
         </h2>
         <div class="w-full overflow-hidden">
@@ -58,8 +58,8 @@ const previousTestimonial = () => {
               class="flex items-center justify-center flex-shrink-0 w-full"
             >
               <div class="flex flex-col items-center justify-between py-5 md:flex-row">
-                <div class="w-full pr-5 mr-5 text-center md:w-1/2 md:text-left dark:text-white">
-                  <p class="quote-do leading-[35px] sm:text-[25px] md:text-[25px] lg:text-[25px] xl:text-[25px] 2xl:text-[25px] dark:text-white">
+                <div class="w-full pr-5 mr-5 text-center md:w-1/2 md:text-left ">
+                  <p class="quote-do leading-[35px] sm:text-[25px] md:text-[25px] lg:text-[25px] xl:text-[25px] 2xl:text-[25px] ">
                     <img :src="blockquote" class="absolute" />
                     {{ testimonial.quote }}
                   </p>

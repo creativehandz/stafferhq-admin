@@ -23,14 +23,14 @@ onClickOutside(target, () => {
         <span class="block text-xs font-medium">UX Designer</span>
       </span> -->
 
-            <div class="relative h-9 w-9 rounded-full">
+            <div class="relative rounded-full h-9 w-9">
                 <img
                     src="../../../img/user/user-01.png"
                     alt="Logo"
                     class="h-9"
                 />
                 <span
-                    class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"
+                    class="absolute bottom-0 right-0 block w-3 h-3 border-2 rounded-full border-gray-2 bg-success"
                 ></span>
             </div>
 
@@ -55,10 +55,10 @@ onClickOutside(target, () => {
         <!-- Dropdown Start -->
         <div
             v-show="dropdownOpen"
-            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default "
         >
             <ul
-                class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark"
+                class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 "
             >
                 <li> 
                     <Link :href="route('profile.edit')">
@@ -152,7 +152,7 @@ onClickOutside(target, () => {
                 </li>
             </ul>
             <ul
-                class="flex flex-col gap-5 border-b border-stroke px-6 py-4 dark:border-strokedark"
+                class="flex flex-col gap-5 px-6 py-4 border-b border-stroke dark:border-strokedark"
             >
                 <li>
                     <router-link
@@ -202,7 +202,7 @@ onClickOutside(target, () => {
                 </li>
             </ul>
             <ul
-                class="flex flex-col gap-5 border-b border-stroke px-6 py-4 dark:border-strokedark"
+                class="flex flex-col gap-5 px-6 py-4 border-b border-stroke dark:border-strokedark"
             >
                 <li>
                     <router-link

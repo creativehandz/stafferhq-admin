@@ -42,7 +42,7 @@ const notificationItems = ref([
 <template>
   <li class="relative" ref="target">
     <router-link
-      class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
+      class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary"
       to="#"
       @click.prevent="(dropdownOpen = !dropdownOpen), (notifying = false)"
     >
@@ -51,12 +51,12 @@ const notificationItems = ref([
         class="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1"
       >
         <span
-          class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"
+          class="absolute inline-flex w-full h-full rounded-full opacity-75 -z-1 animate-ping bg-meta-1"
         ></span>
       </span>
 
       <svg
-        class="fill-current duration-300 ease-in-out"
+        class="duration-300 ease-in-out fill-current"
         width="18"
         height="18"
         viewBox="0 0 18 18"
@@ -73,21 +73,21 @@ const notificationItems = ref([
     <!-- Dropdown Start -->
     <div
       v-show="dropdownOpen"
-      class="absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80"
+      class="absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default sm:right-0 sm:w-80"
     >
       <div class="px-4.5 py-3">
         <h5 class="text-sm font-medium text-bodydark2">Notification</h5>
       </div>
 
-      <ul class="flex h-auto flex-col overflow-y-auto">
+      <ul class="flex flex-col h-auto overflow-y-auto">
         <template v-for="(item, index) in notificationItems" :key="index">
           <li>
             <router-link
-              class="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
+              class="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 "
               :to="item.route"
             >
               <p class="text-sm">
-                <span class="text-black dark:text-white">{{ item.title }}</span>
+                <span class="text-black ">{{ item.title }}</span>
                 {{ item.details }}
               </p>
 

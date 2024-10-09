@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useColorMode } from "@vueuse/core";
 import ToggleTheme from "./ToggleTheme.vue";
-const mode = useColorMode();
+// const mode = useColorMode();
 </script>
 
 <template>
