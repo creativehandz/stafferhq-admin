@@ -272,6 +272,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/categoriesandsub', [CategoryController::class, 'getAllCategoriesWithSubCategories']);
 
 
+    Route::get('/job-description', [JobController::class, 'jobDescription']);
 
 
 });

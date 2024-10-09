@@ -1,7 +1,7 @@
 <template>
     <div class="container p-4 mt-5 mb-5">
-        <div class="px-3 py-12 text-black bg-orange-100 rounded-3xl">
-      <h2 class="mb-4 leading-none sm:text-[45px] md:text-[45px] lg:text-[45px] xl:text-[45px] 2xl:text-[45px] font-bold">Verified Professionals in your domain</h2>
+        <div class="px-12 py-12 text-black bg-orange-100 rounded-3xl">
+      <h2 class="mb-4 leading-none  sm:text-[45px] md:text-[45px] lg:text-[45px] xl:text-[45px] 2xl:text-[45px] font-bold">Verified Professionals in your domain</h2>
       <div class="grid grid-cols-3 gap-4">
         <div v-for="(card, index) in cards" :key="index" class="p-4 bg-white rounded-lg shadow-md">
           <div class="flex items-center mb-2">
