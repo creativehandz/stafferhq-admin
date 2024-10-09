@@ -10,7 +10,7 @@ import { Moon, Sun } from "lucide-vue-next";
     @click="mode = mode === 'dark' ? 'light' : 'dark'"
     size="sm"
     variant="ghost"
-    class="w-full justify-start"
+    class="justify-start w-full"
   >
     <div
       v-if="mode == 'light'"
