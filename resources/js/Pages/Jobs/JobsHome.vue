@@ -17,7 +17,7 @@ import crown from '@/assets/crown.svg'
     <div class="container text-black">
       <!-- Navbar -->
       <div class="flex items-center justify-between gap-5 p-5">
-        <img :src="toWork" alt="Logo" class="w-auto h-9">
+        <a href="/" ><img :src="toWork" alt="Logo" class="w-auto h-9"></a>
         
         <div class="mt-5 mb-5">
             <input type="text" placeholder="Search for a service" class="w-[250px] rounded-3xl border text-black bg-transparent h-[44px] px-4">
@@ -41,8 +41,11 @@ import crown from '@/assets/crown.svg'
           <ReviewsAndRatings/>
           <JobRatingsDropdown/>        
          </div>
+       </div>
+       <div class="">
+         <JobPlans/>      
+        
        </div> 
-       <JobPlans/>      
      </div>
     <JobRecommendations/>
     <Footer/>

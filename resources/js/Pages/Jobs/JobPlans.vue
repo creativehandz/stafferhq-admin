@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center ml-5">
-  <div class="container max-w-md p-6 rounded-3xl bg-[#FFDECA] mt-100">
+  <div class="sticky top-0 z-10 flex flex-col items-center ml-5">
+  <div class="container max-w-md p-6 rounded-3xl bg-[#FFDECA] ">
     <!-- Tab Headers -->
     <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px]">
       <button

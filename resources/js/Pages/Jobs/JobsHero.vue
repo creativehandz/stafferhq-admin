@@ -6,6 +6,15 @@
         <span>Home /</span>
         <span> Lorem ipsum /</span>
         <span> Web designing</span>
+        <div v-if="gig">
+    <h1>{{ gig.gig_title }}</h1>
+    <p>{{ gig.gig_description }}</p>
+    <h3>Created by: {{ gig.user.name }}</h3>
+    <!-- You can add more details here as needed -->
+  </div>
+  <div v-else>
+    <p>Loading...</p>
+  </div>
       </div>
 
       <!-- Header and Main Image -->
@@ -88,6 +97,18 @@
 <script setup lang="ts">
 import workStation from '@/assets/workStation.png';
 import toWork from '@/assets/toworkLogo.svg'
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  gig: {
+    id: number;
+    gig_title: string;
+    gig_description: string;
+    user: {
+      name: string;
+    };
+  };
+}>();
 </script>
 
 
