@@ -3,7 +3,7 @@
     <h1>Gigs</h1>
     <ul>
       <li v-for="gig in gigs" :key="gig.id" >
-        <h1>Gig user {{ gig.pricing.standard.price }}</h1>
+        <h1>Gig user {{ gig.user.name }}</h1>
         <h2>{{ gig.gig_title }}</h2>
         <p>{{ gig.gig_description }}</p>
 
