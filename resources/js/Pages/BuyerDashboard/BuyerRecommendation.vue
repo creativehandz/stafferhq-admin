@@ -28,7 +28,64 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+
+// Define the types for users and pricing details
+interface User {
+  id: number
+  name: string
+}
+
+interface PricingDetail {
+  name: string
+  description: string
+  delivery_time: string
+  revisions: string
+  price: string // Assuming price is a string based on your data structure
+}
+
+interface Pricing {
+  basic: PricingDetail
+  standard: PricingDetail
+  premium: PricingDetail
+}
+
+interface Gig {
+  id: number
+  gig_title: string
+  gig_description: string
+  pricing: Pricing // Include pricing in the gig type
+  user: User // Include user in the gig type
+}
+
+// Reactive variable for storing gigs and selected user
+const gigs = ref<Gig[]>([])
+const selectedUser = ref<User | null>(null)
+
+// Fetch gigs from the backend
+const fetchGigs = async () => {
+  try {
+    const response = await axios.get('/gigs')
+    gigs.value = response.data
+  } catch (error) {
+    console.error('Error fetching gigs:', error)
+  }
+}
+
+// Toggle function to show/hide user info
+const toggleUserInfo = (user: User) => {
+  if (selectedUser.value?.id === user.id) {
+    selectedUser.value = null // Hide if the same user is clicked
+  } else {
+    selectedUser.value = user // Show user info
+  }
+}
+
+// Fetch gigs on component mount
+onMounted(() => {
+  fetchGigs()
+})
 
 const cards = ref([
   {

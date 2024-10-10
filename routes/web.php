@@ -38,6 +38,7 @@ Route::get('/buyer-dashboard', function () {
     return Inertia::render('BuyerDashboard/BuyerDashboard');
 })->middleware(['auth', 'verified'])->name('buyer-dashboard');
 
+Route::get('/gigs', [GigController::class, 'getGigs']);
 
 //Routes for Employer Starts
 Route::get('/employer-dashboard', function () {

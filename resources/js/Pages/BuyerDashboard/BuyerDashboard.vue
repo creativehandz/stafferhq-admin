@@ -11,6 +11,7 @@ import DropdownMessage from '@/Components/Header/DropdownMessage.vue';
 import DropdownHeart from '@/Components/Header/DropdownHeart.vue';
 import DropdownUserTwo from '@/Components/Header/DropdownUserTwo.vue';
 import Footer from '@/Components/LandingPage/Footer.vue';
+import GigDetails from './gigDetails.vue';
 
 // Reactive state for search input and username
 const searchQuery = ref('');
@@ -99,8 +100,9 @@ const search = () => {
         
 </section>  
 <BuyerRecommendation/>
-<BuyerProfessionals/>
+<BuyerProfessionals/><GigDetails/>
 <Footer/>
+
 </template>
   
 
