@@ -265,9 +265,6 @@ class JobController extends Controller
 
         return redirect(route('jobs.index'))->with('success', 'Job deleted successfully!');
     }
-    // route to show Jobs Description file
-    public function jobDescription() {
-        return Inertia::render('Jobs/JobsHome');
-    }
+
     
 }

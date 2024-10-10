@@ -17,7 +17,7 @@
             Price: ${{ gig.pricing.standard.price }}
           </div>
         </p>
-        <a href="/job-description">
+        <a :href="`/job-description/${gig.id}`">
           <p class="font-semibold">{{ gig.gig_title }}</p>
         </a>
         <p class="text-sm text-gray-600">{{ gig.gig_description }}</p>

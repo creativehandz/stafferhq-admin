@@ -94,5 +94,14 @@ class GigController extends Controller
         return response()->json($gigs);
     }
     
+    public function show($id)
+    {
+        // Fetch gig with the associated user
+        $gig = Gig::with('user')->findOrFail($id);
         
+        // Pass gig data to the Inertia view
+        return Inertia::render('Jobs/JobsHome', [
+            'gig' => $gig // Pass the gig data to the component
+        ]);
+    }
  }
