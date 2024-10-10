@@ -4,23 +4,55 @@ import BuyerRecommendation from '../BuyerDashboard/BuyerRecommendation.vue';
 import JobRecommendations from './JobRecommendations.vue';
 // import JobsHero from './JobsHero.vue';
 import toWork from '@/assets/toworkLogo.svg'
-import JobPlans from './JobPlans.vue';
+
 import JobRatingsDropdown from './JobRatingsDropdown.vue';
 import ReviewsAndRatings from './ReviewsAndRatings.vue';
 import crown from '@/assets/crown.svg'
-
+import { ref } from 'vue';
+  
+  import profileIcon from '@/assets/profileIcon.png';
+  // Reactive state for current tab
+  const currentTab = ref('Basic');
 import workStation from '@/assets/workStation.png';
 // import toWork from '@/assets/toworkLogo.svg'
 import { defineProps } from 'vue';
 
+// Define the structure of the gig prop
+interface Pricing {
+  name: string;
+  description: string;
+  delivery_time: string;
+  revisions: string;
+  price: string;
+}
+
+interface Gig {
+  id: number;
+  gig_title: string;
+  gig_description: string;
+  pricing: {
+    basic: Pricing;
+    standard: Pricing;
+    premium: Pricing;
+  };
+  user: {
+    name: string;
+  };
+}
+
 const props = defineProps<{
   gig: {
     id: number;
-    gig_title: string;
-    gig_description: string;
-    user: {
-      name: string;
-    };
+  gig_title: string;
+  gig_description: string;
+  pricing: {
+    basic: Pricing;
+    standard: Pricing;
+    premium: Pricing;
+  };
+  user: {
+    name: string;
+  };
   };
 }>();
 
@@ -139,7 +171,83 @@ const props = defineProps<{
          </div>
        </div>
        <div class="">
-         <JobPlans/>      
+        <div class="sticky top-0 z-10 flex flex-col items-center ml-5">
+  <div class="container max-w-md p-6 rounded-3xl bg-[#FFDECA] ">
+    <!-- Tab Headers -->
+    <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px]">
+      <button
+        :class="currentTab === 'Basic' ? 'font-bold underline' : 'font-bold'"
+        @click="currentTab = 'Basic'"
+      >
+        Basic
+      </button>
+      <button
+        :class="currentTab === 'Standard' ? 'font-bold underline' : 'font-bold'"
+        @click="currentTab = 'Standard'"
+      >
+        Standard
+      </button>
+      <button
+        :class="currentTab === 'Premium' ? 'font-bold underline' : 'font-bold'"
+        @click="currentTab = 'Premium'"
+      >
+        Premium
+      </button>
+    </div>
+
+    <!-- Dynamic Box Content -->
+    <div class="w-full p-6 mt-4 rounded-3xl transition-all duration-500 bg-[#f1b792]">
+    
+    <!-- Basic Plan -->
+    <div v-if="currentTab === 'Basic'">
+      <h3 class="text-2xl font-bold">${{ gig.pricing.basic.price }}</h3>
+      <p class="mt-2 text-sm text-gray-700">
+        {{ gig.pricing.basic.description }}
+      </p>
+      <ul class="mt-4 space-y-2">
+        <li>✔️ Delivery time: {{ gig.pricing.basic.delivery_time }}</li>
+        <li>✔️ Revisions: {{ gig.pricing.basic.revisions }}</li>
+      </ul>
+    </div>
+
+    <!-- Standard Plan -->
+    <div v-if="currentTab === 'Standard'">
+      <h3 class="text-2xl font-bold">${{ gig.pricing.standard.price }}</h3>
+      <p class="mt-2 text-sm text-gray-700">
+        {{ gig.pricing.standard.description }}
+      </p>
+      <ul class="mt-4 space-y-2">
+        <li>✔️ Delivery time: {{ gig.pricing.standard.delivery_time }}</li>
+        <li>✔️ Revisions: {{ gig.pricing.standard.revisions }}</li>
+      </ul>
+    </div>
+
+    <!-- Premium Plan -->
+    <div v-if="currentTab === 'Premium'">
+      <h3 class="text-2xl font-bold">${{ gig.pricing.premium.price }}</h3>
+      <p class="mt-2 text-sm text-gray-700">
+        {{ gig.pricing.premium.description }}
+      </p>
+      <ul class="mt-4 space-y-2">
+        <li>✔️ Delivery time: {{ gig.pricing.premium.delivery_time }}</li>
+        <li>✔️ Revisions: {{ gig.pricing.premium.revisions }}</li>
+      </ul>
+    </div>
+
+  </div>
+
+    <div>
+  </div>
+
+    <!-- Contact Section -->
+  </div>
+  <div class="flex items-center justify-center gap-4 mt-5">
+    <img :src="profileIcon" alt="Profile Icon" class="w-10 h-10" />
+    <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl">
+      Contact Me
+    </button>
+  </div>
+  </div>     
         
        </div> 
      </div>

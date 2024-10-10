@@ -98,10 +98,14 @@ class GigController extends Controller
     {
         // Fetch gig with the associated user
         $gig = Gig::with('user')->findOrFail($id);
+
+        // following line breaks down the whole pricing string into basic, standard and premium and so on
+        $gig->pricing = json_decode($gig->pricing, true);
         
         // Pass gig data to the Inertia view
         return Inertia::render('Jobs/JobsHome', [
             'gig' => $gig // Pass the gig data to the component
         ]);
     }
+
  }
