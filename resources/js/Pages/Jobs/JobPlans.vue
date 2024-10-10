@@ -1,22 +1,22 @@
 <template>
-  <div class="flex flex-col items-center ">
+  <div class="flex flex-col items-center ml-5">
   <div class="container max-w-md p-6 rounded-3xl bg-[#FFDECA] mt-100">
     <!-- Tab Headers -->
-    <div class="flex justify-between p-2 bg-gray-100 rounded-lg">
+    <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px]">
       <button
-        :class="currentTab === 'Basic' ? 'font-bold underline' : 'font-normal'"
+        :class="currentTab === 'Basic' ? 'font-bold underline' : 'font-bold'"
         @click="currentTab = 'Basic'"
       >
         Basic
       </button>
       <button
-        :class="currentTab === 'Standard' ? 'font-bold underline' : 'font-normal'"
+        :class="currentTab === 'Standard' ? 'font-bold underline' : 'font-bold'"
         @click="currentTab = 'Standard'"
       >
         Standard
       </button>
       <button
-        :class="currentTab === 'Premium' ? 'font-bold underline' : 'font-normal'"
+        :class="currentTab === 'Premium' ? 'font-bold underline' : 'font-bold'"
         @click="currentTab = 'Premium'"
       >
         Premium
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Dynamic Box Content -->
-    <div class="w-full p-6 mt-4 rounded-3xl transition-all duration-500 bg-[#ff8e48]">
+    <div class="w-full p-6 mt-4 rounded-3xl transition-all duration-500 bg-[#f1b792]">
       <div v-if="currentTab === 'Basic'">
         <h3 class="text-2xl font-bold">$200</h3>
         <p class="mt-2 text-sm text-gray-700">
@@ -67,8 +67,8 @@
     <!-- Contact Section -->
   </div>
   <div class="flex items-center justify-center gap-4 mt-5">
-    <img :src="logo" alt="Logo" class="w-10 h-10" />
-    <button class="w-40 h-12 bg-yellow-300 shadow-md rounded-3xl">
+    <img :src="profileIcon" alt="Profile Icon" class="w-10 h-10" />
+    <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl">
       Contact Me
     </button>
   </div>
@@ -76,12 +76,16 @@
 </template>
   <script setup lang="ts">
   import { ref } from 'vue';
-  import logo from '@/assets/button-right.png';
+  
+  import profileIcon from '@/assets/profileIcon.png';
   // Reactive state for current tab
   const currentTab = ref('Basic');
   </script>
   
   <style scoped>
   /* Custom styles if needed */
+  .slide_text {
+    font-family: "Crimson Pro"
+  }
   </style>
   

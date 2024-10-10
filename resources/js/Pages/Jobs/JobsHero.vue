@@ -1,6 +1,6 @@
 <template>
     <!-- Hero Section -->    
-    <div class="max-w-2xl p-6 mx-auto mb-10 space-y-4 bg-white shadow-md rounded-xl">
+    <div class="max-w-4xl p-6 mx-auto mb-10 space-y-4 bg-white shadow-md rounded-xl">
       <!-- Breadcrumb -->
       <div class="text-sm text-gray-500">
         <span>Home /</span>
@@ -11,17 +11,17 @@
       <!-- Header and Main Image -->
       <div class="flex items-center space-x-4">
         <img
-          src="https://via.placeholder.com/150"
+          :src="workStation"
           alt="Main Service Image"
           class="object-cover w-32 h-32 rounded-lg"
         />
         <div>
-          <h2 class="text-xl font-bold">Jane Doe</h2>
-          <p class="text-gray-700">Web Designer | Visual Artist</p>
+          <h2 class="flex items-center text-xl font-bold">Jane Doe (online<p class="text-[10px]">🟢</p>)</h2>
+          <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">Web Designer | Visual Artist</p>
           <p class="text-gray-500">I will create a website for you from scratch! Short bio goes here.</p>
           <div class="flex items-center mt-2">
-            <span class="text-yellow-500">★ 4.8 (2k)</span>
-            <a href="#" class="ml-2 text-blue-500">See reviews</a>
+            <span class="">★ 4.8 (2k)</span>
+            <a href="#" class="ml-2 font-bold text-yellow-500 underline">See reviews</a>
           </div>
         </div>
       </div>
@@ -36,22 +36,27 @@
     <!-- Gallery of Thumbnails -->
       <div class="flex space-x-2">
         <img
-          src="https://via.placeholder.com/100"
+          :src="workStation"
           alt="Thumbnail 1"
           class="object-cover w-16 h-16 rounded-lg"
         />
         <img
-          src="https://via.placeholder.com/100"
+          :src="workStation"
           alt="Thumbnail 2"
           class="object-cover w-16 h-16 rounded-lg"
         />
         <img
-          src="https://via.placeholder.com/100"
+          :src="workStation"
           alt="Thumbnail 3"
+          class="object-cover w-16 h-16 border-orange-300 rounded-lg"
+        />
+        <img
+          :src="workStation"
+          alt="Thumbnail 4"
           class="object-cover w-16 h-16 rounded-lg"
         />
         <img
-          src="https://via.placeholder.com/100"
+          :src="workStation"
           alt="Thumbnail 4"
           class="object-cover w-16 h-16 rounded-lg"
         />
@@ -81,5 +86,13 @@
 </template>
 
 <script setup lang="ts">
+import workStation from '@/assets/workStation.png';
 import toWork from '@/assets/toworkLogo.svg'
 </script>
+
+
+<style scoped>
+h2{
+    font-family: "Crimson ro";
+}
+</style>

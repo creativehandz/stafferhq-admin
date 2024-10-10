@@ -159,7 +159,7 @@ defineProps<{
 
                     <Button as-child size="sm" variant="secondary">
                         <div
-                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]  dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]  "
                         >
                             Orders
                         </div>
@@ -167,7 +167,7 @@ defineProps<{
 
                     <Button as-child size="sm" variant="outline">
                         <div
-                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20]  dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20]  "
                         >
                             Switch to Selling
                         </div>
@@ -192,14 +192,14 @@ defineProps<{
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
-                        class="rounded-md px-3 py-2 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]  dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        class="rounded-md px-3 py-2 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
                     >
                         Find work
                     </Link></button>
                     <button>
                     <Link :href="route('become-a-seller')">
                             <div
-                                class="rounded-md leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20]  dark:hover:text-white/80 dark:focus-visible:ring-white cursor-pointer"
+                                class="rounded-md leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20] cursor-pointer"
                             >
                                 Become a Seller
                             </div>                        
