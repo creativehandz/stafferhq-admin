@@ -251,7 +251,7 @@ const props = defineProps<{
         
        </div> 
      </div>
-    <JobRecommendations/>
+    <BuyerRecommendation/>
     <Footer/>
     </div>
 </template>
