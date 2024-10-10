@@ -100,7 +100,8 @@ const search = () => {
         
 </section>  
 <BuyerRecommendation/>
-<BuyerProfessionals/><GigDetails/>
+<BuyerProfessionals/>
+<!-- <GigDetails/> -->
 <Footer/>
 
 </template>
