@@ -4,18 +4,22 @@
       Explore similar products and services to your recent searches
     </h2>
     <div class="grid grid-cols-3 gap-4">
-      <div v-for="gig in gigs" :class="['p-4 rounded-lg shadow-md bg-cyan-200']">
+      <div v-for="(gig, index) in visibleGigs" :key="gig.id" class="p-4 rounded-lg shadow-md bg-cyan-200">
         <div class="flex items-center mb-2">
           <img src="../../../img/user/user-01.png" alt="user icon" class="w-6 h-6 mr-2" />
           <h3 class="font-bold">{{ gig.user.name }}</h3>
-          <span  class="w-5 ml-2"><img src="../../../img/crown.svg" /></span>
+          <span class="w-5 ml-2">
+            <img src="../../../img/crown.svg" />
+          </span>
         </div>
-        <p class="mb-1 text-lg font-bold"> 
+        <p class="mb-1 text-lg font-bold">
           <div v-if="gig.pricing && gig.pricing.standard">
-              <p>Price: ${{ gig.pricing.standard.price }}</p>
+            Price: ${{ gig.pricing.standard.price }}
           </div>
         </p>
-        <p class="font-semibold">{{ gig.gig_title }}</p>
+        <a href="/job-description">
+          <p class="font-semibold">{{ gig.gig_title }}</p>
+        </a>
         <p class="text-sm text-gray-600">{{ gig.gig_description }}</p>
         <div class="flex items-center justify-end mt-4 text-right">
           <span class="flex items-center">
@@ -28,92 +32,79 @@
         </div>
       </div>
     </div>
+
+    <!-- Load More and Show Less Buttons -->
+    <div class="flex justify-center mt-6">
+      <button v-if="visibleGigs.length < gigs.length" @click="loadMore" class="px-7 py-2 font-bold text-black transition-all duration-300 rounded-full shadow-md bg-[#F5F535] hover:bg-yellow-400 leading-none sm:text-[15px]  md:text-[15px] lg:text-[15px] xl:text-[15px] 2xl:text-[15px] footer-get-work">
+        Load More
+      </button>
+      <button v-if="currentPage > 1" @click="showLess" class="px-4 py-2 text-black bg-red-500 rounded-lg">
+        Show Less
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import axios from 'axios'
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
-// Define the types for users and pricing details
 interface User {
-  id: number
-  name: string
+  id: number;
+  name: string;
 }
 
 interface PricingDetail {
-  name: string
-  description: string
-  delivery_time: string
-  revisions: string
-  price: number // Assuming price is a string based on your data structure
+  price: number;
 }
 
 interface Pricing {
-  basic: PricingDetail
-  standard: PricingDetail
-  premium: PricingDetail
+  basic: PricingDetail;
+  standard: PricingDetail;
+  premium: PricingDetail;
 }
 
 interface Gig {
-  id: number
-  gig_title: string
-  gig_description: string
-  pricing: Pricing // Include pricing in the gig type
-  user: User // Include user in the gig type
+  id: number;
+  gig_title: string;
+  gig_description: string;
+  pricing: Pricing;
+  user: User;
 }
 
-// Reactive variable for storing gigs and selected user
-const gigs = ref<Gig[]>([])
-const selectedUser = ref<User | null>(null)
+const gigs = ref<Gig[]>([]);
+const itemsPerPage = ref(9); // Number of gigs to display initially
+const currentPage = ref(1);  // Current page number
 
 // Fetch gigs from the backend
 const fetchGigs = async () => {
   try {
-    const response = await axios.get('/gigs')
-    gigs.value = response.data
+    const response = await axios.get('/gigs');
+    gigs.value = response.data;
   } catch (error) {
-    console.error('Error fetching gigs:', error)
+    console.error('Error fetching gigs:', error);
   }
-}
+};
 
-// // Toggle function to show/hide user info
-// const toggleUserInfo = (user: User) => {
-//   if (selectedUser.value?.id === user.id) {
-//     selectedUser.value = null // Hide if the same user is clicked
-//   } else {
-//     selectedUser.value = user // Show user info
-//   }
-// }
+// Computed property for visible gigs
+const visibleGigs = computed(() => {
+  return gigs.value.slice(0, currentPage.value * itemsPerPage.value);
+});
+
+// Load more gigs
+const loadMore = () => {
+  currentPage.value++;
+};
+
+// Show less gigs (reset to first page)
+const showLess = () => {
+  currentPage.value = 1;
+};
 
 // Fetch gigs on component mount
 onMounted(() => {
-  fetchGigs()
-})
-
-const cards = ref([
-  {
-    name: "John Doe",
-    price: "$200",
-    title: "Create a brief for clients",
-    description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
-    icon: "user-icon.png", // Replace with your icon path
-  },
-  {
-    name: "John Dose",
-    price: "$200",
-    title: "Create a brief for clients",
-    description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
-    icon: "user-icon.png", // Replace with your icon path
-  },
-  {
-    name: "John Doe",
-    price: "$200",
-    title: "Create a brief for clients",
-    description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
-    icon: "user-icon.png", // Replace with your icon path
-  }
-]);
+  fetchGigs();
+});
 </script>
 
 <style scoped></style>
