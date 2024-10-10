@@ -6,15 +6,6 @@
         <span>Home /</span>
         <span> Lorem ipsum /</span>
         <span> Web designing</span>
-        <div v-if="gig">
-    <h1>{{ gig.gig_title }}</h1>
-    <p>{{ gig.gig_description }}</p>
-    <h3>Created by: {{ gig.user.name }}</h3>
-    <!-- You can add more details here as needed -->
-  </div>
-  <div v-else>
-    <p>Loading...</p>
-  </div>
       </div>
 
       <!-- Header and Main Image -->
@@ -24,10 +15,10 @@
           alt="Main Service Image"
           class="object-cover w-32 h-32 rounded-lg"
         />
-        <div>
-          <h2 class="flex items-center text-xl font-bold">Jane Doe (online<p class="text-[10px]">🟢</p>)</h2>
+        <div v-if="gig">
+          <h2 class="flex items-center text-xl font-bold">{{ gig.user.name }} (online<p class="text-[10px]">🟢</p>)</h2>
           <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">Web Designer | Visual Artist</p>
-          <p class="text-gray-500">I will create a website for you from scratch! Short bio goes here.</p>
+          <p class="text-gray-500">{{gig.gig_title }}</p>
           <div class="flex items-center mt-2">
             <span class="">★ 4.8 (2k)</span>
             <a href="#" class="ml-2 font-bold text-yellow-500 underline">See reviews</a>
@@ -75,9 +66,7 @@
       <div class="space-y-2">
         <h3 class="text-lg font-bold">About this service (500 char max)</h3>
         <p class="text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pretium est non nunc tempor
-          laoreet. Nullam ac metus tristique arcu auctor commodo. Nam fringilla dapibus purus, eget
-          tempor sapien aliquam id. Nunc et feugiat leo.
+          {{ gig.gig_description }}
         </p>
       </div>
 
