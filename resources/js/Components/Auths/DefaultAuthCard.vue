@@ -23,10 +23,10 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
           </span>
         </div>
       </div>
-      <div class="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
+      <div class="w-full border-stroke xl:w-1/2 ">
         <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
           <body>
-          <h2 class="text-2xl  dark:text-white sm:text-title-xl2 text-[48px] font-bold font-crimsonPro text-black mb-4">
+          <h2 class="text-2xl   sm:text-title-xl2 text-[48px] font-bold font-crimsonPro text-black mb-4">
             {{ props.title }}
           </h2>
           <span class="mb-1.5 block font-medium">{{ props.subtitle }}</span>

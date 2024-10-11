@@ -11,6 +11,7 @@ import DropdownMessage from '@/Components/Header/DropdownMessage.vue';
 import DropdownHeart from '@/Components/Header/DropdownHeart.vue';
 import DropdownUserTwo from '@/Components/Header/DropdownUserTwo.vue';
 import Footer from '@/Components/LandingPage/Footer.vue';
+import GigDetails from './gigDetails.vue';
 
 // Reactive state for search input and username
 const searchQuery = ref('');
@@ -33,7 +34,7 @@ const search = () => {
         <div class="flex items-center justify-between py-5">
     <!-- Logo Button -->
     <button>
-        <img src="../../../img/toworkLogo.svg" alt="Logo" />
+        <a href="/"> <img src="../../../img/toworkLogo.svg" alt="Logo" /></a>
     </button>
     
     <!-- Right side content -->
@@ -100,7 +101,9 @@ const search = () => {
 </section>  
 <BuyerRecommendation/>
 <BuyerProfessionals/>
+<!-- <GigDetails/> -->
 <Footer/>
+
 </template>
   
 

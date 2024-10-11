@@ -17,37 +17,22 @@ class GigController extends Controller
 {
     public function getGigByStatus(): Response
     {
-        $gig = Gig::all(); 
+        $gigs = Gig::with('user')->get(); // Fetch gigs with related user
+
+        // Decode the pricing JSON for each gig
+        foreach ($gigs as $gig) {
+            $gig->pricing = json_decode($gig->pricing, true);
+        }
 
         return Inertia::render('Gigs/GigsRecord', [
-            'gigs' => $gig,
+            'gigs' => $gigs,
         ]);
     }
 
-//     public function store(Request $request)
-//     {
-//         // Validate incoming request data
-//         $request->validate([
-//             'title' => 'required|string|max:255',
-//             'description' => 'required|string',
-//             'price' => 'required|numeric',
-//         ]);
-
-//         // Create the gig using the validated data
-//         Gigs::create([
-//             'title' => $request->input('title'),
-//             'description' => $request->input('description'),
-//             'price' => $request->input('price'),
-//         ]);
-
-//         // Redirect back to the gigs list with a success message
-//         return Redirect::route('gigs.index')->with('success', 'Gig created successfully.');
-//     }
-
-        public function create()
-        {
-            return Inertia::render('Gigs/demo');
-        }
+    public function create()
+    {
+        return Inertia::render('Gigs/demo');
+    }
 
         public function store(Request $request)
         {
