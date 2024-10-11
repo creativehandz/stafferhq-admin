@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
-use Inertia\Inertia;
+use Inertia\Inertia;    
 
 
 
@@ -30,6 +30,11 @@ Route::get('/', function () {
 // });
 
 // Dropdown Routes for Buyer
+
+Route::get('/buyer-profile', function () {
+    return Inertia::render('BuyerProfile/ProfileHome');
+})->name('BuyerProfile');
+
 Route::get('/contact-me', function () {
     return Inertia::render('OtherPages/ContactMe');
 })->name('contactMe');

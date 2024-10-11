@@ -23,7 +23,7 @@ onClickOutside(target, () => {
         <span class="block text-xs font-medium">UX Designer</span>
       </span>
 
-      <span class="h-12 w-12 rounded-full">
+      <span class="w-12 h-12 rounded-full">
         <img src="../../../img/user/user-01.png" alt="Logo" class="h-9" />
       </span>
 

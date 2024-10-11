@@ -114,7 +114,7 @@ function handleCategoryChange() {
                   <label for="gig-title" class="block text-sm font-medium text-gray-700">Gig Title</label>
                   <input type="text" name="gig_title" id="gig-title" autocomplete="gig-title" placeholder="I will do something I'm really good at" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
 
-                                  <!-- Categories and Subcategories -->
+                    <!-- Categories and Subcategories -->
                       <div class="col-span-6 sm:col-span-3">
                         <label for="category" class="block text-sm font-medium text-gray-700">Select Category</label>
                         <select v-model="selectedCategory" @change="handleCategoryChange" id="category" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">

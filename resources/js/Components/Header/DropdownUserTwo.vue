@@ -61,7 +61,7 @@ onClickOutside(target, () => {
                 class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 "
             >
                 <li> 
-                    <Link :href="route('profile.edit')">
+                    
                         <router-link
                             to="/profile"
                             class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -83,9 +83,9 @@ onClickOutside(target, () => {
                                     fill=""
                                 />
                             </svg>
-                            My Profile
+                           <a href="/buyer-profile">My Profile</a> 
                         </router-link>
-                    </Link>
+                  
                 </li>
                 <li>
                     <router-link
