@@ -77,10 +77,21 @@ class GigController extends Controller
                 'pricing.premium.delivery_time' => 'required|string',
                 'pricing.premium.revisions' => 'required|string',
                 'pricing.premium.price' => 'required|integer|min:1',
-                'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+                'images.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
                 
             ]);
         
+            $filePaths = []; // Array to store the file paths
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $file) {
+                    // Save each file and get the storage path
+                    $filePath = $file->store('uploads', 'public'); // Save to the 'uploads' directory
+                    $filePaths[] = $filePath; // Add the file path to the array
+                    
+                }
+            }
+
             // Create a new gig and assign user_id from the authenticated user
             $gig = Gig::create([
                 'user_id' => Auth::id(), // Set user_id here
@@ -90,11 +101,12 @@ class GigController extends Controller
                 'category_id' => $validated['category_id'],
                 'subcategory_id' => $validated['subcategory_id'],
                 'positive_keywords' => $validated['positive_keywords'],
+                'file_path'=> json_encode($filePaths), // Encode file paths as JSON
                 'faqs' => isset($validated['faqs']) ? json_encode($validated['faqs']) : null, // Encode faqs to JSON
                 'pricing' => json_encode($validated['pricing']), // Encode pricing to JSON
             ]);
         
-            // return response()->json($gig, 201); // Return created gig
+            Inertia::share('filePaths', $filePaths);
             return redirect()->route('gigs-record')->with('success', 'Gig created successfully.');
         }
         
