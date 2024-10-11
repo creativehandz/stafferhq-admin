@@ -105,7 +105,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        Dashboard
+                       <a href="/buyer-dashboard">Dashboard</a> 
                     </router-link>
                 </li>
                 <li>
@@ -126,7 +126,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        Post a Request
+                        <a href="/post-a-request">Post a Request</a> 
                     </router-link>
                 </li>
                 <li>
@@ -147,7 +147,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        Refer a Friend
+                        <a href="/refer-a-friend">Refer a Friend</a> 
                     </router-link>
                 </li>
             </ul>
@@ -176,7 +176,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        Account Settings
+                        <a href="/account-settings">Account Settings</a> 
                     </router-link>
                 </li>
                 <li>
@@ -197,7 +197,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        Billing and Payments
+                        <a href="/billing-and-payments">Billing and Payments</a> 
                     </router-link>
                 </li>
             </ul>
@@ -226,7 +226,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        English
+                         <a href="/english">English</a> 
                     </router-link>
                 </li>
                 <li>
@@ -247,7 +247,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        INR
+                        <a href="/inr">INR</a> 
                     </router-link>
                 </li>
                 <li>
@@ -268,7 +268,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                       Help & Support
+                       <a href="/help-and-support">Help & Support</a> 
                     </router-link>
                 </li>
             </ul>

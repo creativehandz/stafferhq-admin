@@ -34,7 +34,7 @@ const search = () => {
         <div class="flex items-center justify-between py-5">
     <!-- Logo Button -->
     <button>
-        <img src="../../../img/toworkLogo.svg" alt="Logo" />
+        <a href="/"> <img src="../../../img/toworkLogo.svg" alt="Logo" /></a>
     </button>
     
     <!-- Right side content -->

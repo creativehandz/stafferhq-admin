@@ -161,7 +161,7 @@ defineProps<{
                         <div
                             class="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]  "
                         >
-                            Orders
+                            <a href="/orders">Orders</a>
                         </div>
                     </Button>
 
@@ -169,7 +169,7 @@ defineProps<{
                         <div
                             class="rounded-md text-black ring-1 ring-transparent transition hover:text-black focus:outline-none focus-visible:ring-[#FF2D20]  "
                         >
-                            Switch to Selling
+                           <a href="/switch-to-selling"> Switch to Selling</a>
                         </div>
                     </Button>
 

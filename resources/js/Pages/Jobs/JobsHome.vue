@@ -8,7 +8,7 @@ import toWork from '@/assets/toworkLogo.svg'
 import JobRatingsDropdown from './JobRatingsDropdown.vue';
 import ReviewsAndRatings from './ReviewsAndRatings.vue';
 import crown from '@/assets/crown.svg'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
   
   import profileIcon from '@/assets/profileIcon.png';
   // Reactive state for current tab
@@ -38,6 +38,7 @@ interface Gig {
   user: {
     name: string;
   };
+  
 }
 
 const props = defineProps<{
@@ -53,8 +54,12 @@ const props = defineProps<{
   user: {
     name: string;
   };
+  positive_keywords: string;
   };
+  
 }>();
+// Convert the comma-separated string into an array
+const keywordList = computed(() => props.gig.positive_keywords.split(','));
 
 </script>
 
@@ -83,13 +88,13 @@ const props = defineProps<{
     <!-- Navbar ends -->
      <div class="flex mt-5 mb-10">
        <div>      
-              <!-- Hero Section -->    
-    <div class="max-w-4xl p-6 mx-auto mb-10 space-y-4 bg-white shadow-md rounded-xl">
+    <!-- Hero Section -->    
+    <div class="p-6 mx-auto mb-10 space-y-4 bg-white shadow-md rounded-xl">
       <!-- Breadcrumb -->
       <div class="text-sm text-gray-500">
-        <span>Home /</span>
-        <span> Lorem ipsum /</span>
-        <span> Web designing</span>
+        <span><a href="/">Home / </a></span>
+        <span> <a href="/buyer-dashboard"> Dashboard /</a> </span>
+        <span><a href="#"> Details</a> </span>
       </div>
 
       <!-- Header and Main Image -->
@@ -158,10 +163,10 @@ const props = defineProps<{
       <div class="space-y-2">
         <h3 class="text-lg font-bold">Skills and languages:</h3>
         <div class="flex space-x-2">
-          <span class="px-2 py-1 text-sm text-pink-700 bg-pink-100 rounded-full">HTML</span>
-          <span class="px-2 py-1 text-sm text-pink-700 bg-pink-100 rounded-full">SCSS</span>
-          <span class="px-2 py-1 text-sm text-pink-700 bg-pink-100 rounded-full">JavaScript</span>
-        </div>
+          <span v-for="(keyword, index) in keywordList" :key="index" class="px-2 py-1 text-sm text-pink-700 bg-pink-100 rounded-full">
+            {{ keyword }}
+          </span>
+         </div>
       </div>
   </div>
 
@@ -171,29 +176,29 @@ const props = defineProps<{
          </div>
        </div>
        <div class="">
-        <div class="sticky top-0 z-10 flex flex-col items-center ml-5">
-  <div class="container max-w-md p-6 rounded-3xl bg-[#FFDECA] ">
-    <!-- Tab Headers -->
-    <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px]">
-      <button
-        :class="currentTab === 'Basic' ? 'font-bold underline' : 'font-bold'"
-        @click="currentTab = 'Basic'"
-      >
-        Basic
-      </button>
-      <button
-        :class="currentTab === 'Standard' ? 'font-bold underline' : 'font-bold'"
-        @click="currentTab = 'Standard'"
-      >
-        Standard
-      </button>
-      <button
-        :class="currentTab === 'Premium' ? 'font-bold underline' : 'font-bold'"
-        @click="currentTab = 'Premium'"
-      >
-        Premium
-      </button>
-    </div>
+          <div class="sticky top-0 z-10 flex flex-col items-center ml-5">
+            <div class="container w-70  p-6 rounded-3xl bg-[#FFDECA] ">
+              <!-- Tab Headers -->
+              <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">
+                <button
+                  :class="currentTab === 'Basic' ? 'font-bold underline' : 'font-bold'"
+                  @click="currentTab = 'Basic'"
+                >
+                  Basic
+                </button>
+                <button
+                  :class="currentTab === 'Standard' ? 'font-bold underline' : 'font-bold'"
+                  @click="currentTab = 'Standard'"
+                >
+                  Standard
+                </button>
+                <button
+                  :class="currentTab === 'Premium' ? 'font-bold underline' : 'font-bold'"
+                  @click="currentTab = 'Premium'"
+                >
+                  Premium
+                </button>
+              </div>
 
     <!-- Dynamic Box Content -->
     <div class="w-full p-6 mt-4 rounded-3xl transition-all duration-500 bg-[#f1b792]">
@@ -243,9 +248,9 @@ const props = defineProps<{
   </div>
   <div class="flex items-center justify-center gap-4 mt-5">
     <img :src="profileIcon" alt="Profile Icon" class="w-10 h-10" />
-    <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl">
+    <a href="/contact-me">  <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl">
       Contact Me
-    </button>
+    </button> </a>
   </div>
   </div>     
         

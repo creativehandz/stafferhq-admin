@@ -29,6 +29,47 @@ Route::get('/', function () {
 //     return redirect()->route('login');
 // });
 
+// Dropdown Routes for Buyer
+Route::get('/contact-me', function () {
+    return Inertia::render('OtherPages/ContactMe');
+})->name('contactMe');
+
+Route::get('/orders', function () {
+    return Inertia::render('OtherPages/Orders');
+})->name('Orders');
+
+Route::get('/switch-to-selling', function () {
+    return Inertia::render('OtherPages/SwitchToSelling');
+})->name('SwitchToSelling');
+
+Route::get('/post-a-request', function () {
+    return Inertia::render('OtherPages/PostARequest');
+})->name('PostARequest');
+
+Route::get('/refer-a-friend', function () {
+    return Inertia::render('OtherPages/ReferAFriend');
+})->name('ReferAFriend');
+
+Route::get('/account-settings', function () {
+    return Inertia::render('OtherPages/AccountSettings');
+})->name('AccountSettings');
+
+Route::get('/billing-and-payments', function () {
+    return Inertia::render('OtherPages/BillingAndPayments');
+})->name('BillingAndPayments');
+
+Route::get('/english', function () {
+    return Inertia::render('OtherPages/English');
+})->name('English');
+
+Route::get('/inr', function () {
+    return Inertia::render('OtherPages/INR');
+})->name('INR');
+
+Route::get('/help-and-support', function () {
+    return Inertia::render('OtherPages/HelpAndSupport');
+})->name('HelpAndSupport');
+// Routes for Buyer ends
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
