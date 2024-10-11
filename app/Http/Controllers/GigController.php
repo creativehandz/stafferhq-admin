@@ -99,6 +99,7 @@ class GigController extends Controller
         // Fetch gig with the associated user
         $gig = Gig::with('user')->findOrFail($id);
 
+        // $gig->positive_keywords = json_decode($gig->positive_keywords, true);
         // following line breaks down the whole pricing string into basic, standard and premium and so on
         $gig->pricing = json_decode($gig->pricing, true);
         
