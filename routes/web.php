@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
+use Faker\Provider\ar_EG\Internet;
 use Inertia\Inertia;    
 
 
@@ -38,6 +39,14 @@ Route::get('/buyer-profile', function () {
 Route::get('/contact-me', function () {
     return Inertia::render('OtherPages/ContactMe');
 })->name('contactMe');
+
+Route::get('/buyer-inbox', function () {
+    return Inertia::render('Chats/ChatHome');
+})->name('BuyerChats');
+
+Route::get('premium-plans', function () {
+    return Inertia::render('OtherPages/PremiumPlans');
+})->name("PremiumPlans");
 
 Route::get('/orders', function () {
     return Inertia::render('OtherPages/Orders');

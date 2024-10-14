@@ -44,7 +44,7 @@
     <!-- Navbar ends -->
 
     <!-- BreadCrumbs -->
-    <div class="text-sm text-gray-500">
+    <div class="text-sm leading-none">
         <a href="/"><span>Home /</span>   </a>   
        <a href="/buyer-profile"> <span> Profile </span></a>
       </div>
@@ -54,7 +54,7 @@
 
     <!-- Hero section starts -->
 
-    <div class="p-4 mx-auto bg-white rounded-lg shadow-lg md:p-8">
+    <div class="mt-5 mb-5 bg-white rounded-lg shadow-lg  p-14">
     <!-- Left Sidebar -->
         <div class="flex flex-col gap-6 md:flex-row">
             <div class="flex-shrink-0 w-full md:w-1/3">
@@ -65,12 +65,12 @@
                     src="https://via.placeholder.com/150"
                     alt="Profile Picture"
                 />
-                <h2 class="mt-4 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black">{{ $page.props.auth.user.name }}</h2>
+                <h2 class="mt-4 leading-none sm:text-[18px] md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black">{{ $page.props.auth.user.name }}</h2>
                 <p class="text-black">@username</p>
                 </div>
 
                 <!-- Location, Joined Date, Languages -->
-                <div class="mt-6 space-y-3 text-sm text-black">
+                <div class="mt-6 space-y-3 text-sm text-black leading-none sm:text-[18px] md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">
                 <div class="flex items-center gap-2">
                     <span class="material-icons">location_on</span>
                     <p>Located in India</p>
@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- Seller Mode -->
-                <p class="mt-8 text-black text-left leading-none sm:text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] ">
+                <p class="mt-8 text-black text-left leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] ">
                 You’re currently on your buyer profile. To access your freelancer profile, switch to seller mode.
                 </p>
             </div>
