@@ -65,12 +65,12 @@
                     src="https://via.placeholder.com/150"
                     alt="Profile Picture"
                 />
-                <h2 class="mt-4 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] ">{{ $page.props.auth.user.name }}</h2>
-                <p class="text-gray-500">@username</p>
+                <h2 class="mt-4 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black">{{ $page.props.auth.user.name }}</h2>
+                <p class="text-black">@username</p>
                 </div>
 
                 <!-- Location, Joined Date, Languages -->
-                <div class="mt-6 space-y-3 text-sm text-gray-600">
+                <div class="mt-6 space-y-3 text-sm text-black">
                 <div class="flex items-center gap-2">
                     <span class="material-icons">location_on</span>
                     <p>Located in India</p>
@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- Seller Mode -->
-                <p class="mt-4 text-center text-black leading-none sm:text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] ">
+                <p class="mt-8 text-black text-left leading-none sm:text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] ">
                 You’re currently on your buyer profile. To access your freelancer profile, switch to seller mode.
                 </p>
             </div>
@@ -120,7 +120,7 @@
                     <p class="text-black leading-none sm:text-[16px]  md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px]">Profile checklist</p>
                     <span>67%</span>
                 </div>
-                <div class="relative w-full h-2 bg-gray-300 rounded-full">
+                <div class="relative w-full h-2 rounded-full">
                     <div class="absolute top-0 h-2 bg-blue-600 rounded-full" style="width: 67%;"></div>
                 </div>
 
