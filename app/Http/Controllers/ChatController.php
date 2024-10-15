@@ -35,6 +35,26 @@ class ChatController extends Controller
         return response()->json($messages);
     }
 
+    public function fetchLastMessages()
+    {
+        $userId = Auth::id();
+    
+        // Fetch the last message for each conversation involving the authenticated user
+        $messages = Message::select('messages.*')
+            ->where(function($query) use ($userId) {
+                $query->where('user_id', $userId)
+                      ->orWhere('receiver_id', $userId);
+            })
+            ->orderBy('created_at', 'desc') // Order by latest message first
+            ->get()
+            ->unique(function (Message $message) use ($userId) {
+                // Unique by the conversation partner
+                return $message->user_id === $userId ? $message->receiver_id : $message->user_id;
+            });
+    
+        return response()->json($messages);
+    }    
+
     /**
      * Send a new message.
      */

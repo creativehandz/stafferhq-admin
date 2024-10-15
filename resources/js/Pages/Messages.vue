@@ -10,6 +10,7 @@ import axios from "axios";
 const pageTitle = ref("Messages");
 const messages = ref<Message[]>([]);
 const newMessage = ref<string>(""); // lowercase 'string' type
+const lastMessages = ref<Message[]>([]);
 const receiverId = ref<number | null>(null);
 const selectedUser = ref<User | null>(null);
 const currentUserId = usePage().props.auth.user.id;
@@ -53,6 +54,37 @@ const fetchMessages = async () => {
     }
 };
 
+const fetchLastMessages = async () => {
+    if (props.users.length === 0) return;
+
+    try {
+        const response = await axios.get("/last-messages/");
+        lastMessages.value = response.data;
+        console.log(response.data)
+    } catch (error) {
+        console.error("Failed to fetch last messages", error);
+    }
+}
+
+// Method to filter messages for a specific user
+const getMessagesForUser = (userId: number) => {
+    const userMessages = lastMessages.value.filter(
+        (msg) => msg.user_id === userId || msg.receiver_id === userId
+    );
+
+    if (userMessages.length === 0) {
+        return 'Last Message will display here'; // No messages available
+    }
+
+    const lastMessage = userMessages[userMessages.length - 1]; // Get the last message
+    if (lastMessage.user_id === currentUserId) {
+        return `You: ${lastMessage.message}`; // If the current user sent the message
+    } else {
+        return lastMessage.message; // If the other user sent the message
+    }
+
+};
+
 const sendMessage = async () => {
     if (!newMessage.value.trim() || receiverId.value === null) return;
     try {
@@ -70,9 +102,11 @@ const sendMessage = async () => {
 
 const Typing = () => {
     console.log("I am called")
-    const receiver_id = currentUserId;
+    const receiver_id = receiverId.value;
+    if(!receiver_id) return;
+
     window.Echo.private(`chat.${receiver_id}`)
-    .whisper('test', {
+    .whisper("typing", {
         name: selectedUser.value?.name,
     });
 }
@@ -90,11 +124,11 @@ const selectReceiver = (user: User) => {
 const setupEcho = () => {
     if (currentUserId) {
         window.Echo.private(`chat.${currentUserId}`)
-            .listen('MessageSent', (e: MessageEvent) => {
+            .listen("MessageSent", (e: MessageEvent) => {
                 console.log("Message received:", e.message);
                 messages.value.push(e.message);  // Push the message to the array
             })
-            .listenForWhisper('test', (e: { name: string; }) => {
+            .listenForWhisper("typing", (e: { name: string; }) => {
                 console.log("client-test event received, Name: " + e.name);
             });
 
@@ -104,8 +138,8 @@ const setupEcho = () => {
 
 const removeEchoListener = () => {
     if (currentUserId) {
-        window.Echo.private(`chat.${currentUserId}`).stopListening('MessageSent');
-        window.Echo.private(`chat.${currentUserId}`).stopListening('client-test');
+        window.Echo.private(`chat.${currentUserId}`).stopListening("MessageSent");
+        window.Echo.private(`chat.${currentUserId}`).stopListening("client-test");
         console.log("Unsubscribed from chat channel: chat-" + currentUserId);
     }
 };
@@ -115,6 +149,7 @@ onMounted(() => {
     if (props.users.length > 0 && currentUserId) {
         selectReceiver(props.users[0]);  // Select the first user if available
         setupEcho();  // Setup Echo after currentUserId is ready
+        fetchLastMessages();
     }
 });
 
@@ -168,7 +203,7 @@ onUnmounted(() => {
                                         <li v-for="user in props.users" :key="user.id" @click="selectReceiver(user)">
                                             <div class="flex cursor-pointer items-center rounded py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark">
                                                 <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
-                                                    <img src='../../img/user/user-03.png' alt="profile" class="h-full w-full object-cover object-center" />
+                                                    <img src="../../img/user/user-03.png" alt="profile" class="h-full w-full object-cover object-center" />
                                                     <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
                                                 </div>
                                                 <div class="w-full">
@@ -176,7 +211,7 @@ onUnmounted(() => {
                                                         {{ user.name }}
                                                     </h5>
                                                     <p class="text-sm font-medium">
-                                                        Last Message will display here
+                                                        {{ getMessagesForUser(user.id) }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -191,7 +226,7 @@ onUnmounted(() => {
                         <div class="sticky flex items-center justify-between border-b border-stroke px-6 py-4.5 dark:border-strokedark">
                             <div class="flex items-center">
                                 <div class="mr-4.5 h-13 w-full max-w-13 overflow-hidden rounded-full">
-                                    <img src='../../img/user/user-03.png' alt="avatar" class="h-full w-full object-cover object-center" />
+                                    <img src="../../img/user/user-03.png" alt="avatar" class="h-full w-full object-cover object-center" />
                                 </div>
                                 <div>
                                     <h5 class="font-medium text-black dark:text-white">
@@ -239,7 +274,7 @@ onUnmounted(() => {
                                         type="text"
                                         placeholder="Type something here"
                                         id="newMessage"
-                                        @change="Typing"
+                                        @keypress="Typing"
                                         class="h-13 w-full rounded-md border border-stroke bg-gray pl-5 pr-19 font-medium text-black placeholder-body outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark-2 dark:text-white"
                                     />
                                     <div class="absolute right-5 top-1/2 inline-flex -translate-y-1/2 items-center justify-end space-x-4">
