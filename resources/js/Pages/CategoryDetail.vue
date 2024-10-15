@@ -122,7 +122,7 @@ function handleImageError() {
 
 <template>
     <Head title="Category Detail" />
-    <div class="bg-white text-black dark:bg-black-2 dark:text-white">
+    <div class="text-black bg-white ">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
 
         <CategoryHeader :category="category.name" />
@@ -132,12 +132,12 @@ function handleImageError() {
         <FlexCard :category="props.category.name" />
 
         <section id="categories" class="container">
-            <h1 class="text-title-lg font-semibold mb-5">
+            <h1 class="mb-5 font-semibold text-title-lg">
                 Explore {{ category.name }}
             </h1>
             <ul v-if="category.sub_categories.length">
                 <div
-                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8"
+                    class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4"
                 >
                     <li
                         v-for="subCategory in category.sub_categories"
@@ -145,19 +145,19 @@ function handleImageError() {
                     >
                         <div class="flex-col">
                             <div
-                                class="h-full overflow-hidden rounded-lg border bg-card"
+                                class="h-full overflow-hidden border rounded-lg bg-card"
                             >
                                 <img
                                     src="https://fiverr-res.cloudinary.com/image/upload/attachments/generic_asset/asset/c276d6e9b4859d7963688ee17dc23713-1715072487616/Blockchain%20_%20Cryptocurrency.png"
                                     alt=""
-                                    class="w-full aspect-video object-cover"
+                                    class="object-cover w-full aspect-video"
                                 />
                             </div>
                             <Link
                                 :href="route('sellers', { id: subCategory.id })"
                             >
                                 <h2
-                                    class="text-title-xsm font-medium hover:text-primary mt-5"
+                                    class="mt-5 font-medium text-title-xsm hover:text-primary"
                                 >
                                     {{ subCategory.name }}
                                 </h2>

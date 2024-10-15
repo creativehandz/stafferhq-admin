@@ -79,7 +79,7 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
             <div class="flex items-center gap-2">              
               <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]"><a href="/premium-plans">Premium</a></button><img :src="crown" class="w-6" alt="">
             </div>
-            <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Find work</button>
+            <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]"> <a href="/categories">Find work</a></button>
             <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Become a seller</button>
             <button class="px-6 py-2 text-black shadow-lg bg-[#A4FCFF] rounded-3xl hover:bg-cyan-500 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Log In</button>
             <button class="px-6 py-2 text-black shadow-lg bg-[#A4FCFF] rounded-3xl hover:bg-cyan-500 leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Sign Up</button>

@@ -20,7 +20,7 @@
         <a :href="`/job-description/${gig.id}`">
           <p class="font-semibold">{{ gig.gig_title }}</p>
         </a>
-        <p class="text-sm text-gray-600">{{ gig.gig_description }}</p>
+        <p class="overflow-hidden text-sm turncate hover:text-clip ">{{ gig.gig_description.split(' ').slice(0, 30).join(' ') }}...</p>
         <div class="flex items-center justify-end mt-4 text-right">
           <span class="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" stroke="black" width="16" height="16" class="mr-1">
@@ -28,7 +28,7 @@
             </svg>
             4.8
           </span>
-          <span class="ml-2 text-sm text-gray-600">(2k)</span>
+          <span class="ml-2 text-sm">(2k)</span>
         </div>
       </div>
     </div>

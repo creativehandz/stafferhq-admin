@@ -108,7 +108,7 @@ onClickOutside(target, () => {
                        <a href="/buyer-dashboard">Dashboard</a> 
                     </router-link>
                 </li>
-                <li>
+                <!-- <li>
                     <router-link
                         to="#"
                         class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -128,7 +128,7 @@ onClickOutside(target, () => {
                         </svg>
                         <a href="/post-a-request">Post a Request</a> 
                     </router-link>
-                </li>
+                </li> -->
                 <li>
                     <router-link
                         to="#"
@@ -147,7 +147,7 @@ onClickOutside(target, () => {
                                 fill=""
                             />
                         </svg>
-                        <a href="/refer-a-friend">Refer a Friend</a> 
+                        <a href="/referral">Refer a Friend</a> 
                     </router-link>
                 </li>
             </ul>

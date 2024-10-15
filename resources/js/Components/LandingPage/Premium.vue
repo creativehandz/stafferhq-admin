@@ -9,8 +9,8 @@
             <p class="mb-6 text-gray-700 pre-para leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac vulputate nisi.
             </p>
-            <button class="px-16 py-7 font-bold text-black transition-all duration-300 bg-[#F5F535] rounded-full shadow-lg hover:bg-yellow-500 button-get-started">
-                Get started!
+            <button  class="px-16 py-7 font-bold text-black transition-all duration-300 bg-[#F5F535] rounded-full shadow-lg hover:bg-yellow-500 button-get-started">
+               <a href="/register">Get started!</a> 
             </button>            
       </div>
 </div>

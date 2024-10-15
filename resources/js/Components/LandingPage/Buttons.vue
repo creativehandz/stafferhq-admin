@@ -1,15 +1,21 @@
 <template>
     <div class="container px-8 py-8 mx-auto">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div 
-          v-for="(item, index) in categories" 
-          :key="index" 
-          class="flex items-center justify-between px-6 py-8 transition-shadow duration-200 rounded-lg shadow-md cursor-pointer hover:shadow-lg"
-        >
+        
+        <div
+      v-for="category in categories"
+      :key="category.id"
+      class="flex items-center justify-between px-6 py-8 transition-shadow duration-200 rounded-lg shadow-md cursor-pointer hover:shadow-lg"
+    >
+        
           <div class="flex items-center">
             <!-- SVG icon as an image -->
-            <img v-if="item.icon" :src="item.icon" alt="Icon" class="w-6 h-6 mr-3">
-            <span class="leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] button-items">{{ item.name }}</span>
+           
+            <span class="leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] button-items">    
+            <button> <a :href="`/categories/${category.id}`" class="no-underline">
+          {{ category.name }}
+        </a>
+      </button> </span>
           </div>
         </div>
       </div>
@@ -26,16 +32,55 @@
   import musicIcon from '../../../img/logos/music-icon.svg';
   import businessIcon from '../../../img/logos/businessM.svg';
   
-  const categories = [
-    { name: "Web and digital services", icon: webIcon },
-    { name: "Translation and linguistics", icon: translationIcon },
-    { name: "Animation and video", icon: animationIcon },
-    { name: "Graphics and design", icon: graphicsIcon },
-    { name: "In-person services", icon: inpersonIcon },
-    { name: "AI and ML", icon: aiIcon },
-    { name: "Music and audio", icon: musicIcon },
-    { name: "Business and networking", icon: businessIcon },
-  ];
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router'; // Use vue-router for navigation
+import axios from 'axios';
+
+const categories = ref<Array<Category>>([]);
+const hoveredCategory = ref<Category | null>(null);
+
+// Fetch categories and subcategories from backend
+onMounted(() => {
+  axios.get('/categoriesandsub').then(response => {
+    categories.value = response.data; // Assuming response contains categories with subcategories
+  }).catch(error => {
+    console.error('Error fetching categories:', error);
+  });
+});
+
+// Handle mouse enter/leave events
+const handleMouseEnter = (category: Category) => {
+  hoveredCategory.value = category;
+};
+
+const handleMouseLeave = () => {
+  hoveredCategory.value = null;
+};
+
+// Vue Router instance to programmatically navigate
+const router = useRouter();
+
+// Navigate to category page on category click
+const navigateToCategory = (id: number) => {
+  router.push(`/categories/${id}`);
+};
+
+// Navigate to subcategory page on subcategory click
+const navigateToSubcategory = (category_id: number) => {
+  router.push(`/categories/${category_id}/sellers`);
+};
+
+// Define types
+type Category = {
+  id: number;
+  name: string;
+  sub_categories: Array<Subcategory>;
+};
+
+type Subcategory = {
+  id: number;
+  name: string;
+};
   </script>
   
 

@@ -42,33 +42,33 @@ const pageTitle = ref("Find Work");
     <AuthenticatedLayout>
         <template #header>
             <h2
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
-                Find Work
+                <a href="/categories">Find Work</a> 
             </h2>
         </template>
 
-        <div class="min-h-screen text-black dark:text-white p-4">
-            <div class="flex justify-between items-center mb-6">
+        <div class="min-h-screen p-4 text-black dark:text-white">
+            <div class="flex items-center justify-between mb-6">
                 <div>
                     <button
-                        class="font-medium text-primary border-b-2 border-blue-500 pb-2 mr-8"
+                        class="pb-2 mr-8 font-medium border-b-2 border-blue-500 text-primary"
                     >
                         My Feed
                     </button>
 
                     <Link :href="route('best-matches')">
-                        <button class="font-medium pb-2 mr-8">
+                        <button class="pb-2 mr-8 font-medium">
                             Best Matches
                         </button>
                     </Link>
                     <Link :href="route('most-recent')">
-                        <button class="font-medium pb-2 mr-8">
+                        <button class="pb-2 mr-8 font-medium">
                             Most Recent
                         </button>
                     </Link>
                     <Link :href="route('saved-jobs')">
-                        <button class="font-medium pb-2 mr-8">
+                        <button class="pb-2 mr-8 font-medium">
                             Saved Jobs
                         </button>
                     </Link>
@@ -80,7 +80,7 @@ const pageTitle = ref("Find Work");
                 <div
                     v-for="job in props.jobs"
                     :key="job.id"
-                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                    class="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
                     <Link :href="route('job.show', { id: job.id })">
                         <div class="p-4 sm:p-6 xl:p-10">
@@ -133,13 +133,13 @@ const pageTitle = ref("Find Work");
                                     </div>
 
                                     <div
-                                        class="my-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+                                        class="flex flex-col gap-3 my-3 sm:flex-row sm:items-center sm:justify-between"
                                     >
                                         <div class="flex gap-3">
                                             <!-- <button 
                                               v-for="skill in job.skills" 
                                               :key="skill" 
-                                              class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                              class="inline-flex px-3 py-1 text-sm font-medium border rounded-full hover:opacity-80"
                                               :style="{ borderColor: skill.color, color: skill.color }"
                                             >
                                                 {{ skill.name }}
@@ -151,7 +151,7 @@ const pageTitle = ref("Find Work");
                                         <div
                                             class="flex items-center space-x-10"
                                         >
-                                            <!-- <div class="font-medium flex gap-1 justify-center items-center">
+                                            <!-- <div class="flex items-center justify-center gap-1 font-medium">
                                                 <span>svg</span>
                                                 <p>{{ job.payment_status }}</p>
                                             </div>
@@ -195,7 +195,7 @@ const pageTitle = ref("Find Work");
                 </div>
 
                 <div
-                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+                    class="bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
                 >
                     <div class="p-4 sm:p-6 xl:p-10">
                         <div class="flex flex-col gap-5">
@@ -258,11 +258,11 @@ const pageTitle = ref("Find Work");
                             > -->
 
                                     <div
-                                        class="my-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+                                        class="flex flex-col gap-3 my-3 sm:flex-row sm:items-center sm:justify-between"
                                     >
                                         <div class="flex gap-3">
                                             <button
-                                                class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                                class="inline-flex px-3 py-1 text-sm font-medium border rounded-full hover:opacity-80"
                                                 style="
                                                     border-color: rgb(
                                                         249,
@@ -275,7 +275,7 @@ const pageTitle = ref("Find Work");
                                                 GoDaddy
                                             </button>
                                             <button
-                                                class="inline-flex rounded-full border py-1 px-3 text-sm font-medium hover:opacity-80"
+                                                class="inline-flex px-3 py-1 text-sm font-medium border rounded-full hover:opacity-80"
                                                 style="
                                                     border-color: rgb(
                                                         60,
@@ -295,7 +295,7 @@ const pageTitle = ref("Find Work");
                                             class="flex items-center space-x-10"
                                         >
                                             <div
-                                                class="font-medium flex gap-1 justify-center items-center"
+                                                class="flex items-center justify-center gap-1 font-medium"
                                             >
                                                 <svg
                                                     class="fill-current"
@@ -322,7 +322,7 @@ const pageTitle = ref("Find Work");
                                                 <p></p>
                                                 <p>$200+ Spent</p>
                                             </div>
-                                            <div class="font-medium flex gap-1">
+                                            <div class="flex gap-1 font-medium">
                                                 <svg
                                                     class="fill-current"
                                                     width="18"

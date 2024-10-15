@@ -21,16 +21,16 @@ function handleImageError() {
 
 <template>
     <Head title="Sellers" />
-    <div class="bg-white text-black dark:bg-black-2 dark:text-white">
+    <div class="text-black bg-white dark:text-white">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
 
       
         <section id="categories" class="container w-[75%] py-12 sm:py-16">
             <div class="mb-10">
-                <h1 class="text-title-xl2 font-bold">
+                <h1 class="font-bold text-title-xl2">
                     SubCategory Name
                 </h1>
-                <h2 class="text-title-md font-normal">
+                <h2 class="font-normal text-title-md">
                     Short Description
                 </h2>
             </div>

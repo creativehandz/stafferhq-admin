@@ -31,6 +31,9 @@ Route::get('/', function () {
 // });
 
 // Dropdown Routes for Buyer
+Route::get('/referral', function () {
+    return Inertia::render('Referral/ReferralHome');
+})->name('ReferralHome');
 
 Route::get('/buyer-profile', function () {
     return Inertia::render('BuyerProfile/ProfileHome');
