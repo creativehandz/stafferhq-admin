@@ -77,7 +77,7 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
 
         <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">              
-              <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Premium </button><img :src="crown" class="w-6" alt="">
+              <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]"><a href="/premium-plans">Premium</a></button><img :src="crown" class="w-6" alt="">
             </div>
             <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Find work</button>
             <button class="text-black leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">Become a seller</button>

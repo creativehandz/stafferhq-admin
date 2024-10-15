@@ -94,5 +94,27 @@ class GigController extends Controller
             Inertia::share('filePaths', $filePaths);
             return redirect()->route('gigs-record')->with('success', 'Gig created successfully.');
         }
+        public function getGigs()
+        {
+            $gigs = Gig::with('user')->get();
         
+            // Decode the pricing JSON for each gig
+            foreach ($gigs as $gig) {
+                $gig->pricing = json_decode($gig->pricing, true);
+            }
+        
+            return response()->json($gigs);
+        }
+        public function show($id)
+    {
+        // Fetch gig with the associated user
+        $gig = Gig::with('user')->findOrFail($id);
+        // $gig->positive_keywords = json_decode($gig->positive_keywords, true);
+        // following line breaks down the whole pricing string into basic, standard and premium and so on
+        $gig->pricing = json_decode($gig->pricing, true);
+                // Pass gig data to the Inertia view
+                return Inertia::render('Jobs/JobsHome', [
+                    'gig' => $gig // Pass the gig data to the component
+                ]);
+            }
  }

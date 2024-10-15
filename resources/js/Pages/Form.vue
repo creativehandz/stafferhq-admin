@@ -24,14 +24,14 @@ import Card from "@/Components/Cards/Card.vue";
     <AuthenticatedLayout>
         <template #header>
             <h2
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
                 Form
             </h2>
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div class="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
                 <!-- ====== Form Elements Section Start -->
                 <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
                     <div class="flex flex-col gap-9">
@@ -40,7 +40,7 @@ import Card from "@/Components/Cards/Card.vue";
                             <div class="flex flex-col gap-5 p-6">
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Default Input
                                     </label>
@@ -53,7 +53,7 @@ import Card from "@/Components/Cards/Card.vue";
 
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Active Input
                                     </label>
@@ -66,7 +66,7 @@ import Card from "@/Components/Cards/Card.vue";
 
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Disabled label
                                     </label>
@@ -103,7 +103,7 @@ import Card from "@/Components/Cards/Card.vue";
                             <div class="flex flex-col gap-5 p-6">
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Attach file
                                     </label>
@@ -115,7 +115,7 @@ import Card from "@/Components/Cards/Card.vue";
 
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Attach file
                                     </label>
@@ -135,7 +135,7 @@ import Card from "@/Components/Cards/Card.vue";
                             <div class="flex flex-col gap-5 p-6">
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Default textarea
                                     </label>
@@ -148,7 +148,7 @@ import Card from "@/Components/Cards/Card.vue";
 
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Active textarea
                                     </label>
@@ -161,7 +161,7 @@ import Card from "@/Components/Cards/Card.vue";
 
                                 <div>
                                     <label
-                                        class="mb-3 block text-sm font-medium text-black dark:text-white"
+                                        class="block mb-3 text-sm font-medium text-black dark:text-white"
                                     >
                                         Disabled textarea
                                     </label>
