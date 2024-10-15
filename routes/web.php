@@ -310,6 +310,9 @@ Route::middleware('auth')->group(function () {
     // Route for fetching messages
     Route::get('/messages/{receiver}', [ChatController::class, 'fetchMessages'])->name('messages.fetch');
 
+    // Route to get all last messages
+    Route::get('/last-messages', [ChatController::class,'fetchLastMessages'])->name('messages.last');
+
     Route::get('/messages', [ChatController::class, 'fetchUsers'])->name('messages.users');
 
     // // Route for sending messages
