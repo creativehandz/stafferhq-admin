@@ -50,7 +50,7 @@ class ChatController extends Controller
             $message->receiver_id = $request->receiver_id;
             $message->message = $request->message;
             $message->save();
-
+            
             // Broadcast the message to other users
             broadcast(new MessageSent($message))->toOthers();
 
