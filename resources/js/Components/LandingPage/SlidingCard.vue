@@ -18,6 +18,7 @@ import {
 
 
 interface PopularSubCategoryProps {
+  id: number;
   image: string;
   name: string;
 }
@@ -34,12 +35,12 @@ defineProps<{
     id="SlidingCard"
     class="container"
   >
-    <div class="text-center mb-8">
-      <h2 class="text-lg text-primary text-center mb-2 tracking-wider">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-lg tracking-wider text-center text-primary">
         Popular
       </h2>
 
-      <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">
+      <h2 class="mb-4 text-3xl font-bold text-center md:text-4xl">
         Most popular in this category
       </h2>
     </div>
@@ -69,7 +70,7 @@ defineProps<{
                 </Avatar>
 
                 <div class="flex flex-col">
-                  <CardTitle class="text-lg">{{ subCategory.name }}</CardTitle>
+                  <CardTitle class="text-lg"> <a :href="`/categories/${subCategory.id}/sellers`"> {{ subCategory.name }}</a></CardTitle>
                 </div>
               </div>
             </CardHeader>

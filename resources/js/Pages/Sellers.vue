@@ -1,7 +1,13 @@
 <template>
-    <div class="container p-6 mx-auto">
+    <div class="container p-6">
+      <Navbar :can-login="canLogin" :can-register="canRegister" />
+     <!-- BreadCrumbs -->
+      <div class="px-5 mb-5 text-sm leading-none">
+        <a href="/"><span>Home /</span>   </a>   
+       <a href="/buyer-dashboard"> <span> Dashboard </span></a>
+      </div>
       <!-- Filter Section -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center justify-between px-5 mb-6">
         <div class="flex space-x-4">
           <select class="px-4 py-2 text-sm border border-gray-300 rounded-full">
             <option>Sort by: Service options</option>
@@ -41,10 +47,10 @@
       </div>
   
       <!-- Results count -->
-      <div class="mb-4 text-sm text-gray-500">9,400+ results</div>
+      <div class="px-5 mb-4 text-sm text-gray-500">9,400+ results</div>
   
       <!-- Services Grid -->
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div v-for="service in services" :key="service.id" class="transition border rounded-lg shadow hover:shadow-lg">
           <img :src="service.image" alt="service image" class="object-cover w-full h-40 rounded-t-lg" />
           <div class="p-4">
@@ -59,6 +65,7 @@
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   </template>
   
@@ -107,6 +114,25 @@
       price: 'From ₹442',
     },
   ]);
+
+  import { Head, Link } from "@inertiajs/vue3";
+
+
+import Navbar from "@/Components/LandingPage/Navbar.vue";
+import Footer from "@/Components/LandingPage/Footer.vue";
+
+
+const props = defineProps<{
+    canLogin?: boolean;
+    canRegister?: boolean;
+}>();
+
+function handleImageError() {
+    document.getElementById("screenshot-container")?.classList.add("!hidden");
+    document.getElementById("docs-card")?.classList.add("!row-span-1");
+    document.getElementById("docs-card-content")?.classList.add("!flex-row");
+    document.getElementById("background")?.classList.add("!hidden");
+}
   </script>
   
   <style scoped>
