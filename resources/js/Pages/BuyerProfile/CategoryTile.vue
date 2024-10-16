@@ -20,7 +20,7 @@
       <!-- Subcategory Dropdown -->
       <div
         v-if="hoveredCategory && hoveredCategory.id === category.id"
-        class="absolute left-0 z-10 w-48 mt-2 bg-white border rounded-md shadow-lg"
+        class="absolute left-0 z-10 w-48 bg-white border rounded-md shadow-lg"
         @mouseenter="handleMouseEnter(category)" 
         @mouseleave="handleMouseLeave"
       >
