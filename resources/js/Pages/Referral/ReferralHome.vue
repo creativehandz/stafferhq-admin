@@ -45,6 +45,7 @@
     
     <CategoryTile/>
     <ReferralHero/>
+    <ReferralMail/>
     <Rewards/>
     <Footer/>
     </div>
@@ -60,4 +61,5 @@ import DropdownHeart from '@/Components/Header/DropdownHeart.vue';
 import DropdownUserTwo from '@/Components/Header/DropdownUserTwo.vue';
 import Rewards from './Rewards.vue';
 import ReferralHero from './ReferralHero.vue';
+import ReferralMail from './ReferralMail.vue';
 </script>
