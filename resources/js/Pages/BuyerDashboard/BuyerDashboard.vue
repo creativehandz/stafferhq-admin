@@ -73,6 +73,11 @@ const search = () => {
 </div>
 
         <!-- navbar ends -->
+             <!-- BreadCrumbs -->
+    <div class="mb-5 text-sm leading-none">
+        <a href="/"><span>Home /</span>   </a>   
+       <a href="/buyer-dashboard"> <span> Dashboard </span></a>
+      </div>
          <!-- Hero section -->
         <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl ">
            <div class="container flex ">

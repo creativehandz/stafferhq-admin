@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-                <!-- Navbar starts -->
-                <div class="flex items-center justify-between py-5">
+    <!-- Navbar starts -->
+    <div class="relative z-50 flex items-center justify-between py-5">
         <!-- Logo Button -->
         <button>
             <a href="/"> <img src="../../../img/toworkLogo.svg" alt="Logo" /></a>
@@ -42,6 +42,11 @@
         </div>
     </div>
     <!-- Navbar ends -->
+         <!-- BreadCrumbs -->
+    <div class="text-sm leading-none">
+        <a href="/"><span>Home /</span>   </a>   
+       <a href="/referral"> <span> Referral </span></a>
+      </div>
     
     <CategoryTile/>
     <ReferralHero/>
