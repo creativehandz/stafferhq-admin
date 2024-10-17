@@ -37,7 +37,7 @@ function handleImageError() {
 
 <template>
     <!-- <Head title="Categories" /> -->
-    <div class="text-black bg-white dark:bg-black-2 dark:text-white">
+    <div class="text-black bg-white ">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
         <GetStarted/>
         

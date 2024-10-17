@@ -1,37 +1,43 @@
 <template>
-    <div class="container px-8 py-8 mx-auto">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        
-        <div
+  <div class="flex flex-wrap gap-4 py-4">
+    <div
       v-for="category in categories"
       :key="category.id"
-      class="flex items-center justify-between px-6 py-8 transition-shadow duration-200 rounded-lg shadow-md cursor-pointer hover:shadow-lg"
+      class="relative group"
     >
+      <!-- Category Button -->
+      <button
+        class="px-4 py-2 text-black border shadow-md rounded-3xl leading-none sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] 2xl:text-[16px] text-left"
+        @mouseenter="handleMouseEnter(category)"
+        @mouseleave="handleMouseLeave"
         
-          <div class="flex items-center">
-            <!-- SVG icon as an image -->
-           
-            <span class="leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] button-items">    
-            <button> <a :href="`/categories/${category.id}`" class="no-underline">
+      >
+      <a :href="`/categories/${category.id}`" class="no-underline">
           {{ category.name }}
         </a>
-      </button> </span>
-          </div>
+      </button>
+
+      <!-- Subcategory Dropdown -->
+      <div
+        v-if="hoveredCategory && hoveredCategory.id === category.id"
+        class="absolute left-0 z-10 w-48 bg-white border rounded-md shadow-lg"
+        @mouseenter="handleMouseEnter(category)" 
+        @mouseleave="handleMouseLeave"
+      >
+        <div
+          v-for="subcategory in category.sub_categories"
+          :key="subcategory.id"
+          class="px-4 py-2 text-black cursor-pointer"
+         
+        >
+           <a :href="`/categories/${subcategory.id}/sellers`"> {{ subcategory.name }}</a>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script setup lang="ts">
-  import webIcon from '../../../img/logos/Layer_2.svg';
-  import translationIcon from '../../../img/logos/translation-icon.svg';
-  import animationIcon from '../../../img/logos/camRa.svg';
-  import graphicsIcon from '../../../img/logos/amination-icon.svg';
-  import inpersonIcon from '../../../img/logos/scissors_2.svg';
-  import aiIcon from '../../../img/logos/ai-icon.svg';
-  import musicIcon from '../../../img/logos/music-icon.svg';
-  import businessIcon from '../../../img/logos/businessM.svg';
-  
+  </div>
+</template>
+
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'; // Use vue-router for navigation
 import axios from 'axios';
@@ -81,7 +87,8 @@ type Subcategory = {
   id: number;
   name: string;
 };
-  </script>
-  
+</script>
 
-  
+<style scoped>
+/* Add any scoped styles here if needed */
+</style>
