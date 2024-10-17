@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <!-- Navbar starts -->
-        <div class="flex items-center justify-between py-5">
+        <div class="relative flex items-center justify-between py-5 z-100">
         <!-- Logo Button -->
         <button>
             <a href="/"> <img src="../../../img/toworkLogo.svg" alt="Logo" /></a>
@@ -54,7 +54,7 @@
 
     <!-- Hero section starts -->
 
-    <div class="mt-5 mb-5 bg-white rounded-lg shadow-lg  p-14">
+    <div class="mt-5 mb-5 bg-white rounded-lg shadow-lg p-14">
     <!-- Left Sidebar -->
         <div class="flex flex-col gap-6 md:flex-row">
             <div class="flex-shrink-0 w-full md:w-1/3">

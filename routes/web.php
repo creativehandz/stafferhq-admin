@@ -40,6 +40,10 @@ Route::get('/buyer-profile', function () {
     return Inertia::render('BuyerProfile/ProfileHome');
 })->name('BuyerProfile');
 
+Route::get('/buyer-checkout', function () {
+    return Inertia::render('Jobs/BillingHome');
+})->name('BillingHome');
+
 Route::get('/contact-me', function () {
     return Inertia::render('OtherPages/ContactMe');
 })->name('contactMe');
