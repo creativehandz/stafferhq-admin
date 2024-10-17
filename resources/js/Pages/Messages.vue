@@ -357,7 +357,7 @@ onUnmounted(() => {
                                         <img src="../../img/user/user-03.png" alt="User Avatar" class="h-full w-full object-cover object-center rounded-full">
 
                                         <!-- Online status indicator -->
-                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 ">
+                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success">
                                         </span>
                                     </div>
 
@@ -385,15 +385,15 @@ onUnmounted(() => {
                                         <img src="../../img/user/user-03.png" alt="User Avatar" class="h-full w-full object-cover object-center rounded-full">
 
                                         <!-- Online status indicator -->
-                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 ">
+                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success">
                                         </span>
                                     </div>
 
                                     <!-- Message content -->
                                     <div class="w-full">
                                         <!-- Message bubble -->
-                                        <div class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2">
-                                            <p class="text-sm font-medium text-black dark:text-white">
+                                        <div class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5 dark:bg-boxdark-2">
+                                            <p class="text-sm font-medium text-white dark:text-black">
                                                 {{ message.message }}
                                             </p>
                                         </div>
