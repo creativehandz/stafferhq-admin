@@ -10,8 +10,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserStatusController;
 use Faker\Provider\ar_EG\Internet;
-use Inertia\Inertia;    
+use Inertia\Inertia;
 
 
 
@@ -320,6 +321,9 @@ Route::middleware('auth')->group(function () {
 
     // // Route for sending messages
     Route::post('/messages', [ChatController::class, 'sendMessage'])->name('messages.send');
+
+    Route::post('/api/update-online-status', [UserStatusController::class, 'updateOnlineStatus']);
+
 
     Route::get('/employer-dashboard', [JobController::class,'showTotalJobs'])->name('employer-dashboard');
     

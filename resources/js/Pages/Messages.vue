@@ -14,6 +14,20 @@ const lastMessages = ref<Message[]>([]);
 const receiverId = ref<number | null>(null);
 const selectedUser = ref<User | null>(null);
 const currentUserId = usePage().props.auth.user.id;
+const isTyping = ref(false); // Ref to track if the other user is typing
+const typingStatusTime = ref<number | null>(null);
+
+// Your list of users, populated from the server
+const users = ref([
+  { id: 3, name: 'Alice', isOnline: false },
+  { id: 4, name: 'Bob', isOnline: false },
+  { id: 5, name: 'Charlie', isOnline: false }
+]);
+
+// Variables for tracking the user's status
+let isUserActive = ref(true); // Initially online
+let inactivityTimeout: number | null | undefined = null;
+let activityDelayTime: number = 10;
 
 type User = {
     id: number;
@@ -101,7 +115,6 @@ const sendMessage = async () => {
 };
 
 const Typing = () => {
-    console.log("I am called")
     const receiver_id = receiverId.value;
     if(!receiver_id) return;
 
@@ -120,16 +133,102 @@ const selectReceiver = (user: User) => {
     }
 };
 
+// Function to update user status
+const updateUserStatus = (userId: number, isOnline: boolean) => {
+  const user = users.value.find(u => u.id === userId);
+  if (user) {
+    user.isOnline = isOnline;
+  }
+};
+
+// Function to broadcast user activity (online status)
+const broadcastUserStatus = async (status: boolean) => {
+  try {
+    await axios.post('/api/update-online-status', {
+      userId: currentUserId,
+      isOnline: status,
+    }).then((response) => {
+        console.log("Update:" + response.data.message)
+    });
+  } catch (error) {
+    console.error("Failed to update online status", error);
+  }
+};
+
+// Call this function when the user becomes online or offline
+window.addEventListener('load', () => {
+  broadcastUserStatus(true);  // User is online when page is loaded
+});
+
+window.addEventListener('beforeunload', () => {
+  broadcastUserStatus(false);  // User is offline when page is closed/unloaded
+});
+
+// Listen for the online status changes
+const setupOnlineStatusListener = () => {
+  window.Echo.channel('online-status')
+    .listen('user.status', (e: { userId: any; isOnline: any; }) => {
+      updateUserStatus(e.userId, e.isOnline);
+      console.log("User Status: UserId: " + e.userId + "isOnline: " + e.isOnline)
+    });
+};
+
+// Function to detect activity
+const handleUserActivity = () => {
+
+    if((new Date().getTime() - activityDelayTime) < 5000) return;
+
+    activityDelayTime = new Date().getTime();
+    inactivityTimeout = new Date().getTime() + 600000;
+
+    if(!isUserActive.value){
+        broadcastUserStatus(true);
+    }
+
+  // Clear the old inactivity timeout and set a new one
+    setTimeout(() => {
+        const currentTime = new Date().getTime();
+        if (inactivityTimeout && currentTime >= inactivityTimeout) {    
+            isUserActive.value = false;
+            broadcastUserStatus(false); // Set user as offline after inactivity period
+        }
+    }, 600000); // 10 minutes of inactivity
+};
+
+// Set up activity listeners (mouse, keyboard, etc.)
+const setupActivityListeners = () => {
+  window.addEventListener('mousemove', handleUserActivity);
+  window.addEventListener('keydown', handleUserActivity);
+  window.addEventListener('click', handleUserActivity);
+  window.addEventListener('focus', handleUserActivity);
+  window.addEventListener('scroll', handleUserActivity);
+};
+
+// Clean up listeners
+const removeActivityListeners = () => {
+  window.removeEventListener('mousemove', handleUserActivity);
+  window.removeEventListener('keydown', handleUserActivity);
+  window.removeEventListener('click', handleUserActivity);
+  window.removeEventListener('focus', handleUserActivity);
+  window.removeEventListener('scroll', handleUserActivity);
+};
+
 // Manage Echo listeners
 const setupEcho = () => {
     if (currentUserId) {
         window.Echo.private(`chat.${currentUserId}`)
             .listen("MessageSent", (e: MessageEvent) => {
-                console.log("Message received:", e.message);
                 messages.value.push(e.message);  // Push the message to the array
             })
             .listenForWhisper("typing", (e: { name: string; }) => {
-                console.log("client-test event received, Name: " + e.name);
+                isTyping.value = true; // Show the typing indicator
+                typingStatusTime.value = new Date().getTime() + 3000;
+                setTimeout(() => {
+                    const currentTime = new Date().getTime();
+                    if (typingStatusTime.value && currentTime >= typingStatusTime.value) {
+                        isTyping.value = false; // Hide after 3 seconds of no activity
+                    }
+                }, 3000); // Timeout to reset the typing indicator
             });
 
         console.log("Subscribed to chat channel: chat-" + currentUserId);
@@ -140,7 +239,7 @@ const removeEchoListener = () => {
     if (currentUserId) {
         window.Echo.private(`chat.${currentUserId}`).stopListening("MessageSent");
         window.Echo.private(`chat.${currentUserId}`).stopListening("client-test");
-        console.log("Unsubscribed from chat channel: chat-" + currentUserId);
+        window.Echo.channel('online-status').stopListening('user.status');
     }
 };
 
@@ -150,6 +249,9 @@ onMounted(() => {
         selectReceiver(props.users[0]);  // Select the first user if available
         setupEcho();  // Setup Echo after currentUserId is ready
         fetchLastMessages();
+        setupOnlineStatusListener();
+        setupActivityListeners();
+        handleUserActivity(); // Trigger online status initially
     }
 });
 
@@ -205,6 +307,10 @@ onUnmounted(() => {
                                                 <div class="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
                                                     <img src="../../img/user/user-03.png" alt="profile" class="h-full w-full object-cover object-center" />
                                                     <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
+                                                    <!-- Display the online status here -->
+                                                    <!-- <span :class="{'bg-success': user.isOnline, 'bg-gray': !user.isOnline}" 
+                                                        class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2">
+                                                    </span> -->
                                                 </div>
                                                 <div class="w-full">
                                                     <h5 class="text-sm font-medium text-black dark:text-white">
@@ -232,36 +338,71 @@ onUnmounted(() => {
                                     <h5 class="font-medium text-black dark:text-white">
                                         {{ selectedUser?.name }}
                                     </h5>
-                                    <p class="text-sm font-medium">
+                                    <!-- <p class="text-sm font-medium">
                                         Reply to message
-                                    </p>
+                                    </p> -->
+                                          <!-- Display typing indicator instead of "Reply to message" -->
+                                        <p v-if="isTyping">{{ selectedUser?.name }} is typing...</p>
+                                        <p v-else class="text-sm font-medium">Reply to message</p>
                                 </div>
                             </div>
                         </div>
                         <div class="max-h-full space-y-3.5 overflow-auto px-6 py-7.5">
                             <div v-for="message in messages" :key="message.id">
                                 <!-- Message from another user -->
-                                <div v-if="message.user_id !== currentUserId" class="max-w-125">
-                                    <div class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2">
-                                        <p class="font-medium">
-                                            {{ message.message }}
+                                <div v-if="message.user_id !== currentUserId" class="mr-auto max-w-125 flex cursor-pointer items-start py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark">
+                                    <!-- Avatar and online status -->
+                                    <div class="relative mr-3.5 h-11 w-11 rounded-full">
+                                        <!-- User's avatar -->
+                                        <img src="../../img/user/user-03.png" alt="User Avatar" class="h-full w-full object-cover object-center rounded-full">
+
+                                        <!-- Online status indicator -->
+                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success">
+                                        </span>
+                                    </div>
+
+                                    <!-- Message content -->
+                                    <div class="w-full">
+                                        <!-- Message bubble -->
+                                        <div class="mb-2.5 rounded-2xl rounded-tl-none bg-gray py-3 px-5 dark:bg-boxdark-2">
+                                            <p class="text-sm font-medium text-black dark:text-white">
+                                                {{ message.message }}
+                                            </p>
+                                        </div>
+                                        
+                                        <!-- Timestamp -->
+                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                                            {{ formatDate(message.created_at) }}
                                         </p>
                                     </div>
-                                    <p class="text-xs font-medium">
-                                        {{ formatDate(message.created_at) }}
-                                    </p>
                                 </div>
 
                                 <!-- Message sent by the current user -->
-                                <div v-else class="ml-auto max-w-125">
-                                    <div class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5">
-                                        <p class="font-medium text-white">
-                                            {{ message.message }}
+                                <div v-else class="ml-auto max-w-125 flex cursor-pointer items-start py-2 px-4 hover:bg-gray-2 dark:hover:bg-strokedark">
+                                    <!-- Avatar and online status -->
+                                    <div class="relative mr-3.5 h-11 w-11 rounded-full">
+                                        <!-- User's avatar -->
+                                        <img src="../../img/user/user-03.png" alt="User Avatar" class="h-full w-full object-cover object-center rounded-full">
+
+                                        <!-- Online status indicator -->
+                                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success">
+                                        </span>
+                                    </div>
+
+                                    <!-- Message content -->
+                                    <div class="w-full">
+                                        <!-- Message bubble -->
+                                        <div class="mb-2.5 rounded-2xl rounded-br-none bg-primary py-3 px-5 dark:bg-boxdark-2">
+                                            <p class="text-sm font-medium text-white dark:text-black">
+                                                {{ message.message }}
+                                            </p>
+                                        </div>
+                                        
+                                        <!-- Timestamp -->
+                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                                            {{ formatDate(message.created_at) }}
                                         </p>
                                     </div>
-                                    <p class="text-right text-xs font-medium">
-                                        {{ formatDate(message.created_at) }}
-                                    </p>
                                 </div>
                             </div>
                         </div>
