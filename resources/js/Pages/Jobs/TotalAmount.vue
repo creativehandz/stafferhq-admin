@@ -1,3 +1,124 @@
+
+<script setup lang="ts">
+import axios from 'axios';
+import { computed, ref, reactive } from 'vue';
+
+// Define props
+const props = defineProps({
+  userId: Number,
+  gigId: Number,
+  selectedPrice: String,
+  gigTitle: String,
+  revisions: String,
+  package: String,
+  description: String,
+  deliveryTime: Number,
+});
+
+// Reactive state for current step
+const currentStep = ref(1);
+
+// Function to move to the next step
+const nextStep = () => {
+  if (currentStep.value < 3) {
+    currentStep.value++;
+  }
+};
+
+// Function to move to the previous step
+const previousStep = () => {
+  if (currentStep.value > 1) {
+    currentStep.value--;
+  }
+};
+
+// Reactive form data for billing information
+const form = reactive({
+  fullName: '',
+  companyName: '',
+  country: 'Malaysia',
+  state: 'Johor',
+  address: '',
+  city: '',
+  postalCode: '',
+  isCitizen: 'yes',
+  isGstRegistered: 'no',
+  gstinNumber: '',
+  taxCategory: 'Taxable',
+  wantInvoices: false,
+});
+
+// Function to handle back action
+const goBack = () => {
+if (currentStep.value > 1) {
+  currentStep.value--;
+}
+};
+
+// Function to save billing information and proceed to payment options
+// Function to handle save action and send data to backend
+const save = async () => {
+const checkoutData = {
+  user_id: props.userId,
+  gig_id: props.gigId,
+  order_details: {
+    gigTitle: props.gigTitle,
+    package: props.package,
+    revisions: props.revisions,
+    deliveryTime: props.deliveryTime,
+    description: props.description,
+  },
+  package_selected: props.package,
+  total_price: Number(props.selectedPrice) + 100,
+};
+
+try {
+  const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+
+  const response = await fetch('/buyer_checkout', {
+    method: 'POST',
+    body: JSON.stringify(checkoutData),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': token,
+    },
+  });
+
+  if (!response.ok) {
+    // Check if the response is HTML instead of JSON
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error saving checkout data');
+    } else {
+      throw new Error('Server returned an HTML page instead of JSON');
+    }
+  }
+
+  const data = await response.json(); // Parse successful response
+  console.log('Checkout saved successfully:', data);
+
+  currentStep.value++;
+} catch (error) {
+  console.error('Error saving checkout data:', error);
+}
+};
+
+
+// Function to confirm payment
+const confirmPayment = () => {
+  console.log('Payment confirmed. Total amount:', (Number(props.selectedPrice) + 100).toFixed(2));
+};
+
+// Split the description by " + " to display as separate list items
+const splitDescription = computed(() => {
+  return props.description.split(' + ') || [];
+});
+
+
+</script>
+
+
 <template>
   <div class="container">
     <!-- Step 1: Confirmation of Total -->
@@ -197,124 +318,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import axios from 'axios';
-import { computed, ref, reactive } from 'vue';
-
-// Define props
-const props = defineProps({
-  userId: Number,
-  gigId: Number,
-  selectedPrice: String,
-  gigTitle: String,
-  revisions: String,
-  package: String,
-  description: String,
-  deliveryTime: Number,
-});
-
-// Reactive state for current step
-const currentStep = ref(1);
-
-// Function to move to the next step
-const nextStep = () => {
-  if (currentStep.value < 3) {
-    currentStep.value++;
-  }
-};
-
-// Function to move to the previous step
-const previousStep = () => {
-  if (currentStep.value > 1) {
-    currentStep.value--;
-  }
-};
-
-// Reactive form data for billing information
-const form = reactive({
-  fullName: '',
-  companyName: '',
-  country: 'Malaysia',
-  state: 'Johor',
-  address: '',
-  city: '',
-  postalCode: '',
-  isCitizen: 'yes',
-  isGstRegistered: 'no',
-  gstinNumber: '',
-  taxCategory: 'Taxable',
-  wantInvoices: false,
-});
-
-// Function to handle back action
-const goBack = () => {
-if (currentStep.value > 1) {
-  currentStep.value--;
-}
-};
-
-// Function to save billing information and proceed to payment options
-// Function to handle save action and send data to backend
-const save = async () => {
-const checkoutData = {
-  user_id: props.userId,
-  gig_id: props.gigId,
-  order_details: {
-    gigTitle: props.gigTitle,
-    package: props.package,
-    revisions: props.revisions,
-    deliveryTime: props.deliveryTime,
-    description: props.description,
-  },
-  package_selected: props.package,
-  total_price: Number(props.selectedPrice) + 100,
-};
-
-try {
-  const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
-
-  const response = await fetch('/buyer_checkout', {
-    method: 'POST',
-    body: JSON.stringify(checkoutData),
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': token,
-    },
-  });
-
-  if (!response.ok) {
-    // Check if the response is HTML instead of JSON
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error saving checkout data');
-    } else {
-      throw new Error('Server returned an HTML page instead of JSON');
-    }
-  }
-
-  const data = await response.json(); // Parse successful response
-  console.log('Checkout saved successfully:', data);
-
-  currentStep.value++;
-} catch (error) {
-  console.error('Error saving checkout data:', error);
-}
-};
-
-
-// Function to confirm payment
-const confirmPayment = () => {
-  console.log('Payment confirmed. Total amount:', (Number(props.selectedPrice) + 100).toFixed(2));
-};
-
-// Split the description by " + " to display as separate list items
-const splitDescription = computed(() => {
-  return props.description.split(' + ') || [];
-});
-
-
-</script>
 
 <style scoped>
 /* Add any custom styles if needed */
