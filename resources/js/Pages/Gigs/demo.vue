@@ -342,6 +342,8 @@ const closeModal = () => {
   errorMessage.value = '';
   isModalOpen.value = null;
 }
+
+
 // Submit form to the backend
 const handleSubmit = async () => {
   gigForm.requirements = requirements.value;
@@ -352,7 +354,6 @@ const handleSubmit = async () => {
       console.log('A new gig has been successfully saved.')
     }
   });
-  
 };
 
 </script>
@@ -378,7 +379,7 @@ const handleSubmit = async () => {
             
           </div>
 
-          <div class="mt-6 flex justify-end">
+          <div class="flex justify-end mt-6">
             <SecondaryButton @click="closeModal"> OK </SecondaryButton>
 
           </div>
@@ -420,9 +421,9 @@ const handleSubmit = async () => {
                     @input="v$.gig_title.$touch()"
                     :class="{ 'border-red-500': v$.gig_title.$error }"
                   />
-                  <span v-if="v$.gig_title.$error" class="text-red-500 text-sm">Title is required (min 3 characters).</span>
+                  <span v-if="v$.gig_title.$error" class="text-sm text-red-500">Title is required (min 3 characters).</span>
 
-                  <label for="category" class="block text-sm font-medium text-gray-700 mt-4">Select Category</label>
+                  <label for="category" class="block mt-4 text-sm font-medium text-gray-700">Select Category</label>
                   <select
                     v-model="gigForm.category_id"
                     @change="v$.category_id.$touch(); handleCategoryChange()"
@@ -433,9 +434,9 @@ const handleSubmit = async () => {
                     <option disabled value="">Please select one</option>
                     <option v-for="category in categories" :key="category['id']" :value="category['id']">{{ category['name'] }}</option>
                   </select>
-                  <span v-if="v$.category_id.$error" class="text-red-500 text-sm">Category is required.</span>
+                  <span v-if="v$.category_id.$error" class="text-sm text-red-500">Category is required.</span>
 
-                  <label for="subcategory" class="block text-sm font-medium text-gray-700 mt-4">Select Subcategory</label>
+                  <label for="subcategory" class="block mt-4 text-sm font-medium text-gray-700">Select Subcategory</label>
                   <select
                     v-model="gigForm.subcategory_id"
                     @change="v$.subcategory_id.$touch()"
@@ -446,13 +447,13 @@ const handleSubmit = async () => {
                     <option disabled value="">Please select one</option>
                     <option v-for="subcategory in subcategories" :key="subcategory['id']" :value="subcategory['id']">{{ subcategory['name'] }}</option>
                   </select>
-                  <span v-if="v$.subcategory_id.$error" class="text-red-500 text-sm">Subcategory is required.</span>
+                  <span v-if="v$.subcategory_id.$error" class="text-sm text-red-500">Subcategory is required.</span>
 
-                  <label for="positive-keywords" class="block text-sm font-medium text-gray-700 mt-4">Positive Keywords</label>
-                  <div class="block w-full mt-1 border-gray-300 rounded-md shadow-sm sm:text-sm p-2 bg-white border">
+                  <label for="positive-keywords" class="block mt-4 text-sm font-medium text-gray-700">Positive Keywords</label>
+                  <div class="block w-full p-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm sm:text-sm">
                     <span v-for="(tag, index) in positiveKeywords" :key="index" class="inline-block bg-orange-200 text-orange-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
                       {{ tag }}
-                      <span @click="removeTag(index)" class="cursor-pointer ml-1">x</span>
+                      <span @click="removeTag(index)" class="ml-1 cursor-pointer">x</span>
                     </span>
                     <input
                       v-model="newKeyword"
@@ -461,7 +462,7 @@ const handleSubmit = async () => {
                       type="text"
                       id="positive-keywords"
                       placeholder="Enter up to 5 tags"
-                      class="outline-none w-auto border-0 focus:ring-0"
+                      class="w-auto border-0 outline-none focus:ring-0"
                       :disabled="positiveKeywords.length >= 5"
                     />
                   </div>
@@ -491,7 +492,7 @@ const handleSubmit = async () => {
                             placeholder="Name your package"
                             :class="{ 'border-red-500': v$.pricing.basic.name.$error }"
                           />
-                          <span v-if="v$.pricing.basic.name.$error" class="text-red-500 text-sm">Please enter a valid name (min 3 characters).</span>
+                          <span v-if="v$.pricing.basic.name.$error" class="text-sm text-red-500">Please enter a valid name (min 3 characters).</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -501,7 +502,7 @@ const handleSubmit = async () => {
                             placeholder="Name your package"
                             :class="{ 'border-red-500': v$.pricing.standard.name.$error }"
                           />
-                          <span v-if="v$.pricing.standard.name.$error" class="text-red-500 text-sm">Please enter a valid name (min 3 characters).</span>
+                          <span v-if="v$.pricing.standard.name.$error" class="text-sm text-red-500">Please enter a valid name (min 3 characters).</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -511,7 +512,7 @@ const handleSubmit = async () => {
                             placeholder="Name your package"
                             :class="{ 'border-red-500': v$.pricing.premium.name.$error }"
                           />
-                          <span v-if="v$.pricing.premium.name.$error" class="text-red-500 text-sm">Please enter a valid name (min 3 characters).</span>
+                          <span v-if="v$.pricing.premium.name.$error" class="text-sm text-red-500">Please enter a valid name (min 3 characters).</span>
                         </th>
                       </tr>
                       
@@ -524,7 +525,7 @@ const handleSubmit = async () => {
                             placeholder="Describe the details of your offering."
                             :class="{ 'border-red-500': v$.pricing.basic.description.$error }"
                           />
-                          <span v-if="v$.pricing.basic.description.$error" class="text-red-500 text-sm">Description is required (min 10 characters).</span>
+                          <span v-if="v$.pricing.basic.description.$error" class="text-sm text-red-500">Description is required (min 10 characters).</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -533,7 +534,7 @@ const handleSubmit = async () => {
                             placeholder="Describe the details of your offering."
                             :class="{ 'border-red-500': v$.pricing.standard.description.$error }"
                           />
-                          <span v-if="v$.pricing.standard.description.$error" class="text-red-500 text-sm">Description is required (min 10 characters).</span>
+                          <span v-if="v$.pricing.standard.description.$error" class="text-sm text-red-500">Description is required (min 10 characters).</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -542,7 +543,7 @@ const handleSubmit = async () => {
                             placeholder="Describe the details of your offering."
                             :class="{ 'border-red-500': v$.pricing.premium.description.$error }"
                           />
-                          <span v-if="v$.pricing.premium.description.$error" class="text-red-500 text-sm">Description is required (min 10 characters).</span>
+                          <span v-if="v$.pricing.premium.description.$error" class="text-sm text-red-500">Description is required (min 10 characters).</span>
                         </th>
                       </tr>
 
@@ -561,7 +562,7 @@ const handleSubmit = async () => {
                             <option value="14 days">14 Days</option>
                             <option value="30 days">30 Days</option>
                           </select>
-                          <span v-if="v$.pricing.basic.delivery_time.$error" class="text-red-500 text-sm">Delivery time is required.</span>
+                          <span v-if="v$.pricing.basic.delivery_time.$error" class="text-sm text-red-500">Delivery time is required.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <select
@@ -576,7 +577,7 @@ const handleSubmit = async () => {
                             <option value="14 days">14 Days</option>
                             <option value="30 days">30 Days</option>
                           </select>
-                          <span v-if="v$.pricing.standard.delivery_time.$error" class="text-red-500 text-sm">Delivery time is required.</span>
+                          <span v-if="v$.pricing.standard.delivery_time.$error" class="text-sm text-red-500">Delivery time is required.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <select
@@ -591,7 +592,7 @@ const handleSubmit = async () => {
                             <option value="14 days">14 Days</option>
                             <option value="30 days">30 Days</option>
                           </select>
-                          <span v-if="v$.pricing.premium.delivery_time.$error" class="text-red-500 text-sm">Delivery time is required.</span>
+                          <span v-if="v$.pricing.premium.delivery_time.$error" class="text-sm text-red-500">Delivery time is required.</span>
                         </th>
                       </tr>
 
@@ -610,7 +611,7 @@ const handleSubmit = async () => {
                             <option value="3">3</option>
                             <option value="unlimited">Unlimited</option>
                           </select>
-                          <span v-if="v$.pricing.basic.revisions.$error" class="text-red-500 text-sm">Revisions are required.</span>
+                          <span v-if="v$.pricing.basic.revisions.$error" class="text-sm text-red-500">Revisions are required.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <select
@@ -625,7 +626,7 @@ const handleSubmit = async () => {
                             <option value="3">3</option>
                             <option value="unlimited">Unlimited</option>
                           </select>
-                          <span v-if="v$.pricing.standard.revisions.$error" class="text-red-500 text-sm">Revisions are required.</span>
+                          <span v-if="v$.pricing.standard.revisions.$error" class="text-sm text-red-500">Revisions are required.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <select
@@ -640,7 +641,7 @@ const handleSubmit = async () => {
                             <option value="3">3</option>
                             <option value="unlimited">Unlimited</option>
                           </select>
-                          <span v-if="v$.pricing.premium.revisions.$error" class="text-red-500 text-sm">Revisions are required.</span>
+                          <span v-if="v$.pricing.premium.revisions.$error" class="text-sm text-red-500">Revisions are required.</span>
                         </th>
                       </tr>
 
@@ -654,7 +655,7 @@ const handleSubmit = async () => {
                             placeholder="Price"
                             :class="{ 'border-red-500': v$.pricing.basic.price.$error }"
                           />
-                          <span v-if="v$.pricing.basic.price.$error" class="text-red-500 text-sm">Price is required and must be numeric.</span>
+                          <span v-if="v$.pricing.basic.price.$error" class="text-sm text-red-500">Price is required and must be numeric.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -664,7 +665,7 @@ const handleSubmit = async () => {
                             placeholder="Price"
                             :class="{ 'border-red-500': v$.pricing.standard.price.$error }"
                           />
-                          <span v-if="v$.pricing.standard.price.$error" class="text-red-500 text-sm">Price is required and must be numeric.</span>
+                          <span v-if="v$.pricing.standard.price.$error" class="text-sm text-red-500">Price is required and must be numeric.</span>
                         </th>
                         <th class="p-4 border border-stroke">
                           <input
@@ -674,7 +675,7 @@ const handleSubmit = async () => {
                             placeholder="Price"
                             :class="{ 'border-red-500': v$.pricing.premium.price.$error }"
                           />
-                          <span v-if="v$.pricing.premium.price.$error" class="text-red-500 text-sm">Price is required and must be numeric.</span>
+                          <span v-if="v$.pricing.premium.price.$error" class="text-sm text-red-500">Price is required and must be numeric.</span>
                         </th>
                       </tr>
                     </tbody>
@@ -695,7 +696,7 @@ const handleSubmit = async () => {
                     class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     :class="{ 'border-red-500': v$.gig_description.$error }"
                   ></textarea>
-                  <span v-if="v$.gig_description.$error" class="text-red-500 text-sm">Description is required (min 10 characters).</span>
+                  <span v-if="v$.gig_description.$error" class="text-sm text-red-500">Description is required (min 10 characters).</span>
 
                   <label for="faq" class="block text-sm font-medium text-gray-700">Frequently Asked Questions (FAQ)</label>
                   <!-- Dynamic FAQ Inputs -->
@@ -721,7 +722,7 @@ const handleSubmit = async () => {
                   <div class="mt-4">
                     <button
                       type="button"
-                      class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md"
+                      class="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md"
                       @click="addMoreFAQs"
                     >
                       Add More FAQ
