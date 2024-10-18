@@ -106,15 +106,43 @@ class GigController extends Controller
             return response()->json($gigs);
         }
         public function show($id)
-    {
-        // Fetch gig with the associated user
-        $gig = Gig::with('user')->findOrFail($id);
-        // $gig->positive_keywords = json_decode($gig->positive_keywords, true);
-        // following line breaks down the whole pricing string into basic, standard and premium and so on
-        $gig->pricing = json_decode($gig->pricing, true);
-                // Pass gig data to the Inertia view
-                return Inertia::render('Jobs/JobsHome', [
-                    'gig' => $gig // Pass the gig data to the component
-                ]);
+        {
+            // Fetch gig with the associated user
+            $gig = Gig::with('user')->findOrFail($id);
+            // $gig->positive_keywords = json_decode($gig->positive_keywords, true);
+            // following line breaks down the whole pricing string into basic, standard and premium and so on
+            $gig->pricing = json_decode($gig->pricing, true);
+                    // Pass gig data to the Inertia view
+            return Inertia::render('Jobs/JobsHome', [
+                'gig' => $gig // Pass the gig data to the component
+            ]);
+        }
+        public function checkout($id, Request $request)
+        {
+            // Find the gig by id, including the user relationship
+            $gig = Gig::with('user')->findOrFail($id);
+
+            // Decode the pricing JSON field
+            $gig->pricing = json_decode($gig->pricing, true);
+
+            // Get the selected pricing from the query string
+            $selectedPricing = $request->query('pricing');
+
+            // Optionally, validate or ensure the selected pricing matches one of the package prices
+            if (!in_array($selectedPricing, [
+                $gig->pricing['basic']['price'],
+                $gig->pricing['standard']['price'],
+                $gig->pricing['premium']['price'],
+            ])) {
+                // If the pricing is invalid, you can redirect or handle it as needed
+                abort(404, 'Invalid pricing option');
             }
+
+            // Return the Inertia view for the checkout page
+            return Inertia::render('Jobs/Checkout', [
+                'gig' => $gig, // Pass the gig data to the component
+                'selectedPricing' => $selectedPricing, // Pass the selected pricing to the component
+            ]);
+        }
+
  }
