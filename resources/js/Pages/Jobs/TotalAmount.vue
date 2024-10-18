@@ -121,6 +121,7 @@ const splitDescription = computed(() => {
 
 <template>
   <div class="container">
+    <div class="flex justify-center">
     <!-- Step 1: Confirmation of Total -->
     <div v-if="currentStep === 1" class="w-full max-w-sm p-6 bg-white border rounded-lg shadow-lg">
       <div class="flex items-center mb-4">
@@ -315,6 +316,7 @@ const splitDescription = computed(() => {
         </button>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
