@@ -1,5 +1,5 @@
 <template>
-<div class="my-10">
+<div class="px-2 my-10">
   <div class="flex overflow-hidden bg-orange-500 shadow-lg rounded-3xl">
     <!-- Left Section (Text) -->
     <div class="flex flex-col justify-center w-1/2 p-10 space-y-6 text-left text-white">

@@ -39,8 +39,8 @@ class GigController extends Controller
             $validated = $request->validate([
                 'gig_title' => 'required|string|max:255',
                 'gig_description' => 'nullable|string',
-                'category_id' => 'required|integer',
-                'subcategory_id' => 'required|integer',
+                'category_id' => 'required|string',
+                'subcategory_id' => 'required|string',
                 'positive_keywords' => 'nullable|string',
                 'requirements.*' => 'required|string|max:255',
                 'faqs' => 'nullable|array', // Validate that it's an array
@@ -145,4 +145,22 @@ class GigController extends Controller
             ]);
         }
 
+
+        public function index(Request $request)
+        {
+            // Fetch the subcategory_id from the query parameter
+            $subcategory_id = $request->query('subcategory_id');
+    
+            // Check if subcategory_id is provided
+            if ($subcategory_id) {
+                // Retrieve the gigs that match the subcategory_id
+                $gigs = Gig::where('subcategory_id', $subcategory_id)->with('user')->get();
+            } else {
+                // If no subcategory_id is provided, return all gigs
+                $gigs = Gig::with('user')->get();
+            }
+    
+            // Return the gigs as a JSON response
+            return response()->json($gigs);
+        }
  }
