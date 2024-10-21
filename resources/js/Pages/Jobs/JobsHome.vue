@@ -63,6 +63,20 @@ const props = defineProps<{
   };
   
 }>();
+
+// Dynamically select the pricing based on the current tab
+const selectedPricing = computed(() => {
+  if (props.gig && props.gig.pricing) {
+    const pricingKey = currentTab.value.toLowerCase(); // 'basic', 'standard', or 'premium'
+    
+    // Get the selected package (basic, standard, or premium)
+    const selectedPackage = props.gig.pricing[pricingKey as keyof typeof props.gig.pricing];
+    
+    // Return the price of the selected package or '0' if not found
+    return selectedPackage?.price || '0';
+  }
+  return '0'; // Return '0' if gig or pricing is unavailable
+});
 // Convert the comma-separated string into an array
 const keywordList = computed(() => props.gig.positive_keywords.split(','));
 
@@ -267,7 +281,10 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
         <li>✔️ Revisions: {{ gig.pricing.premium.revisions }}</li>
       </ul>
     </div>
-
+    <div class="flex flex-col items-center ">
+      <p><strong>Select the packege and continue</strong></p>
+      <button class="w-20 bg-green-200 rounded-3xl"> <a :href="`/checkout/${gig.id}?pricing=${selectedPricing}`" class="w-20 bg-green-200 rounded-3xl">Continue</a> </button>
+    </div>
   </div>
 
     <div>

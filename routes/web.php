@@ -10,9 +10,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserStatusController;
+
 use Faker\Provider\ar_EG\Internet;
 use Inertia\Inertia;
+use App\Http\Controllers\UserStatusController;
+use App\Http\Controllers\CheckoutController;
 
 
 
@@ -25,6 +27,15 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout');
+
+Route::get('/checkout', function () {
+    return Inertia::render('Jobs/Checkout');
+})->name('checkotu');
+
+
+Route::post('/buyer_checkout', [CheckoutController::class, 'store'])->name('buyer.checkout');
+
 
 // Redirect to login page when logout
 // Route::get('/', function () {
@@ -39,6 +50,10 @@ Route::get('/referral', function () {
 Route::get('/buyer-profile', function () {
     return Inertia::render('BuyerProfile/ProfileHome');
 })->name('BuyerProfile');
+
+Route::get('/buyer-checkout', function () {
+    return Inertia::render('Jobs/BillingHome');
+})->name('BillingHome');
 
 Route::get('/contact-me', function () {
     return Inertia::render('OtherPages/ContactMe');
@@ -340,6 +355,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/job-description/{id}', [GigController::class, 'show'])->name('job.show');
+
+    Route::get('/checkout/{id}', [GigController::class, 'checkout'])->name('checkout');
 
 
 });

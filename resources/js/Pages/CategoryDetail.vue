@@ -102,12 +102,14 @@ const tagList: TagProps[] = [
 ];
 
 interface PopularSubCategoryProps {
+    id: number;
     image: string;
     name: string;
 }
 
 const popularSubCategoryList: PopularSubCategoryProps[] =
     props.category.sub_categories.map((subCategory) => ({
+        id: subCategory.id,
         image: "https://github.com/shadcn.png",
         name: subCategory.name,
     }));

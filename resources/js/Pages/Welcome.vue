@@ -38,11 +38,7 @@ function handleImageError() {
     <Head title="Welcome" />
     <div class="text-black bg-white ">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
-            <!-- BreadCrumbs -->
-            <div class="p-2 pl-10 text-sm leading-none">
-                <a href="/"><span>Home </span>   </a>   
 
-            </div>
         <Hero />
         <Buttons/>
         <Individuals/>

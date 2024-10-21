@@ -1,6 +1,6 @@
 <template>
         <!-- Rewards -->
-        <div class="py-8 text-left text-black">
+        <div class="px-4 py-8 text-left text-black">
             <p class="text-sm font-semibold text-orange-600">
             FROM REFERRAL TO REWARD
             </p>
