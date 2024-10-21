@@ -31,11 +31,15 @@ Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('chec
 
 Route::get('/checkout', function () {
     return Inertia::render('Jobs/Checkout');
-})->name('checkotu');
+})->name('checkout');
 
 
 Route::post('/buyer_checkout', [CheckoutController::class, 'store'])->name('buyer.checkout');
 
+// this is for testing
+Route::get('/demo-me', function () {
+    return Inertia::render('OtherPages/demoMe');
+})->name('DemoMe');
 
 // Redirect to login page when logout
 // Route::get('/', function () {
