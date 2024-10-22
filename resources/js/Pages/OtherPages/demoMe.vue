@@ -7,33 +7,9 @@ import Footer from '@/Components/LandingPage/Footer.vue';
 import axios from 'axios';
 import { ref, computed, onMounted } from 'vue';
 
-
-// Props passed from the backend via Inertia
-const props = defineProps<{
-  package: {
-    packageName: string;
-    packageDescription: string;
-    packagePrice: number;
-    deliveryTime: string;
-    revisions: number;
-    gigId: number;
-  };
-}>();
-
-// Method to handle checkout
-const completeCheckout = () => {
-  axios.post('/checkout', props.package)
-    .then(() => {
-      alert('Checkout completed successfully!');
-      window.location.href = '/buyer-dashboard'; // Example redirect
-    })
-    .catch((error) => {
-      console.error('Error completing checkout: ', error);
-    });
-};
 // State for gig quantity
 const quantity = ref(1);
-const step = ref(2); // Track the current step
+const step = ref(1); // Track the current step
 
 // State for extras
 const extraFastDelivery = ref(false);
@@ -58,6 +34,17 @@ const total = computed(() => {
   if (includeSourceFile.value) totalAmount += includeSourcePrice;
   return totalAmount;
 });
+
+// Methods to increase/decrease quantity
+const increaseQuantity = () => {
+  quantity.value++;
+};
+
+const decreaseQuantity = () => {
+  if (quantity.value > 1) {
+    quantity.value--;
+  }
+};
 
 // Reset the form when closed
 const resetForm = () => {
@@ -112,9 +99,7 @@ try {
 onMounted(() => {
 fetchGigs();
 });
-const goBack = () => {
-  window.history.back();
-};
+
 const showPopup = ref(false); // Controls the visibility of the popup
 
 // Method to toggle the popup visibility
@@ -205,17 +190,34 @@ const isOrderStartable = false;
   
       <!-- Step Navigation -->
       <div class="flex mb-4 space-x-2">
-        <button :class="step === 1 ? 'font-bold' : ''" @click="goBack">Order Details</button>
+        <button :class="step === 1 ? 'font-bold' : ''" @click="step = 1">Order Details</button>
         <button :class="step === 2 ? 'font-bold' : ''" @click="step = 2">> Confirm & Pay</button>
         <button :class="step === 3 ? 'font-bold' : ''" @click="step = 3">> Submit Requirements</button>
       </div>
   
       <!-- Step 1: Gig Selection -->
       <div v-if="step === 1">
-       
+        <h3 class="font-bold text-md">Basic</h3>
+        <p class="text-sm text-gray-500">
+            <div v-for="gig in gigs" >
+                {{gig.gig_title}} 
+            </div>
+         
+        </p>
+        <div class="text-lg font-semibold">₹3,972</div>
+  
+        <!-- Quantity selector -->
+        <div class="flex items-center justify-between mt-4">
+          <label class="text-sm text-gray-500">Gig Quantity</label>
+          <div class="flex items-center space-x-2">
+            <button @click="decreaseQuantity" class="px-2 py-1 border">-</button>
+            <span>{{ quantity }}</span>
+            <button @click="increaseQuantity" class="px-2 py-1 border">+</button>
+          </div>
+        </div>
   
         <!-- Proceed to Step 2 -->
-        <!-- <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded" @click="step = 2">Proceed to Payment</button> -->
+        <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded" @click="step = 2">Proceed to Payment</button>
       </div>
   
       <!-- Step 2: Payment Details -->
@@ -230,16 +232,16 @@ const isOrderStartable = false;
           <p>Rajasthan, India</p>
           <p>Tax ID: 08LGOPS4457C1ZR, LGOPS4457C</p>
         </div>
-        <button 
+        <button class="text-blue-500 hover:underline">Edit</button>
+      </div>
+      <div>
+    <!-- Button to toggle the popup -->
+    <button 
       @click="togglePopup"
       class="text-blue-500 hover:underline"
     >
       Edit
     </button>
-      </div>
-      <div>
-    <!-- Button to toggle the popup -->
-
 
     <!-- Popup Box -->
     <div v-if="showPopup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -248,27 +250,28 @@ const isOrderStartable = false;
         
         <!-- Form Fields -->
         <div class="mb-4">
-          <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
-          <!-- Full Name -->
-          <div class="mb-4">
-            <label class="block font-medium text-gray-700">Full name (mandatory)</label>
-            <input v-model="form.fullName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Full name" />
-          </div>
+            <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="mb-6 text-xl font-bold">Billing Information</h2>
+      <!-- Full Name -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Full name (mandatory)</label>
+        <input v-model="form.fullName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Full name" />
+      </div>
 
-          <!-- Company Name -->
-          <div class="mb-4">
-            <label class="block font-medium text-gray-700">Company name</label>
-            <input v-model="form.companyName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Company name" />
-          </div>
+      <!-- Company Name -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Company name</label>
+        <input v-model="form.companyName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Company name" />
+      </div>
 
-          <!-- Country -->
-          <div class="mb-4">
-            <label class="block font-medium text-gray-700">Country</label>
-            <select v-model="form.country" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-              <option value="Malaysia">Malaysia</option>
-              <!-- Add more options if needed -->
-            </select>
-          </div>
+      <!-- Country -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Country</label>
+        <select v-model="form.country" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+          <option value="Malaysia">Malaysia</option>
+          <!-- Add more options if needed -->
+        </select>
+      </div>
 
       <!-- State -->
       <div class="mb-4">
@@ -391,30 +394,22 @@ const isOrderStartable = false;
         <div class="flex items-center justify-between mb-3">
           <div>
             <p class="font-semibold"></p>
-            <h2 class="mb-2 text-2xl font-bold">Selected Package: {{ package.gigId }}</h2>
+            <p>data </p>
           </div>
-          <p class="text-right">{{ package.packageName }} </p>
+          <p class="text-right">$will </p>
         </div>
   
         <ul class="mb-4 text-gray-500">
-          <div class="mb-6">
-  
-      <p class="mb-1 text-md">Description: {{ package.packageDescription }}</p>
-      <p class="mb-1 text-md">Price: ${{ package.packagePrice }}</p>
-      <p class="mb-1 text-md">Delivery Time: {{ package.deliveryTime }}</p>
-      <p class="mb-1 text-md">Revisions: {{ package.revisions }}</p>
-    </div>
-        <!-- Checkout button -->
-        <!-- <button
-      @click="completeCheckout"
-      class="w-full py-3 font-semibold text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700"
-    >
-      Complete Purchase ${{ package.packagePrice }}
-    </button> -->
+          <li>✔️ Unlimited revisions</li>
+          <li>✔️ 2 concepts included</li>
+          <li>✔️ Logo transparency</li>
+          <li>✔️ Vector file</li>
+          <li>✔️ Printable file</li>
+          <li>✔️ Include 3D mockup</li>
+          <li>✔️ Include source file</li>
         </ul>
-      
   
-        <!-- <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center justify-between mb-3">
           <p>Extra Fast 1 Day Delivery</p>
           <p>₹2,206.15</p>
         </div>
@@ -422,43 +417,43 @@ const isOrderStartable = false;
         <div class="flex items-center justify-between mb-3">
           <p>Stationery designs</p>
           <p>₹4,412.30</p>
-        </div> -->
+        </div>
   
         <div class="flex items-center justify-between pt-3 mb-3 border-t">
           <p class="font-semibold">Service fee</p>
-          <p>$100</p>
+          <p>₹873.64</p>
         </div>
   
         <div class="flex items-center justify-between pt-3 border-t">
           <p class="text-lg font-bold">Total</p>
-          <p class="text-lg font-bold">{{package.packagePrice}}</p>
+          <p class="text-lg font-bold">₹16,757.92</p>
         </div>
   
-        <p class="text-sm text-gray-500">Total delivery time: {{ package.deliveryTime }}</p>
+        <p class="text-sm text-gray-500">Total delivery time: 2 days</p>
       </div>
   
-          <!-- Payment Button Section -->
-          <div class="mt-6 text-center">
-            <button class="w-full py-3 font-semibold text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700" @click="completeCheckout">
-              Confirm & Pay
-            </button>
-            <p class="mt-2 text-sm text-gray-500">You will be charged {{package.packagePrice}} Total amount includes currency conversion fees.</p>
-          </div>
-        </div>
+      <!-- Payment Button Section -->
+      <div class="mt-6 text-center">
+        <button class="w-full py-3 font-semibold text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700">
+          Confirm & Pay
+        </button>
+        <p class="mt-2 text-sm text-gray-500">You will be charged ₹16,757.92. Total amount includes currency conversion fees.</p>
+      </div>
+    </div>
 
   
-          <!-- Proceed to Step 3 -->
-          <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded" @click="step = 3">Submit Requirements</button>
-        </div>
-    
-          <!-- Step 3: Confirmation -->
-          <div v-if="step === 3">
-            <div class="max-w-4xl p-6 mx-auto mt-10 bg-white rounded-md shadow-md">
-          <!-- Thank You Message -->
-          <div class="p-4 mb-6 text-green-700 bg-green-100 rounded-md">
-            <h2 class="text-2xl font-bold">Thank You for Your Purchase</h2>
-            <p class="text-gray-600">A receipt was sent to your email address</p>
-          </div>
+        <!-- Proceed to Step 3 -->
+        <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded" @click="step = 3">Submit Requirements</button>
+      </div>
+  
+      <!-- Step 3: Confirmation -->
+      <div v-if="step === 3">
+        <div class="max-w-4xl p-6 mx-auto mt-10 bg-white rounded-md shadow-md">
+    <!-- Thank You Message -->
+    <div class="p-4 mb-6 text-green-700 bg-green-100 rounded-md">
+      <h2 class="text-2xl font-bold">Thank You for Your Purchase</h2>
+      <p class="text-gray-600">A receipt was sent to your email address</p>
+    </div>
 
     <!-- Submit Requirements Section -->
     <div class="pb-6 mb-6 border-b">

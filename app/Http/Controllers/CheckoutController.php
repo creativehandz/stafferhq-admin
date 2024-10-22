@@ -1,44 +1,88 @@
 <?php
+// app/Http/Controllers/CheckoutController.php
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use App\Models\BuyerCheckout;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
-    public function store(Request $request)
+    // Store selected package details in session
+    public function storePackage(Request $request)
     {
-        try {
-            // Validate the request data
-            $validated = $request->validate([
-                // 'user_id' => 'required|numeric',
-                'order_details' => 'required|array', // Ensure it's an array
-                'package_selected' => 'required|string|max:255',
-                'total_price' => 'required|numeric', // Use numeric for decimals
-                'gig_id' => 'required|numeric',
-            ]);
+        $request->validate([
+            'packageName' => 'required|string',
+            'packagePrice' => 'required|numeric',
+            'packageDescription' => 'nullable|string',
+            'deliveryTime' => 'nullable|string',
+            'revisions' => 'nullable|numeric',
+            'gigId' => 'nullable|numeric',
+        ]);
 
-            dd($validated);
+        // Store data in session
+        session([
+            'packageName' => $request->packageName,
+            'packagePrice' => $request->packagePrice,
+            'packageDescription' => $request->packageDescription,
+            'deliveryTime' => $request->deliveryTime,
+            'revisions' => $request->revisions,
+            'gigId' => $request->gigId,
+        ]);
 
-            // Store the checkout data
-            $checkout = BuyerCheckout::create([
-                //'user_id' => $validated['user_id'],
-                'order_details' => json_encode($validated['order_details']), // Store as JSON
-                'package_selected' => $validated['package_selected'],
-                'total_price' => $validated['total_price'],
-                'gig_id' => $validated['gig_id'],
-            ]);
+        return response()->json(['message' => 'Package details stored in session'], 200);
+    }
 
-            return response()->json(['success' => true, 'checkout' => $checkout], 201);
-        } catch (ValidationException $e) {
-            // Catch validation errors and return as JSON
-            return response()->json(['errors' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            // General error handling
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+    public function showCheckout(Request $request)
+{
+    // Get the package data from the session
+    $package = session()->only(['packageName', 'packagePrice', 'packageDescription', 'deliveryTime', 'revisions', 'gigId']);
+
+    if (empty($package)) {
+        $package = [
+            'packageName' => '',
+            'packagePrice' => 0,
+            'packageDescription' => '',
+            'deliveryTime' => '',
+            'revisions' => 0,
+            'gigId' => 0,
+        ];
+    }
+
+    // Return the Inertia view, passing the package data as props
+    return Inertia::render('Jobs/Checkout', [
+        'package' => $package
+    ]);
+}
+public function store(Request $request)
+    {
+        // Validate incoming data
+        $validatedData = $request->validate([
+            'packageName' => 'required|string',
+            'packageDescription' => 'required|string',
+            'packagePrice' => 'required|numeric',
+            'deliveryTime' => 'required|string',
+            'revisions' => 'required|integer',
+            'gigId' => 'required|integer',
+        ]);
+
+        // Store data to the database
+        BuyerCheckout::create([
+            'user_id' => Auth::id(), // Get the logged-in user's ID
+            'order_details' => json_encode([
+                'packageDescription' => $validatedData['packageDescription'],
+                'deliveryTime' => $validatedData['deliveryTime'],
+                'revisions' => $validatedData['revisions']
+            ]), // Store order details as JSON
+            'package_selected' => $validatedData['packageName'],
+            'total_price' => $validatedData['packagePrice'],
+            'gig_id' => $validatedData['gigId'],
+        ]);
+
+        return response()->json([
+            'message' => 'Checkout data stored successfully',
+        ], 200);
     }
 }

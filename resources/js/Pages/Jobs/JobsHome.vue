@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import Footer from '@/Components/LandingPage/Footer.vue'; 
 import BuyerRecommendation from '../BuyerDashboard/BuyerRecommendation.vue';
-import JobRecommendations from './JobRecommendations.vue';
-// import JobsHero from './JobsHero.vue';
-import toWork from '@/assets/toworkLogo.svg'
-
 import JobRatingsDropdown from './JobRatingsDropdown.vue';
 import ReviewsAndRatings from './ReviewsAndRatings.vue';
-import crown from '@/assets/crown.svg'
 import { computed, ref } from 'vue';
-  
-  import profileIcon from '@/assets/profileIcon.png';
-  // Reactive state for current tab
-  const currentTab = ref('Basic');
+import profileIcon from '@/assets/profileIcon.png';
 import workStation from '@/assets/workStation.png';
-// import toWork from '@/assets/toworkLogo.svg'
 import { defineProps } from 'vue';
-import Navbar from '@/Components/LandingPage/Navbar.vue';
 import DropdownUserTwo from '@/Components/Header/DropdownUserTwo.vue';
 import DropdownHeart from '@/Components/Header/DropdownHeart.vue';
 import DropdownMessage from '@/Components/Header/DropdownMessage.vue';
 import DropdownNotification from '@/Components/Header/DropdownNotification.vue';
-
+import Pricing from '@/Components/LandingPage/Pricing.vue';
+import axios from 'axios';
+const currentTab = ref('Basic');
 // Define the structure of the gig prop
 interface Pricing {
   name: string;
@@ -77,9 +69,68 @@ const selectedPricing = computed(() => {
   }
   return '0'; // Return '0' if gig or pricing is unavailable
 });
+const selectedPackage = computed(() => {
+  if (props.gig && props.gig.pricing) {
+    const pricingKey = currentTab.value.toLowerCase(); // 'basic', 'standard', or 'premium'
+    return props.gig.pricing[pricingKey as keyof typeof props.gig.pricing];
+  }
+  return { price: 0, description: '', delivery_time: '', revisions: '' };
+});
+
 // Convert the comma-separated string into an array
 const keywordList = computed(() => props.gig.positive_keywords.split(','));
 
+// State to control the visibility of the sidebar
+const isOpen = ref(false);
+
+// Function to open the sidebar
+const openSidebar = () => {
+  isOpen.value = true;
+};
+
+// Function to close the sidebar
+const closeSidebar = () => {
+  isOpen.value = false;
+};
+  // State for gig quantity
+  const quantity = ref(1);
+  
+  // State for extras
+  const extraFastDelivery = ref(false);
+  const includeSourceFile = ref(false);
+  
+  // Prices
+  const basePrice = 3972;
+  const extraFastPrice = 1324;
+  const includeSourcePrice = 1765;
+  
+  // Computed property to calculate the total
+  const total = computed(() => {
+    let totalAmount = basePrice * quantity.value;
+    if (extraFastDelivery.value) totalAmount += extraFastPrice;
+    if (includeSourceFile.value) totalAmount += includeSourcePrice;
+    return totalAmount;
+  });
+
+  const storePackage = () => {
+    const packageData = {
+      packageName: currentTab.value,
+      packagePrice: selectedPackage.value.price,
+      packageDescription: selectedPackage.value.description,
+      deliveryTime: selectedPackage.value.delivery_time,
+      revisions: selectedPackage.value.revisions,
+      gigId: props.gig.id,
+    };
+
+  axios.post('/store-package', packageData)
+    .then(response => {
+      // Redirect to the checkout page
+      window.location.href = '/checkout';
+    })
+    .catch(error => {
+      console.error("Error storing package data:", error);
+    });
+};
 </script>
 
 
@@ -87,7 +138,7 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
 
     <div class="container text-black">
       <!-- Navbar -->
-      <div class="relative z-50 flex items-center justify-between py-5">
+      <div class="relative z-10 flex items-center justify-between py-5">
     <!-- Logo Button -->
     <button>
         <a href="/"> <img src="../../../img/toworkLogo.svg" alt="Logo" /></a>
@@ -219,7 +270,7 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
          </div>
        </div>
        <div class="">
-          <div class="sticky top-0 z-10 flex flex-col items-center ml-5">
+          <div class="sticky flex flex-col items-center ml-5 z-5 top-10">
             <div class="container w-70  p-6 rounded-3xl bg-[#FFDECA] ">
               <!-- Tab Headers -->
               <div class="flex justify-between p-2 bg-gray-100 rounded-lg slide_text leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px]">
@@ -281,12 +332,63 @@ const keywordList = computed(() => props.gig.positive_keywords.split(','));
         <li>✔️ Revisions: {{ gig.pricing.premium.revisions }}</li>
       </ul>
     </div>
-    <div class="flex flex-col items-center ">
-      <p><strong>Select the packege and continue</strong></p>
-      <button class="w-20 bg-green-200 rounded-3xl"> <a :href="`/checkout/${gig.id}?pricing=${selectedPricing}`" class="w-20 bg-green-200 rounded-3xl">Continue</a> </button>
+    <div class="flex flex-col items-center mt-5 text-center">
+      <p><strong>Select the packege and </strong></p>
+      <button class="w-20 mt-5 bg-green-200 rounded-3xl"  @click="openSidebar" > Continue </button>
     </div>
   </div>
+  <div>
+    <!-- Slider - Sidebar -->
+    <div
+      id="sidebar"
+      :class="isOpen ? 'translate-x-0' : 'translate-x-full'"
+      class="fixed top-0 right-0 z-50 w-64 h-full text-black transition-transform duration-300 transform bg-white"
+    >
+      <div class="flex items-center justify-between p-4 border-b">
+        <h2 class="text-lg font-bold ">Order options</h2>
+        <!-- Close button -->
+        <button @click="closeSidebar" class="text-xl text-black-2">×</button>
+      </div>
+      
+      <!-- Package Section -->
+      <div class="p-4 border-b">
+        <div class="flex items-center justify-between">
+          <div>
+              <h3 class="font-bold text-md">{{ currentTab }} Package</h3>
+              <p class="text-sm text-gray-500">{{ selectedPackage.description }}</p>
+              <ul class="mt-2 text-sm text-gray-500">
+                <li>✔️ Delivery time: {{ selectedPackage.delivery_time }}</li>
+                <li>✔️ Revisions: {{ selectedPackage.revisions }}</li>
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+      <!-- Total Section -->
+      <div class="p-4 border-t">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Total:</span>
+          <span class="text-lg font-bold">${{ selectedPackage.price }}</span>
+        </div>
+      </div>
 
+      <div class="fixed bottom-0 w-full p-4 text-center" >
+          <button class="w-full py-3 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700" @click="storePackage" >Continue ${{ selectedPricing }}</button>
+        <p class="leading-none sm:text-[12px]  md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[12px]">You won’t be charged yet</p>  
+      </div>
+
+    </div>
+    <!-- <a href="/demo-me"> -->
+    <!-- Overlay when sidebar is open -->
+    <div
+      v-if="isOpen"
+      @click="closeSidebar"
+      class="fixed inset-0 bg-black opacity-50"
+    ></div>
+  </div>
+  <!-- slider - sidebar ends -->
+   
+  <!-- <a :href="`/checkout/${gig.id}?pricing=${selectedPricing}`" class="w-20 bg-green-200 rounded-3xl"> -->
     <div>
   </div>
 
