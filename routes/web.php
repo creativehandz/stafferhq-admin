@@ -15,8 +15,7 @@ use Faker\Provider\ar_EG\Internet;
 use Inertia\Inertia;
 use App\Http\Controllers\UserStatusController;
 use App\Http\Controllers\CheckoutController;
-
-
+use App\Http\Controllers\PackageController;
 
 //Redirect to welcome page when logout
 Route::get('/', function () {
@@ -27,24 +26,15 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::post('/store-package', [PackageController::class, 'storePackageInSession'])->name('store.package');
 Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout');
-
-Route::get('/checkout', function () {
-    return Inertia::render('Jobs/Checkout');
-})->name('checkout');
-
-
-Route::post('/buyer_checkout', [CheckoutController::class, 'store'])->name('buyer.checkout');
+Route::post('/checkout', [CheckoutController::class, 'store']);
 
 // this is for testing
 Route::get('/demo-me', function () {
     return Inertia::render('OtherPages/demoMe');
 })->name('DemoMe');
-
-// Redirect to login page when logout
-// Route::get('/', function () {
-//     return redirect()->route('login');
-// });
 
 // Dropdown Routes for Buyer
 Route::get('/referral', function () {

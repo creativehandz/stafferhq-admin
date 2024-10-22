@@ -9,13 +9,13 @@ class CreateBuyerCheckoutTable extends Migration
     public function up()
     {
         Schema::create('buyer_checkout', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing ID
-            $table->unsignedBigInteger('user_id'); // User ID
-            $table->unsignedBigInteger('gig_id'); // Gig ID
-            $table->string('order_details'); // Order details
-            $table->string('package_selected', 255); // Package selected
-            $table->decimal('total_price', 8, 2); // Total price
-            $table->timestamps(); // created_at and updated_at timestamps
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->text('order_details'); // Store the order details as JSON or text
+            $table->string('package_selected');
+            $table->decimal('total_price', 8, 2); // 8 digits total, 2 after decimal
+            $table->unsignedBigInteger('gig_id');
+            $table->timestamps();
         });
     }
 

@@ -393,10 +393,10 @@ const isOrderStartable = false;
         <h2 class="mb-4 text-xl font-semibold">Order Summary</h2>
         <div class="flex items-center justify-between mb-3">
           <div>
-            <p class="font-semibold">{{gigTitle}}</p>
-            <p>{{package}}</p>
+            <p class="font-semibold"></p>
+            <p>data </p>
           </div>
-          <p class="text-right">${{selectedPrice}}</p>
+          <p class="text-right">$will </p>
         </div>
   
         <ul class="mb-4 text-gray-500">

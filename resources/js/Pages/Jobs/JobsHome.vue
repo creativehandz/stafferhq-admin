@@ -12,6 +12,7 @@ import DropdownHeart from '@/Components/Header/DropdownHeart.vue';
 import DropdownMessage from '@/Components/Header/DropdownMessage.vue';
 import DropdownNotification from '@/Components/Header/DropdownNotification.vue';
 import Pricing from '@/Components/LandingPage/Pricing.vue';
+import axios from 'axios';
 const currentTab = ref('Basic');
 // Define the structure of the gig prop
 interface Pricing {
@@ -111,6 +112,25 @@ const closeSidebar = () => {
     return totalAmount;
   });
 
+  const storePackage = () => {
+    const packageData = {
+      packageName: currentTab.value,
+      packagePrice: selectedPackage.value.price,
+      packageDescription: selectedPackage.value.description,
+      deliveryTime: selectedPackage.value.delivery_time,
+      revisions: selectedPackage.value.revisions,
+      gigId: props.gig.id,
+    };
+
+  axios.post('/store-package', packageData)
+    .then(response => {
+      // Redirect to the checkout page
+      window.location.href = '/checkout';
+    })
+    .catch(error => {
+      console.error("Error storing package data:", error);
+    });
+};
 </script>
 
 
@@ -353,12 +373,12 @@ const closeSidebar = () => {
       </div>
 
       <div class="fixed bottom-0 w-full p-4 text-center" >
-         <a href="/demo-me"> <button class="w-full py-3 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700">Continue ${{ selectedPricing }}</button></a>
+          <button class="w-full py-3 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700" @click="storePackage" >Continue ${{ selectedPricing }}</button>
         <p class="leading-none sm:text-[12px]  md:text-[12px] lg:text-[12px] xl:text-[12px] 2xl:text-[12px]">You won’t be charged yet</p>  
       </div>
 
     </div>
-
+    <!-- <a href="/demo-me"> -->
     <!-- Overlay when sidebar is open -->
     <div
       v-if="isOpen"
