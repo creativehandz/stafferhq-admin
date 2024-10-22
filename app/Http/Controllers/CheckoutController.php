@@ -66,6 +66,7 @@ public function store(Request $request)
             'deliveryTime' => 'required|string',
             'revisions' => 'required|integer',
             'gigId' => 'required|integer',
+            'billingDetails' => 'required|string',
         ]);
 
         // Store data to the database
@@ -79,6 +80,7 @@ public function store(Request $request)
             'package_selected' => $validatedData['packageName'],
             'total_price' => $validatedData['packagePrice'],
             'gig_id' => $validatedData['gigId'],
+            'billing_details' => $validatedData['billingDetails'],
         ]);
 
         return response()->json([
