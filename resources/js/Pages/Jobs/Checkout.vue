@@ -32,13 +32,15 @@ const form = reactive({
 });
 // Flag to track if payment is completed
 const paymentComplete = ref(false);
+const formSubmitted = ref(false);
 
 // Method to handle form submission
 const completeCheckout = async () => {
-
+  formSubmitted.value = true; 
     // Validate billing info (ensure required fields are filled)
     if (!form.fullName || !form.state || !form.country || !form.isCitizen || !form.taxCategory) {
-    alert('Please fill all mandatory billing information.');
+    // alert('Please fill all mandatory billing information.');
+    console.log('Please fill all mandatory billing information.');
     return;
   }
   // Create a billingDetails string from form data
@@ -65,9 +67,32 @@ const completeCheckout = async () => {
     await axios.post('/checkout', payload);
     paymentComplete.value = true;
     step.value = 3; 
+    await submitBillingDetails();
     //window.location.href = '/buyer-dashboard';
   } catch (error) {
     console.error('Error completing checkout: ', error);
+  }
+};
+const submitBillingDetails = async () => {
+  try {
+    const payload = {
+      full_name: form.fullName, // make sure field name matches
+      company_name: form.companyName,
+      country: form.country,
+      state: form.state,
+      address: form.address,
+      city: form.city,
+      postal_code: form.postalCode, // make sure field name matches
+      is_citizen: form.isCitizen, // make sure field name matches
+      tax_category: form.taxCategory, // make sure field name matches
+      want_invoices: form.wantInvoices,
+    };
+
+    await axios.post('/billing-details', payload);
+    // alert('Billing details submitted successfully!');
+    
+  } catch (error) {
+    console.error('Error submitting billing details:', error);
   }
 };
 // State for gig quantity
@@ -190,97 +215,130 @@ const isOrderStartable = false;
               <p class="mb-4 text-gray-500">Your invoice will be issued according to the details listed here.</p>
               <div class="mb-4">        
             <div  class="flex items-center justify-center bg-gray-800 bg-opacity-50 ">                      
-            
               <form @submit.prevent="completeCheckout">
-              <!-- Form Fields -->
-            <div class="mb-4">  
-              
-            <!-- Full Name -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Full name (mandatory)</label>
-              <input v-model="form.fullName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Full Name" />
-            </div>
+    <!-- Form Fields -->
+    <div class="mb-4">
+      <!-- Full Name -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Full name (mandatory)</label>
+        <input
+          v-model="form.fullName"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          required
+          placeholder="Full Name"
+        />
+        <p v-if="!form.fullName && formSubmitted" class="text-pink-600">Please provide your full name.</p>
+      </div>
 
-            <!-- Company Name -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Company name</label>
-              <input v-model="form.companyName" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Company name" />
-            </div>
+      <!-- Company Name -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Company name</label>
+        <input
+          v-model="form.companyName"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          placeholder="Company name"
+        />
+      </div>
 
-            <!-- Country -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Country</label>
-              <select v-model="form.country" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                <option value="Malaysia">Malaysia</option>
-                <!-- Add more options if needed -->
-              </select>
-            </div>
+      <!-- Country -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Country</label>
+        <select v-model="form.country" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+          <option value="" disabled>Select your country</option>
+          <option value="Malaysia">Malaysia</option>
+          <!-- Add more options if needed -->
+        </select>
+        <p v-if="!form.country && formSubmitted" class="text-pink-600">Please select your country.</p>
+      </div>
 
-            <!-- State -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">State/Union territory (mandatory)</label>
-              <select v-model="form.state" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                <option value="Johor">Johor</option>
-                <option value="Kedah">Kedah</option>
-                <option value="Kelantan">Kelantan</option>
-                <option value="Malacca">Malacca</option>
-                <option value="Negeri Sembilan">Negeri Sembilan</option>
-                <option value="Pahang">Pahang</option>
-                <option value="Penang">Penang</option>
-                <option value="Perak">Perak</option>
-                <option value="Perlis">Perlis</option>
-                <option value="Sabah">Sabah</option>
-                <option value="Sarawak">Sarawak</option>
-                <option value="Selangor">Selangor</option>
-                <option value="Terengganu">Terengganu</option>
-                <option value="Kuala Lumpur">Kuala Lumpur (Federal Territory)</option>
-                <option value="Labuan">Labuan (Federal Territory)</option>
-                <option value="Putrajaya">Putrajaya (Federal Territory)</option>
-              </select>
-            </div>
+      <!-- State -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">State/Union territory (mandatory)</label>
+        <select v-model="form.state" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+          <option value="" disabled>Select your state</option>
+          <option value="Johor">Johor</option>
+          <option value="Kedah">Kedah</option>
+          <option value="Kelantan">Kelantan</option>
+          <option value="Malacca">Malacca</option>
+          <option value="Negeri Sembilan">Negeri Sembilan</option>
+          <option value="Pahang">Pahang</option>
+          <option value="Penang">Penang</option>
+          <option value="Perak">Perak</option>
+          <option value="Perlis">Perlis</option>
+          <option value="Sabah">Sabah</option>
+          <option value="Sarawak">Sarawak</option>
+          <option value="Selangor">Selangor</option>
+          <option value="Terengganu">Terengganu</option>
+          <option value="Kuala Lumpur">Kuala Lumpur (Federal Territory)</option>
+          <option value="Labuan">Labuan (Federal Territory)</option>
+          <option value="Putrajaya">Putrajaya (Federal Territory)</option>
+        </select>
+        <p v-if="!form.state && formSubmitted" class="text-pink-600">Please select your state.</p>
+      </div>
 
-            <!-- Address -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Address</label>
-              <input v-model="form.address" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Street or POB" />
-            </div>
+      <!-- Address -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Address</label>
+        <input
+          v-model="form.address"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          placeholder="Street or POB"
+        />
+      </div>
 
-            <!-- City -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">City</label>
-              <input v-model="form.city" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="City" />
-            </div>
+      <!-- City -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">City</label>
+        <input
+          v-model="form.city"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          placeholder="City"
+        />
+      </div>
 
-            <!-- Postal Code -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Postal code</label>
-              <input v-model="form.postalCode" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Postal code" />
-            </div>
+      <!-- Postal Code -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Postal code</label>
+        <input
+          v-model="form.postalCode"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          placeholder="Postal code"
+        />
+      </div>
 
-            <!-- Citizen/Resident of India -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">Are you a citizen/resident of Malaysia? (mandatory)</label>
-              <div class="flex items-center">
-                <input v-model="form.isCitizen" type="radio" value="yes" class="mr-2" /> Yes
-                <input v-model="form.isCitizen" type="radio" value="no" class="ml-6 mr-2" /> No
-              </div>
-            </div>
+      <!-- Citizen/Resident of Malaysia -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">Are you a citizen/resident of Malaysia? (mandatory)</label>
+        <div class="flex items-center">
+          <input v-model="form.isCitizen" type="radio" value="yes" class="mr-2" /> Yes
+          <input v-model="form.isCitizen" type="radio" value="no" class="ml-6 mr-2" /> No
+        </div>
+        <p v-if="!form.isCitizen && formSubmitted" class="text-pink-600">Please select if you are a citizen/resident.</p>
+      </div>
 
-            <!-- TCS Under GST Tax Category -->
-            <div class="mb-4">
-              <label class="block font-medium text-gray-700">What is your tax category? (mandatory)</label>
-              <select v-model="form.taxCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                <option value="Taxable">Taxable</option>
-                <!-- Add more options if needed -->
-              </select>
-            </div>
-          <!-- Invoices -->
-          <div class="flex items-center mb-4">
-            <input v-model="form.wantInvoices" type="checkbox" class="mr-2" />
-            <label class="text-gray-700">I want to get invoices via email as well.</label>
-          </div>
-       
-        </div> </form>
+      <!-- TCS Under GST Tax Category -->
+      <div class="mb-4">
+        <label class="block font-medium text-gray-700">What is your tax category? (mandatory)</label>
+        <select v-model="form.taxCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+          <option value="" disabled>Select your tax category</option>
+          <option value="Taxable">Taxable</option>
+          <!-- Add more options if needed -->
+        </select>
+        <p v-if="!form.taxCategory && formSubmitted" class="text-pink-600">Please select your tax category.</p>
+      </div>
+
+      <!-- Invoices -->
+      <div class="flex items-center mb-4">
+        <input v-model="form.wantInvoices" type="checkbox" class="mr-2" />
+        <label class="text-gray-700">I want to get invoices via email as well.</label>
+      </div>
+    </div>
+  </form>
       </div>
     </div>
   </div>
