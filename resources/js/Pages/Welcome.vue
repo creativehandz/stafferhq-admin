@@ -17,7 +17,6 @@ import Sponsors from "@/Components/LandingPage/Sponsors.vue";
 import Team from "@/Components/LandingPage/Team.vue";
 import Testimonials from "@/Components/LandingPage/Testimonials.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import BuyerNavbar from "./BuyerNavbar.vue";
 
 defineProps<{
     canLogin?: boolean;
@@ -38,7 +37,8 @@ function handleImageError() {
     <div class="container">
     <Head title="Welcome" />
     <div class="text-black bg-white ">
-        <Navbar/>
+        <Navbar :can-login="canLogin" :can-register="canRegister" />
+
         <Hero />
         <Buttons/>
         <Individuals/>
