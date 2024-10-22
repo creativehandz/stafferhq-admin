@@ -5,8 +5,7 @@ import ToggleTheme from "./ToggleTheme.vue";
 </script>
 
 <template>
-  <section class="container">
-    <div class="">
+  <section class="container">    
       <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl md:px-16">
          <div class="container flex flex-col items-start mx-auto md:flex-row">
             <!-- Text Section -->
@@ -44,7 +43,7 @@ import ToggleTheme from "./ToggleTheme.vue";
           </div>            
           </div>
         </div> 
-    </div>
+
   </section>
 
 </template>
