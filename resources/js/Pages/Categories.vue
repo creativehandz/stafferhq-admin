@@ -7,6 +7,7 @@ import Footer from "@/Components/LandingPage/Footer.vue";
 
 import GetStarted from "./GetStarted.vue";
 import Recommendations from "./Recommendations.vue";
+import BuyerNavbar from "./BuyerNavbar.vue";
 
 // Define interfaces for Category and SubCategory
 interface SubCategory {
@@ -38,7 +39,7 @@ function handleImageError() {
 <template>
     <!-- <Head title="Categories" /> -->
     <div class="text-black bg-white ">
-        <Navbar :can-login="canLogin" :can-register="canRegister" />
+        <BuyerNavbar/>
         <GetStarted/>
         
      
