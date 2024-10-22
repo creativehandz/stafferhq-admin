@@ -155,16 +155,10 @@ const isOrderStartable = false;
 
 
 <template>
-    <div class="container flex flex-col justify-center p-10">
+    <div class="container flex flex-col justify-center">
      <BuyerNavbar/>
       
-    <div class="p-4 border rounded-md shadow-md">
-      <!-- Header with close button -->
-      <div class="flex items-center justify-between pb-4 border-b">
-        <h2 class="text-lg font-semibold">Order options{{  }}</h2>
-        <button class="text-xl" @click="resetForm">&times;</button>
-      </div>
-  
+    <div class="p-4 rounded-md ">
       <!-- Step Navigation -->
       <div class="flex mb-4 space-x-2">
         <button :class="step === 1 ? 'font-bold' : ''" @click="goBack">Order Details</button>
@@ -407,11 +401,7 @@ const isOrderStartable = false;
             <p class="mt-2 text-sm text-gray-500">You will be charged {{package.packagePrice}} Total amount includes currency conversion fees.</p>
           </div>
         </div>
-
-  
-          <!-- Proceed to Step 3 -->
-          <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded" @click="step = 3">Submit Requirements</button>
-        </div>
+       </div>
     
           <!-- Step 3: Confirmation -->
           <div v-if="step === 3">

@@ -38,7 +38,7 @@ function handleImageError() {
     <div class="container">
     <Head title="Welcome" />
     <div class="text-black bg-white ">
-        <BuyerNavbar/>
+        <Navbar/>
         <Hero />
         <Buttons/>
         <Individuals/>
