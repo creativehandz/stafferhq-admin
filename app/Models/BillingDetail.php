@@ -9,7 +9,7 @@ class BillingDetail extends Model
     protected $table = 'billing_details';
 
     protected $fillable = [
-        'user_id',
+        'buyer_checkout_id',
         'full_name',
         'company_name',
         'country',

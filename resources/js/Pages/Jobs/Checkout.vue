@@ -33,17 +33,14 @@ const form = reactive({
 // Flag to track if payment is completed
 const paymentComplete = ref(false);
 const formSubmitted = ref(false);
-
-// Method to handle form submission
 const completeCheckout = async () => {
-  formSubmitted.value = true; 
-    // Validate billing info (ensure required fields are filled)
-    if (!form.fullName || !form.state || !form.country || !form.isCitizen || !form.taxCategory) {
-    // alert('Please fill all mandatory billing information.');
+  formSubmitted.value = true;
+
+  if (!form.fullName || !form.state || !form.country || !form.isCitizen || !form.taxCategory) {
     console.log('Please fill all mandatory billing information.');
     return;
   }
-  // Create a billingDetails string from form data
+
   const billingDetails = `
     Full Name: ${form.fullName}
     Company Name: ${form.companyName}
@@ -57,44 +54,53 @@ const completeCheckout = async () => {
     Want Invoices: ${form.wantInvoices ? 'Yes' : 'No'}
   `;
 
- const payload = {
+  const payload = {
     ...props.package,  
     billingDetails,    
     ...form            
   };
 
   try {
-    await axios.post('/checkout', payload);
+    // Get buyer_checkout_id from response
+    const response = await axios.post('/checkout', payload);
+
+    // Pass buyer_checkout_id to submitBillingDetails
+    const buyerCheckoutId = response.data.buyer_checkout_id;
     paymentComplete.value = true;
-    step.value = 3; 
-    await submitBillingDetails();
-    //window.location.href = '/buyer-dashboard';
+    step.value = 3;
+
+    // Call submitBillingDetails and pass buyer_checkout_id
+    await submitBillingDetails(buyerCheckoutId);
   } catch (error) {
     console.error('Error completing checkout: ', error);
   }
 };
-const submitBillingDetails = async () => {
+
+// Add TypeScript type for `buyerCheckoutId`
+const submitBillingDetails = async (buyerCheckoutId: number) => {
   try {
     const payload = {
-      full_name: form.fullName, // make sure field name matches
+      buyer_checkout_id: buyerCheckoutId,  // Attach checkout ID
+      full_name: form.fullName,
       company_name: form.companyName,
       country: form.country,
       state: form.state,
       address: form.address,
       city: form.city,
-      postal_code: form.postalCode, // make sure field name matches
-      is_citizen: form.isCitizen, // make sure field name matches
-      tax_category: form.taxCategory, // make sure field name matches
+      postal_code: form.postalCode,
+      is_citizen: form.isCitizen,
+      tax_category: form.taxCategory,
       want_invoices: form.wantInvoices,
     };
 
     await axios.post('/billing-details', payload);
-    // alert('Billing details submitted successfully!');
-    
+    console.log('Billing details submitted successfully!');
   } catch (error) {
     console.error('Error submitting billing details:', error);
   }
 };
+
+
 // State for gig quantity
 const quantity = ref(1);
 const step = ref(2); // Track the current step

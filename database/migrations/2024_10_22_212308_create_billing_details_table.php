@@ -9,7 +9,7 @@ class CreateBillingDetailsTable extends Migration
     {
         Schema::create('billing_details', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->unsignedBigInteger('buyer_checkout_id'); 
             $table->string('full_name');
             $table->string('company_name')->nullable();
             $table->string('country');
@@ -21,6 +21,8 @@ class CreateBillingDetailsTable extends Migration
             $table->string('tax_category');
             $table->boolean('want_invoices')->default(false);
             $table->timestamps();
+
+            $table->foreign('buyer_checkout_id')->references('id')->on('buyer_checkout')->onDelete('cascade');
         });
     }
 

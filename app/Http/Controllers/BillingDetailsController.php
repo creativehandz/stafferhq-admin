@@ -11,6 +11,7 @@ class BillingDetailsController extends Controller
     {
         // Validate incoming request data
         $validatedData = $request->validate([
+            'buyer_checkout_id' => 'required|exists:buyer_checkout,id',
             'full_name' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'country' => 'required|string|max:255',
