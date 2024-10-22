@@ -81,8 +81,8 @@ const fetchLastMessages = async () => {
 }
 
 // Method to filter messages for a specific user
-const getMessagesForUser = (userId: number) => {
-    const userMessages = lastMessages.value.filter(
+const getMessagesForUser = (userId: number) => {    
+    const userMessages = Object.values(lastMessages.value).filter(
         (msg) => msg.user_id === userId || msg.receiver_id === userId
     );
 
