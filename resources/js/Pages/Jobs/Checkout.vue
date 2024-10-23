@@ -36,7 +36,7 @@ const formSubmitted = ref(false);
 const completeCheckout = async () => {
   formSubmitted.value = true;
 
-  if (!form.fullName || !form.state || !form.country || !form.isCitizen || !form.taxCategory) {
+  if (!form.fullName || !form.state || !form.country || !form.isCitizen || !form.taxCategory || !form.postalCode || !form.address || !form.city ) {
     console.log('Please fill all mandatory billing information.');
     return;
   }
@@ -293,6 +293,7 @@ const isOrderStartable = false;
           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
           placeholder="Street or POB"
         />
+        <p v-if="!form.fullName && formSubmitted" class="text-pink-600">Please provide your Address.</p>
       </div>
 
       <!-- City -->
@@ -304,6 +305,7 @@ const isOrderStartable = false;
           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
           placeholder="City"
         />
+        <p v-if="!form.city && formSubmitted" class="text-pink-600">Please provide your city.</p>
       </div>
 
       <!-- Postal Code -->
@@ -315,6 +317,7 @@ const isOrderStartable = false;
           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
           placeholder="Postal code"
         />
+        <p v-if="!form.postalCode && formSubmitted" class="text-pink-600">Please provide postal code.</p>
       </div>
 
       <!-- Citizen/Resident of Malaysia -->
