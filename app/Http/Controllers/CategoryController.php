@@ -46,4 +46,16 @@ class CategoryController extends Controller
       'category' => $category,
     ]);
   }
+  public function getCatwithButtons()
+  {
+      // Fetch categories with subcategories using Eloquent relationships
+      $categories = Category::with('subCategories')->get();
+
+      // Return the data to the frontend (you can use inertia or normal response based on your setup)
+      return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'categories' => $categories
+    ]);
+  }
 }

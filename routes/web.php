@@ -277,6 +277,8 @@ Route::get('/become-a-seller', function () {
 
 Route::get('/categories', [CategoryController::class, 'getCategoriesWithSubcategories'])->name('categories');
 
+Route::get('/', [CategoryController::class, 'getCatwithButtons']);
+
 Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategoryDetail'])->name('category.detail');
 
 Route::get('/categories/{categoryId}/sellers', function () {
