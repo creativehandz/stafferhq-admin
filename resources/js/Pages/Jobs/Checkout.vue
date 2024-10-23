@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ref, computed, onMounted, reactive } from 'vue';
 import BuyerNavbar from '../BuyerNavbar.vue';
 
+const buyerCheckoutIdGlobal = ref<number | null>(null); // Global variable to store buyerCheckoutId
 
 // Props passed from the backend via Inertia
 const props = defineProps<{
@@ -68,6 +69,7 @@ const completeCheckout = async () => {
     const buyerCheckoutId = response.data.buyer_checkout_id;
     paymentComplete.value = true;
     step.value = 3;
+    buyerCheckoutIdGlobal.value = response.data.buyer_checkout_id;
 
     // Call submitBillingDetails and pass buyer_checkout_id
     await submitBillingDetails(buyerCheckoutId);
@@ -209,19 +211,27 @@ const handleFileUpload = (event: Event) => {
   }
 };
 
-// Submit requirements
-const submitRequirements = async () => {
+const submitRequirements = async (event: Event) => {
+  event.preventDefault();
+
   if (!formData.value.confirmation) {
     alert('Please confirm that the information is accurate.');
     return;
   }
 
-  // Prepare form data to send to the server
   const formDataToSend = new FormData();
   formDataToSend.append('requirements', formData.value.requirements);
-  
+
   if (formData.value.file) {
     formDataToSend.append('file', formData.value.file);
+  }
+
+  // Use the global buyerCheckoutIdGlobal
+  if (buyerCheckoutIdGlobal.value) {
+    formDataToSend.append('buyer_checkout_id', buyerCheckoutIdGlobal.value.toString());
+  } else {
+    console.error('Buyer Checkout ID is not available.');
+    return;
   }
 
   try {
@@ -236,6 +246,7 @@ const submitRequirements = async () => {
     alert('There was an error submitting your requirements.');
   }
 };
+
 
 const isOrderStartable = false;
 </script>
