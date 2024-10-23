@@ -16,6 +16,7 @@ class RequirementController extends Controller
         $validatedData = $request->validate([
             'requirements' => 'required|string|max:2500',
             'file' => 'nullable|file|mimes:jpg,png,pdf,docx,txt|max:2048', // Adjust file types as needed
+            'buyer_checkout_id' => 'required|exists:buyer_checkout,id', // Ensure it exists in buyer_checkouts
         ]);
 
         // Handle file upload if present
@@ -29,6 +30,7 @@ class RequirementController extends Controller
         Requirement::create([
             'requirements' => $validatedData['requirements'],
             'file_path' => $filePath,
+            'buyer_checkout_id' => $validatedData['buyer_checkout_id'],
         ]);
 
         return response()->json(['message' => 'Requirements submitted successfully!'], 200);

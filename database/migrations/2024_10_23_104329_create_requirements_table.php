@@ -13,6 +13,7 @@ class CreateRequirementsTable extends Migration
             $table->id();
             $table->text('requirements'); // To store the user requirements
             $table->string('file_path')->nullable(); // To store the file path
+            $table->foreignId('buyer_checkout_id')->constrained('buyer_checkout')->onDelete('cascade');
             $table->timestamps();
         });
     }

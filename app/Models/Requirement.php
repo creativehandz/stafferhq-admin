@@ -11,5 +11,5 @@ class Requirement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['requirements', 'file_path'];
+    protected $fillable = ['requirements', 'file_path', 'buyer_checkout_id'];
 }
