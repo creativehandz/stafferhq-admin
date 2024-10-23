@@ -186,6 +186,56 @@ const goBack = () => {
   window.history.back();
 };
 
+// Define the form data structure
+interface FormData {
+  requirements: string;
+  file: File | null;
+  confirmation: boolean;
+}
+
+// Form data for the second form
+const formData = ref<FormData>({
+  requirements: '',
+  file: null,
+  confirmation: false, // checkbox
+});
+
+// Handle file upload
+const handleFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const files = target.files;
+  if (files && files.length > 0) {
+    formData.value.file = files[0];
+  }
+};
+
+// Submit requirements
+const submitRequirements = async () => {
+  if (!formData.value.confirmation) {
+    alert('Please confirm that the information is accurate.');
+    return;
+  }
+
+  // Prepare form data to send to the server
+  const formDataToSend = new FormData();
+  formDataToSend.append('requirements', formData.value.requirements);
+  
+  if (formData.value.file) {
+    formDataToSend.append('file', formData.value.file);
+  }
+
+  try {
+    const response = await axios.post('/submit-requirements', formDataToSend, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    alert('Requirements submitted successfully.');
+  } catch (error) {
+    console.error('Error submitting requirements:', error);
+    alert('There was an error submitting your requirements.');
+  }
+};
 
 const isOrderStartable = false;
 </script>
@@ -416,78 +466,56 @@ const isOrderStartable = false;
             <h2 class="text-2xl font-bold">Thank You for Your Purchase</h2>
             <p class="text-gray-600">A receipt was sent to your email address</p>
           </div>
+          <form @submit.prevent="submitRequirements">
+            <!-- Submit Requirements Section -->
+            <div class="pb-6 mb-6 border-b">
+              <h2 class="mb-4 text-xl font-semibold">Submit Requirements to Start Your Order</h2>
+              <p class="font-medium">The seller needs the following information to start working on your order:</p>
+              <ol class="mb-4 list-decimal list-inside">
+                <li>Article you want us to publish with 1 link only (For publishing only package)</li>
+                <li>Your website's link and anchor text.</li>
+                <li>Topic of the article.</li>
+                <li>Any other details you want us to know. We’ll be happy to know.</li>
+              </ol>
 
-          <!-- Submit Requirements Section -->
-          <div class="pb-6 mb-6 border-b">
-            <h2 class="mb-4 text-xl font-semibold">Submit Requirements to Start Your Order</h2>
-            <p class="font-medium">The seller needs the following information to start working on your order:</p>
-            <ol class="mb-4 list-decimal list-inside">
-              <li>Article you want us to publish with 1 link only (For publishing only package)</li>
-              <li>Your website's link and anchor text.</li>
-              <li>Topic of the article.</li>
-              <li>Any other details you want us to know. We’ll be happy to know.</li>
-            </ol>
+              <!-- Text Area for Requirements -->
+              <textarea
+                class="w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                rows="6"
+                maxlength="2500"
+                placeholder="Enter your requirements here (max 2500 characters)"
+                v-model="formData.requirements"
+              ></textarea>
 
-            <!-- Text Area for Requirements -->
-            <textarea
-              class="w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              rows="6"
-              maxlength="2500"
-              placeholder="Enter your requirements here (max 2500 characters)"
-            ></textarea>
-
-            <!-- File Attachment Option -->
-            <div class="mt-3">
-              <button class="text-blue-600 hover:underline">Attach file</button>
+              <!-- File Attachment Option -->
+              <div class="mt-3">
+                <input type="file" @change="handleFileUpload" />
+              </div>
             </div>
-          </div>
 
-          <!-- Confirmation Checkbox -->
-          <div class="mb-6">
-            <label class="flex items-start">
-              <input type="checkbox" class="w-5 h-5 mr-2 text-blue-600 form-checkbox" />
-              <span class="text-gray-700">
-                The information I provided is <strong>accurate and complete</strong>. Any changes will require the seller's approval, and may be subject to additional costs.
-              </span>
-            </label>
-          </div>
+            <!-- Confirmation Checkbox -->
+            <div class="mb-6">
+              <label class="flex items-start">
+                <input
+                  type="checkbox"
+                  class="w-5 h-5 mr-2 text-blue-600 form-checkbox"
+                  v-model="formData.confirmation"
+                />
+                <span class="text-gray-700">
+                  The information I provided is <strong>accurate and complete</strong>. Any changes will require the seller's approval and may be subject to additional costs.
+                </span>
+              </label>
+            </div>
 
-          <!-- Action Buttons -->
-          <div class="flex items-center justify-between">
-            <button class="text-gray-600 hover:underline">Remind Me Later</button>
+            <!-- Submit Button -->
             <button
-              class="px-6 py-3 font-semibold text-white bg-green-600 rounded-md hover:bg-green-700"
-              :disabled="!isOrderStartable"
+              type="submit"
+              class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700"
             >
               Start Order
             </button>
-          </div>
-        </div>
-
-        <!-- Order Details Sidebar -->
-        <div class="max-w-sm p-6 mx-auto mt-10 bg-white rounded-md shadow-md">
-          <div class="flex items-center mb-4">
-            <img src="https://via.placeholder.com/100" alt="Order Image" class="object-cover w-20 h-20 rounded-md" />
-            <div class="ml-4">
-              <h2 class="text-lg font-semibold">I will guest post on DA 60 traffic news site with dofollow backlink</h2>
-              <p class="text-sm font-semibold text-orange-600">INCOMPLETE</p>
-            </div>
-          </div>
-
-          <!-- Order Info -->
-          <div class="pt-4 mt-4 border-t">
-            <p><strong>Order #:</strong> ###########</p>
-            <p><strong>Order Date:</strong> Apr 18, 2022</p>
-            <p><strong>Quantity:</strong> X 1</p>
-            <p><strong>Price:</strong> $15</p>
-          </div>
-
-          <!-- Issue Resolution Link -->
-          <div class="mt-6 text-sm">
-            <p class="text-gray-600">Have an issue with your order?</p>
-            <a href="#" class="text-blue-600 hover:underline">Go to the Resolution Center</a>
-          </div>
-        </div>
+          </form>
+        </div>     
       </div>
     </div>
   <Footer/>

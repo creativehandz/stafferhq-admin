@@ -17,6 +17,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserStatusController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\RequirementController;
 
 //Redirect to welcome page when logout
 Route::get('/', function () {
@@ -32,6 +33,11 @@ Route::post('/billing-details', [BillingDetailsController::class, 'store']);
 Route::post('/store-package', [PackageController::class, 'storePackageInSession'])->name('store.package');
 Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store']);
+// routes/web.php
+
+
+
+Route::post('/submit-requirements', [RequirementController::class, 'store']);
 
 // this is for testing
 Route::get('/demo-me', function () {
