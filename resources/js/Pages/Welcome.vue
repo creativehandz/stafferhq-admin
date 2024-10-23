@@ -18,12 +18,18 @@ import Team from "@/Components/LandingPage/Team.vue";
 import Testimonials from "@/Components/LandingPage/Testimonials.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
-defineProps<{
+const props = defineProps<{
     canLogin?: boolean;
     canRegister?: boolean;
     laravelVersion: string;
     phpVersion: string;
+    categories: Category[];
 }>();
+
+interface Category {
+    id: number;
+    name: string;    
+}
 
 function handleImageError() {
     document.getElementById("screenshot-container")?.classList.add("!hidden");
@@ -38,10 +44,34 @@ function handleImageError() {
     <Head title="Welcome" />
     <div class="text-black bg-white ">
         <Navbar :can-login="canLogin" :can-register="canRegister" />
-
         <Hero />
-        <Buttons/>
+        
+        <!-- Category Buttons -->
+        <div class="container px-8 py-8 mx-auto">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">        
+                <div
+                v-for="category in categories"
+                :key="category.id"
+                class="flex items-center justify-between px-6 py-8 transition-shadow duration-200 rounded-lg shadow-md cursor-pointer hover:shadow-lg"
+                >
+                
+                <div class="flex items-center">
+                    <!-- SVG icon as an image -->           
+                    <span class="leading-none sm:text-[18px]  md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] button-items">    
+                        <button>
+                            <a :href="`/categories/${category.id}`" class="no-underline">
+                                {{ category.name }}
+                            </a>
+                        </button> 
+                    </span>
+                </div>
+                </div>
+            </div>
+            </div>
+        <!-- Category Buttons end -->
+         
         <Individuals/>
+
    <!-- <Sponsors />
         <Benefits />
         <Features />
