@@ -16,7 +16,8 @@ class BuyerCheckout extends Model
         'order_details',
         'package_selected',
         'total_price',
-        'gig_id'
+        'gig_id',
+        'billing_details',
     ];
 
     public function user()

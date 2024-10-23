@@ -56,33 +56,39 @@ class CheckoutController extends Controller
         'package' => $package
     ]);
 }
+// CheckoutController
 public function store(Request $request)
-    {
-        // Validate incoming data
-        $validatedData = $request->validate([
-            'packageName' => 'required|string',
-            'packageDescription' => 'required|string',
-            'packagePrice' => 'required|numeric',
-            'deliveryTime' => 'required|string',
-            'revisions' => 'required|integer',
-            'gigId' => 'required|integer',
-        ]);
+{
+    // Validate incoming data
+    $validatedData = $request->validate([
+        'packageName' => 'required|string',
+        'packageDescription' => 'required|string',
+        'packagePrice' => 'required|numeric',
+        'deliveryTime' => 'required|string',
+        'revisions' => 'required|integer',
+        'gigId' => 'required|integer',
+        'billingDetails' => 'required|string',
+    ]);
 
-        // Store data to the database
-        BuyerCheckout::create([
-            'user_id' => Auth::id(), // Get the logged-in user's ID
-            'order_details' => json_encode([
-                'packageDescription' => $validatedData['packageDescription'],
-                'deliveryTime' => $validatedData['deliveryTime'],
-                'revisions' => $validatedData['revisions']
-            ]), // Store order details as JSON
-            'package_selected' => $validatedData['packageName'],
-            'total_price' => $validatedData['packagePrice'],
-            'gig_id' => $validatedData['gigId'],
-        ]);
+    // Store data to the database
+    $buyerCheckout = BuyerCheckout::create([
+        'user_id' => Auth::id(), // Get the logged-in user's ID
+        'order_details' => json_encode([
+            'packageDescription' => $validatedData['packageDescription'],
+            'deliveryTime' => $validatedData['deliveryTime'],
+            'revisions' => $validatedData['revisions'],
+        ]), // Store order details as JSON
+        'package_selected' => $validatedData['packageName'],
+        'total_price' => $validatedData['packagePrice'],
+        'gig_id' => $validatedData['gigId'],
+        'billing_details' => $validatedData['billingDetails'],
+    ]);
 
-        return response()->json([
-            'message' => 'Checkout data stored successfully',
-        ], 200);
-    }
+    // Return buyer_checkout_id in the response
+    return response()->json([
+        'message' => 'Checkout data stored successfully',
+        'buyer_checkout_id' => $buyerCheckout->id,  // Return the checkout ID
+    ], 200);
+}
+
 }

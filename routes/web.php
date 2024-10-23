@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillingDetailsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::post('/billing-details', [BillingDetailsController::class, 'store']);
 
 Route::post('/store-package', [PackageController::class, 'storePackageInSession'])->name('store.package');
 Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout');

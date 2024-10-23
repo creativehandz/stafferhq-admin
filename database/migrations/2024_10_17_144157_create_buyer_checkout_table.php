@@ -12,6 +12,7 @@ class CreateBuyerCheckoutTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->text('order_details'); // Store the order details as JSON or text
+            $table->text('billing_details');
             $table->string('package_selected');
             $table->decimal('total_price', 8, 2); // 8 digits total, 2 after decimal
             $table->unsignedBigInteger('gig_id');
