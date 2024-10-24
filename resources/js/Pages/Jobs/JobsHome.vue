@@ -229,7 +229,7 @@ const closeSidebar = () => {
           <JobRatingsDropdown/>        
          </div>
        </div>
-       <div class="">
+       <div class="mt-100">
           <div class="sticky flex flex-col items-center ml-5 z-5 top-10">
             <div class="container w-70  p-6 rounded-3xl bg-[#FFDECA] ">
               <!-- Tab Headers -->
