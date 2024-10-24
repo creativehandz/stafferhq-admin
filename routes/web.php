@@ -16,6 +16,7 @@ use Faker\Provider\ar_EG\Internet;
 use Inertia\Inertia;
 use App\Http\Controllers\UserStatusController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RequirementController;
 
@@ -266,7 +267,7 @@ Route::get('/become-a-seller', function () {
     ]);
 })->name('become-a-seller');
 
-
+Route::get('send-mail', [MailController::class, 'index']);
 // Route::get('/categories', function () {
 //     return Inertia::render('Categories',[
 //         'canLogin' => Route::has('login'),

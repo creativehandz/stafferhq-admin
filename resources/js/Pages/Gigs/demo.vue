@@ -475,7 +475,7 @@ const handleSubmit = async () => {
                 <div class="flex flex-col gap-5.5 p-6.5">
                   <table class="min-w-full border border-collapse table-auto border-stroke">
                     <thead>
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border bg-gray border-stroke">Basic</th>
                         <th class="p-4 border bg-gray border-stroke">Standard</th>
                         <th class="p-4 border bg-gray border-stroke">Premium</th>                          
@@ -483,7 +483,7 @@ const handleSubmit = async () => {
                     </thead>
                     <tbody>
                       <!-- Package Name Row -->
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <input
                             v-model="gigForm.pricing.basic.name"
@@ -517,7 +517,7 @@ const handleSubmit = async () => {
                       </tr>
                       
                       <!-- Package Description Row -->
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <input
                             v-model="gigForm.pricing.basic.description"
@@ -548,7 +548,7 @@ const handleSubmit = async () => {
                       </tr>
 
                       <!-- Delivery Time Row -->
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <select
                             v-model="gigForm.pricing.basic.delivery_time"
@@ -597,7 +597,7 @@ const handleSubmit = async () => {
                       </tr>
 
                       <!-- Revisions Row -->
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <select
                             v-model="gigForm.pricing.basic.revisions"
@@ -646,7 +646,7 @@ const handleSubmit = async () => {
                       </tr>
 
                       <!-- Price Row -->
-                      <tr class="text-black bg-gray-200 dark:text-white">
+                      <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <input
                             v-model="gigForm.pricing.basic.price"
@@ -693,7 +693,7 @@ const handleSubmit = async () => {
                     id="gig-description"
                     rows="4"
                     placeholder="Briefly Describe Your Gig"
-                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter  dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     :class="{ 'border-red-500': v$.gig_description.$error }"
                   ></textarea>
                   <span v-if="v$.gig_description.$error" class="text-sm text-red-500">Description is required (min 10 characters).</span>
@@ -722,7 +722,7 @@ const handleSubmit = async () => {
                   <div class="mt-4">
                     <button
                       type="button"
-                      class="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md"
+                      class="px-4 py-2 mt-4 bg-blue-600 rounded-md"
                       @click="addMoreFAQs"
                     >
                       Add More FAQ
@@ -752,7 +752,7 @@ const handleSubmit = async () => {
                       v-if="requirements.length > 1 && index >= 1" 
                       type="button" 
                       @click="removeRequirement(index)"
-                      class="inline-flex justify-center px-2 py-1 ml-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
+                      class="inline-flex justify-center px-2 py-1 ml-2 text-sm font-medium border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
                     >
                       Remove
                     </button>
@@ -762,7 +762,7 @@ const handleSubmit = async () => {
                   <button
                     type="button"
                     @click="addRequirement"
-                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    class="inline-flex justify-center px-4 py-2 text-sm font-medium bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Add More Requirement
                   </button>
@@ -779,7 +779,7 @@ const handleSubmit = async () => {
                 <DefaultCard cardTitle="File upload">
                   <div class="flex flex-col gap-5.5 p-6.5">
                     <div>
-                      <label class="block mb-3 text-sm font-medium text-black dark:text-white">
+                      <label class="block mb-3 text-sm font-medium text-black ">
                         Attach file
                       </label>
                       <input
@@ -810,7 +810,7 @@ const handleSubmit = async () => {
                 <!-- Add Publish fields here in the future -->
                   <DefaultCard cardTitle="Publish Your Gig">
                   <div class="flex items-center justify-center">
-                      <button type="submit" class="px-6 py-2 text-white bg-orange-500 rounded-md ">
+                      <button type="submit" class="px-6 py-2 bg-orange-500 rounded-md ">
                           Publish Your Gig
                       </button> 
                   </div>                   
@@ -820,7 +820,7 @@ const handleSubmit = async () => {
               <!-- Navigation Buttons -->
               <div class="flex justify-between col-span-6">
                 <button v-if="currentStep > 1" type="button" @click="goToStep(currentStep - 1)" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">Back</button>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-md">
+                <button type="submit" class="px-4 py-2 text-sm font-medium bg-orange-500 border border-transparent rounded-md">
                   {{ currentStep === 6 ? 'Publish your Gig' : 'Save & Continue' }}
                 </button>
               </div>
