@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Order Confirmation</title>
-</head>
-<body>
-    <h1>Thank You for Your Order!</h1>
-    <p>Dear {{ $order->buyer_name }},</p>
-    <p>Your order has been successfully placed. Here are the details:</p>
-    <ul>
-        <li>Order ID: {{ $order->id }}</li>
-        <li>Total Amount: {{ $order->total }}</li>
-        <li>Order Details: {{ $order->details }}</li>
-    </ul>
-    <p>Thank you for shopping with us!</p>
-</body>
-</html>
+@component('mail::message')
+# Order Confirmation
+
+Thank you for your order! Here are the details of your purchase:
+
+**Package Name:** {{ $packageName }}  
+**Total Price:** ${{ $totalPrice }}  
+**Delivery Time:** {{ $orderDetails['deliveryTime'] }}  
+**Revisions:** {{ $orderDetails['revisions'] }}  
+
+**Billing Information:**
+{{ $billingDetails }}
+
+If you have any questions, feel free to contact us.
+
+Thanks,  
+{{ config('app.name') }}
+@endcomponent

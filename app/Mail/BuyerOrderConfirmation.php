@@ -2,52 +2,41 @@
 
 namespace App\Mail;
 
+use App\Models\BuyerCheckout;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class BuyerOrderConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $buyerCheckout;
+
     /**
      * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Buyer Order Confirmation',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @param BuyerCheckout $buyerCheckout
      */
-    public function attachments(): array
+    public function __construct(BuyerCheckout $buyerCheckout)
     {
-        return [];
+        $this->buyerCheckout = $buyerCheckout;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->subject('Order Confirmation')
+                    ->markdown('mail.buyer_order_confirmation')
+                    ->with([
+                        'packageName' => $this->buyerCheckout->package_selected,
+                        'totalPrice' => $this->buyerCheckout->total_price,
+                        'orderDetails' => json_decode($this->buyerCheckout->order_details, true), // assuming it's stored as JSON
+                        'billingDetails' => $this->buyerCheckout->billing_details,
+                    ]);
     }
 }

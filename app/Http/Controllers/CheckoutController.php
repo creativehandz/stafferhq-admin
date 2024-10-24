@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BuyerOrderConfirmation;
 use App\Mail\SellerOrderNotification;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -94,7 +95,13 @@ public function store(Request $request)
     
         // Send email to the seller
         Mail::to($sellerEmail)->send(new SellerOrderNotification($buyerCheckout));
-    
+
+            // Fetch the buyer's email (currently authenticated user)
+        $buyerEmail = Auth::user()->email;
+
+        // Send email to the buyer
+        Mail::to($buyerEmail)->send(new BuyerOrderConfirmation($buyerCheckout));
+        
 
     // Return buyer_checkout_id in the response
     return response()->json([
