@@ -3,10 +3,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SellerOrderNotification;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\BuyerCheckout;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -83,6 +86,15 @@ public function store(Request $request)
         'gig_id' => $validatedData['gigId'],
         'billing_details' => $validatedData['billingDetails'],
     ]);
+
+        // Fetch the seller's email based on the gig_id
+        $gig = DB::table('gigs')->where('id', $validatedData['gigId'])->first();
+        $seller = DB::table('users')->where('id', $gig->user_id)->first();
+        $sellerEmail = $seller->email;
+    
+        // Send email to the seller
+        Mail::to($sellerEmail)->send(new SellerOrderNotification($buyerCheckout));
+    
 
     // Return buyer_checkout_id in the response
     return response()->json([
