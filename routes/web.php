@@ -367,6 +367,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/{id}', [GigController::class, 'checkout'])->name('checkout');
 
 
+    // seller dashboard route for order timeline
+    Route::get('/order-timeline', function () {
+        return Inertia::render('OrderTimeline');
+    })->name('OrderTimeline');
 });
 
 
