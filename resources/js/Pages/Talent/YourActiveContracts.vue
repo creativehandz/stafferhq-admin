@@ -21,6 +21,20 @@ interface BuyerCheckout {
         name: string;
     };
 }
+// Function to parse the order_details string as JSON and extract relevant data
+const parseOrderDetails = (orderDetails: string) => {
+  try {
+    return JSON.parse(orderDetails);
+  } catch (e) {
+    console.error('Invalid order_details format:', e);
+    return {};
+  }
+};
+// Function to get the initials from the user name
+const getUserInitials = (name: string) => {
+  const initials = name.split(' ').map(n => n[0]).join('');
+  return initials;
+};
 
 // Create a ref to hold buyer_checkout data
 const buyerCheckoutData = ref<BuyerCheckout[]>([]);
@@ -81,78 +95,99 @@ const getOrderCount = (status: string) => {
     <BreadcrumbDefault :pageTitle="pageTitle" />
     <!-- Breadcrumb End -->
 
-    <!-- Main Content Start -->
-    <div class="mb-14 w-full p-7.5">
-      <!-- Tabs for Order Status with Counts -->
-      <div class="flex flex-wrap gap-3 pb-5 border-b border-stroke dark:border-strokedark">
-        <button
-          @click="activeTab = 'priorityOrders'"
-          :class="[activeTab === 'priorityOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Priority ({{ getOrderCount('Priority') }})
-        </button>
+   <!-- Main Content Start -->
+   <div class="mb-14 w-full p-7.5 shadow">
+    <!-- Tabs for Order Status with Counts -->
+    <div class="flex flex-wrap gap-3 pb-5 border-b border-stroke dark:border-strokedark">
+      <button
+        @click="activeTab = 'priorityOrders'"
+        :class="[activeTab === 'priorityOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Priority ({{ getOrderCount('Priority') }})
+      </button>
 
-        <button
-          @click="activeTab = 'activeOrders'"
-          :class="[activeTab === 'activeOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Active ({{ getOrderCount('active') }})
-        </button>
+      <button
+        @click="activeTab = 'activeOrders'"
+        :class="[activeTab === 'activeOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Active ({{ getOrderCount('active') }})
+      </button>
 
-        <button
-          @click="activeTab = 'lateOrders'"
-          :class="[activeTab === 'lateOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Late ({{ getOrderCount('Late') }})
-        </button>
+      <button
+        @click="activeTab = 'lateOrders'"
+        :class="[activeTab === 'lateOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Late ({{ getOrderCount('Late') }})
+      </button>
 
-        <button
-          @click="activeTab = 'deliveredOrders'"
-          :class="[activeTab === 'deliveredOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Delivered ({{ getOrderCount('Delivered') }})
-        </button>
+      <button
+        @click="activeTab = 'deliveredOrders'"
+        :class="[activeTab === 'deliveredOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Delivered ({{ getOrderCount('Delivered') }})
+      </button>
 
-        <button
-          @click="activeTab = 'completedOrders'"
-          :class="[activeTab === 'completedOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Completed ({{ getOrderCount('Completed') }})
-        </button>
+      <button
+        @click="activeTab = 'completedOrders'"
+        :class="[activeTab === 'completedOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Completed ({{ getOrderCount('Completed') }})
+      </button>
 
-        <button
-          @click="activeTab = 'cancelledOrders'"
-          :class="[activeTab === 'cancelledOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Cancelled ({{ getOrderCount('Cancelled') }})
-        </button>
+      <button
+        @click="activeTab = 'cancelledOrders'"
+        :class="[activeTab === 'cancelledOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Cancelled ({{ getOrderCount('Cancelled') }})
+      </button>
 
-        <button
-          @click="activeTab = 'starredOrders'"
-          :class="[activeTab === 'starredOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
-        >
-          Starred ({{ getOrderCount('Starred') }})
-        </button>
+      <button
+        @click="activeTab = 'starredOrders'"
+        :class="[activeTab === 'starredOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
+      >
+        Starred ({{ getOrderCount('Starred') }})
+      </button>
+    </div>
+
+    <!-- Orders Display in Table Format -->
+    <div class="mt-5">
+      <!-- Table Header -->
+      <div class="flex items-center justify-between px-4 py-2 font-semibold bg-gray-100">
+        <div class="w-1/5">Buyer</div>
+        <div class="w-1/5">Package</div>
+        <div class="w-1/5">Due On</div>
+        <div class="w-1/5">Total</div>
+        <div class="w-1/5">Status</div>
       </div>
 
-      <!-- Orders Display -->
-      <div class="mt-5">
-        <div
-          v-for="checkout in filterOrders(buyerCheckoutData, activeTab)"
-          :key="checkout.order_details"
-          class="p-4 mb-3 bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
-        >
-          <div class="flex items-center">
-            <img :src="checkout.user?.avatar || '/path/to/placeholder.jpg'" alt="User Avatar" class="w-10 h-10 mr-3 rounded-full" />
-            <h3 class="text-lg font-semibold">{{ checkout.user?.name }}</h3>
+      <!-- Orders Rows -->
+      <div
+        v-for="checkout in filterOrders(buyerCheckoutData, activeTab)"
+        :key="checkout.order_details"
+        class="flex items-center justify-between px-4 py-2 border-b"
+      >
+        <!-- Buyer Information -->
+        <div class="flex items-center w-1/5">
+          <div v-if="checkout.user?.name" class="flex items-center justify-center w-10 h-10 text-lg font-semibold text-gray-800 bg-green-400 rounded-full">
+            {{ getUserInitials(checkout.user.name) }}
           </div>
-          <p><strong>Gig:</strong> {{ checkout.order_details }} ({{ checkout.package_selected }})</p>
-          <p><strong>Due on:</strong> {{ checkout.billing_details }}</p>
-          <p><strong>Total:</strong> ${{ checkout.total_price }}</p>
-          <p><strong>Note:</strong> N/A</p>
-          <p><strong>Status:</strong> <span class="status-label">{{ checkout.status }}</span></p>
+          <h3 class="ml-3">{{ checkout.user?.name }}</h3>
         </div>
+
+        <!-- Package -->
+        <div class="w-1/5">{{ checkout.package_selected }}</div>
+
+        <!-- Due On -->
+        <div class="w-1/5">{{ parseOrderDetails(checkout.order_details).deliveryTime }}</div>
+
+        <!-- Total -->
+        <div class="w-1/5">${{ checkout.total_price }}</div>
+
+        <!-- Status -->
+        <div class="w-1/5"><span class="status-label">{{ checkout.status }}</span></div>
       </div>
     </div>
+  </div>  
   </AuthenticatedLayout>
 </template>
+<!-- {{ checkout.order_details }} {{ checkout.billing_details }} -->

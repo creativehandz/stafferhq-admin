@@ -3,7 +3,6 @@ import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, router } from "@inertiajs/vue3";
 import axios from "axios";
-// import { Inertia } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 
 // Gig Create routing using router
@@ -12,6 +11,7 @@ const goToGigCreation = () => {
 };
 
 const pageTitle = ref('Gigs');
+
 // Define the interface for the gig and status filtering
 interface Gig {
   id: number;
@@ -27,6 +27,7 @@ const gigs = ref<Gig[]>([]); // Gigs array
 const itemsPerPage = ref(9); // Number of gigs to display initially
 const currentPage = ref(1);  // Current page number
 const activeTab = ref('active'); // Active tab for filtering gigs
+const dateRange = ref('last7Days'); // Date range filter
 
 // Fetch gigs from the backend
 const fetchGigs = async () => {
@@ -77,8 +78,9 @@ onMounted(() => {
   fetchGigs();
 });
 
+</script>
 
-</script><template>
+<template>
     <Head title="Design" />
 
     <AuthenticatedLayout>
@@ -134,21 +136,47 @@ onMounted(() => {
                 </button>
             </div>
 
-            <!-- Gigs Display -->
+            <!-- Gigs Table Display -->
             <div class="mt-5">
+                <!-- Dropdown for Date Range -->
+                <div class="flex justify-end">
+                    <select v-model="dateRange" class="p-2 border border-gray-300 rounded-md">
+                        <option value="last7Days">Last 7 Days</option>
+                        <option value="last14Days">Last 14 Days</option>
+                        <option value="last30Days">Last 30 Days</option>
+                        <option value="last2Months">Last 2 Months</option>
+                        <option value="last3Months">Last 3 Months</option>
+                    </select>
+                </div>
+
+                <!-- Table Header -->
+                <div class="flex items-center justify-between px-4 py-2 mt-3 font-semibold bg-gray-100">
+                    <div class="w-2/5">Gig</div>
+                    <div class="w-1/5">Impressions</div>
+                    <div class="w-1/5">Clicks</div>
+                    <div class="w-1/5">Orders</div>
+                    <div class="w-1/5">Cancellations</div>
+                </div>
+
+                <!-- Table Rows for Gigs -->
                 <div
                     v-for="gig in visibleGigs"
                     :key="gig.id"
-                    class="p-4 mb-3 bg-white border rounded-sm border-stroke shadow-default dark:border-strokedark dark:bg-boxdark"
+                    class="flex items-center justify-between px-4 py-2 border-b"
                 >
-                    <p><strong>Gig:</strong> {{ gig.gig_title }}</p>
-                    <p><strong>Impressions:</strong> {{ gig.impressions }}</p>
-                    <p><strong>Clicks:</strong> {{ gig.clicks }}</p>
-                    <p><strong>Orders:</strong> {{ gig.orders }}</p>
-                    <p><strong>Cancellations:</strong> {{ gig.cancellations }}</p>
+                    <!-- Gig Information -->
+                    <div class="w-2/5">{{ gig.gig_title }}</div>
+                    <div class="w-1/5">{{ gig.impressions }}</div>
+                    <div class="w-1/5">{{ gig.clicks }}</div>
+                    <div class="w-1/5">{{ gig.orders }}</div>
+                    <div class="w-1/5">{{ gig.cancellations }}%</div>
                 </div>
-                <button v-if="visibleGigs.length < filterGigs(gigs, activeTab).length" @click="loadMore">Load More</button>
-                <button v-if="currentPage > 1" @click="showLess">Show Less</button>
+
+                <!-- Load More and Show Less Buttons -->
+                <div class="mt-3">
+                    <button v-if="visibleGigs.length < filterGigs(gigs, activeTab).length" @click="loadMore" class="px-4 py-2 text-white rounded-md bg-primary">Load More</button>
+                    <button v-if="currentPage > 1" @click="showLess" class="px-4 py-2 ml-3 text-white bg-gray-500 rounded-md">Show Less</button>
+                </div>
             </div>
         </div>
         <!-- Main Content End -->
