@@ -19,6 +19,11 @@ interface BuyerCheckout {
         name: string;
     };
 }
+// Function to get the initials from the user name
+const getUserInitials = (name: string) => {
+  const initials = name.split(' ').map(n => n[0]).join('');
+  return initials;
+};
 
 // Create a ref to hold buyer_checkout data
 const buyerCheckoutData = ref<BuyerCheckout[]>([]);
@@ -185,7 +190,20 @@ const showLess = () => {
       :key="checkout.order_details" 
       class="flex items-center justify-between p-4 mt-4 bg-white border rounded-lg"
     >
-      <h1>{{ checkout.user?.name }}</h1>
+    <div class="flex items-center space-x-2">
+    <!-- Placeholder Image -->
+    <img src="http://via.placeholder.com/1280x720" alt="placeholder" class="w-[77px] h-[46px] object-cover">
+
+    <!-- User Profile Initials -->
+    <div v-if="checkout.user?.name" class="flex items-center justify-center w-10 h-10 text-lg font-semibold text-gray-800 bg-green-400 rounded-full">
+      {{ getUserInitials(checkout.user.name) }} <img src="" alt="">
+    </div>
+
+    <!-- Full Name -->
+    <h1 class="text-lg font-semibold">
+      {{ checkout.user?.name }}
+    </h1>
+  </div>
       <p>Total Price: {{ checkout.total_price }}</p>
       <p>Status: {{ checkout.status }}</p>
       <button class="underline">View</button>
