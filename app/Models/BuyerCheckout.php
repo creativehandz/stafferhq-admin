@@ -17,6 +17,7 @@ class BuyerCheckout extends Model
         'package_selected',
         'total_price',
         'gig_id',
+        'status',
         'billing_details',
     ];
 

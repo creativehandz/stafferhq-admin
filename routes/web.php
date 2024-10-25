@@ -37,6 +37,9 @@ Route::post('/checkout', [CheckoutController::class, 'store']);
 // routes/web.php
 
 
+// This in api.php will respond to /api/buyer-checkout
+Route::get('/seller-orders', [CheckoutController::class, 'index']);
+
 
 Route::post('/submit-requirements', [RequirementController::class, 'store']);
 
