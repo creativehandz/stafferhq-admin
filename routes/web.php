@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BuyerJobController;
 
 use Faker\Provider\ar_EG\Internet;
 use Inertia\Inertia;
@@ -291,6 +292,12 @@ Route::get('/categories/{categoryId}/sellers', function () {
         'canRegister' => Route::has('register'),
     ]);
 })->name('sellers');
+
+Route::get('/post-a-project-brief', function () {
+    return Inertia::render('PostAProjectBrief');
+})->name('post-a-project-brief');
+
+Route::post('/buyer-jobs', [BuyerJobController::class, 'store']);
 
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
