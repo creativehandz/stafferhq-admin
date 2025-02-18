@@ -10,18 +10,18 @@ import rightArrow from '@/assets/button-left.png';
 
 const testimonials = ref([
   {
-    quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,  ",
-    author: "- John Doe, CEO of TheFaceCraft",
+    quote: "This platform made finding a reliable AC repair technician so easy! The premium membership gave me priority booking, and the service was top-notch. Highly recommend!  ",
+    author: "- Ahmed, Happy Customer",
     image: testimonialImage,
   },
   {
-    quote: "It has survived not only five centuries,  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been  a type specimen book. the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-    author: "- Jane Smith, CTO of TechSolutions",
+    quote: "As a service provider, joining the premium plan has been a game-changer. My business gets more visibility, and managing client requests is effortless now!",
+    author: "- Ibrahim, CTO of TechSolutions",
     image: firstImage,
   },
   {
-    quote: " Lorem Ipsum  took a galley of type and scrambled it to make a type specimen book. is simply ved not only fdummy text of the printing and It has surviive centuries, typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
-    author: "- Mark Johnson, Founder of InnovateX",
+    quote: " I love how simple and convenient this platform is! From booking services to making payments, everything is smooth. 24/7 support makes it even better! ",
+    author: "- Imran, Founder of InnovateX",
     image: secondImage,
   },
   // Add more testimonials as needed
