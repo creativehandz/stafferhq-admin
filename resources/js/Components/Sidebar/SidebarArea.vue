@@ -387,45 +387,46 @@ if (userRole === 0) {
             route: "profile",
         },
     ];
-} else if (userRole === 2) { // for Employee 
+} else if (userRole === 2) {
+    // for Employee
     menuGroups.value[0].menuItems = [
-//         {
-//             icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-// <path d="M6.5 11.25C6.08579 11.25 5.75 10.9142 5.75 10.5C5.75 10.0858 6.08579 9.75 6.5 9.75H13.5C13.9142 9.75 14.25 10.0858 14.25 10.5C14.25 10.9142 13.9142 11.25 13.5 11.25H6.5Z" fill=""/>
-// <path d="M6.5 14.25C6.08579 14.25 5.75 13.9142 5.75 13.5C5.75 13.0858 6.08579 12.75 6.5 12.75H13.5C13.9142 12.75 14.25 13.0858 14.25 13.5C14.25 13.9142 13.9142 14.25 13.5 14.25H6.5Z" fill=""/>
-// <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1854 0.5H4.5C3.39543 0.5 2.5 1.39543 2.5 2.5V17.5C2.5 18.6046 3.39543 19.5 4.5 19.5H15.5C16.6046 19.5 17.5 18.6046 17.5 17.5V7.20179C17.5 6.70104 17.3122 6.21851 16.9736 5.84956L12.659 1.14777C12.2802 0.734983 11.7457 0.5 11.1854 0.5ZM4.5 17.5V2.5H11.1854L15.5 7.20179V17.5H4.5Z" fill=""/>
-// <path d="M11.5 6.5H16.5C17.0523 6.5 17.5 6.94772 17.5 7.5C17.5 8.05228 17.0523 8.5 16.5 8.5H10.5C9.94772 8.5 9.5 8.05228 9.5 7.5V1.5C9.5 0.947715 9.94772 0.5 10.5 0.5C11.0523 0.5 11.5 0.947715 11.5 1.5V6.5Z" fill=""/>
-// </svg>`,
-//             label: "Your Resume",
-//             route: "#",
-//             children: [
-//                 { label: "Create Your Resume", route: "create-resume" },
-//                 { label: "Design", route: "design" },
-//                 { label: "Setting", route: "setting" },
-//             ],
-//         },
-//         {
-//             icon: `<svg
-//                   class="fill-current"
-//                   width="18"
-//                   height="18"
-//                   viewBox="0 0 18 18"
-//                   fill="none"
-//                   xmlns="http://www.w3.org/2000/svg"
-//                 >
-//                   <path
-//                     d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
-//                     fill=""
-//                   />
-//                   <path
-//                     d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
-//                     fill=""
-//                   />
-//                 </svg>`,
-//             label: "Profile",
-//             route: "#",
-//             children: [{ label: "Hourly Price", route: "hourly-price" }],
-//         },
+        //         {
+        //             icon: `<svg class="fill-current" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        // <path d="M6.5 11.25C6.08579 11.25 5.75 10.9142 5.75 10.5C5.75 10.0858 6.08579 9.75 6.5 9.75H13.5C13.9142 9.75 14.25 10.0858 14.25 10.5C14.25 10.9142 13.9142 11.25 13.5 11.25H6.5Z" fill=""/>
+        // <path d="M6.5 14.25C6.08579 14.25 5.75 13.9142 5.75 13.5C5.75 13.0858 6.08579 12.75 6.5 12.75H13.5C13.9142 12.75 14.25 13.0858 14.25 13.5C14.25 13.9142 13.9142 14.25 13.5 14.25H6.5Z" fill=""/>
+        // <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1854 0.5H4.5C3.39543 0.5 2.5 1.39543 2.5 2.5V17.5C2.5 18.6046 3.39543 19.5 4.5 19.5H15.5C16.6046 19.5 17.5 18.6046 17.5 17.5V7.20179C17.5 6.70104 17.3122 6.21851 16.9736 5.84956L12.659 1.14777C12.2802 0.734983 11.7457 0.5 11.1854 0.5ZM4.5 17.5V2.5H11.1854L15.5 7.20179V17.5H4.5Z" fill=""/>
+        // <path d="M11.5 6.5H16.5C17.0523 6.5 17.5 6.94772 17.5 7.5C17.5 8.05228 17.0523 8.5 16.5 8.5H10.5C9.94772 8.5 9.5 8.05228 9.5 7.5V1.5C9.5 0.947715 9.94772 0.5 10.5 0.5C11.0523 0.5 11.5 0.947715 11.5 1.5V6.5Z" fill=""/>
+        // </svg>`,
+        //             label: "Your Resume",
+        //             route: "#",
+        //             children: [
+        //                 { label: "Create Your Resume", route: "create-resume" },
+        //                 { label: "Design", route: "design" },
+        //                 { label: "Setting", route: "setting" },
+        //             ],
+        //         },
+        //         {
+        //             icon: `<svg
+        //                   class="fill-current"
+        //                   width="18"
+        //                   height="18"
+        //                   viewBox="0 0 18 18"
+        //                   fill="none"
+        //                   xmlns="http://www.w3.org/2000/svg"
+        //                 >
+        //                   <path
+        //                     d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
+        //                     fill=""
+        //                   />
+        //                   <path
+        //                     d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
+        //                     fill=""
+        //                   />
+        //                 </svg>`,
+        //             label: "Profile",
+        //             route: "#",
+        //             children: [{ label: "Hourly Price", route: "hourly-price" }],
+        //         },
 
         // {
         //     icon: `<svg class="fill-current" fill="none" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.035,18.069a7.981,7.981,0,0,0,3.938-1.035l3.332,3.332a2.164,2.164,0,0,0,3.061-3.061l-3.332-3.332A8.032,8.032,0,0,0,4.354,4.354a8.034,8.034,0,0,0,5.681,13.715ZM5.768,5.768A6.033,6.033,0,1,1,4,10.035,5.989,5.989,0,0,1,5.768,5.768Z"/></svg>`,
@@ -504,7 +505,7 @@ if (userRole === 0) {
                 {
                     label: "StafferHQ Learn",
                     route: "transaction-and-invoices",
-                },                
+                },
             ],
         },
         {
@@ -521,18 +522,18 @@ if (userRole === 0) {
                 {
                     label: "Orders breakdown",
                     route: "transaction-and-invoices",
-                },                
-                { label: "Top keywords", route: "", },
-                { label: "Keyword resarch", route: "", }
+                },
+                { label: "Top keywords", route: "" },
+                { label: "Keyword resarch", route: "" },
             ],
-        },        
+        },
     ];
 }
 </script>
 
 <template>
     <aside
-        class="absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
+        class="sidebar absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
         :class="{
             'translate-x-0': sidebarStore.isSidebarOpen,
             '-translate-x-full': !sidebarStore.isSidebarOpen,
@@ -545,8 +546,14 @@ if (userRole === 0) {
         >
             <Link :href="route('dashboard')">
                 <div class="flex items-center justify-center gap-4">
-                    <img src="../../../img/admin/toworkLogo.png" alt="Logo" class="h-6" />
-                    <h1 class="text-2xl font-bold text-white font hidden  ">
+                    <img
+                        src="../../../img/admin/toworkLogo.png"
+                        alt="Logo"
+                        class="h-6"
+                    />
+                    <h1
+                        class="text-2xl font-bold text-white font-crimson hidden"
+                    >
                         To Work
                     </h1>
                 </div>
@@ -557,7 +564,7 @@ if (userRole === 0) {
                 @click="sidebarStore.isSidebarOpen = false"
             >
                 <svg
-                    class="fill-current"
+                    class="fill-current text-white"
                     width="20"
                     height="18"
                     viewBox="0 0 20 18"
@@ -566,7 +573,7 @@ if (userRole === 0) {
                 >
                     <path
                         d="M19 8.175H2.98748L9.36248 1.6875C9.69998 1.35 9.69998 0.825 9.36248 0.4875C9.02498 0.15 8.49998 0.15 8.16248 0.4875L0.399976 8.3625C0.0624756 8.7 0.0624756 9.225 0.399976 9.5625L8.16248 17.4375C8.31248 17.5875 8.53748 17.7 8.76248 17.7C8.98748 17.7 9.17498 17.625 9.36248 17.475C9.69998 17.1375 9.69998 16.6125 9.36248 16.275L3.02498 9.8625H19C19.45 9.8625 19.825 9.4875 19.825 9.0375C19.825 8.55 19.45 8.175 19 8.175Z"
-                        fill=""
+                        fill="white"
                     />
                 </svg>
             </button>
@@ -579,62 +586,101 @@ if (userRole === 0) {
             <!-- Sidebar Menu -->
             <nav class="px-4 py-4 mt-5 lg:mt-9 lg:px-6">
                 <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
-                  <!-- Card Starts -->
-                      <div class="w-full px-4 py-6 mx-auto mb-10 border rounded-sm max-w-60 border-strokedark bg-boxdark shadow-default">                                              
+                    <!-- Profile Card -->
+                    <div
+                        class="w-full px-4 py-6 mx-auto mb-10 border rounded-sm max-w-60 border-strokedark bg-boxdark shadow-default"
+                    >
                         <!-- Profile Picture -->
-                         <div class="flex items-center justify-between">
-                           <span>
-                            <img src="https://www.svgrepo.com/show/497407/profile-circle.svg" alt="Profile Picture" class="w-16 h-16 bg-white rounded-full">
-                           </span>
-                            
+                        <div class="flex items-center justify-between">
+                            <span>
+                                <img
+                                    src="https://www.svgrepo.com/show/497407/profile-circle.svg"
+                                    alt="Profile Picture"
+                                    class="w-16 h-16 bg-white rounded-full"
+                                />
+                            </span>
                             <!-- User Information -->
                             <span>
-                              <div class="ml-4">
-                                <h3 class="text-xl font-bold text-white"> {{ $page.props.auth.user.name }} </h3>                                
-                            </div> 
+                                <div class="ml-4">
+                                    <h3
+                                        class="text-xl font-bold text-white font-crimson"
+                                    >
+                                        {{ $page.props.auth.user.name }}
+                                    </h3>
+                                </div>
                             </span>
-                          </div>  <br>                   
-                          <div class="flex justify-between">
-                            <span><p class="text-gray-500">My level</p></span>
-                            <span><p class="font-semibold text-gray-800">New seller</p></span>
-                            
-                          </div>
+                        </div>
+                        <br />
+                        <div class="flex justify-between">
+                            <span
+                                ><span class="text-white font-crimson">
+                                    My level
+                                </span></span
+                            >
+
+                            <span
+                                ><span
+                                    class="font-semibold text-white font-crimson"
+                                >
+                                    New seller
+                                </span></span
+                            >
+                        </div>
+
                         <!-- Statistics Section -->
-                            <div class="mt-4 space-y-2">
-                                <hr/><div class="flex justify-between text-gray-500">
-                                    <span>Success score</span>
-                                    <span>-</span>
-                                </div>
-
-                                <div class="flex justify-between text-gray-500">
-                                    <span>Rating</span>
-                                    <span>
-                                        <svg class="inline-block w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 8.12l-3.86 3.87.91 5.27L12 15.89l-4.95 2.36.91-5.27L4 8.12l5.61-.88L12 2z"/></svg>
-                                        -
-                                    </span>
-                                </div>
-
-                                <div class="flex justify-between text-gray-500">
-                                    <span>Response rate</span>
-                                    <span>-</span>
-                                </div><br/>
+                        <div class="mt-4 space-y-2">
+                            <hr />
+                            <div
+                                class="flex justify-between text-white font-crimson"
+                            >
+                                <span>Success score</span>
+                                <span>-</span>
                             </div>
 
-                            <!-- Button -->
-                                                    
+                            <div
+                                class="flex justify-between text-white font-crimson"
+                            >
+                                <span>Rating</span>
+                                <span>
+                                    <svg
+                                        class="inline-block w-5 h-5 text-yellow-500"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            d="M12 2l2.39 4.84L20 8.12l-3.86 3.87.91 5.27L12 15.89l-4.95 2.36.91-5.27L4 8.12l5.61-.88L12 2z"
+                                        />
+                                    </svg>
+                                    -
+                                </span>
+                            </div>
+
+                            <div
+                                class="flex justify-between text-white font-crimson"
+                            >
+                                <span>Response rate</span>
+                                <span>-</span>
+                            </div>
+                            <br />
+                        </div>
+
+                        <!-- Button -->
                         <a
-                          href=""
-                          target="_blank"
-                          rel="nofollow"
-                          class="flex items-center justify-center p-2 font-medium text-white rounded-md bg-primary hover:bg-opacity-90"
+                            href=""
+                            target="_blank"
+                            rel="nofollow"
+                            class="flex items-center justify-center p-2 font-medium text-white rounded-md bg-primary hover:bg-opacity-90 font-crimson"
                         >
-                          Go to level overview
+                            Go to level overview
                         </a>
-                      </div>
-                      <!-- Card ends -->
+                    </div>
+                    <!-- Profile Card Ends -->
+
+                    <!-- Sidebar Menu Items -->
                     <div>
                         <h3
-                            class="mb-4 ml-4 text-sm font-medium text-bodydark2"
+                            class="mb-4 ml-4 text-sm font-medium text-white font-crimson"
                         >
                             {{ menuGroup.name }}
                         </h3>
@@ -645,30 +691,13 @@ if (userRole === 0) {
                                 :item="menuItem"
                                 :key="index"
                                 :index="index"
+                                class="text-white font-crimson"
                             />
                         </ul>
                     </div>
-                    
                 </template>
             </nav>
             <!-- Sidebar Menu -->
-
-            <!-- Promo Box -->
-            <!-- <div
-        class="w-full px-4 py-6 mx-auto mb-10 text-center border rounded-sm max-w-60 border-strokedark bg-boxdark shadow-default"
-      >
-        <h3 class="mb-1 font-semibold text-white">StafferHQ Pro</h3>
-        <p class="mb-4 text-xs">Get All Dashboards and 300+ UI Elements</p>
-        <a
-          href="https://tailadmin.com/pricing"
-          target="_blank"
-          rel="nofollow"
-          class="flex items-center justify-center p-2 font-medium text-white rounded-md bg-primary hover:bg-opacity-90"
-        >
-          Purchase Now
-        </a>
-      </div> -->
-            <!-- Promo Box -->
         </div>
     </aside>
 </template>

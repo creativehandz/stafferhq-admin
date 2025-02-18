@@ -1,112 +1,136 @@
 @font-face {
-    font-family: 'Neue Montreal bold italic';
-    src: url('NeueMontreal-BoldItalic.woff2') format('woff2'),
-        url('NeueMontreal-BoldItalic.woff') format('woff');
+    font-family: "Neue Montreal bold italic";
+    src: url("NeueMontreal-BoldItalic.woff2") format("woff2"),
+        url("NeueMontreal-BoldItalic.woff") format("woff");
     font-weight: bold;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal bold';
-    src: url('NeueMontreal-Bold.woff2') format('woff2'),
-        url('NeueMontreal-Bold.woff') format('woff');
+    font-family: "Neue Montreal bold";
+    src: url("NeueMontreal-Bold.woff2") format("woff2"),
+        url("NeueMontreal-Bold.woff") format("woff");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal light italic';
-    src: url('NeueMontreal-LightItalic.woff2') format('woff2'),
-        url('NeueMontreal-LightItalic.woff') format('woff');
+    font-family: "Neue Montreal light italic";
+    src: url("NeueMontreal-LightItalic.woff2") format("woff2"),
+        url("NeueMontreal-LightItalic.woff") format("woff");
     font-weight: 300;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal light';
-    src: url('NeueMontreal-Light.woff2') format('woff2'),
-        url('NeueMontreal-Light.woff') format('woff');
+    font-family: "Neue Montreal light";
+    src: url("NeueMontreal-Light.woff2") format("woff2"),
+        url("NeueMontreal-Light.woff") format("woff");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal medium';
-    src: url('NeueMontreal-Medium.woff2') format('woff2'),
-        url('NeueMontreal-Medium.woff') format('woff');
+    font-family: "Neue Montreal medium";
+    src: url("NeueMontreal-Medium.woff2") format("woff2"),
+        url("NeueMontreal-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal italic';
-    src: url('NeueMontreal-Italic.woff2') format('woff2'),
-        url('NeueMontreal-Italic.woff') format('woff');
+    font-family: "Neue Montreal italic";
+    src: url("NeueMontreal-Italic.woff2") format("woff2"),
+        url("NeueMontreal-Italic.woff") format("woff");
     font-weight: normal;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal medium medium italic';
-    src: url('NeueMontreal-MediumItalic.woff2') format('woff2'),
-        url('NeueMontreal-MediumItalic.woff') format('woff');
+    font-family: "Neue Montreal medium medium italic";
+    src: url("NeueMontreal-MediumItalic.woff2") format("woff2"),
+        url("NeueMontreal-MediumItalic.woff") format("woff");
     font-weight: 500;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Neue Montreal regular';
-    src: url('NeueMontreal-Regular.woff2') format('woff2'),
-        url('NeueMontreal-Regular.woff') format('woff');
+    font-family: "Neue Montreal regular";
+    src: url("NeueMontreal-Regular.woff2") format("woff2"),
+        url("NeueMontreal-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 /* DM Sans font */
 
-
 @font-face {
-    font-family: 'DM Sans 9pt';
-    src: url('DMSans-9ptItalic.woff2') format('woff2'),
-        url('DMSans-9ptItalic.woff') format('woff');
+    font-family: "DM Sans 9pt";
+    src: url("DMSans-9ptItalic.woff2") format("woff2"),
+        url("DMSans-9ptItalic.woff") format("woff");
     font-weight: normal;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'DM Sans regular';
-    src: url('DMSans-9ptRegular.woff2') format('woff2'),
-        url('DMSans-9ptRegular.woff') format('woff');
+    font-family: "DM Sans regular";
+    src: url("DMSans-9ptRegular.woff2") format("woff2"),
+        url("DMSans-9ptRegular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Crimson Pro";
+    src: url("CrimsonPro-Regular.woff2") format("woff2"),
+        url("CrimsonPro-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
+@font-face {
+    font-family: "Crimson Pro";
+    src: url("CrimsonPro-Bold.woff2") format("woff2"),
+        url("CrimsonPro-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
 
-
-h1, h2,h3 {
-  font-family: 'Crimson Pro', sans-serif;
+h1,
+h2,
+h3 {
+    font-family: "Crimson Pro", serif;
 }
 .quote-do {
-  font-family: 'Neue Montreal', sans-serif;
+    font-family: "Neue Montreal", sans-serif;
 }
 
-.service-p, .footer-get-work {
-    font-family: 'DM sans regular';
-  }
+.service-p,
+.footer-get-work {
+    font-family: "DM sans regular";
+}
 .button-get-started {
-    font-family: 'Neue Montreal bold';    
+    font-family: "Neue Montreal bold";
 }
 
-p, h5, h4, a {
-    font-family: 'Neue Montreal regular';
+p,
+h5,
+h4,
+a {
+    font-family: "Neue Montreal regular";
+}
+
+.sidebar {
+    font-family: "Crimson Pro", serif !important;
 }
