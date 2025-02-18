@@ -28,6 +28,7 @@ class Gig extends Model // Changed to singular
         'pricing',
         'requirements',
         'file_path',
+        'certificate'
     ];
 
     public function user()

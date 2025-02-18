@@ -141,7 +141,21 @@ function handleCategoryChange() {
                   <input type="text" name="positive_keywords" id="positive-keywords" placeholder="Enter up to 5 tags" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                   <p class="mt-2 text-sm text-gray-500">5 tags maximum. Use letters and numbers only.</p>
                 </div> 
-              </DefaultCard>
+
+                <div class="flex flex-col gap-5.5 p-6.5">
+                      <div>
+                        <label class="block mb-3 text-sm font-medium text-black dark:text-white">
+                          Add Certificate
+                        </label>
+                        <input
+                          type="file"
+                          name="certificate" 
+                          class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                        />
+                      </div>
+                    </div>
+              
+              </DefaultCard>            
               
                 </div>
              

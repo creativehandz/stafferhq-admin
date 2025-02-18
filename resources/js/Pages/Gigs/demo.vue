@@ -14,6 +14,7 @@ const gigForm = useForm({
   gig_title: '',
   category_id: null,
   subcategory_id: null,
+  certificate: null,
   gig_description: '',
   positive_keywords: [], // Array for tags
   images: [], // Array for images
@@ -96,6 +97,7 @@ const formValidation = {
   gig_title: true,
   category_id: true,
   subcategory_id: true,
+  certificate: true,
   gig_description: true,
   positive_keywords: true,
   images: true,
@@ -226,6 +228,19 @@ const handleFileUpload = (event) => {
   console.log(gigForm.images); // To see the uploaded files in the console
 };
 
+
+const handleCertificateUpload = (event) => {
+  const file = event.target.files[0]; // Get the first uploaded file
+
+  // Replace the existing certificate with the new one
+  if (file) {
+    gigForm.certificate = file;
+  }
+
+ 
+  console.log(gigForm.certificate); // To see the uploaded certificate in the console
+};
+
 const validateGigForm = (step = 0) => {
 
   let enable = true;
@@ -256,6 +271,11 @@ const validateGigForm = (step = 0) => {
       formValidation.message[step] += "At least one tag is required.<br>";
     }
 
+    if (!gigForm.certificate) {
+      enable = false;
+      formValidation.certificate = false;
+      formValidation.message[step] += "Certificate file is required.<br>";
+    }
     
     return { isValid: enable };
 
@@ -467,6 +487,20 @@ const handleSubmit = async () => {
                     />
                   </div>
                   <p class="mt-2 text-sm text-gray-500">5 tags maximum. Use letters and numbers only.</p>
+
+                  <div class="flex flex-col gap-5.5 p-6.5">
+                      <div>
+                        <label class="block mb-3 text-sm font-medium text-black dark:text-white">
+                          Add Certificate
+                        </label>
+                        <input
+                          type="file"
+                          name="certificate" 
+                          @change="handleCertificateUpload"
+                          class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                        />
+                      </div>
+                    </div>
                 </DefaultCard>
               </div>
   
@@ -790,16 +824,6 @@ const handleSubmit = async () => {
                         multiple
                       />
                     </div>
-
-                    <!-- <div>
-                      <label class="block mb-3 text-sm font-medium text-black dark:text-white">
-                        Attach file
-                      </label>
-                      <input
-                        type="file"
-                        class="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm file:font-normal focus:border-primary file:focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-strokedark dark:file:bg-white/30 dark:file:text-white"
-                      />
-                    </div> -->
                   </div>
                 </DefaultCard>
               </div>
