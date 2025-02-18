@@ -33,7 +33,7 @@ interface PricingDetail {
   name: string
   description: string
   delivery_time: string
-  revisions: string
+  // revisions: string
   price: number // Assuming price is a string based on your data structure
 }
 

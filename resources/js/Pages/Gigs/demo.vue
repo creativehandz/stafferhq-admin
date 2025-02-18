@@ -25,21 +25,21 @@ const gigForm = useForm({
       name: '',
       description: '',
       delivery_time: '',
-      revisions: '',
+      // revisions: '',
       price: ''
     },
     standard: {
       name: '',
       description: '',
       delivery_time: '',
-      revisions: '',
+      // revisions: '',
       price: ''
     },
     premium: {
       name: '',
       description: '',
       delivery_time: '',
-      revisions: '',
+      // revisions: '',
       price: ''
     }
   }
@@ -72,21 +72,21 @@ const rules = {
       name: { required },
       description: { required },
       delivery_time: { required },
-      revisions: { required },
+      // revisions: { required },
       price: { required, numeric }
     },
     standard: {
       name: { required },
       description: { required },
       delivery_time: { required },
-      revisions: { required },
+      // revisions: { required },
       price: { required, numeric }
     },
     premium: {
       name: { required },
       description: { required },
       delivery_time: { required },
-      revisions: { required },
+      // revisions: { required },
       price: { required, numeric }
     }
   }
@@ -108,21 +108,21 @@ const formValidation = {
       name: true,
       description: true,
       delivery_time: true,
-      revisions: true,
+      // revisions: true,
       price: true
     },
     standard: {
       name: true,
       description: true,
       delivery_time: true,
-      revisions: true,
+      // revisions: true,
       price: true
     },
     premium: {
       name: true,
       description: true,
       delivery_time: true,
-      revisions: true,
+      // revisions: true,
       price: true
     }
   },
@@ -301,11 +301,11 @@ const validateGigForm = (step = 0) => {
         formValidation.message[step] += `Delivery time of the ${plan} package is required.<br>`;
       }
 
-      if (!gigForm.pricing[plan].revisions) {
-        enable = false;
-        formValidation.pricing[plan].revisions = false;
-        formValidation.message[step] += `Revisions for the ${plan} package is required.<br>`;
-      }
+      // if (!gigForm.pricing[plan].revisions) {
+      //   enable = false;
+      //   formValidation.pricing[plan].revisions = false;
+      //   formValidation.message[step] += `Revisions for the ${plan} package is required.<br>`;
+      // }
 
       if (!gigForm.pricing[plan].price) {
         enable = false;
@@ -631,7 +631,7 @@ const handleSubmit = async () => {
                       </tr>
 
                       <!-- Revisions Row -->
-                      <tr class="text-black bg-gray-200 ">
+                      <!-- <tr class="text-black bg-gray-200 ">
                         <th class="p-4 border border-stroke">
                           <select
                             v-model="gigForm.pricing.basic.revisions"
@@ -677,7 +677,7 @@ const handleSubmit = async () => {
                           </select>
                           <span v-if="v$.pricing.premium.revisions.$error" class="text-sm text-red-500">Revisions are required.</span>
                         </th>
-                      </tr>
+                      </tr> -->
 
                       <!-- Price Row -->
                       <tr class="text-black bg-gray-200 ">
