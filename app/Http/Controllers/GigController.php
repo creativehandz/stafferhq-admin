@@ -18,7 +18,7 @@ class GigController extends Controller
     public function getGigByStatus(): Response
     {
         $gigs = Gig::with('user')->get(); // Fetch gigs with related user
-
+ 
         // Decode the pricing JSON for each gig
         foreach ($gigs as $gig) {
             $gig->pricing = json_decode($gig->pricing, true);
@@ -33,7 +33,7 @@ class GigController extends Controller
     {
         return Inertia::render('Gigs/demo');
     }
-
+ 
         public function store(Request $request)
         {
             $validated = $request->validate([
@@ -63,6 +63,7 @@ class GigController extends Controller
                 'pricing.premium.revisions' => 'required|string',
                 'pricing.premium.price' => 'required|integer|min:1',
                 'images.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+                'certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
                 
             ]);
         
@@ -77,6 +78,11 @@ class GigController extends Controller
                 }
             }
 
+            $certificatePath = null;
+            if ($request->hasFile('certificate')) {
+                $certificatePath = $request->file('certificate')->store('certificates', 'public');
+            }
+
             // Create a new gig and assign user_id from the authenticated user
             $gig = Gig::create([
                 'user_id' => Auth::id(), // Set user_id here
@@ -89,6 +95,8 @@ class GigController extends Controller
                 'file_path'=> json_encode($filePaths), // Encode file paths as JSON
                 'faqs' => isset($validated['faqs']) ? json_encode($validated['faqs']) : null, // Encode faqs to JSON
                 'pricing' => json_encode($validated['pricing']), // Encode pricing to JSON
+                'status' => 'active', // Set status to active by default
+                'certificate' => $certificatePath,
             ]);
         
             Inertia::share('filePaths', $filePaths);
