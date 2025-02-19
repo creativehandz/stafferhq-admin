@@ -72,7 +72,7 @@ defineProps<{
 <template>
     <header
         :class="{            
-            'container top-5 mx-auto py-4 z-40  flex justify-between items-center': true,
+            'sm:container-full md:container-full lg:container-full xl:container 2xl:container top-5 mx-auto py-4 z-40  flex justify-between items-center': true,
         }"
     >
         <a href="/" class="flex items-center text-lg font-bold">
@@ -100,12 +100,12 @@ defineProps<{
                             <SheetTitle class="flex items-center">
                                 <a href="/" class="flex items-center">
                                     <img
-                                        src=""
+                                        src="../../../img/toworkLogo.svg"
                                         alt="Logo"
-                                        class="mr-2 text-white rounded-lg g-gradient-to-tr from-primary via-primary/70 to-primary w-9 h-9"
+                                        class="mr-2 text-white rounded-lg g-gradient-to-tr from-primary via-primary/70 to-primary w-30"
                                     />
 
-                                    StafferHQ
+                                    
                                 </a>
                             </SheetTitle>
                         </SheetHeader>

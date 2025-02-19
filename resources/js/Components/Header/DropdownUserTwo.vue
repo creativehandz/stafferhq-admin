@@ -55,7 +55,7 @@ onClickOutside(target, () => {
         <!-- Dropdown Start -->
         <div
             v-show="dropdownOpen"
-            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default z-999"
+            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default"
         >
             <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
                 <li>
@@ -171,7 +171,7 @@ onClickOutside(target, () => {
             <ul
                 class="flex flex-col gap-5 px-6 py-4 border-b border-stroke dark:border-strokedark"
             >
-                <li>
+                <!--li>
                     <router-link
                         to="/pages/settings"
                         class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -195,7 +195,7 @@ onClickOutside(target, () => {
                         </svg>
                         <a href="/account-settings">Account Settings</a>
                     </router-link>
-                </li>
+                </li-->
                 <li>
                     <router-link
                         to="#"
