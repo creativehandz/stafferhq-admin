@@ -20,33 +20,32 @@ import heroImageDark from '../../../../img/LandingPage/heroImageDark.jpg'
           variant="outline"
           class="py-2 text-sm"
         >
-          <span class="mr-2 text-primary">
+          <span class="mr-2 text-primary text-white">
             <Badge>New</Badge>
           </span>
-          <span> Design is out now! </span>
+          <span> Grow Your Business by Connecting with the Right Buyers </span>
         </Badge>
 
         <div
           class="max-w-screen-md mx-auto text-5xl font-bold text-center md:text-6xl"
         >
           <h1>
-            Experience the
+            Become a
             <span
               class="text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
-              >Shadcn/Vue
+              >Seller
             </span>
-            landing page
+            on Towork
           </h1>
         </div>
 
         <p class="max-w-screen-sm mx-auto text-xl text-muted-foreground">
-          We're more than just a tool, we're a community of passionate creators.
-          Get access to exclusive resources, tutorials, and support.
+          At Towork, we provide a seamless platform for professionals and businesses across all industries to connect with potential buyers. Whether you're an independent service provider or a large enterprise, we help you expand your reach and increase your sales.
         </p>
 
         <div class="space-y-4 md:space-y-0 md:space-x-4">
           <Button class="w-5/6 font-bold md:w-1/4 group/arrow">
-            Get Started
+            Register on ToWork
             <ArrowRight
               class="ml-2 transition-transform size-5 group-hover/arrow:translate-x-1"
             />
@@ -60,7 +59,7 @@ import heroImageDark from '../../../../img/LandingPage/heroImageDark.jpg'
             <a
               href="https://github.com/leoMirandaa/shadcn-vue-landing-page.git"
               target="_blank"
-              >Github respository</a
+              >Login On ToWork</a
             >
           </Button>
         </div>

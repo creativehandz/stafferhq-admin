@@ -36,20 +36,19 @@ defineProps<{
             </CardTitle>
           </CardHeader>
           <CardContent class="lg:w-[80%] text-xl text-muted-foreground">
-            Join StafferHQ community! Connect, share, and grow with
-            like-minded enthusiasts. Click to dive in! 🚀
+            Towork simplifies the process of finding highly experienced professionals for your needs, reducing your stress and saving you time. 🚀
           </CardContent>
 
-          <CardFooter>
+          <!--CardFooter>
             <Button as-child>
               <a
                 href=""
                 target="_blank"
               >
-                How StafferHQ Works
+                How ToWork Works
               </a>
             </Button>
-          </CardFooter>
+          </CardFooter-->
         </Card>
       </div>
     <hr/>
