@@ -695,7 +695,7 @@ const handleSubmit = async () => {
                         <!-- Step 2: Pricing -->
                         <div v-if="currentStep === 2" class="col-span-6">
                             <div
-                                class="w-full overflow-hidden bg-white rounded-lg p-6"
+                                class="w-full overflow-hidden"
                             >
                                 <table class="min-w-full table-auto">
                                     <thead>

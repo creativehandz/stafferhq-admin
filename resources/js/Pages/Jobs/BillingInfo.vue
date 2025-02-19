@@ -5,7 +5,7 @@
         
         <!-- Full Name -->
         <div class="mb-4">
-          <label class="block font-medium text-gray-700">Full name (mandatory)</label>
+          <label class="block font-light text-gray-700">Full name (mandatory)</label>
           <input
             v-model="form.fullName"
             type="text"
