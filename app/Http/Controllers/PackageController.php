@@ -16,7 +16,7 @@ class PackageController extends Controller
         $request->session()->put('packagePrice', $request->input('packagePrice'));
         $request->session()->put('packageDescription', $request->input('packageDescription'));
         $request->session()->put('deliveryTime', $request->input('deliveryTime'));
-        $request->session()->put('revisions', $request->input('revisions'));
+        // $request->session()->put('revisions', $request->input('revisions'));
         $request->session()->put('gigId', $request->input('gigId'));
 
         return Redirect::to('/checkout')->with('success', 'Package submitted successfully!');

@@ -431,7 +431,7 @@ const isOrderStartable = false;
                     <li>Description: {{ package.packageDescription }}</li>
                     <li>Price: ${{ package.packagePrice }}</li>
                     <li>Delivery Time: {{ package.deliveryTime }}</li>
-                    <li>Revisions: {{ package.revisions }}</li>
+                    <!-- <li>Revisions: {{ package.revisions }}</li> -->
                   </ul>    
                   <div class="flex items-center justify-between pt-3 mb-3 border-t">
                     <p class="font-semibold">Service fee</p>

@@ -22,7 +22,7 @@ class CheckoutController extends Controller
             'packagePrice' => 'required|numeric',
             'packageDescription' => 'nullable|string',
             'deliveryTime' => 'nullable|string',
-            'revisions' => 'nullable|numeric',
+            // 'revisions' => 'nullable|numeric',
             'gigId' => 'nullable|numeric',
         ]);
 
@@ -32,7 +32,7 @@ class CheckoutController extends Controller
             'packagePrice' => $request->packagePrice,
             'packageDescription' => $request->packageDescription,
             'deliveryTime' => $request->deliveryTime,
-            'revisions' => $request->revisions,
+            // 'revisions' => $request->revisions,
             'gigId' => $request->gigId,
         ]);
 
@@ -42,7 +42,9 @@ class CheckoutController extends Controller
     public function showCheckout(Request $request)
     {
         // Get the package data from the session
-        $package = session()->only(['packageName', 'packagePrice', 'packageDescription', 'deliveryTime', 'revisions', 'gigId']);
+        $package = session()->only(['packageName', 'packagePrice', 'packageDescription', 'deliveryTime', 
+        // 'revisions', 
+        'gigId']);
 
         if (empty($package)) {
             $package = [
@@ -50,7 +52,7 @@ class CheckoutController extends Controller
                 'packagePrice' => 0,
                 'packageDescription' => '',
                 'deliveryTime' => '',
-                'revisions' => 0,
+                // 'revisions' => 0,
                 'gigId' => 0,
             ];
         }
@@ -69,7 +71,7 @@ class CheckoutController extends Controller
             'packageDescription' => 'required|string',
             'packagePrice' => 'required|numeric',
             'deliveryTime' => 'required|string',
-            'revisions' => 'required|integer',
+            // 'revisions' => 'required|integer',
             'gigId' => 'required|integer',
             'billingDetails' => 'required|string',
         ]);
@@ -80,7 +82,7 @@ class CheckoutController extends Controller
             'order_details' => json_encode([
                 'packageDescription' => $validatedData['packageDescription'],
                 'deliveryTime' => $validatedData['deliveryTime'],
-                'revisions' => $validatedData['revisions'],
+                // 'revisions' => $validatedData['revisions'],
             ]), // Store order details as JSON
             'package_selected' => $validatedData['packageName'],
             'total_price' => $validatedData['packagePrice'],

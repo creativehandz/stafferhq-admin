@@ -6,7 +6,7 @@ Thank you for your order! Here are the details of your purchase:
 **Package Name:** {{ $packageName }}  
 **Total Price:** ${{ $totalPrice }}  
 **Delivery Time:** {{ $orderDetails['deliveryTime'] }}  
-**Revisions:** {{ $orderDetails['revisions'] }}  
+
 
 **Billing Information:**
 {{ $billingDetails }}
