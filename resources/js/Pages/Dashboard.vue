@@ -9,6 +9,7 @@ import { onMounted } from "vue";
 
 // Define the interface for the expected data
 interface BuyerCheckout {
+    id: number;
     order_details: string;
     billing_details: string;
     package_selected: string;
@@ -41,6 +42,16 @@ const fetchBuyerCheckout = async () => {
         buyerCheckoutData.value = response.data; // Store the response data in the ref
     } catch (error) {
         console.error("Error fetching buyer checkout data:", error);
+    }
+};
+
+// Update status function
+const updateStatus = async (id: number, status: string) => {
+    try {
+        await axios.post(`/buyer-checkout/${id}/update-status`, { status });
+        await fetchBuyerCheckout(); // Refresh the data after updating status
+    } catch (error) {
+        console.error("Error updating status:", error);
     }
 };
 
@@ -300,10 +311,11 @@ const showLess = () => {
                                     </p>
 
                                     <!-- View Button  -->
-                                    <div class="ml-auto">
-                                        <button class="text-primary underline">
-                                            View
-                                        </button>
+                                      <!-- Action Buttons -->
+                                    <div class="ml-auto flex space-x-2">
+                                        <button class="text-primary underline" @click="updateStatus(checkout.id, 'active')">Active</button>
+                                        <button class="text-primary underline" @click="updateStatus(checkout.id, 'paused')">Pause</button>
+                                        <button class="text-primary underline" @click="updateStatus(checkout.id, 'denied')">Denied</button>
                                     </div>
                                 </div>
 

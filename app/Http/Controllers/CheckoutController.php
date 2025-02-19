@@ -119,4 +119,18 @@ class CheckoutController extends Controller
         return response()->json($buyer_checkout);
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:active,paused,denied',
+        ]);
+
+        $buyerCheckout = BuyerCheckout::findOrFail($id);
+        $buyerCheckout->status = $request->status;
+        $buyerCheckout->save();
+
+        return response()->json(['message' => 'Status updated successfully']);
+    }
+
+
 }
