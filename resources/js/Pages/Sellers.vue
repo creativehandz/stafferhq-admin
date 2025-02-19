@@ -5,7 +5,8 @@ import axios from 'axios'
 import { computed } from '@vue/reactivity';
 import Navbar from "@/Components/LandingPage/Navbar.vue";
 import Footer from "@/Components/LandingPage/Footer.vue";
-import UserOne from '../../img/user/user-01.png'
+import UserOne from '../../img/user/user-01.png';
+import placeHolder from '../../img/placeholder.jpg';
 
 // Define your interfaces
 interface User {
@@ -147,7 +148,7 @@ const getImageUrl = (filePath: string | string[]) => {
       <!-- Services Grid -->
     <div class="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div  v-for="gig in filteredGigs" :key="gig.id" class="transition border rounded-lg shadow hover:shadow-lg">
-          <img :src="getImageUrl(gig.file_path)"   alt="service image" class="object-cover w-full h-40 rounded-t-lg" />
+          <img :src="placeHolder" alt="service image" class="object-cover w-full h-40 rounded-t-lg" />
           <div class="p-4">
             <h3 class="mb-2 text-sm font-semibold text-gray-700"><a :href="`/job-description/${gig.id}`">{{ gig.gig_title }}</a></h3>
             <div class="flex items-center mb-2 space-x-2 text-sm text-gray-500">
