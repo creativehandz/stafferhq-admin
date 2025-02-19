@@ -17,8 +17,8 @@
         />
         <div v-if="gig">
           <h2 class="flex items-center text-xl font-bold">{{ gig.user.name }} (online<p class="text-[10px]">🟢</p>)</h2>
-          <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">Web Designer | Visual Artist</p>
-          <p class="text-gray-500">{{gig.gig_title }}</p>
+          <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">{{gig.gig_title }}</p>
+          
           <div class="flex items-center mt-2">
             <span class="">★ 4.8 (2k)</span>
             <a href="#" class="ml-2 font-bold text-yellow-500 underline">See reviews</a>
