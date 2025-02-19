@@ -55,7 +55,7 @@ onClickOutside(target, () => {
         <!-- Dropdown Start -->
         <div
             v-show="dropdownOpen"
-            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default"
+            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default z-999"
         >
             <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
                 <li>

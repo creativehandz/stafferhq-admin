@@ -255,7 +255,7 @@ const isOrderStartable = false;
 <template>
   <div class="container flex flex-col justify-center">
     <BuyerNavbar/>        
-      <div class="p-4 rounded-md shadow-md">
+      <div class="p-4">
         <!-- Step Navigation -->
         <div class="flex mb-4 space-x-2">
           <button :class="step === 1 ? 'font-bold' : ''" @click="goBack">Order Details</button>
@@ -271,23 +271,23 @@ const isOrderStartable = false;
         </div>
   
       <!-- Step 2: Payment Details and Billing Information -->
-      <div v-if="step === 2" class="space-y-4">
-        <div class="p-6 rounded-md shadow-md ">
-          <div class="grid grid-cols-2 gap-4">
+      <div v-if="step === 2" class="space-y-4 mt-10">
+        <div class="w-full ">
+          <div class="grid grid-cols-3">
             
-            <div class="basis-1/3"> 
+            <div class="col-span-2"> 
                <!-- Billing Information Section -->
             <div class="pb-4 mb-6 ">
               <h2 class="mb-2 text-xl font-semibold">Billing Information</h2>
               <p class="mb-4 text-gray-500">Your invoice will be issued according to the details listed here.</p>
               <div class="mb-4">        
-            <div  class="flex items-center justify-center bg-gray-800 bg-opacity-50 ">                      
+            <div  class="w-10/12 ">                      
               <form @submit.prevent="completeCheckout">
     <!-- Form Fields -->
-    <div class="mb-4">
+    <div class="mb-4 w-full">
       <!-- Full Name -->
       <div class="mb-4">
-        <label class="block font-medium text-gray-700">Full name (mandatory)</label>
+        <label class="block font-medium text-gray-700">Full name <span class="text-red">*</span></label>
         <input
           v-model="form.fullName"
           type="text"
@@ -415,9 +415,9 @@ const isOrderStartable = false;
 </div>
 
       
-        <div class="basis-1/3" >
+        <div class="" >
                 <!-- Order Summary Section -->
-                <div class="p-5 pb-4 mb-6 shadow-md">
+                <div class="p-5 pb-4 mb-6 bg-slate-100">
                   <h2 class="mb-4 text-xl font-semibold">Order Summary</h2>
                   <div class="flex items-center justify-between mb-3">
                     <div>
@@ -447,15 +447,15 @@ const isOrderStartable = false;
                 </div>
                 <!-- Payment Button Section -->
                 <div class="mt-6 text-center">
-                  <button class="w-full py-3 font-semibold text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700" @click="completeCheckout">
+                  <button class="px-16 py-3 font-bold text-black transition-all duration-300 bg-[#F5F535] rounded-full shadow-lg hover:bg-yellow-500 button-get-started sm:text-[24px] md:text-[24px] lg:text-[24px] xl:text-[24px] 2xl:text-[24px]" @click="completeCheckout">
                     Confirm & Pay
                   </button>
                   <p class="mt-2 text-sm text-gray-500">You will be charged {{package.packagePrice}} Total amount includes currency conversion fees.</p>
                 </div>
               </div>
-              <div class="basis-1/2" >  
+              <div class="col-span-full" >  
               <!-- Payment Options Section -->
-              <div class="p-4 shadow-md">
+              <div class="p-4 bg-slate-300">
               <h2 class="mb-2 text-xl font-semibold">Payment Options</h2>
               <label class="inline-flex items-center">
                 <input type="radio" name="payment-method" checked class="w-5 h-5 text-blue-600 form-radio" />
