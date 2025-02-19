@@ -20,6 +20,7 @@ import DropdownHeart from "@/Components/Header/DropdownHeart.vue";
 import toWorkLogo from '@/assets/toworkLogo.svg';
 import crown from '@/assets/crown.svg';
 import magGlass from '@/assets/mag-glass.png';
+import axios from "axios";
 
 interface RouteProps {
     href: string;
@@ -56,6 +57,16 @@ const featureList: FeatureProps[] = [
 ];
 
 const isOpen = ref<boolean>(false);
+
+// Function to switch to selling
+const switchToSelling = async () => {
+    try {
+        await axios.post('/switch-to-selling');
+        window.location.href = '/dashboard'; // Redirect to dashboard
+    } catch (error) {
+        console.error('Error switching to selling:', error);
+    }
+};
 
 defineProps<{
     canLogin?: boolean;
@@ -99,7 +110,7 @@ defineProps<{
             <button class="text-sm text-black">Orders</button>
 
             <!-- Switch to Selling Button -->
-            <button class="text-sm text-black">Switch to Selling</button>
+            <button @click="switchToSelling" class="text-sm text-black">Switch to Selling</button>
 
             <!-- User Dropdown Area -->
             <DropdownUserTwo />
