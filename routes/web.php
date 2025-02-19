@@ -313,6 +313,9 @@ Route::get('/post-a-project-brief', function () {
 
 Route::post('/buyer-jobs', [BuyerJobController::class, 'store']);
 
+Route::post('/buyer-checkout/{id}/update-status', [CheckoutController::class, 'updateStatus']);
+
+
 // Route::get('/edit-resume', function () {
 //     return Inertia::render('Talent/EditResume');
 // })->name('edit-resume');
