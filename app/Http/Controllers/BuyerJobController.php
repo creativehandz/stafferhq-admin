@@ -51,4 +51,15 @@ class BuyerJobController extends Controller
             'job' => $buyerJob
         ], 201);
     }
+
+    public function index()
+    {
+        // Fetch all jobs with categories and subcategories
+        $jobs = BuyerJob::with(['category', 'subCategory'])->get();
+
+        return inertia('Talent/JobListings', [
+            'jobs' => $jobs
+        ]);
+    }
+
 }

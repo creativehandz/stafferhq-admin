@@ -472,6 +472,7 @@ if (userRole === 0) {
                 { label: "Gigs", route: "gigs-record" },
                 { label: "Profile", route: "hourly-work-diary" },
                 { label: "Earnings", route: "hourly-work-diary" },
+                { label: "Jobs Posted", route: "job-listings" },
             ],
         },
 
