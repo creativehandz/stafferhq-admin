@@ -53,6 +53,8 @@ const props = defineProps<{
     name: string;
   };
   positive_keywords: string;
+  file_path: string;
+
   };
   
 }>();
@@ -132,6 +134,26 @@ const closeSidebar = () => {
       console.error("Error storing package data:", error);
     });
 };
+
+const getImageUrl = (filePath: string | string[]) => {
+  if (Array.isArray(filePath) && filePath.length > 0) {
+    // Handle already-parsed array
+    return `/storage/${filePath[0]}`;
+  } 
+  if (typeof filePath === 'string') {
+    try {
+      // Handle JSON-encoded string
+      const parsedPath = JSON.parse(filePath);
+      if (Array.isArray(parsedPath) && parsedPath.length > 0) {
+        return `/storage/${parsedPath[0]}`;
+      }
+    } catch (error) {
+      console.error("Error parsing file path:", error);
+    }
+  }
+  // Fallback image
+  return '/images/default-gig.png';
+};
 </script>
 
 
@@ -154,7 +176,7 @@ const closeSidebar = () => {
       <!-- Header and Main Image -->
       <div class="flex items-center space-x-4">
         <img
-          :src="workStation"
+          :src="getImageUrl(gig.file_path)"
           alt="Main Service Image"
           class="object-cover w-32 h-32 rounded-lg"
         />
