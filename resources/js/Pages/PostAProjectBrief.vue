@@ -107,7 +107,7 @@ const submitForm = async () => {
 </script>
 
 <template>
-    <section class="container mx-auto px-6 py-12">
+    <section class="container">
         <BuyerNavbar />
 
         <!-- Breadcrumbs -->
@@ -118,7 +118,7 @@ const submitForm = async () => {
 
         <!-- Form Title -->
         <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl">
-            <div class="container flex">
+            <div class=" flex">
                 <!-- Text Section -->
                 <!-- Right Content Section (Text Right Aligned and Single Line h1) -->
                 <div
@@ -262,8 +262,4 @@ const submitForm = async () => {
     <Footer />
 </template>
 
-<style scoped>
-.container {
-    max-width: 900px;
-}
-</style>
+
