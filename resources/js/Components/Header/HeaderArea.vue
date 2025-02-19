@@ -5,9 +5,21 @@ import DropdownMessage from './DropdownMessage.vue'
 import DropdownNotification from './DropdownNotification.vue'
 import DropdownUser from './DropdownUser.vue'
 import { Link } from '@inertiajs/vue3';
+import axios from 'axios'
 
 const { toggleSidebar } = useSidebarStore()
 const sidebarStore = useSidebarStore()
+
+// Function to switch to buyer
+const switchToBuying = async () => {
+    try {
+        await axios.post('/switch-to-buying');
+        window.location.href = '/buyer-dashboard'; // Redirect to buyer-dashboard page
+    } catch (error) {
+        console.error('Error switching to buying:', error);
+    }
+};
+
 </script>
 
 <template>
@@ -113,6 +125,9 @@ const sidebarStore = useSidebarStore()
           <!-- Chat Notification Area -->
         </ul>
 
+          <!-- Switch to Buying Button -->
+          <button @click="switchToBuying" class="block text-sm font-medium text-black dark:text-white">Switch to Buying</button>
+        
         <!-- User Area -->
         <DropdownUser />
         <!-- User Area -->

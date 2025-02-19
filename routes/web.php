@@ -20,6 +20,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RequirementController;
+use App\Http\Controllers\UserController;
 
 //Redirect to welcome page when logout
 Route::get('/', function () {
@@ -78,9 +79,15 @@ Route::get('/orders', function () {
     return Inertia::render('OtherPages/Orders');
 })->name('Orders');
 
-Route::get('/switch-to-selling', function () {
-    return Inertia::render('OtherPages/SwitchToSelling');
-})->name('SwitchToSelling');
+// Route::get('/switch-to-selling', function () {
+//     return Inertia::render('OtherPages/SwitchToSelling');
+// })->name('SwitchToSelling');
+
+Route::post('/switch-to-selling', [UserController::class, 'switchToSelling'])->name('switch.to.selling');
+
+Route::post('/switch-to-buying', [UserController::class, 'switchToBuying'])->name('switch.to.buying');
+
+
 
 Route::get('/post-a-request', function () {
     return Inertia::render('OtherPages/PostARequest');
