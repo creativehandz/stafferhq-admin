@@ -16,30 +16,30 @@ interface HowItWorksProps {
 const HowItWorksList: HowItWorksProps[] = [
   {
     badgeTitle: "Contribute",
-    title: "Make a Difference with Every Contribution",
+    title: "Step 1: Sign Up & Create Your Profile",
     description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem fugiat, quasi sint reiciendis quidem iure.",
+      "Register on Towork by providing your details and selecting the services you offer. A complete profile increases your chances of getting hired.",
     image: roboto,
   },
   {
     badgeTitle: "Discover",
-    title: "Create an Impact with Every Choice",
+    title: "Step 2: List Your Services",
     description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem fugiat, sint reiciendis quidem iure veritatis optio facere tenetur.",
+      "Describe your expertise, pricing, and availability to attract the right customers. Add images, videos, and customer testimonials for better engagement.",
     image: runner,
   },
   {
     badgeTitle: "Innovate",
-    title: "Make Every Action Count",
+    title: "Step 3: Get Hired & Deliver Services",
     description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem fugiat, odit similique quasi sint.",
+      "Receive service requests from buyers, communicate efficiently, and complete projects professionally to build a strong reputation.",
     image: pacheco,
   },
   {
     badgeTitle: "Collaborate",
-    title: "Tackle this challenge together",
+    title: "Step 4: Secure Payments & Grow Your Business",
     description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem fugiat, quasi sint reiciendis quidem iure.",
+      "Receive payments securely and on time. Scale your business with insights from analytics and customer feedback.",
     image: gamestation,
   },
 ];

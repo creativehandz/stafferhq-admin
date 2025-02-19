@@ -19,27 +19,27 @@ interface BenefitsProps {
 const benefitList: BenefitsProps[] = [
   {
     icon: "blocks",
-    title: "Build Brand Trust",
+    title: "Access to a Large Customer Base",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Connect with buyers actively searching for your services.",
   },
   {
     icon: "lineChart",
-    title: "More Leads",
+    title: "Easy-to-Use Platform",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, natus consectetur.",
+      "List your services effortlessly and manage your business from a single dashboard.",
   },
   {
     icon: "wallet",
-    title: "Higher Conversions",
+    title: "Marketing & Promotion",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consectetur. A odio velit cum aliquam",
+      "Boost your visibility with premium features and advertising options.",
   },
   {
     icon: "sparkle",
-    title: "Test Marketing Ideas",
+    title: "Customer Reviews & Ratings",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Build credibility and trust through verified customer feedback.",
   },
 ];
 

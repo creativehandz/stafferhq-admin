@@ -4,8 +4,8 @@
     <div class="px-6 py-12 text-center text-white bg-[#FB7B24] rounded-3xl md:px-16">
       <h2 class="mb-4 leading-none sm:text-[80px]  md:text-[80px] lg:text-[80px] xl:text-[80px] 2xl:text-[80px] font-bold text-center ">Join us!</h2>
       <p class="mb-10 leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold text-white service-p">Services and more, just a few clicks away</p>
-      <button class="px-11 py-6 font-bold text-black transition-all duration-300 rounded-full shadow-md bg-[#F5F535] hover:bg-yellow-400 leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] footer-get-work">
-      <a href="/register">Get ToWork!</a>  
+      <button class="px-16 py-3 font-bold text-black transition-all duration-300 bg-[#F5F535] rounded-full shadow-lg hover:bg-yellow-500 button-get-started sm:text-[24px]  md:text-[24px] lg:text-[24px] xl:text-[24px] 2xl:text-[24px]">
+      <a href="/register">Get ToWork !</a>  
       </button>
     </div>
 

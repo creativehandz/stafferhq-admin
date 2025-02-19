@@ -428,25 +428,21 @@ const handleSubmit = async () => {
         </div>
 
         <!-- Step indicators -->
-        <div class="p-4 my-6">
-            <div
-                class="bg-white shadow-md rounded-lg p-6 border border-gray-300 w-full"
-            >
-                <div
-                    class="flex justify-between items-center flex-nowrap w-full"
-                >
+        <div class="">
+            <div class="bg-white shadow-md p-4 border border-slate-200 w-full bg-slate-200">
+                <div class="flex gap-5 flex-nowrap">
                     <div
                         v-for="(step, index) in steps"
                         :key="step.number"
-                        class="flex items-center justify-center w-full"
+                        class="flex items-center justify-start"
                     >
                         <!-- Step Circle -->
                         <div
-                            class="flex items-center justify-center w-12 h-12 rounded-full text-sm font-semibold transition-all duration-300"
+                            class="flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold transition-all duration-300"
                             :class="
                                 currentStep === step.number
                                     ? 'bg-orange-500 text-white shadow-md'
-                                    : 'bg-gray-300 text-gray-500'
+                                    : 'bg-slate-200 text-gray-500'
                             "
                         >
                             {{ step.number }}
@@ -478,7 +474,7 @@ const handleSubmit = async () => {
             </div>
 
             <!-- Dynamic Step Content -->
-            <div class="p-6 bg-white rounded-lg step-content">
+            <div class="pt-10 bg-white rounded-lg step-content">
                 <form
                     @submit.prevent="
                         currentStep === 6
