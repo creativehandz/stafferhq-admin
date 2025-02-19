@@ -148,7 +148,7 @@ const closeSidebar = () => {
       <div class="text-sm text-gray-500">
         <span><a href="/">Home / </a></span>
         <span> <a href="/buyer-dashboard"> Dashboard /</a> </span>
-        <span><a href="#"> Details</a> </span>
+        <span><a href="#"> {{gig.gig_title }}</a> </span>
       </div>
 
       <!-- Header and Main Image -->
@@ -160,8 +160,8 @@ const closeSidebar = () => {
         />
         <div v-if="gig">
           <h2 class="flex items-center text-xl font-bold">{{ gig.user.name }} (online<p class="text-[10px]">🟢</p>)</h2>
-          <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">Web Designer | Visual Artist</p>
-          <p class="text-gray-500">{{gig.gig_title }}</p>
+          <p class="leading-none sm:text-[22px]  md:text-[22px] lg:text-[22px] xl:text-[22px] 2xl:text-[22px] font-bold">{{gig.gig_title }}</p>
+          <p class="text-gray-500"></p>
           <div class="flex items-center mt-2">
             <span class="">★ 4.8 (2k)</span>
             <a href="#" class="ml-2 font-bold text-yellow-500 underline">See reviews</a>
@@ -177,7 +177,7 @@ const closeSidebar = () => {
       </div>
 
     <!-- Gallery of Thumbnails -->
-      <div class="flex space-x-2">
+      <!--div class="flex space-x-2">
         <img
           :src="workStation"
           alt="Thumbnail 1"
@@ -203,7 +203,7 @@ const closeSidebar = () => {
           alt="Thumbnail 4"
           class="object-cover w-16 h-16 rounded-lg"
         />
-      </div>
+      </div-->
 
     <!-- About this service -->
       <div class="space-y-2">
@@ -214,14 +214,14 @@ const closeSidebar = () => {
       </div>
 
       <!-- Skills and languages -->
-      <div class="space-y-2">
+      <!--div class="space-y-2">
         <h3 class="text-lg font-bold">Skills and languages:</h3>
         <div class="flex space-x-2">
           <span v-for="(keyword, index) in keywordList" :key="index" class="px-2 py-1 text-sm text-pink-700 bg-pink-100 rounded-full">
             {{ keyword }}
           </span>
          </div>
-      </div>
+      </div-->
   </div>
 
          <div class="flex flex-row" >
@@ -265,7 +265,7 @@ const closeSidebar = () => {
       </p>
       <ul class="mt-4 space-y-2">
         <li>✔️ Delivery time: {{ gig.pricing.basic.delivery_time }}</li>
-        <li>✔️ Revisions: {{ gig.pricing.basic.revisions }}</li>
+        <!--li>✔️ Revisions: {{ gig.pricing.basic.revisions }}</li-->
       </ul>
     </div>
 
@@ -277,7 +277,7 @@ const closeSidebar = () => {
       </p>
       <ul class="mt-4 space-y-2">
         <li>✔️ Delivery time: {{ gig.pricing.standard.delivery_time }}</li>
-        <li>✔️ Revisions: {{ gig.pricing.standard.revisions }}</li>
+        <!--li>✔️ Revisions: {{ gig.pricing.standard.revisions }}</li-->
       </ul>
     </div>
 
@@ -289,12 +289,12 @@ const closeSidebar = () => {
       </p>
       <ul class="mt-4 space-y-2">
         <li>✔️ Delivery time: {{ gig.pricing.premium.delivery_time }}</li>
-        <li>✔️ Revisions: {{ gig.pricing.premium.revisions }}</li>
+        <!--li>✔️ Revisions: {{ gig.pricing.premium.revisions }}</li-->
       </ul>
     </div>
     <div class="flex flex-col items-center mt-5 text-center">
-      <p><strong>Select the packege and </strong></p>
-      <button class="w-20 mt-5 bg-green-200 rounded-3xl"  @click="openSidebar" > Continue </button>
+      <p class="mb-10"><strong>Select the packege. </strong></p>
+      <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl"  @click="openSidebar" > Continue </button>
     </div>
   </div>
   <div>
@@ -354,12 +354,12 @@ const closeSidebar = () => {
 
     <!-- Contact Section -->
   </div>
-  <div class="flex items-center justify-center gap-4 mt-5">
+  <!--div class="flex items-center justify-center gap-4 mt-5">
     <img :src="profileIcon" alt="Profile Icon" class="w-10 h-10" />
     <a href="/contact-me">  <button class="w-40 h-12 bg-[#F5F535] shadow-md rounded-3xl">
       Contact Me
     </button> </a>
-  </div>
+  </div-->
   </div>     
         
        </div> 
