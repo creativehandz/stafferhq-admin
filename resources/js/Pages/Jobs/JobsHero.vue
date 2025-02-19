@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import workStation from '../../img/placeholder.jpg';
+</script>
+
+
 <template>
     <!-- Hero Section -->    
     <div class="max-w-4xl p-6 mx-auto mb-10 space-y-4 bg-white shadow-md rounded-xl">

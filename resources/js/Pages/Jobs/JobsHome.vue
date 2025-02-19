@@ -14,6 +14,7 @@ import DropdownNotification from '@/Components/Header/DropdownNotification.vue';
 import Pricing from '@/Components/LandingPage/Pricing.vue';
 import axios from 'axios';
 import BuyerNavbar from '../BuyerNavbar.vue';
+import workStationImage from '@/assets/placeholder.jpg';
 const currentTab = ref('Basic');
 // Define the structure of the gig prop
 interface Pricing {
@@ -176,7 +177,7 @@ const getImageUrl = (filePath: string | string[]) => {
       <!-- Header and Main Image -->
       <div class="flex items-center space-x-4">
         <img
-          :src="getImageUrl(gig.file_path)"
+          :src="workStationImage"
           alt="Main Service Image"
           class="object-cover w-32 h-32 rounded-lg"
         />
