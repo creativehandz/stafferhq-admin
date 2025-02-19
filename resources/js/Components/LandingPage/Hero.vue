@@ -7,13 +7,13 @@ import ToggleTheme from "./ToggleTheme.vue";
 <template>
   <section class="container">
     <div class="">
-      <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl md:px-16">
+      <div class="px-6 py-12 text-white bg-orange-500 rounded-3xl md:px-12">
          <div class="container flex flex-col items-start mx-auto md:flex-row">
             <!-- Text Section -->
                 <div class="text-center md:text-left md:w-1/2">
                 <h1 class="font-bold leading-none sm:text-[70px]  md:text-[70px] lg:text-[70px] xl:text-[70px] 2xl:text-[70px]">Work. Simplified. Let's get ToWork.</h1>
-                <p class="mt-4 sm:text-[20px]  md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px]">
-                Find all kinds of job opportunities in and around Malaysia. Sell your services. Or buy them.
+                <p class="mt-4 sm:text-[20px]  md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] w-125">
+                Find all kinds of job opportunities in and around Malaysia. Sell your services or buy them.
                 </p>
             </div>
 
@@ -37,9 +37,9 @@ import ToggleTheme from "./ToggleTheme.vue";
             </div>
             
         </div>      
-          <div class="w-3/6 m-auto text-center">
+          <div class="w-3/6 m-auto text-center mt-3">
             <p class="text-lg white text- ">
-              Discover talent in a variety of sectors, including virtual and in-person services.
+              Discover talent in virtual and in-person services.
             </p>
           </div>            
           </div>

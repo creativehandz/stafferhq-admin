@@ -20,7 +20,7 @@ onClickOutside(target, () => {
     >
       <span class="hidden text-right lg:block">
         <span class="block text-sm font-medium text-black dark:text-white">{{ $page.props.auth.user.name }}</span>
-        <span class="block text-xs font-medium">UX Designer</span>
+        <span class="block text-xs font-medium">AC technician</span>
       </span>
 
       <span class="w-12 h-12 rounded-full">

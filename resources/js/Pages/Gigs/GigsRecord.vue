@@ -92,13 +92,13 @@ onMounted(() => {
         </template>
 
         <!-- Breadcrumb Start -->
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="w-full mx-auto px-4">
             <BreadcrumbDefault :pageTitle="pageTitle" />
         </div>
         <!-- Breadcrumb End -->
 
         <!-- Main Content Start -->
-        <div class="max-w-6xl mx-auto px-4 mb-14">
+        <div class="w-full mx-auto px-4 mb-14">
             <!-- Tabs for Gig Status -->
             <div
                 class="flex flex-wrap gap-3 pb-5 border-b border-stroke dark:border-strokedark"
@@ -189,7 +189,7 @@ onMounted(() => {
 
                 <!-- Table Container -->
                 <div
-                    class="mt-3 overflow-hidden rounded-lg border border-gray-200 shadow-sm"
+                    class="mt-3 overflow-hidden border border-gray-200 shadow-sm"
                 >
                     <!-- Table Header -->
                     <div

@@ -5,7 +5,7 @@ import { useColorMode } from "@vueuse/core";
 import { Badge } from "@/Components/LandingPage/ui/badge";
 import { Button } from "@/Components/LandingPage/ui/button";
 import { ArrowRight } from "lucide-vue-next";
-import heroImageLight from '../../../../img/LandingPage/heroImageLight.jpg'
+import heroImageLight from '../../../../img/LandingPage/heroImageLight-v2.jpg'
 import heroImageDark from '../../../../img/LandingPage/heroImageDark.jpg'
 
 </script>
