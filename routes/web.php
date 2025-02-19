@@ -209,6 +209,13 @@ Route::get('/gigs-record', function () {
     return Inertia::render('Gigs/GigsRecord');
 })->name('gigs-record');
 
+
+// Route::get('/job-listings', function () {
+//     return Inertia::render('Talent/JobListings');
+// })->name('job-listings');
+
+Route::get('/job-listings', [BuyerJobController::class, 'index'])->name('job-listings');
+
 // Route::get('/gigs-record', function () {
 //     return Inertia::render('Talent/ContractHistory');
 // })->name('gigs-record');
