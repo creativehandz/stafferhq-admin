@@ -5,6 +5,7 @@ import axios from 'axios'
 import { computed } from '@vue/reactivity';
 import Navbar from "@/Components/LandingPage/Navbar.vue";
 import Footer from "@/Components/LandingPage/Footer.vue";
+import UserOne from '../../img/user/user-01.png'
 
 // Define your interfaces
 interface User {
@@ -30,6 +31,7 @@ interface Gig {
   user: User;
   category_id: string;
   subcategory_id: string;
+  file_path: string;
 }
 
 const gigs = ref<Gig[]>([]);
@@ -68,6 +70,27 @@ function handleImageError() {
     document.getElementById("docs-card-content")?.classList.add("!flex-row");
     document.getElementById("background")?.classList.add("!hidden");
 }
+
+const getImageUrl = (filePath: string | string[]) => {
+  if (Array.isArray(filePath) && filePath.length > 0) {
+    // Handle already-parsed array
+    return `/storage/${filePath[0]}`;
+  } 
+  if (typeof filePath === 'string') {
+    try {
+      // Handle JSON-encoded string
+      const parsedPath = JSON.parse(filePath);
+      if (Array.isArray(parsedPath) && parsedPath.length > 0) {
+        return `/storage/${parsedPath[0]}`;
+      }
+    } catch (error) {
+      console.error("Error parsing file path:", error);
+    }
+  }
+  // Fallback image
+  return '/images/default-gig.png';
+};
+
 </script>
 
 <template>
@@ -124,11 +147,11 @@ function handleImageError() {
       <!-- Services Grid -->
     <div class="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div  v-for="gig in filteredGigs" :key="gig.id" class="transition border rounded-lg shadow hover:shadow-lg">
-          <img src="" alt="service image" class="object-cover w-full h-40 rounded-t-lg" />
+          <img :src="getImageUrl(gig.file_path)"   alt="service image" class="object-cover w-full h-40 rounded-t-lg" />
           <div class="p-4">
             <h3 class="mb-2 text-sm font-semibold text-gray-700"><a :href="`/job-description/${gig.id}`">{{ gig.gig_title }}</a></h3>
             <div class="flex items-center mb-2 space-x-2 text-sm text-gray-500">
-              <img src="" alt="seller avatar" class="w-6 h-6 rounded-full" />
+              <img :src="UserOne" alt="seller avatar" class="w-6 h-6 rounded-full" />
               <span>{{gig.user.name}}</span>
               <span class="text-xs font-semibold text-yellow-500">ratings</span>
               <span>(reveiws)</span>
