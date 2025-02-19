@@ -134,3 +134,11 @@ a {
 .sidebar {
     font-family: "Crimson Pro", serif !important;
 }
+
+th {
+    font-family: "Crimson Pro", serif;
+}
+
+td {
+    font-family: "Neue Montreal regular", sans-serif;
+}
