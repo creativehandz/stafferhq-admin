@@ -27,6 +27,9 @@ import { ref } from "vue";
 const pageTitle = ref("Post A Job");
 
 
+const attachment = ref<File | null>(null);
+const logo = ref<string | null>(null);
+
 const form = useForm({
     title: "",
     project_type: "",
@@ -48,17 +51,33 @@ const form = useForm({
     address: "",
     // today: new Date().toISOString().split('T')[0],
     description: "",
-    attachment: null,
     fileInputRef: ref(null),
 
-    onFileChange(event) {
-      const file = event.target.files[0];
-      this.attachment = file;
+    onFileChange(event: Event) {
+      const target = event.target as HTMLInputElement;
+      if (target && target.files) {
+          const file = target.files[0];
+          attachment.value = file;
+          if (file) {
+            logo.value = URL.createObjectURL(file);
+          }
+      }
+    // 
+    },
+
+    onLogoChange(event: Event) {
+      const target = event.target as HTMLInputElement;
+      if (target && target.files) {
+        const file = target.files ? target.files[0] : null;
+          attachment.value = file;
+      }
     },
 
     submit() {
       const formData = new FormData();
-      formData.append("attachment", this.attachment);
+      if (attachment.value) {
+        formData.append("attachment", attachment.value);
+      }
       // Add other form data properties to the formData object
 
       console.log(formData);

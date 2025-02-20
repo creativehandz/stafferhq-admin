@@ -14,10 +14,10 @@ const gigForm = useForm({
     gig_title: "",
     category_id: null,
     subcategory_id: null,
-    certificate: null,
+    certificate: null as File | null,
     gig_description: "",
-    positive_keywords: [], // Array for tags
-    images: [], // Array for images
+    positive_keywords: "", // Array for tags
+    images: [] as File[], // Array for images
     requirements: [""],
     faqs: [{ question: "", answer: "" }],
     pricing: {
@@ -128,7 +128,7 @@ const formValidation = {
             price: true,
         },
     },
-    message: [],
+    message: [] as string[],
 };
 
 // Initialize Vuelidate with rules
@@ -161,8 +161,19 @@ const removeRequirement = (index: number) =>
     requirements.value.splice(index, 1); // Remove the requirement at the specified index
 
 // Fetch categories from backend on mount
-const categories = ref([]);
-const subcategories = ref([]);
+interface Category {
+    id: number;
+    name: string;
+    sub_categories: SubCategory[];
+}
+
+interface SubCategory {
+    id: number;
+    name: string;
+}
+
+const categories = ref<Category[]>([]);
+const subcategories = ref<SubCategory[]>([]);
 const errorMessage = ref("");
 const isModalOpen = ref(false); // Control modal visibility
 
@@ -216,8 +227,10 @@ const addMoreFAQs = () => {
     gigForm.faqs.push({ question: "", answer: "" }); // Add a new FAQ object
 };
 
-const handleFileUpload = (event) => {
-    const files = event.target.files;
+const handleFileUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (!target || !target.files) return;
+    const files = target.files;
     // Clear existing images before adding new ones
     gigForm.images = [];
 
@@ -232,8 +245,10 @@ const handleFileUpload = (event) => {
 
 const pageTitle = ref("Create A Gig");
 
-const handleCertificateUpload = (event) => {
-    const file = event.target.files[0]; // Get the first uploaded file
+const handleCertificateUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (!target || !target.files) return;
+    const file = target.files[0]; // Get the first uploaded file
 
     // Replace the existing certificate with the new one
     if (file) {
@@ -281,7 +296,7 @@ const validateGigForm = (step = 0) => {
         return { isValid: enable };
     } else if (step === 2) {
         formValidation.message[step] = "";
-        for (const plan in gigForm.pricing) {
+        for (const plan of Object.keys(gigForm.pricing) as Array<keyof typeof gigForm.pricing>) {
             console.log("Plan is : ", plan);
             if (!gigForm.pricing[plan].name) {
                 enable = false;
@@ -374,7 +389,7 @@ const validateGigForm = (step = 0) => {
 
 const closeModal = () => {
     errorMessage.value = "";
-    isModalOpen.value = null;
+    isModalOpen.value = false;
 };
 
 // Submit form to the backend
