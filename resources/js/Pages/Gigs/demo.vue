@@ -16,7 +16,7 @@ const gigForm = useForm({
     subcategory_id: null,
     certificate: null as File | null,
     gig_description: "",
-    positive_keywords: [] as string[], // Array for tags
+    positive_keywords: "", // Array for tags
     images: [] as File[], // Array for images
     requirements: [""],
     faqs: [{ question: "", answer: "" }],
@@ -209,7 +209,7 @@ const steps = [
 
 const goToStep = (step: number) => {
     gigForm.requirements = requirements.value;
-    gigForm.positive_keywords = positiveKeywords.value;
+    gigForm.positive_keywords = positiveKeywords.value.join(",");
 
     const validation = validateGigForm(step - 1);
     console.log(validation);
@@ -395,7 +395,7 @@ const closeModal = () => {
 // Submit form to the backend
 const handleSubmit = async () => {
     gigForm.requirements = requirements.value;
-    gigForm.positive_keywords = positiveKeywords.value;
+    gigForm.positive_keywords = positiveKeywords.value.join(",");
 
     gigForm.post("/create-gig", {
         onSuccess: () => {
