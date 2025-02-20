@@ -1,5 +1,20 @@
 <script setup lang="ts">
-import workStation from '../../img/placeholder.jpg';
+//import workStation from '../../img/placeholder.jpg';
+
+import workStation from '@/assets/workStation.png';
+import toWork from '@/assets/toworkLogo.svg'
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  gig: {
+    id: number;
+    gig_title: string;
+    gig_description: string;
+    user: {
+      name: string;
+    };
+  };
+}>();
 </script>
 
 
@@ -88,22 +103,7 @@ import workStation from '../../img/placeholder.jpg';
 
 </template>
 
-<script setup lang="ts">
-import workStation from '@/assets/workStation.png';
-import toWork from '@/assets/toworkLogo.svg'
-import { defineProps } from 'vue';
 
-const props = defineProps<{
-  gig: {
-    id: number;
-    gig_title: string;
-    gig_description: string;
-    user: {
-      name: string;
-    };
-  };
-}>();
-</script>
 
 
 <style scoped>
