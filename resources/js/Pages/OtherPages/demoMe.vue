@@ -83,7 +83,7 @@ const submitBillingDetails = async () => {
     alert('Billing details submitted successfully!');
   } catch (error) {
     console.error('Error submitting billing details:', error);
-    if (error.response && error.response.data.errors) {
+    if (axios.isAxiosError(error) && error.response && error.response.data.errors) {
       const errors = error.response.data.errors;
       console.error('Validation errors:', errors);
     }

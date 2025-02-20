@@ -15,7 +15,7 @@ const classes = computed(() =>
 </script>
 
 <template>
-    <Link :href="hrefLink" :class="classes">
+    <Link :href="props.href" :class="classes">
         <slot />
     </Link>
 </template>

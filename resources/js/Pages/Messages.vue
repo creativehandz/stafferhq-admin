@@ -118,7 +118,7 @@ const Typing = () => {
     const receiver_id = receiverId.value;
     if(!receiver_id) return;
 
-    window.Echo.private(`chat.${receiver_id}`)
+    (window.Echo.private(`chat.${receiver_id}`) as any)
     .whisper("typing", {
         name: selectedUser.value?.name,
     });

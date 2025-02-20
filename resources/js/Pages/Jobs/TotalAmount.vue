@@ -112,7 +112,7 @@ const confirmPayment = () => {
 
 // Split the description by " + " to display as separate list items
 const splitDescription = computed(() => {
-  return props.description.split(' + ') || [];
+  return (props.description ?? '').split(' + ') || [];
 });
 
 
