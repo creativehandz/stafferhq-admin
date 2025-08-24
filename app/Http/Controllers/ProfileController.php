@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Category;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,13 +23,22 @@ class ProfileController extends Controller
         // Get user's data including category names from database
         $user = $request->user();
         
+        // Get user's category IDs
+        $userCategoryIds = $user->categories ? (is_string($user->categories) ? json_decode($user->categories, true) : $user->categories) : [];
+        
+        // Get category names for the user's selected categories
+        $userCategoryNames = [];
+        if (!empty($userCategoryIds)) {
+            $userCategoryNames = Category::whereIn('id', $userCategoryIds)->pluck('name')->toArray();
+        }
+        
         return Inertia::render('Profile/View', [
             'userName' => $user->name,
             'userEmail' => $user->email,
             'userPhone' => $user->phone,
             'userWebsite' => $user->website,
             'userCompanySize' => $user->company_size,
-            'userCategories' => $user->user_categories->toArray(), // Get category names instead of IDs
+            'userCategories' => $userCategoryNames, // Now passing category names instead of IDs
             'userRole' => $user->role,
             'userEmailVerifiedAt' => $user->email_verified_at,
             'userCreatedAt' => $user->created_at,
@@ -49,6 +59,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         
+        // Get all categories from database
+        $categories = Category::orderBy('name')->get();
+        
+        // Get user's current categories (assuming it's stored as JSON array of IDs)
+        $userCategoryIds = $user->categories ? (is_string($user->categories) ? json_decode($user->categories, true) : $user->categories) : [];
+        
         return Inertia::render('Profile/Edit', [
             'userName' => $user->name,
             'userEmail' => $user->email,
@@ -57,6 +73,8 @@ class ProfileController extends Controller
             'userCompanySize' => $user->company_size,
             'userLocation' => $user->location,
             'userSocialLinks' => $user->social_links,
+            'categories' => $categories,
+            'userCategories' => $userCategoryIds,
         ]);
     }
 
@@ -67,8 +85,25 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         
+        // Debug: Log the incoming request data
+        \Log::info('Profile update request data:', ['data' => $request->all()]);
+        
         // Get validated data from the request
         $validated = $request->validated();
+        
+        \Log::info('Validated data:', ['validated' => $validated]);
+        
+        // Handle categories - convert to JSON array of integers
+        if (isset($validated['categories'])) {
+            \Log::info('Categories before processing:', ['categories' => $validated['categories']]);
+            
+            // Convert all category IDs to integers
+            $categoryIds = array_map('intval', $validated['categories']);
+            \Log::info('Categories after integer conversion:', ['categories_int' => $categoryIds]);
+            
+            $validated['categories'] = json_encode($categoryIds);
+            \Log::info('Categories after JSON encode:', ['categories_json' => $validated['categories']]);
+        }
         
         // Handle social links - convert individual fields to JSON array
         $socialLinksArray = [];
@@ -91,8 +126,14 @@ class ProfileController extends Controller
         // Update all the fields
         $user->fill($validated);
         
+        \Log::info('User data before save:', ['user_data' => $user->toArray()]);
+        \Log::info('User categories before save:', ['categories' => $user->categories]);
+        
         // Save the user
         $user->save();
+        
+        \Log::info('User data after save:', ['user_data' => $user->toArray()]);
+        \Log::info('User categories after save:', ['categories' => $user->categories]);
         
         return Redirect::route('profile.show')->with('status', 'profile-updated');
     }

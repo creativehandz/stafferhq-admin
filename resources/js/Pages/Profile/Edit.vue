@@ -30,6 +30,14 @@ const props = defineProps({
     userSocialLinks: {
         type: String,
         default: null
+    },
+    categories: {
+        type: Array,
+        default: () => []
+    },
+    userCategories: {
+        type: Array,
+        default: () => []
     }
 });
 
@@ -64,6 +72,7 @@ const form = useForm({
     website: props.userWebsite || '',
     company_size: props.userCompanySize || '',
     location: props.userLocation || '',
+    categories: (props.userCategories || []).map(id => id.toString()),
     twitter: existingSocialLinks.twitter || '',
     linkedin: existingSocialLinks.linkedin || '',
     facebook: existingSocialLinks.facebook || '',
@@ -73,9 +82,60 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.patch(route('profile.update'), {
+    console.log('Form submission started...');
+    console.log('Categories being sent (original):', form.categories);
+    
+    // Convert categories to integers before sending
+    const formData = {
+        ...form.data(),
+        categories: form.categories.map(id => parseInt(id))
+    };
+    
+    console.log('Categories being sent (converted):', formData.categories);
+    console.log('Full form data:', formData);
+    
+    form.transform(() => formData).patch(route('profile.update'), {
         preserveScroll: true,
+        onSuccess: (page) => {
+            console.log('Form saved successfully!', page);
+        },
+        onError: (errors) => {
+            console.error('Form save failed:', errors);
+        }
     });
+};
+
+// Handle category checkbox changes
+const toggleCategory = (categoryId) => {
+    console.log('toggleCategory called with:', categoryId, typeof categoryId);
+    
+    // Convert to string for consistency with stored format
+    const categoryIdStr = categoryId.toString();
+    const index = form.categories.indexOf(categoryIdStr);
+    
+    console.log('Current form.categories:', form.categories);
+    console.log('Looking for categoryIdStr:', categoryIdStr, 'at index:', index);
+    
+    if (index > -1) {
+        // Remove category if already selected
+        form.categories.splice(index, 1);
+        console.log('Removed category:', categoryIdStr);
+    } else {
+        // Add category if not selected
+        form.categories.push(categoryIdStr);
+        console.log('Added category:', categoryIdStr);
+    }
+    
+    console.log('Updated form.categories:', form.categories);
+    console.log('Categories updated. Use Save Changes button to persist to database.');
+};
+
+// Check if category is selected
+const isCategorySelected = (categoryId) => {
+    // Handle both string and integer comparisons
+    return form.categories.includes(categoryId) || 
+           form.categories.includes(categoryId.toString()) || 
+           form.categories.includes(parseInt(categoryId));
 };
 
 // Company size options
@@ -370,86 +430,66 @@ const companySizeOptions = [
                             <div class="space-y-4">
                                 <div class="border-t border-gray-200 dark:border-gray-600 pt-6">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                                        Services
+                                        Categories
                                     </h3>
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        <!-- Bed Room Cleaning -->
-                                        <div class="flex items-center">
+                                        <div 
+                                            v-for="category in categories" 
+                                            :key="category.id" 
+                                            class="flex items-center"
+                                        >
                                             <input
-                                                id="bedroom_cleaning"
+                                                :id="`category_${category.id}`"
                                                 type="checkbox"
+                                                :checked="isCategorySelected(category.id)"
+                                                @change="toggleCategory(category.id)"
                                                 class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
                                             />
-                                            <label for="bedroom_cleaning" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Bed Room Cleaning
-                                            </label>
-                                        </div>
-
-                                        <!-- Carpenter -->
-                                        <div class="flex items-center">
-                                            <input
-                                                id="carpenter"
-                                                type="checkbox"
-                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
-                                            />
-                                            <label for="carpenter" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Carpenter
-                                            </label>
-                                        </div>
-
-                                        <!-- Home Cleaning -->
-                                        <div class="flex items-center">
-                                            <input
-                                                id="home_cleaning"
-                                                type="checkbox"
-                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
-                                            />
-                                            <label for="home_cleaning" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Home Cleaning
-                                            </label>
-                                        </div>
-
-                                        <!-- Mobile Development -->
-                                        <div class="flex items-center">
-                                            <input
-                                                id="mobile_development"
-                                                type="checkbox"
-                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
-                                            />
-                                            <label for="mobile_development" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Mobile Development
-                                            </label>
-                                        </div>
-
-                                        <!-- Toilet Cleaning -->
-                                        <div class="flex items-center">
-                                            <input
-                                                id="toilet_cleaning"
-                                                type="checkbox"
-                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
-                                            />
-                                            <label for="toilet_cleaning" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Toilet Cleaning
-                                            </label>
-                                        </div>
-
-                                        <!-- Web Development -->
-                                        <div class="flex items-center">
-                                            <input
-                                                id="web_development"
-                                                type="checkbox"
-                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700"
-                                            />
-                                            <label for="web_development" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-                                                Web Development
+                                            <label 
+                                                :for="`category_${category.id}`" 
+                                                class="ml-2 block text-sm text-gray-900 dark:text-gray-100"
+                                            >
+                                                {{ category.name }}
                                             </label>
                                         </div>
                                     </div>
                                     
                                     <div class="mt-4">
                                         <p class="text-sm text-gray-500 dark:text-gray-400">
-                                            Select the services you offer. These selections are for display purposes only.
+                                            Select the categories that best describe your services. These will help users find you.
                                         </p>
+                                    </div>
+                                    
+                                    <!-- Debug Information -->
+                                    <div class="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                        <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Debug Information (Real-time):</h4>
+                                        <div class="text-xs text-gray-700 dark:text-gray-300 space-y-1">
+                                            <div><strong>Current Form Categories (Pending):</strong> <span class="font-mono bg-yellow-200 dark:bg-yellow-800 px-1 rounded">{{ JSON.stringify(form.categories) }}</span></div>
+                                            <div><strong>Original Database Categories:</strong> {{ JSON.stringify(userCategories) }}</div>
+                                            <div>
+                                                <strong>Status:</strong> 
+                                                <span v-if="form.processing" class="text-blue-600 font-bold">Saving...</span>
+                                                <span v-else-if="JSON.stringify(form.categories) !== JSON.stringify(userCategories)" class="text-orange-600 font-bold">⚠ Changes Pending - Click Save Changes Button</span>
+                                                <span v-else class="text-green-600 font-bold">✓ Saved</span>
+                                            </div>
+                                            <div><strong>📋 Checkbox ID Mapping:</strong></div>
+                                            <div class="ml-4 grid grid-cols-1 md:grid-cols-2 gap-1">
+                                                <div v-for="category in categories" :key="category.id" class="text-xs">
+                                                    <span class="font-mono bg-blue-100 dark:bg-blue-900 px-1 rounded">ID: {{ category.id }}</span> 
+                                                    <span class="mx-1">→</span>
+                                                    <span class="text-gray-600 dark:text-gray-400">{{ category.name }}</span>
+                                                    <span class="ml-2" :class="isCategorySelected(category.id) ? 'text-green-600 font-bold' : 'text-gray-400'">
+                                                        {{ isCategorySelected(category.id) ? '✓ SELECTED' : '○' }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2"><strong>🔄 Form vs Database Comparison:</strong></div>
+                                            <div class="ml-4">
+                                                <div><span class="font-mono text-xs">Form IDs (as strings):</span> {{ JSON.stringify(form.categories) }}</div>
+                                                <div><span class="font-mono text-xs">Database IDs (original):</span> {{ JSON.stringify(userCategories) }}</div>
+                                                <div><span class="font-mono text-xs">Form IDs (as integers):</span> {{ JSON.stringify(form.categories.map(id => parseInt(id))) }}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

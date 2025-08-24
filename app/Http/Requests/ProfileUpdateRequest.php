@@ -22,6 +22,8 @@ class ProfileUpdateRequest extends FormRequest
             'website' => ['nullable', 'url', 'max:255'],
             'company_size' => ['nullable', 'string', 'max:50'],
             'location' => ['nullable', 'string', 'max:255'],
+            'categories' => ['nullable', 'array'],
+            'categories.*' => ['integer', 'exists:categories,id'],
             'twitter' => ['nullable', 'url', 'max:255'],
             'linkedin' => ['nullable', 'url', 'max:255'],
             'facebook' => ['nullable', 'url', 'max:255'],
