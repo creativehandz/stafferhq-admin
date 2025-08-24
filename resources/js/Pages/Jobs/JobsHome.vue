@@ -128,8 +128,8 @@ const closeSidebar = () => {
 
   axios.post('/store-package', packageData)
     .then(response => {
-      // Redirect to the checkout page
-      window.location.href = '/checkout';
+      // ✅ FIXED: Redirect to checkout with gig ID and pricing parameters
+      window.location.href = `/checkout/${props.gig.id}?pricing=${selectedPackage.value.price}`;
     })
     .catch(error => {
       console.error("Error storing package data:", error);
