@@ -65,6 +65,25 @@ class CheckoutController extends Controller
     // CheckoutController
     public function store(Request $request)
     {
+        // Debug: Log incoming request data with detailed info
+        \Log::info('🔍 Checkout Request Full Debug:', [
+            'method' => $request->method(),
+            'content_type' => $request->header('Content-Type'),
+            'all_data' => $request->all(),
+            'input_data' => $request->input(),
+            'json_data' => $request->json()->all(),
+            'raw_content' => $request->getContent(),
+            'has_json' => $request->isJson(),
+            'required_fields_check' => [
+                'packageName' => $request->has('packageName') ? $request->get('packageName') : 'MISSING',
+                'packageDescription' => $request->has('packageDescription') ? $request->get('packageDescription') : 'MISSING',
+                'packagePrice' => $request->has('packagePrice') ? $request->get('packagePrice') : 'MISSING',
+                'deliveryTime' => $request->has('deliveryTime') ? $request->get('deliveryTime') : 'MISSING',
+                'gigId' => $request->has('gigId') ? $request->get('gigId') : 'MISSING',
+                'billingDetails' => $request->has('billingDetails') ? $request->get('billingDetails') : 'MISSING',
+            ]
+        ]);
+
         // Validate incoming data
         $validatedData = $request->validate([
             'packageName' => 'required|string',
