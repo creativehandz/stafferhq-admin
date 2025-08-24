@@ -8,16 +8,96 @@ const buyerCheckoutIdGlobal = ref<number | null>(null); // Global variable to st
 
 // Props passed from the backend via Inertia
 const props = defineProps<{
-  package: {
-    packageName: string;
-    packageDescription: string;
-    packagePrice: number;
-    deliveryTime: string;
-    revisions: number;
-    gigId: number;
-    billingDetails: string;
+  gig: {
+    id: number;
+    gig_title: string;
+    pricing: {
+      basic: { price: number; delivery_time: string; revisions: number; description?: string };
+      standard: { price: number; delivery_time: string; revisions: number; description?: string };
+      premium: { price: number; delivery_time: string; revisions: number; description?: string };
+    };
+    user: {
+      name: string;
+    };
   };
+  selectedPricing: number;
 }>();
+
+// Determine which package tier was selected
+const selectedPackage = computed(() => {
+  // Add safety checks
+  if (!props.gig || !props.gig.pricing) {
+    console.warn('❌ Gig or pricing data is missing!');
+    return {
+      type: 'Basic',
+      price: 0,
+      description: 'Loading...',
+      deliveryTime: '1 day',
+      revisions: 1,
+      gigId: props.gig?.id || 0
+    };
+  }
+
+  const pricing = props.gig.pricing;
+  
+  // Check if pricing is a string that needs to be parsed
+  let parsedPricing = pricing;
+  if (typeof pricing === 'string') {
+    try {
+      parsedPricing = JSON.parse(pricing);
+      console.log('📄 Parsed pricing from JSON:', parsedPricing);
+    } catch (e) {
+      console.error('❌ Failed to parse pricing JSON:', e);
+      return {
+        type: 'Basic',
+        price: 0,
+        description: 'Error loading pricing',
+        deliveryTime: '1 day',
+        revisions: 1,
+        gigId: props.gig.id
+      };
+    }
+  }
+
+  if (props.selectedPricing === parsedPricing.basic?.price) {
+    return { 
+      type: 'Basic', 
+      price: parsedPricing.basic.price,
+      description: parsedPricing.basic.description || 'Basic package',
+      deliveryTime: parsedPricing.basic.delivery_time,
+      revisions: parsedPricing.basic.revisions,
+      gigId: props.gig.id 
+    };
+  } else if (props.selectedPricing === parsedPricing.standard?.price) {
+    return { 
+      type: 'Standard', 
+      price: parsedPricing.standard.price,
+      description: parsedPricing.standard.description || 'Standard package',
+      deliveryTime: parsedPricing.standard.delivery_time,
+      revisions: parsedPricing.standard.revisions,
+      gigId: props.gig.id 
+    };
+  } else if (props.selectedPricing === parsedPricing.premium?.price) {
+    return { 
+      type: 'Premium', 
+      price: parsedPricing.premium.price,
+      description: parsedPricing.premium.description || 'Premium package',
+      deliveryTime: parsedPricing.premium.delivery_time,
+      revisions: parsedPricing.premium.revisions,
+      gigId: props.gig.id 
+    };
+  }
+  
+  // Fallback to basic
+  return { 
+    type: 'Basic', 
+    price: parsedPricing.basic?.price || 0,
+    description: parsedPricing.basic?.description || 'Basic package',
+    deliveryTime: parsedPricing.basic?.delivery_time || '1 day',
+    revisions: parsedPricing.basic?.revisions || 1,
+    gigId: props.gig.id 
+  };
+});
 // Define form data as a reactive object
 const form = reactive({
   fullName: '',
@@ -56,10 +136,21 @@ const completeCheckout = async () => {
   `;
 
   const payload = {
-    ...props.package,  
+    packageName: selectedPackage.value.type,
+    packageDescription: selectedPackage.value.description,
+    packagePrice: selectedPackage.value.price,
+    deliveryTime: selectedPackage.value.deliveryTime,
+    gigId: selectedPackage.value.gigId,
     billingDetails,    
     ...form            
   };
+
+  // Debug: Log the payload to see what's being sent
+  console.log('🔍 Checkout Payload Debug:', payload);
+  console.log('📦 Selected Package:', selectedPackage.value);
+  console.log('🎯 Gig Data:', props.gig);
+  console.log('💰 Billing Details:', billingDetails);
+  console.log('📝 Form Data:', form);
 
   try {
     // Get buyer_checkout_id from response
@@ -240,7 +331,9 @@ const submitRequirements = async (event: Event) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    alert('Requirements submitted successfully.');
+    
+    // Redirect to thank you page after successful submission
+    window.location.href = '/thank-you';
   } catch (error) {
     console.error('Error submitting requirements:', error);
     alert('There was an error submitting your requirements.');
@@ -254,6 +347,17 @@ const isOrderStartable = false;
 
 <template>
   <div class="container flex flex-col justify-center">
+    <!-- Loading state if data is not available -->
+    <div v-if="!props.gig || !props.gig.pricing" class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500 mx-auto"></div>
+        <p class="mt-4 text-lg">Loading checkout information...</p>
+        <p class="text-sm text-gray-500">Please wait while we load your package details.</p>
+      </div>
+    </div>
+
+    <!-- Main checkout content -->
+    <div v-else>
     <BuyerNavbar/>        
       <div class="p-4">
         <!-- Step Navigation -->
@@ -424,14 +528,14 @@ const isOrderStartable = false;
                       <p class="font-semibold"></p>
                       <h2 class="mb-2 text-2xl font-bold">Selected Package: </h2>
                     </div>
-                    <p class="text-right">{{ package.packageName }} </p>
+                    <p class="text-right">{{ selectedPackage.type }} </p>
                   </div>
             
                   <ul class="mb-4 text-gray-500">
-                    <li>Description: {{ package.packageDescription }}</li>
-                    <li>Price: ${{ package.packagePrice }}</li>
-                    <li>Delivery Time: {{ package.deliveryTime }}</li>
-                    <!-- <li>Revisions: {{ package.revisions }}</li> -->
+                    <li>Description: {{ selectedPackage.description }}</li>
+                    <li>Price: ${{ selectedPackage.price }}</li>
+                    <li>Delivery Time: {{ selectedPackage.deliveryTime }}</li>
+                    <!-- <li>Revisions: {{ selectedPackage.revisions }}</li> -->
                   </ul>    
                   <div class="flex items-center justify-between pt-3 mb-3 border-t">
                     <p class="font-semibold">Service fee</p>
@@ -440,17 +544,17 @@ const isOrderStartable = false;
             
                   <div class="flex items-center justify-between pt-3 border-t">
                     <p class="text-lg font-bold">Total</p>
-                    <p class="text-lg font-bold">{{package.packagePrice}}</p>
+                    <p class="text-lg font-bold">${{ selectedPackage.price }}</p>
                   </div>
             
-                  <p class="text-sm text-gray-500">Total delivery time: {{ package.deliveryTime }}</p>
+                  <p class="text-sm text-gray-500">Total delivery time: {{ selectedPackage.deliveryTime }}</p>
                 </div>
                 <!-- Payment Button Section -->
                 <div class="mt-6 text-center">
                   <button class="px-16 py-3 font-bold text-black transition-all duration-300 bg-[#F5F535] rounded-full shadow-lg hover:bg-yellow-500 button-get-started sm:text-[24px] md:text-[24px] lg:text-[24px] xl:text-[24px] 2xl:text-[24px]" @click="completeCheckout">
                     Confirm & Pay
                   </button>
-                  <p class="mt-2 text-sm text-gray-500">You will be charged {{package.packagePrice}} Total amount includes currency conversion fees.</p>
+                  <p class="mt-2 text-sm text-gray-500">You will be charged ${{ selectedPackage.price }} Total amount includes currency conversion fees.</p>
                 </div>
               </div>
               <div class="col-span-full" >  
@@ -529,6 +633,7 @@ const isOrderStartable = false;
         </div>     
       </div>
     </div>
+    </div> <!-- End conditional content -->
   <Footer/>
 </div>
 </template>
