@@ -26,6 +26,7 @@ class User extends Authenticatable
         'company_size',
         'location',
         'social_links',
+        'categories',
     ];
 
     /**
