@@ -4,6 +4,7 @@ use App\Http\Controllers\BillingDetailsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ProposalController;
@@ -31,6 +32,29 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// Test database connection route
+Route::get('/test-db-connection', function () {
+    try {
+        DB::connection()->getPdo();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database connection successful!',
+            'database' => config('database.default'),
+            'host' => config('database.connections.' . config('database.default') . '.host'),
+            'database_name' => config('database.connections.' . config('database.default') . '.database'),
+            'timestamp' => now()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Database connection failed!',
+            'error' => $e->getMessage(),
+            'timestamp' => now()
+        ], 500);
+    }
+});
+
 Route::post('/billing-details', [BillingDetailsController::class, 'store']);
 
 Route::post('/store-package', [PackageController::class, 'storePackageInSession'])->name('store.package');
@@ -79,9 +103,9 @@ Route::get('/orders', function () {
     return Inertia::render('OtherPages/Orders');
 })->name('Orders');
 
-// Route::get('/switch-to-selling', function () {
-//     return Inertia::render('OtherPages/SwitchToSelling');
-// })->name('SwitchToSelling');
+Route::get('/switch-to-selling', function () {
+    return Inertia::render('OtherPages/SwitchToSelling');
+})->name('SwitchToSelling');
 
 Route::post('/switch-to-selling', [UserController::class, 'switchToSelling'])->name('switch.to.selling');
 
@@ -328,7 +352,8 @@ Route::post('/buyer-checkout/{id}/update-status', [CheckoutController::class, 'u
 //Routes for Talent end
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');    
 
