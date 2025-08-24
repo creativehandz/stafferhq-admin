@@ -470,7 +470,7 @@ if (userRole === 0) {
                     route: "manage-orders",
                 },
                 { label: "Gigs", route: "gigs-record" },
-                { label: "Profile", route: "hourly-work-diary" },
+                { label: "Profile", route: "/profile" },
                 { label: "Earnings", route: "hourly-work-diary" },
                 { label: "Jobs Posted", route: "job-listings" },
             ],

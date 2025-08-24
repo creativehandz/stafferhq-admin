@@ -21,6 +21,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'website',
+        'company_size',
+        'location',
+        'social_links',
     ];
 
     /**
@@ -50,6 +55,63 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(Job::class, 'user_id');
+    }
+
+    /**
+     * Get the gigs for the user (seller/freelancer).
+     */
+    public function gigs()
+    {
+        return $this->hasMany(Gig::class, 'user_id');
+    }
+
+    /**
+     * Get orders where this user is the seller.
+     */
+    public function sellerOrders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
+
+    /**
+     * Get orders where this user is the buyer.
+     */
+    public function buyerOrders()
+    {
+        return $this->hasMany(Order::class, 'buyer');
+    }
+
+    /**
+     * Get the skills for the user.
+     */
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
+
+    /**
+     * Get the categories for the user.
+     * Assumes categories field stores JSON array of IDs
+     */
+    public function getUserCategoriesAttribute()
+    {
+        if (!$this->categories) {
+            return collect();
+        }
+
+        // Parse category IDs from the categories field (JSON format)
+        $categoryIds = collect(json_decode($this->categories, true))
+            ->map(function ($id) {
+                return is_numeric($id) ? (int) $id : null;
+            })
+            ->filter();
+
+        if ($categoryIds->isEmpty()) {
+            return collect();
+        }
+
+        // Fetch category names from the database
+        return \App\Models\Category::whereIn('id', $categoryIds)->pluck('name');
     }
 
 }
