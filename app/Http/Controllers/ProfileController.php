@@ -73,6 +73,7 @@ class ProfileController extends Controller
             'userCompanySize' => $user->company_size,
             'userLocation' => $user->location,
             'userSocialLinks' => $user->social_links,
+            'userProfileImage' => $user->profile_image,
             'categories' => $categories,
             'userCategories' => $userCategoryIds,
         ]);
@@ -92,6 +93,39 @@ class ProfileController extends Controller
         $validated = $request->validated();
         
         \Log::info('Validated data:', ['validated' => $validated]);
+        
+        // Handle profile image upload
+        if ($request->hasFile('profile_image')) {
+            \Log::info('Profile image upload detected');
+            
+            // Delete old profile image if it exists
+            if ($user->profile_image) {
+                $oldImagePath = public_path($user->profile_image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                    \Log::info('Deleted old profile image:', ['path' => $oldImagePath]);
+                }
+            }
+            
+            // Store the new profile image
+            $image = $request->file('profile_image');
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $imagePath = 'storage/profile-images/' . $imageName;
+            
+            // Create directory if it doesn't exist
+            $directory = public_path('storage/profile-images');
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            
+            // Move the uploaded file
+            $image->move($directory, $imageName);
+            
+            // Update the validated data with the new image path
+            $validated['profile_image'] = $imagePath;
+            
+            \Log::info('Profile image uploaded successfully:', ['path' => $imagePath]);
+        }
         
         // Handle categories - convert to JSON array of integers
         if (isset($validated['categories'])) {
