@@ -3,6 +3,7 @@
 use App\Http\Controllers\BillingDetailsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BuyerProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -80,9 +81,9 @@ Route::get('/referral', function () {
     return Inertia::render('Referral/ReferralHome');
 })->name('ReferralHome');
 
-Route::get('/buyer-profile', function () {
-    return Inertia::render('BuyerProfile/ProfileHome');
-})->name('BuyerProfile');
+Route::get('/buyer-profile', [BuyerProfileController::class, 'show'])->name('buyer-profile');
+Route::get('/buyer-profile/edit', [BuyerProfileController::class, 'edit'])->name('buyer-profile.edit')->middleware('auth');
+Route::put('/buyer-profile', [BuyerProfileController::class, 'update'])->name('buyer-profile.update')->middleware('auth');
 
 Route::get('/buyer-checkout', function () {
     return Inertia::render('Jobs/BillingHome');
@@ -150,9 +151,8 @@ Route::get('/dashboard', function () {
 Route::get('/seller-dashboard', [App\Http\Controllers\DashboardController::class, 'sellerDashboard'])
     ->middleware(['auth', 'verified'])->name('seller-dashboard');
 
-Route::get('/buyer-dashboard', function () {
-    return Inertia::render('BuyerDashboard/BuyerDashboard');
-})->middleware(['auth', 'verified'])->name('buyer-dashboard');
+Route::get('/buyer-dashboard', [BuyerProfileController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])->name('buyer-dashboard');
 
 Route::get('/gigs', [GigController::class, 'getGigs']);
 
