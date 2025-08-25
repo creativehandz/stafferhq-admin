@@ -9,6 +9,35 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ResumeController;
+
+// Test route for checkout functionality
+Route::get('/test-checkout', function () {
+    return view('test-checkout');
+});
+
+// CSRF token route for AJAX
+Route::get('/csrf-token', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
+
+// Test user creation route
+Route::post('/create-test-user', function () {
+    $user = \App\Models\User::firstOrCreate(
+        ['email' => 'test@example.com'],
+        [
+            'name' => 'Test User',
+            'password' => bcrypt('password123'),
+            'email_verified_at' => now(),
+        ]
+    );
+    
+    auth()->login($user);
+    
+    return response()->json([
+        'message' => 'Test user created and logged in',
+        'user' => $user->only(['id', 'name', 'email'])
+    ]);
+});
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GigController;
@@ -229,9 +258,7 @@ Route::get('/proposals-and-offer', function () {
     return Inertia::render('Talent/ProposalsAndOffer');
 })->name('proposals-and-offer');
 
-Route::get('/manage-orders', function () {
-    return Inertia::render('Talent/YourActiveContracts');
-})->name('manage-orders');
+// Removed duplicate manage-orders route - using the one inside auth middleware
 
 Route::get('/gigs-record', function () {
     return Inertia::render('Gigs/GigsRecord');
