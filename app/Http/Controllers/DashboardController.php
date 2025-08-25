@@ -6,6 +6,7 @@ use App\Models\Gig;
 use App\Models\User;
 use App\Models\ManageOrder;
 use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -322,5 +323,77 @@ class DashboardController extends Controller
             ->get();
 
         return response()->json($monthlyData);
+    }
+
+    /**
+     * Get user notifications
+     */
+    public function getNotifications()
+    {
+        $user = Auth::user();
+        
+        $notifications = Notification::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($notification) {
+                return [
+                    'id' => $notification->id,
+                    'title' => $notification->title,
+                    'message' => $notification->message,
+                    'type' => $notification->type,
+                    'data' => $notification->data, // Already cast as array, no need to decode
+                    'action_url' => $notification->route, // Using route column name
+                    'is_read' => $notification->isRead(),
+                    'created_at' => $notification->created_at->diffForHumans(),
+                    'created_at_formatted' => $notification->created_at->format('M d, Y h:i A'),
+                ];
+            });
+
+        return response()->json($notifications);
+    }
+
+    /**
+     * Get unread notifications count
+     */
+    public function getUnreadNotificationsCount()
+    {
+        $user = Auth::user();
+        
+        $count = Notification::where('user_id', $user->id)
+            ->unread()
+            ->count();
+
+        return response()->json(['count' => $count]);
+    }
+
+    /**
+     * Mark notification as read
+     */
+    public function markNotificationAsRead($id)
+    {
+        $user = Auth::user();
+        
+        $notification = Notification::where('user_id', $user->id)
+            ->where('id', $id)
+            ->firstOrFail();
+            
+        $notification->markAsRead();
+
+        return response()->json(['message' => 'Notification marked as read']);
+    }
+
+    /**
+     * Mark all notifications as read
+     */
+    public function markAllNotificationsAsRead()
+    {
+        $user = Auth::user();
+        
+        Notification::where('user_id', $user->id)
+            ->unread()
+            ->update(['is_read' => true]);
+
+        return response()->json(['message' => 'All notifications marked as read']);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\BuyerOrderConfirmation;
 use App\Mail\SellerOrderNotification;
+use App\Models\Notification;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\BuyerCheckout;
@@ -116,6 +117,24 @@ class CheckoutController extends Controller
         
             // Send email to the seller
             Mail::to($sellerEmail)->send(new SellerOrderNotification($buyerCheckout));
+
+            // Create notification for the seller
+            Notification::create([
+                'user_id' => $seller->id,
+                'title' => 'New Order Received',
+                'message' => 'You have received a new order for "' . $validatedData['packageName'] . '" worth $' . number_format($validatedData['packagePrice'], 2),
+                'type' => 'order',
+                'data' => json_encode([
+                    'order_id' => $buyerCheckout->id,
+                    'gig_id' => $validatedData['gigId'],
+                    'package_name' => $validatedData['packageName'],
+                    'package_price' => $validatedData['packagePrice'],
+                    'buyer_name' => Auth::user()->name,
+                    'buyer_email' => Auth::user()->email,
+                ]),
+                'route' => '/dashboard/orders/' . $buyerCheckout->id,
+                'is_read' => false
+            ]);
 
                 // Fetch the buyer's email (currently authenticated user)
             $buyerEmail = Auth::user()->email;

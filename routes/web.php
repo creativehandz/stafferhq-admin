@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BillingDetailsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -423,6 +424,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/order-timeline', function () {
         return Inertia::render('OrderTimeline');
     })->name('OrderTimeline');
+
+    // Notification routes for web interface
+    Route::get('/web/notifications', [DashboardController::class, 'getNotifications'])->name('web.notifications');
+    Route::get('/web/notifications/unread-count', [DashboardController::class, 'getUnreadNotificationsCount'])->name('web.notifications.unread-count');
+    Route::post('/web/notifications/{id}/mark-read', [DashboardController::class, 'markNotificationAsRead'])->name('web.notifications.mark-read');
+    Route::post('/web/notifications/mark-all-read', [DashboardController::class, 'markAllNotificationsAsRead'])->name('web.notifications.mark-all-read');
 });
 
 
