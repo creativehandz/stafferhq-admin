@@ -1,42 +1,121 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import axios from 'axios'
+
+interface NotificationData {
+  id: number
+  title: string
+  message: string
+  type: string
+  data: any
+  action_url: string | null  // This will be mapped from 'route' column
+  is_read: boolean
+  created_at: string
+  created_at_formatted: string
+}
 
 const target = ref(null)
 const dropdownOpen = ref(false)
-const notifying = ref(true)
+const notifying = ref(false)
+const notifications = ref<NotificationData[]>([])
+const unreadCount = ref(0)
+const loading = ref(true)
 
 onClickOutside(target, () => {
   dropdownOpen.value = false
 })
 
-const notificationItems = ref([
-  {
-    route: '#',
-    title: 'Edit your information in a swipe',
-    details:
-      'Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
-    time: '12 May, 2025'
-  },
-  {
-    route: '#',
-    title: 'It is a long established fact',
-    details: 'that a reader will be distracted by the readable.',
-    time: '24 Feb, 2025'
-  },
-  {
-    route: '#',
-    title: 'There are many variations',
-    details: 'of passages of Lorem Ipsum available, but the majority have suffered',
-    time: '04 Jan, 2025'
-  },
-  {
-    route: '#',
-    title: 'There are many variations',
-    details: 'of passages of Lorem Ipsum available, but the majority have suffered',
-    time: '01 Dec, 2024'
+// Computed property to show notification indicator
+const hasNotifications = computed(() => unreadCount.value > 0)
+
+// Fetch notifications from API
+const fetchNotifications = async () => {
+  try {
+    loading.value = true
+    const response = await axios.get('/web/notifications')
+    notifications.value = response.data
+  } catch (error) {
+    console.error('Error fetching notifications:', error)
+  } finally {
+    loading.value = false
   }
-])
+}
+
+// Fetch unread count
+const fetchUnreadCount = async () => {
+  try {
+    const response = await axios.get('/web/notifications/unread-count')
+    unreadCount.value = response.data.count
+    notifying.value = response.data.count > 0
+  } catch (error) {
+    console.error('Error fetching unread count:', error)
+  }
+}
+
+// Mark notification as read
+const markAsRead = async (notificationId: number) => {
+  try {
+    await axios.post(`/web/notifications/${notificationId}/mark-read`)
+    // Update the notification in the list
+    const notification = notifications.value.find(n => n.id === notificationId)
+    if (notification) {
+      notification.is_read = true
+    }
+    // Update unread count
+    fetchUnreadCount()
+  } catch (error) {
+    console.error('Error marking notification as read:', error)
+  }
+}
+
+// Mark all notifications as read
+const markAllAsRead = async () => {
+  try {
+    await axios.post('/web/notifications/mark-all-read')
+    // Update all notifications in the list
+    notifications.value.forEach(notification => {
+      notification.is_read = true
+    })
+    unreadCount.value = 0
+    notifying.value = false
+  } catch (error) {
+    console.error('Error marking all notifications as read:', error)
+  }
+}
+
+// Handle notification click
+const handleNotificationClick = (notification: NotificationData) => {
+  if (!notification.is_read) {
+    markAsRead(notification.id)
+  }
+  
+  // Navigate to action URL if provided
+  if (notification.action_url) {
+    window.location.href = notification.action_url
+  }
+}
+
+// Handle dropdown toggle
+const toggleDropdown = () => {
+  dropdownOpen.value = !dropdownOpen.value
+  if (dropdownOpen.value) {
+    fetchNotifications()
+  }
+}
+
+// Initialize component
+onMounted(() => {
+  fetchUnreadCount()
+  
+  // Poll for new notifications every 30 seconds
+  setInterval(() => {
+    fetchUnreadCount()
+    if (dropdownOpen.value) {
+      fetchNotifications()
+    }
+  }, 30000)
+})
 </script>
 
 <template>
@@ -44,10 +123,10 @@ const notificationItems = ref([
     <router-link
       class="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary"
       to="#"
-      @click.prevent="(dropdownOpen = !dropdownOpen), (notifying = false)"
+      @click.prevent="toggleDropdown"
     >
       <span
-        :class="!notifying && 'hidden'"
+        :class="!hasNotifications && 'hidden'"
         class="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1"
       >
         <span
@@ -75,24 +154,63 @@ const notificationItems = ref([
       v-show="dropdownOpen"
       class="absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default sm:right-0 sm:w-80"
     >
-      <div class="px-4.5 py-3">
-        <h5 class="text-sm font-medium text-bodydark2">Notification</h5>
+      <div class="px-4.5 py-3 flex justify-between items-center">
+        <h5 class="text-sm font-medium text-bodydark2">
+          Notifications
+          <span v-if="unreadCount > 0" class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+            {{ unreadCount }}
+          </span>
+        </h5>
+        <button
+          v-if="unreadCount > 0"
+          @click="markAllAsRead"
+          class="text-xs text-primary hover:underline"
+        >
+          Mark all read
+        </button>
       </div>
 
       <ul class="flex flex-col h-auto overflow-y-auto">
-        <template v-for="(item, index) in notificationItems" :key="index">
+        <!-- Loading state -->
+        <li v-if="loading" class="px-4.5 py-3 text-center text-sm text-bodydark2">
+          Loading notifications...
+        </li>
+        
+        <!-- No notifications -->
+        <li v-else-if="notifications.length === 0" class="px-4.5 py-3 text-center text-sm text-bodydark2">
+          No notifications yet
+        </li>
+        
+        <!-- Notification items -->
+        <template v-else v-for="(notification, index) in notifications" :key="notification.id">
           <li>
-            <router-link
-              class="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 "
-              :to="item.route"
+            <div
+              @click="handleNotificationClick(notification)"
+              class="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 cursor-pointer"
+              :class="{ 'bg-blue-50': !notification.is_read }"
             >
-              <p class="text-sm">
-                <span class="text-black ">{{ item.title }}</span>
-                {{ item.details }}
-              </p>
-
-              <p class="text-xs">{{ item.time }}</p>
-            </router-link>
+              <div class="flex items-start justify-between">
+                <p class="text-sm">
+                  <span class="text-black font-medium">{{ notification.title }}</span>
+                </p>
+                <span
+                  v-if="!notification.is_read"
+                  class="inline-block w-2 h-2 bg-blue-500 rounded-full ml-2 mt-1"
+                ></span>
+              </div>
+              
+              <p class="text-sm text-bodydark2">{{ notification.message }}</p>
+              
+              <div class="flex justify-between items-center">
+                <p class="text-xs text-bodydark2">{{ notification.created_at }}</p>
+                <span
+                  v-if="notification.type === 'order'"
+                  class="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full"
+                >
+                  Order
+                </span>
+              </div>
+            </div>
           </li>
         </template>
       </ul>

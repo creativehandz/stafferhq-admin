@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Notification extends Model
 {
@@ -11,9 +12,9 @@ class Notification extends Model
 
     protected $fillable = [
         'user_id',
-        'type',
         'title',
         'message',
+        'type',
         'data',
         'is_read',
         'route'
@@ -29,17 +30,25 @@ class Notification extends Model
     /**
      * Get the user that owns the notification
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Scope for unread notifications
+     * Scope to get unread notifications
      */
     public function scopeUnread($query)
     {
         return $query->where('is_read', false);
+    }
+
+    /**
+     * Scope to get read notifications
+     */
+    public function scopeRead($query)
+    {
+        return $query->where('is_read', true);
     }
 
     /**
@@ -59,15 +68,31 @@ class Notification extends Model
     }
 
     /**
+     * Check if notification is read
+     */
+    public function isRead(): bool
+    {
+        return $this->is_read;
+    }
+
+    /**
+     * Check if notification is unread
+     */
+    public function isUnread(): bool
+    {
+        return !$this->is_read;
+    }
+
+    /**
      * Create a new order notification
      */
     public static function createOrderNotification($sellerId, $order)
     {
         return self::create([
             'user_id' => $sellerId,
-            'type' => 'new_order',
+            'type' => 'order',
             'title' => 'New Order Received!',
-            'message' => "You have a new order for {$order->package_selected} package worth $" . $order->total_price,
+            'message' => "You have a new order for {$order->package_selected} package worth $" . number_format($order->total_price, 2),
             'data' => [
                 'order_id' => $order->id,
                 'gig_id' => $order->gig_id,
@@ -75,7 +100,7 @@ class Notification extends Model
                 'package' => $order->package_selected,
                 'amount' => $order->total_price
             ],
-            'route' => "/orders/{$order->id}",
+            'route' => "/dashboard/orders/{$order->id}",
             'is_read' => false
         ]);
     }

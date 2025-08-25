@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Who receives the notification
-            $table->string('type'); // Type of notification (order, message, etc.)
-            $table->string('title'); // Notification title
-            $table->text('message'); // Notification message/details
-            $table->json('data')->nullable(); // Additional data (order_id, gig_id, etc.)
-            $table->boolean('is_read')->default(false); // Read status
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('title');
+            $table->text('message');
+            $table->string('type')->default('info'); // info, success, warning, error, order
+            $table->json('data')->nullable(); // Additional data like order_id, gig_id, etc.
             $table->string('route')->nullable(); // Route to navigate when clicked
+            $table->boolean('is_read')->default(false); // Read status
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->index(['user_id', 'is_read']); // For efficient querying
+
+            $table->index(['user_id', 'is_read']);
+            $table->index(['user_id', 'created_at']);
         });
     }
 
