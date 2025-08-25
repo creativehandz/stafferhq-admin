@@ -30,6 +30,7 @@ class ProfileUpdateRequest extends FormRequest
             'instagram' => ['nullable', 'url', 'max:255'],
             'github' => ['nullable', 'url', 'max:255'],
             'youtube' => ['nullable', 'url', 'max:255'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 }
