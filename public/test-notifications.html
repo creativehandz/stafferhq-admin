@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Notifications API</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .notification { border: 1px solid #ddd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .unread { background-color: #f0f8ff; border-left: 4px solid #007cba; }
+        .read { background-color: #f5f5f5; }
+        button { margin: 5px; padding: 10px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Notification System Test</h1>
+    
+    <div>
+        <button onclick="fetchNotifications()">Fetch Notifications</button>
+        <button onclick="fetchUnreadCount()">Get Unread Count</button>
+        <button onclick="markAllAsRead()">Mark All as Read</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <div id="notifications"></div>
+
+    <script>
+        // Set up axios defaults
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        
+        function showResult(message, isError = false) {
+            document.getElementById('result').innerHTML = 
+                `<p class="${isError ? 'error' : 'success'}">${message}</p>`;
+        }
+        
+        async function fetchNotifications() {
+            try {
+                const response = await axios.get('/web/notifications');
+                const notifications = response.data;
+                
+                let html = '<h3>Notifications:</h3>';
+                if (notifications.length === 0) {
+                    html += '<p>No notifications found.</p>';
+                } else {
+                    notifications.forEach(notification => {
+                        html += `
+                            <div class="notification ${notification.is_read ? 'read' : 'unread'}">
+                                <h4>${notification.title} ${!notification.is_read ? '🔴' : '✅'}</h4>
+                                <p>${notification.message}</p>
+                                <small>Type: ${notification.type} | ${notification.created_at}</small>
+                                ${!notification.is_read ? `<br><button onclick="markAsRead(${notification.id})">Mark as Read</button>` : ''}
+                            </div>
+                        `;
+                    });
+                }
+                
+                document.getElementById('notifications').innerHTML = html;
+                showResult(`Fetched ${notifications.length} notifications`);
+            } catch (error) {
+                showResult(`Error: ${error.response?.data?.message || error.message}`, true);
+                console.error('Error fetching notifications:', error);
+            }
+        }
+        
+        async function fetchUnreadCount() {
+            try {
+                const response = await axios.get('/web/notifications/unread-count');
+                showResult(`Unread notifications: ${response.data.count}`);
+            } catch (error) {
+                showResult(`Error: ${error.response?.data?.message || error.message}`, true);
+                console.error('Error fetching unread count:', error);
+            }
+        }
+        
+        async function markAsRead(notificationId) {
+            try {
+                await axios.post(`/web/notifications/${notificationId}/mark-read`);
+                showResult(`Notification ${notificationId} marked as read`);
+                fetchNotifications(); // Refresh the list
+            } catch (error) {
+                showResult(`Error: ${error.response?.data?.message || error.message}`, true);
+                console.error('Error marking notification as read:', error);
+            }
+        }
+        
+        async function markAllAsRead() {
+            try {
+                await axios.post('/web/notifications/mark-all-read');
+                showResult('All notifications marked as read');
+                fetchNotifications(); // Refresh the list
+            } catch (error) {
+                showResult(`Error: ${error.response?.data?.message || error.message}`, true);
+                console.error('Error marking all notifications as read:', error);
+            }
+        }
+        
+        // Auto-fetch notifications on page load
+        window.onload = function() {
+            fetchNotifications();
+            fetchUnreadCount();
+        };
+    </script>
+</body>
+</html>
