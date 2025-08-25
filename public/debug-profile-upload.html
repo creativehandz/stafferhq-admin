@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Profile Image Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .error { color: red; }
+        .success { color: green; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Profile Image Upload Debugging</h1>
+    
+    <div class="section">
+        <h2>🔍 Debug Steps</h2>
+        <ol>
+            <li><strong>Login as buyer:</strong> buyer@towork.com (password: password)</li>
+            <li><strong>Visit:</strong> <a href="http://127.0.0.1:8000/buyer-profile/edit" target="_blank">http://127.0.0.1:8000/buyer-profile/edit</a></li>
+            <li><strong>Open Browser DevTools:</strong> F12 → Network tab</li>
+            <li><strong>Upload a test image</strong> and submit the form</li>
+            <li><strong>Check the logs:</strong> Look for debug messages in storage/logs/laravel.log</li>
+        </ol>
+    </div>
+    
+    <div class="section">
+        <h2>📋 Debugging Checklist</h2>
+        
+        <h3>1. Check Database Schema</h3>
+        <p>Run this SQL to verify the profile_image column exists:</p>
+        <code>DESCRIBE users;</code>
+        
+        <h3>2. Check Laravel Logs</h3>
+        <p>Look for these debug messages in <code>storage/logs/laravel.log</code>:</p>
+        <ul>
+            <li>"Profile image file detected" - Should appear when file is uploaded</li>
+            <li>"No profile image file in request" - Appears when no file is sent</li>
+            <li>"New profile image saved" - Shows the file path</li>
+            <li>"Validated data before save" - Shows all form data</li>
+            <li>"User after save" - Shows final database values</li>
+        </ul>
+        
+        <h3>3. Check File Upload</h3>
+        <ul>
+            <li>Verify the file is actually being selected in the form</li>
+            <li>Check if <code>selectedImageFile.value</code> has a value</li>
+            <li>Look for the file in <code>public/storage/profile-images/</code></li>
+        </ul>
+        
+        <h3>4. Check Network Request</h3>
+        <p>In DevTools Network tab, verify:</p>
+        <ul>
+            <li>Request method is POST</li>
+            <li>Content-Type is multipart/form-data</li>
+            <li>profile_image field contains the file data</li>
+            <li>_method field is set to PUT</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>🛠️ Common Issues & Solutions</h2>
+        
+        <h3>Issue 1: File not being sent</h3>
+        <p><strong>Solution:</strong> Check if selectedImageFile.value is properly set in the Vue component</p>
+        
+        <h3>Issue 2: Column not updating</h3>
+        <p><strong>Solution:</strong> Verify profile_image is in User model's $fillable array</p>
+        
+        <h3>Issue 3: File validation failing</h3>
+        <p><strong>Solution:</strong> Check validation rules allow the file type and size</p>
+        
+        <h3>Issue 4: Permission issues</h3>
+        <p><strong>Solution:</strong> Ensure storage/profile-images directory has write permissions</p>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Quick Test Commands</h2>
+        <p>Run these commands to verify the setup:</p>
+        <pre>
+# Check if storage directory exists and is writable
+ls -la public/storage/profile-images/
+
+# Check Laravel logs for errors
+tail -f storage/logs/laravel.log
+
+# Check database structure
+php artisan tinker
+>>> Schema::getColumnListing('users')
+>>> User::first()->profile_image
+        </pre>
+    </div>
+    
+    <p><strong>Follow these steps and check the logs to identify where the profile image upload is failing.</strong></p>
+</body>
+</html>
