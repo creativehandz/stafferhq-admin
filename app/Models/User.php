@@ -27,6 +27,7 @@ class User extends Authenticatable
         'location',
         'social_links',
         'categories',
+        'profile_image',
     ];
 
     /**
