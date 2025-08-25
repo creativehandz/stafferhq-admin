@@ -38,6 +38,10 @@ const props = defineProps({
     userCategories: {
         type: Array,
         default: () => []
+    },
+    userProfileImage: {
+        type: String,
+        default: null
     }
 });
 
@@ -73,6 +77,7 @@ const form = useForm({
     company_size: props.userCompanySize || '',
     location: props.userLocation || '',
     categories: (props.userCategories || []).map(id => id.toString()),
+    profile_image: null,
     twitter: existingSocialLinks.twitter || '',
     linkedin: existingSocialLinks.linkedin || '',
     facebook: existingSocialLinks.facebook || '',
@@ -94,7 +99,11 @@ const submit = () => {
     console.log('Categories being sent (converted):', formData.categories);
     console.log('Full form data:', formData);
     
-    form.transform(() => formData).patch(route('profile.update'), {
+    // For file uploads, we need to add _method to make it work with PATCH
+    formData._method = 'PATCH';
+    
+    form.transform(() => formData).post(route('profile.update'), {
+        forceFormData: true,
         preserveScroll: true,
         onSuccess: (page) => {
             console.log('Form saved successfully!', page);
@@ -147,6 +156,29 @@ const companySizeOptions = [
     { value: '501-1000', label: '501-1000 employees' },
     { value: '1000+', label: '1000+ employees' }
 ];
+
+// Helper function to get profile image URL
+const getProfileImageUrl = () => {
+    if (props.userProfileImage) {
+        // Handle different path formats
+        if (props.userProfileImage.startsWith('/storage/')) {
+            return props.userProfileImage;
+        } else if (props.userProfileImage.startsWith('storage/')) {
+            return `/${props.userProfileImage}`;
+        } else {
+            return `/storage/${props.userProfileImage}`;
+        }
+    }
+    return 'https://www.svgrepo.com/show/497407/profile-circle.svg';
+};
+
+// Handle profile image file selection
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.profile_image = file;
+    }
+};
 </script>
 
 <template>
@@ -182,7 +214,53 @@ const companySizeOptions = [
                 <!-- Edit Form -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <form @submit.prevent="submit" class="space-y-6">
+                        <form @submit.prevent="submit" class="space-y-6" enctype="multipart/form-data">
+                            
+                            <!-- Profile Image Section -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                                    Profile Image
+                                </h3>
+                                <div class="flex items-center space-x-6">
+                                    <!-- Current Profile Image -->
+                                    <div class="flex-shrink-0">
+                                        <img 
+                                            class="h-24 w-24 rounded-full border-4 border-gray-200 dark:border-gray-600 object-cover" 
+                                            :src="getProfileImageUrl()" 
+                                            alt="Current Profile Picture"
+                                        >
+                                    </div>
+                                    <!-- Upload New Image -->
+                                    <div class="flex-1">
+                                        <label for="profile_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Upload New Profile Image
+                                        </label>
+                                        <div class="flex items-center space-x-4">
+                                            <input
+                                                id="profile_image"
+                                                type="file"
+                                                accept="image/*"
+                                                @change="handleImageChange"
+                                                class="block w-full text-sm text-gray-500 dark:text-gray-400
+                                                       file:mr-4 file:py-2 file:px-4
+                                                       file:rounded-md file:border-0
+                                                       file:text-sm file:font-medium
+                                                       file:bg-indigo-50 file:text-indigo-700
+                                                       hover:file:bg-indigo-100
+                                                       dark:file:bg-indigo-900 dark:file:text-indigo-300
+                                                       dark:hover:file:bg-indigo-800"
+                                            />
+                                        </div>
+                                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                                            PNG, JPG, GIF up to 2MB. Recommended size: 400x400px
+                                        </p>
+                                        <div v-if="form.errors.profile_image" class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                            {{ form.errors.profile_image }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Name Field -->
                                 <div>
