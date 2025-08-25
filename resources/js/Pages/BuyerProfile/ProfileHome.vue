@@ -23,7 +23,7 @@
                 <!-- Profile Picture -->
                 <img
                     class="w-24 h-24 mx-auto rounded-full object-cover"
-                    :src="props.user.profile_image ? `/${props.user.profile_image}` : 'https://via.placeholder.com/150'"
+                    :src="getProfileImageUrl(props.user.profile_image)"
                     alt="Profile Picture"
                 />
                 <h2 class="mt-4 leading-none sm:text-[18px] md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-black">{{ props.user.name }}</h2>
@@ -161,6 +161,26 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+// Get profile image URL with proper path handling
+const getProfileImageUrl = (profileImage: string | null | undefined) => {
+    if (!profileImage) {
+        return 'https://via.placeholder.com/150';
+    }
+    
+    // If the path already starts with storage/, use it as is
+    if (profileImage.startsWith('storage/')) {
+        return `/${profileImage}`;
+    }
+    
+    // If it starts with profile-images/, add storage/ prefix
+    if (profileImage.startsWith('profile-images/')) {
+        return `/storage/${profileImage}`;
+    }
+    
+    // If it's just a filename, assume it's in storage/profile-images/
+    return `/storage/profile-images/${profileImage}`;
+};
 
 const formatJoinDate = (dateString: string) => {
     const date = new Date(dateString)

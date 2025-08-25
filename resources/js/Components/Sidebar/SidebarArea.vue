@@ -16,6 +16,34 @@ onClickOutside(target, () => {
     sidebarStore.isSidebarOpen = false;
 });
 
+// Handle image loading errors
+const handleImageError = (event: Event) => {
+    const target = event.target as HTMLImageElement;
+    if (target) {
+        target.src = 'https://www.svgrepo.com/show/497407/profile-circle.svg';
+    }
+};
+
+// Get profile image URL with proper path handling
+const getProfileImageUrl = (profileImage: string | null | undefined) => {
+    if (!profileImage) {
+        return 'https://www.svgrepo.com/show/497407/profile-circle.svg';
+    }
+    
+    // If the path already starts with storage/, use it as is
+    if (profileImage.startsWith('storage/')) {
+        return `/${profileImage}`;
+    }
+    
+    // If it starts with profile-images/, add storage/ prefix
+    if (profileImage.startsWith('profile-images/')) {
+        return `/storage/${profileImage}`;
+    }
+    
+    // If it's just a filename, assume it's in storage/profile-images/
+    return `/storage/profile-images/${profileImage}`;
+};
+
 const menuGroups = ref([
     {
         name: "MENU",
@@ -595,9 +623,10 @@ if (userRole === 0) {
                         <div class="flex items-center justify-between">
                             <span>
                                 <img
-                                    src="https://www.svgrepo.com/show/497407/profile-circle.svg"
+                                    :src="getProfileImageUrl($page.props.auth.user.profile_image)"
                                     alt="Profile Picture"
-                                    class="w-16 h-16 bg-white rounded-full"
+                                    class="w-16 h-16 bg-white rounded-full object-cover"
+                                    @error="handleImageError"
                                 />
                             </span>
                             <!-- User Information -->
