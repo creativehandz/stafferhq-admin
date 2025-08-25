@@ -30,13 +30,25 @@ class BuyerOrderConfirmation extends Mailable
      */
     public function build()
     {
+        // Get order details - handle both array and JSON string formats
+        $orderDetails = $this->buyerCheckout->order_details;
+        if (is_string($orderDetails)) {
+            $orderDetails = json_decode($orderDetails, true);
+        }
+        
+        // Get billing details - handle both array and JSON string formats
+        $billingDetails = $this->buyerCheckout->billing_details;
+        if (is_string($billingDetails)) {
+            $billingDetails = json_decode($billingDetails, true);
+        }
+
         return $this->subject('Order Confirmation')
                     ->markdown('mail.buyer_order_confirmation')
                     ->with([
                         'packageName' => $this->buyerCheckout->package_selected,
                         'totalPrice' => $this->buyerCheckout->total_price,
-                        'orderDetails' => json_decode($this->buyerCheckout->order_details, true), // assuming it's stored as JSON
-                        'billingDetails' => $this->buyerCheckout->billing_details,
+                        'orderDetails' => $orderDetails,
+                        'billingDetails' => $billingDetails,
                     ]);
     }
 }
