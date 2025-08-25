@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Manage Orders Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Test Manage Orders Page</h1>
+    
+    <h2>Authentication Status</h2>
+    <div id="auth-status">Checking...</div>
+    
+    <h2>Login Form</h2>
+    <form id="login-form" style="margin: 20px 0;">
+        <div>
+            <label>Email:</label>
+            <input type="email" id="email" value="pranavtfcppp@gmail.com" style="margin-left: 10px;">
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Password:</label>
+            <input type="password" id="password" value="12345678" style="margin-left: 10px;">
+        </div>
+        <button type="submit" style="margin-top: 10px;">Login</button>
+    </form>
+    
+    <h2>Test Manage Orders Route</h2>
+    <button id="test-orders">Test Get Orders</button>
+    <div id="orders-result" style="margin-top: 10px; white-space: pre-wrap;"></div>
+
+    <script>
+        // Check authentication status
+        $.get('/api/user')
+            .done(function(data) {
+                $('#auth-status').html('✓ Logged in as: ' + data.name + ' (ID: ' + data.id + ')');
+            })
+            .fail(function() {
+                $('#auth-status').html('✗ Not logged in');
+            });
+
+        // Handle login
+        $('#login-form').submit(function(e) {
+            e.preventDefault();
+            
+            // Get CSRF token first
+            $.get('/sanctum/csrf-cookie')
+                .then(function() {
+                    return $.post('/login', {
+                        email: $('#email').val(),
+                        password: $('#password').val(),
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    });
+                })
+                .done(function(data) {
+                    $('#auth-status').html('✓ Login successful!');
+                    location.reload();
+                })
+                .fail(function(xhr) {
+                    $('#auth-status').html('✗ Login failed: ' + xhr.responseText);
+                });
+        });
+
+        // Test manage orders
+        $('#test-orders').click(function() {
+            $('#orders-result').text('Testing...');
+            
+            $.get('/manage-orders')
+                .done(function(data) {
+                    $('#orders-result').text('Success! Response received.');
+                    console.log('Orders data:', data);
+                })
+                .fail(function(xhr) {
+                    $('#orders-result').text('Error: ' + xhr.status + ' - ' + xhr.responseText);
+                });
+        });
+    </script>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</body>
+</html>

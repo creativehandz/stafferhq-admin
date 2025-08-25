@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Checkout Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Checkout Test Page</h1>
+    
+    <div id="result"></div>
+    
+    <button onclick="testCheckout()">Test Checkout API</button>
+
+    <script>
+        // Set up axios with CSRF token
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (token) {
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+        }
+        
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        
+        function testCheckout() {
+            const testData = {
+                packageName: 'Test Package',
+                packageDescription: 'Test Description',
+                packagePrice: 100.00,
+                deliveryTime: '7 days',
+                gigId: 1,
+                billingDetails: 'Test billing details'
+            };
+            
+            document.getElementById('result').innerHTML = 'Testing...';
+            
+            axios.post('/checkout', testData)
+                .then(response => {
+                    console.log('Success:', response.data);
+                    document.getElementById('result').innerHTML = 
+                        '<div style="color: green;">✅ Success! Order ID: ' + response.data.buyer_checkout_id + '</div>';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerHTML = 
+                        '<div style="color: red;">❌ Error: ' + (error.response?.data?.message || error.message) + '</div>';
+                });
+        }
+    </script>
+</body>
+</html>

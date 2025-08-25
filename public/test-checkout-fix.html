@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Checkout Fix</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Checkout Test</h1>
+    <button id="testCheckout">Test Checkout</button>
+    <div id="result"></div>
+
+    <script>
+        // Set up CSRF token for all AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#testCheckout').click(function() {
+            $('#result').html('Testing...');
+            
+            const testData = {
+                packageName: 'Premium Package',
+                packageDescription: 'This is a test premium package with extended features',
+                packagePrice: 200,
+                deliveryTime: '3 days',
+                gigId: 70,
+                billingDetails: JSON.stringify({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    address: '123 Test Street',
+                    city: 'Test City',
+                    state: 'Test State',
+                    zip: '12345',
+                    phone: '+1234567890'
+                })
+            };
+
+            $.ajax({
+                url: '/checkout',
+                method: 'POST',
+                data: testData,
+                success: function(response) {
+                    $('#result').html('<h3>Success!</h3><pre>' + JSON.stringify(response, null, 2) + '</pre>');
+                },
+                error: function(xhr) {
+                    $('#result').html('<h3>Error!</h3><pre>' + JSON.stringify(xhr.responseJSON, null, 2) + '</pre>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

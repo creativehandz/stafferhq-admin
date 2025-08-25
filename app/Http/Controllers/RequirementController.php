@@ -44,8 +44,11 @@ class RequirementController extends Controller
         // Get the gig to find the seller
         $gig = Gig::findOrFail($buyerCheckout->gig_id);
         
-        // Parse order details from JSON
-        $orderDetails = json_decode($buyerCheckout->order_details, true);
+        // Get order details - handle both array and JSON string formats
+        $orderDetails = $buyerCheckout->order_details;
+        if (is_string($orderDetails)) {
+            $orderDetails = json_decode($orderDetails, true);
+        }
         
         // Calculate due date (add delivery time to current date)
         $deliveryTime = $orderDetails['deliveryTime'] ?? '7 days';
