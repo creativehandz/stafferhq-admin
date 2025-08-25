@@ -130,11 +130,27 @@ const getProfileImageUrl = () => {
         if (props.userProfileImage.startsWith('http')) {
             return props.userProfileImage;
         }
-        // Otherwise, construct the storage URL
-        return `/storage/${props.userProfileImage}`;
+        
+        // Handle different path formats
+        if (props.userProfileImage.startsWith('/storage/')) {
+            // Already has correct format
+            return props.userProfileImage;
+        } else if (props.userProfileImage.startsWith('storage/')) {
+            // Add leading slash
+            return `/${props.userProfileImage}`;
+        } else {
+            // Add storage prefix
+            return `/storage/${props.userProfileImage}`;
+        }
     }
     // Default profile image
     return 'https://www.svgrepo.com/show/497407/profile-circle.svg';
+};
+
+// Handle image loading errors
+const handleImageError = (event) => {
+    const img = event.target;
+    img.src = 'https://www.svgrepo.com/show/497407/profile-circle.svg';
 };
 </script>
 
@@ -160,6 +176,7 @@ const getProfileImageUrl = () => {
                                     class="h-24 w-24 rounded-full border-4 border-gray-200 dark:border-gray-600" 
                                     :src="getProfileImageUrl()" 
                                     alt="Profile Picture"
+                                    @error="handleImageError"
                                 >
                             </div>
 
