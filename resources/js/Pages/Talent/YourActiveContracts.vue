@@ -100,10 +100,14 @@ const fetchBuyerCheckout = async () => {
 // Fetch order statuses
 const fetchOrderStatuses = async () => {
     try {
+        console.log('Fetching order statuses...');
         const response = await axios.get('/api/order-statuses');
+        console.log('Order statuses response:', response.data);
         orderStatuses.value = response.data;
-    } catch (error) {
+        console.log('Order statuses set:', orderStatuses.value);
+    } catch (error: any) {
         console.error('Error fetching order statuses:', error);
+        console.error('Error details:', error.response?.data || error.message);
     }
 };
 
@@ -115,52 +119,87 @@ onMounted(() => {
 
 // Filter orders based on the active tab
 const filterOrders = (orders: BuyerCheckout[], activeTab: string): BuyerCheckout[] => {
-    const statusMap: Record<string, string> = {
-        "pendingOrders": "pending",
-        "priorityOrders": "Priority",
-        "activeOrders": "Active",
-        "lateOrders": "Late",
-        "deliveredOrders": "Delivered",
-        "completedOrders": "Completed",
-        "cancelledOrders": "Cancelled",
-        "starredOrders": "Starred"
+    const statusMap: Record<string, string[]> = {
+        "pendingOrders": ["pending"],
+        "priorityOrders": ["Priority"],
+        "activeOrders": ["Active", "active", "Order Accepted"], // Include both Active and Order Accepted
+        "lateOrders": ["Late"],
+        "deliveredOrders": ["Delivered"],
+        "completedOrders": ["Completed", "completed"],
+        "cancelledOrders": ["Cancelled"],
+        "starredOrders": ["Starred"]
     };
     
-    const statusName = statusMap[activeTab];
-    if (statusName) {
-        return orders.filter((order) => order.status === statusName);
+    const statusNames = statusMap[activeTab];
+    if (statusNames) {
+        return orders.filter((order) => statusNames.includes(order.status));
     }
     return orders;
 };
 
 // Get the count of orders by status
 const getOrderCount = (status: string) => {
+    // Special handling for Active tab to include "Order Accepted" orders
+    if (status === 'Active') {
+        return buyerCheckoutData.value.filter((order) => 
+            order.status === 'Active' || 
+            order.status === 'active' || 
+            order.status === 'Order Accepted'
+        ).length;
+    }
+    
+    // Special handling for Completed tab to include "completed" (lowercase)
+    if (status === 'Completed') {
+        return buyerCheckoutData.value.filter((order) => 
+            order.status === 'Completed' || 
+            order.status === 'completed'
+        ).length;
+    }
+    
     return buyerCheckoutData.value.filter((order) => order.status === status).length;
 };
 
 // Update order status
 const updateOrderStatus = async (orderId: number, statusId: number, notes?: string) => {
     try {
+        console.log('Updating order status:', { orderId, statusId, notes });
         isLoading.value = true;
+        
         const response = await axios.put(`/api/orders/${orderId}/status`, {
             status_id: statusId,
             notes: notes
         });
         
+        console.log('API response:', response.data);
+        
         // Update the local data
         const orderIndex = buyerCheckoutData.value.findIndex(order => order.id === orderId);
+        console.log('Found order at index:', orderIndex);
+        
         if (orderIndex !== -1) {
+            console.log('Old status:', buyerCheckoutData.value[orderIndex].status);
             buyerCheckoutData.value[orderIndex].status = response.data.status_info.name;
             buyerCheckoutData.value[orderIndex].status_info = response.data.status_info;
+            console.log('New status:', buyerCheckoutData.value[orderIndex].status);
         }
         
         // Close modal
         showStatusModal.value = false;
         selectedOrderId.value = null;
         
-        console.log('Status updated successfully:', response.data.message);
-    } catch (error) {
-        console.error('Error updating order status:', error);
+        console.log('✅ Status updated successfully:', response.data.message);
+        
+        // Show success notification (optional)
+        alert(`Order status changed to: ${response.data.status_info.name}`);
+        
+    } catch (error: any) {
+        console.error('❌ Error updating order status:', error);
+        console.error('Error response:', error.response?.data);
+        console.error('Error status:', error.response?.status);
+        
+        // Show error message to user
+        alert(`Error updating status: ${error.response?.data?.message || error.message}`);
+        
     } finally {
         isLoading.value = false;
     }
@@ -168,7 +207,16 @@ const updateOrderStatus = async (orderId: number, statusId: number, notes?: stri
 
 // Open status change modal
 const openStatusModal = (orderId: number) => {
-    selectedOrderId.value = orderId;
+    console.log('Opening status modal for order:', orderId);
+    console.log('Order ID type:', typeof orderId);
+    console.log('Order ID raw value:', orderId);
+    console.log('Available statuses:', getAvailableStatuses());
+    
+    // Ensure orderId is a number
+    const numericOrderId = typeof orderId === 'string' ? parseInt(String(orderId).replace(/\D/g, '')) : orderId;
+    console.log('Numeric order ID:', numericOrderId);
+    
+    selectedOrderId.value = numericOrderId;
     showStatusModal.value = true;
 };
 
@@ -179,7 +227,10 @@ const getStatusColor = (statusInfo?: OrderStatus) => {
 
 // Get filtered statuses for status change modal
 const getAvailableStatuses = () => {
-    return orderStatuses.value.filter(status => status.name !== 'Order Placed');
+    console.log('All order statuses:', orderStatuses.value);
+    const filtered = orderStatuses.value.filter(status => status.name !== 'Order Placed');
+    console.log('Filtered statuses for modal:', filtered);
+    return filtered;
 };
 </script>
 <template>
@@ -328,23 +379,33 @@ const getAvailableStatuses = () => {
 
   <!-- Status Change Modal -->
   <div v-if="showStatusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white dark:bg-boxdark rounded-lg p-6 w-full max-w-md mx-4">
-      <h3 class="text-lg font-semibold mb-4 text-black dark:text-white">Change Order Status</h3>
+    <div class="bg-white dark:bg-boxdark rounded-lg p-8 w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-semibold text-black dark:text-white">Change Order Status</h3>
+        <button 
+          @click="showStatusModal = false"
+          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
       
-      <div class="space-y-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           v-for="status in getAvailableStatuses()"
           :key="status.id"
           @click="updateOrderStatus(selectedOrderId!, status.id)"
-          class="flex items-center p-3 border border-stroke dark:border-strokedark rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-meta-4 transition-colors"
+          class="flex items-center p-4 border border-stroke dark:border-strokedark rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-meta-4 hover:border-primary transition-all duration-200 hover:shadow-md"
         >
           <span 
-            class="inline-flex items-center justify-center w-4 h-4 rounded-full mr-3"
+            class="inline-flex items-center justify-center w-5 h-5 rounded-full mr-4 flex-shrink-0"
             :style="{ backgroundColor: status.color }"
           ></span>
-          <div>
-            <div class="font-medium text-black dark:text-white">{{ status.name }}</div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">{{ status.description }}</div>
+          <div class="flex-1">
+            <div class="font-semibold text-black dark:text-white text-base">{{ status.name }}</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ status.description }}</div>
           </div>
         </div>
       </div>

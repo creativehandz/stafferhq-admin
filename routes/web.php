@@ -95,7 +95,7 @@ Route::post('/checkout', [CheckoutController::class, 'store']);
 
 
 // This in api.php will respond to /api/buyer-checkout
-Route::get('/seller-orders', [CheckoutController::class, 'index']);
+Route::get('/seller-orders', [OrderController::class, 'getSellerOrdersJson']);
 
 
 Route::post('/submit-requirements', [RequirementController::class, 'store']);
