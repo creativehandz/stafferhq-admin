@@ -10,6 +10,16 @@ const target = ref(null);
 
 const userRole = usePage().props.auth.user.role;
 
+// Helper function to get user level based on role
+const getUserLevel = () => {
+    switch(userRole) {
+        case 1: return 'New Buyer';
+        case 2: return 'New Seller';
+        case 3: return 'New Admin';
+        default: return 'New User';
+    }
+};
+
 const sidebarStore = useSidebarStore();
 
 onClickOutside(target, () => {
@@ -652,7 +662,7 @@ if (userRole === 0) {
                                 ><span
                                     class="font-semibold text-white font-crimson"
                                 >
-                                    New seller
+                                    {{ getUserLevel() }}
                                 </span></span
                             >
                         </div>
