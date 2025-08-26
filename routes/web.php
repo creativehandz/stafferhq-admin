@@ -209,9 +209,11 @@ Route::get('/post-a-job', function () {
 
 Route::get('/all-job-posts', [JobController::class, 'index'])->name('all-job-posts');
 
-Route::get('/all-contracts', function () {
-    return Inertia::render('AllContracts');
-})->name('all-contracts');
+Route::get('/all-contracts', [App\Http\Controllers\BuyerContractsController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('all-contracts');
+
+Route::post('/contracts/{contractId}/activate-milestone', [App\Http\Controllers\BuyerContractsController::class, 'activateMilestone'])
+    ->middleware(['auth', 'verified'])->name('contracts.activate-milestone');
 
 Route::get('/add-new-company', function () {
     return Inertia::render('AddNewCompany');
