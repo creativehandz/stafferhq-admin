@@ -220,9 +220,7 @@ Route::get('/add-new-company', function () {
 })->name('add-new-company');
 
 
-Route::get('/talent', function () {
-    return Inertia::render('Talent');
-})->name('talent');
+Route::get('/talent', [GigController::class, 'talent'])->name('talent');
 
 
 Route::get('/discover', function () {
