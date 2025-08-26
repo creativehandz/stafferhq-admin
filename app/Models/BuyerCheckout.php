@@ -81,8 +81,18 @@ class BuyerCheckout extends Model
      */
     public function updateStatus($statusId, $changedByUserId, $notes = null, $metadata = null)
     {
-        // Update the current status
-        $this->update(['order_status_id' => $statusId]);
+        // Get the new status
+        $newStatus = OrderStatus::find($statusId);
+        
+        if (!$newStatus) {
+            throw new \Exception("Invalid status ID: {$statusId}");
+        }
+        
+        // Update both the status string and foreign key to keep them in sync
+        $this->update([
+            'status' => $newStatus->name, // Keep string field in sync
+            'order_status_id' => $statusId
+        ]);
 
         // Create history entry
         $this->statusHistory()->create([
@@ -107,6 +117,64 @@ class BuyerCheckout extends Model
         
         // Fallback to old status column during migration
         return $this->status;
+    }
+
+    /**
+     * Get buyer reviews for this order (buyer reviewing the seller)
+     */
+    public function buyerReviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'order_id')->where('review_type', 'buyer_to_seller');
+    }
+
+    /**
+     * Get first buyer review for this order (singular)
+     * This provides backward compatibility for code expecting buyerReview (singular)
+     */
+    public function buyerReview()
+    {
+        return $this->hasOne(Review::class, 'order_id')->where('review_type', 'buyer_to_seller');
+    }
+
+    /**
+     * Get seller reviews for this order (seller reviewing the buyer)
+     */
+    public function sellerReviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'order_id')->where('review_type', 'seller_to_buyer');
+    }
+
+    /**
+     * Get first seller review for this order (singular)
+     * This provides backward compatibility for code expecting sellerReview (singular)
+     */
+    public function sellerReview()
+    {
+        return $this->hasOne(Review::class, 'order_id')->where('review_type', 'seller_to_buyer');
+    }
+
+    /**
+     * Get all reviews for this order
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'order_id');
+    }
+
+    /**
+     * Check if buyer has reviewed the seller for this order
+     */
+    public function hasBuyerReview(): bool
+    {
+        return $this->buyerReviews()->exists();
+    }
+
+    /**
+     * Check if seller has reviewed the buyer for this order
+     */
+    public function hasSellerReview(): bool
+    {
+        return $this->sellerReviews()->exists();
     }
 
     /**

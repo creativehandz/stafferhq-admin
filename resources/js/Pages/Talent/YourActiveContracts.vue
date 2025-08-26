@@ -27,7 +27,23 @@ interface BuyerCheckout {
     status: string;
     status_info?: OrderStatus;
     source?: string; // Add source field
+    buyer_review?: Review; // Add buyer review
+    has_buyer_review?: boolean; // Add flag for buyer review
+    seller_review?: Review; // Add seller review
+    has_seller_review?: boolean; // Add flag for seller review
     user: {
+        id: number;
+        name: string;
+    };
+}
+
+interface Review {
+    id: number;
+    rating: number;
+    review_text: string;
+    review_criteria?: any;
+    reviewed_at: string;
+    reviewer: {
         id: number;
         name: string;
     };
@@ -84,6 +100,20 @@ const isLoading = ref(false);
 const selectedOrderId = ref<number | null>(null);
 const showStatusModal = ref(false);
 
+// Review modal state
+const showReviewModal = ref(false);
+const selectedBuyerName = ref<string>('');
+const reviewForm = ref({
+    rating: 5,
+    review_text: '',
+    review_criteria: {
+        communication: 5,
+        professionalism: 5,
+        clarity: 5,
+        cooperation: 5
+    }
+});
+
 // Fetch data from the backend
 const fetchBuyerCheckout = async () => {
     try {
@@ -120,7 +150,7 @@ onMounted(() => {
 // Filter orders based on the active tab
 const filterOrders = (orders: BuyerCheckout[], activeTab: string): BuyerCheckout[] => {
     const statusMap: Record<string, string[]> = {
-        "pendingOrders": ["pending"],
+        "pendingOrders": ["pending", "Order Placed"], // Include both legacy pending and new Order Placed status
         "priorityOrders": ["Priority"],
         "activeOrders": ["Active", "active", "Order Accepted"], // Include both Active and Order Accepted
         "lateOrders": ["Late"],
@@ -153,6 +183,14 @@ const getOrderCount = (status: string) => {
         return buyerCheckoutData.value.filter((order) => 
             order.status === 'Completed' || 
             order.status === 'completed'
+        ).length;
+    }
+    
+    // Special handling for Pending tab to include "Order Placed" orders
+    if (status === 'Pending') {
+        return buyerCheckoutData.value.filter((order) => 
+            order.status === 'pending' || 
+            order.status === 'Order Placed'
         ).length;
     }
     
@@ -232,6 +270,85 @@ const getAvailableStatuses = () => {
     console.log('Filtered statuses for modal:', filtered);
     return filtered;
 };
+
+// Function to render star rating
+const renderStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+        stars.push(i <= rating ? '★' : '☆');
+    }
+    return stars.join('');
+};
+
+// Function to format date
+const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString();
+};
+
+// Function to check if order is completed
+const isCompletedOrder = (status: string) => {
+    return status.toLowerCase() === 'completed' || status === 'Completed';
+};
+
+// Open review modal
+const openReviewModal = (orderId: number, buyerName: string) => {
+    selectedOrderId.value = orderId;
+    selectedBuyerName.value = buyerName;
+    showReviewModal.value = true;
+    // Reset form
+    reviewForm.value = {
+        rating: 5,
+        review_text: '',
+        review_criteria: {
+            communication: 5,
+            professionalism: 5,
+            clarity: 5,
+            cooperation: 5
+        }
+    };
+};
+
+// Close review modal
+const closeReviewModal = () => {
+    showReviewModal.value = false;
+    selectedOrderId.value = null;
+    selectedBuyerName.value = '';
+};
+
+// Submit review
+const submitReview = async () => {
+    if (!selectedOrderId.value) return;
+    
+    try {
+        isLoading.value = true;
+        
+        const reviewData = {
+            order_id: selectedOrderId.value,
+            rating: reviewForm.value.rating,
+            review_text: reviewForm.value.review_text,
+            review_criteria: reviewForm.value.review_criteria,
+            review_type: 'seller_to_buyer'
+        };
+        
+        const response = await axios.post('/api/reviews', reviewData);
+        
+        console.log('Review submitted successfully:', response.data);
+        
+        // Refresh data
+        await fetchBuyerCheckout();
+        
+        // Close modal
+        closeReviewModal();
+        
+        alert('Review submitted successfully!');
+        
+    } catch (error: any) {
+        console.error('Error submitting review:', error);
+        alert(`Error submitting review: ${error.response?.data?.message || error.message}`);
+    } finally {
+        isLoading.value = false;
+    }
+};
 </script>
 <template>
   <Head title="Manage Orders" />
@@ -255,7 +372,7 @@ const getAvailableStatuses = () => {
         @click="activeTab = 'pendingOrders'"
         :class="[activeTab === 'pendingOrders' ? 'bg-primary text-white' : 'bg-gray dark:bg-meta-4 text-black dark:text-white', 'rounded-md py-3 px-4 text-sm font-medium hover:bg-primary hover:text-white dark:hover:bg-primary md:text-base lg:px-6']"
       >
-        Pending ({{ getOrderCount('pending') }})
+        Pending ({{ getOrderCount('Pending') }})
       </button>
 
       <button
@@ -335,43 +452,113 @@ const getAvailableStatuses = () => {
       <div
         v-for="checkout in filterOrders(buyerCheckoutData, activeTab)"
         :key="checkout.id"
-        class="flex items-center justify-between px-4 py-4 border-b border-stroke dark:border-strokedark hover:bg-gray-50 dark:hover:bg-meta-4"
+        class="border-b border-stroke dark:border-strokedark hover:bg-gray-50 dark:hover:bg-meta-4"
       >
-        <!-- Buyer Information -->
-        <div class="flex items-center w-1/6">
-          <div class="flex items-center justify-center w-10 h-10 text-lg font-semibold text-white bg-primary rounded-full">
-            {{ getUserInitials(getBuyerName(checkout)) }}
+        <!-- Main Order Row -->
+        <div class="flex items-center justify-between px-4 py-4">
+          <!-- Buyer Information -->
+          <div class="flex items-center w-1/6">
+            <div class="flex items-center justify-center w-10 h-10 text-lg font-semibold text-white bg-primary rounded-full">
+              {{ getUserInitials(getBuyerName(checkout)) }}
+            </div>
+            <h3 class="ml-3 text-sm font-medium">{{ getBuyerName(checkout) }}</h3>
           </div>
-          <h3 class="ml-3 text-sm font-medium">{{ getBuyerName(checkout) }}</h3>
+
+          <!-- Package -->
+          <div class="w-1/6 text-sm">{{ checkout.package_selected }}</div>
+
+          <!-- Due On -->
+          <div class="w-1/6 text-sm">{{ parseOrderDetails(checkout.order_details).deliveryTime || 'N/A' }}</div>
+
+          <!-- Total -->
+          <div class="w-1/6 text-sm font-semibold">${{ checkout.total_price }}</div>
+
+          <!-- Status -->
+          <div class="w-1/6">
+            <span 
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white"
+              :style="{ backgroundColor: getStatusColor(checkout.status_info) }"
+            >
+              {{ checkout.status }}
+            </span>
+          </div>
+
+          <!-- Actions -->
+          <div class="w-1/6 space-y-1">
+            <button
+              @click="openStatusModal(checkout.id)"
+              class="block w-full px-2 py-1 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors"
+            >
+              Change Status
+            </button>
+            
+            <!-- Review to Buyer Button (Only for Completed Orders) -->
+            <button
+              v-if="isCompletedOrder(checkout.status) && !checkout.has_seller_review"
+              @click="openReviewModal(checkout.id, checkout.user.name)"
+              class="block w-full px-2 py-1 text-xs font-medium text-green-600 border border-green-600 rounded hover:bg-green-600 hover:text-white transition-colors"
+            >
+              Review Buyer
+            </button>
+            
+            <!-- Already Reviewed Indicator -->
+            <span
+              v-if="isCompletedOrder(checkout.status) && checkout.has_seller_review"
+              class="block w-full px-2 py-1 text-xs font-medium text-gray-500 border border-gray-300 rounded bg-gray-50 text-center"
+            >
+              ✓ Reviewed
+            </span>
+          </div>
         </div>
 
-        <!-- Package -->
-        <div class="w-1/6 text-sm">{{ checkout.package_selected }}</div>
+        <!-- Buyer Review Section (Only for Completed Orders) -->
+        <div v-if="isCompletedOrder(checkout.status)" class="px-4 pb-4 bg-gray-50 dark:bg-meta-4/50">
+          <div class="border-l-4 border-primary pl-4">
+            <h4 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+              📝 Buyer Review
+            </h4>
+            
+            <!-- Review Exists -->
+            <div v-if="checkout.has_buyer_review && checkout.buyer_review" class="space-y-2">
+              <!-- Rating -->
+              <div class="flex items-center space-x-2">
+                <span class="text-yellow-500 text-lg">{{ renderStars(checkout.buyer_review.rating) }}</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">
+                  ({{ checkout.buyer_review.rating }}/5)
+                </span>
+              </div>
+              
+              <!-- Review Text -->
+              <div class="bg-white dark:bg-boxdark rounded-lg p-3 shadow-sm">
+                <p class="text-sm text-gray-700 dark:text-gray-300 italic">
+                  "{{ checkout.buyer_review.review_text }}"
+                </p>
+                <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  - {{ checkout.buyer_review.reviewer?.name || getBuyerName(checkout) }} 
+                  on {{ formatDate(checkout.buyer_review.reviewed_at) }}
+                </div>
+              </div>
 
-        <!-- Due On -->
-        <div class="w-1/6 text-sm">{{ parseOrderDetails(checkout.order_details).deliveryTime || 'N/A' }}</div>
+              <!-- Review Criteria (if exists) -->
+              <div v-if="checkout.buyer_review.review_criteria" class="mt-3">
+                <div class="text-xs text-gray-600 dark:text-gray-400 mb-1">Detailed Ratings:</div>
+                <div class="flex flex-wrap gap-2">
+                  <div 
+                    v-for="(score, criteria) in checkout.buyer_review.review_criteria" 
+                    :key="criteria"
+                    class="bg-primary/10 text-primary px-2 py-1 rounded text-xs"
+                  >
+                    {{ criteria }}: {{ score }}/5
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!-- Total -->
-        <div class="w-1/6 text-sm font-semibold">${{ checkout.total_price }}</div>
-
-        <!-- Status -->
-        <div class="w-1/6">
-          <span 
-            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white"
-            :style="{ backgroundColor: getStatusColor(checkout.status_info) }"
-          >
-            {{ checkout.status }}
-          </span>
-        </div>
-
-        <!-- Actions -->
-        <div class="w-1/6">
-          <button
-            @click="openStatusModal(checkout.id)"
-            class="px-3 py-1 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors"
-          >
-            Change Status
-          </button>
+            <!-- No Review Yet -->
+            <div v-else class="text-sm text-gray-500 dark:text-gray-400 italic">
+              📋 No review from buyer yet
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -418,6 +605,153 @@ const getAvailableStatuses = () => {
           Cancel
         </button>
       </div>
+    </div>
+  </div>
+  
+  <!-- Review Modal -->
+  <div v-if="showReviewModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-boxdark rounded-lg p-8 w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-semibold text-black dark:text-white">Review Buyer: {{ selectedBuyerName }}</h3>
+        <button 
+          @click="closeReviewModal()"
+          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <form @submit.prevent="submitReview()">
+        <!-- Overall Rating -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Overall Rating
+          </label>
+          <div class="flex space-x-2">
+            <button
+              v-for="rating in [1, 2, 3, 4, 5]"
+              :key="rating"
+              type="button"
+              @click="reviewForm.rating = rating"
+              class="text-2xl transition-colors"
+              :class="rating <= reviewForm.rating ? 'text-yellow-500' : 'text-gray-300'"
+            >
+              ★
+            </button>
+          </div>
+        </div>
+        
+        <!-- Review Text -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Review Text
+          </label>
+          <textarea
+            v-model="reviewForm.review_text"
+            rows="4"
+            class="w-full p-3 border border-stroke dark:border-strokedark rounded-lg focus:outline-none focus:border-primary dark:bg-meta-4 dark:text-white"
+            placeholder="Share your experience working with this buyer..."
+            required
+          ></textarea>
+        </div>
+        
+        <!-- Review Criteria -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            Detailed Ratings
+          </label>
+          
+          <div class="space-y-4">
+            <!-- Communication -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600 dark:text-gray-400">Communication</span>
+              <div class="flex space-x-1">
+                <button
+                  v-for="rating in [1, 2, 3, 4, 5]"
+                  :key="rating"
+                  type="button"
+                  @click="reviewForm.review_criteria.communication = rating"
+                  class="text-lg transition-colors"
+                  :class="rating <= reviewForm.review_criteria.communication ? 'text-yellow-500' : 'text-gray-300'"
+                >
+                  ★
+                </button>
+              </div>
+            </div>
+            
+            <!-- Professionalism -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600 dark:text-gray-400">Professionalism</span>
+              <div class="flex space-x-1">
+                <button
+                  v-for="rating in [1, 2, 3, 4, 5]"
+                  :key="rating"
+                  type="button"
+                  @click="reviewForm.review_criteria.professionalism = rating"
+                  class="text-lg transition-colors"
+                  :class="rating <= reviewForm.review_criteria.professionalism ? 'text-yellow-500' : 'text-gray-300'"
+                >
+                  ★
+                </button>
+              </div>
+            </div>
+            
+            <!-- Clarity -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600 dark:text-gray-400">Clarity of Requirements</span>
+              <div class="flex space-x-1">
+                <button
+                  v-for="rating in [1, 2, 3, 4, 5]"
+                  :key="rating"
+                  type="button"
+                  @click="reviewForm.review_criteria.clarity = rating"
+                  class="text-lg transition-colors"
+                  :class="rating <= reviewForm.review_criteria.clarity ? 'text-yellow-500' : 'text-gray-300'"
+                >
+                  ★
+                </button>
+              </div>
+            </div>
+            
+            <!-- Cooperation -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600 dark:text-gray-400">Cooperation</span>
+              <div class="flex space-x-1">
+                <button
+                  v-for="rating in [1, 2, 3, 4, 5]"
+                  :key="rating"
+                  type="button"
+                  @click="reviewForm.review_criteria.cooperation = rating"
+                  class="text-lg transition-colors"
+                  :class="rating <= reviewForm.review_criteria.cooperation ? 'text-yellow-500' : 'text-gray-300'"
+                >
+                  ★
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal Actions -->
+        <div class="flex justify-end space-x-3">
+          <button
+            type="button"
+            @click="closeReviewModal()"
+            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 border border-stroke dark:border-strokedark rounded hover:bg-gray-50 dark:hover:bg-meta-4"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            :disabled="isLoading"
+            class="px-4 py-2 text-sm font-medium text-white bg-primary rounded hover:bg-primary-dark disabled:opacity-50"
+          >
+            {{ isLoading ? 'Submitting...' : 'Submit Review' }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
   </AuthenticatedLayout>

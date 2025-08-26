@@ -129,7 +129,7 @@ class CheckoutController extends Controller
         }
 
         // Store data to the database
-                // Create checkout record
+        // Create checkout record
         $buyerCheckout = BuyerCheckout::create([
             'user_id' => auth()->id(),
             'gig_id' => $validatedData['gigId'],
@@ -137,7 +137,7 @@ class CheckoutController extends Controller
             'billing_details' => $billingDetailsRaw, // Keep original for backward compatibility
             'package_selected' => $validatedData['packageName'],
             'total_price' => $validatedData['packagePrice'],
-            'status' => 'pending',
+            'status' => $orderPlacedStatus->name, // Use the status name instead of hardcoded 'pending'
             'order_status_id' => $orderPlacedStatus->id,
             // Individual billing fields
             'billing_full_name' => $billingFields['name'] ?? null,

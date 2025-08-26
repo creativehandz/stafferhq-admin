@@ -442,9 +442,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/categoriesandsub', [CategoryController::class, 'getAllCategoriesWithSubCategories']);
 
 
-    Route::get('/job-description/{id}', [GigController::class, 'show'])->name('job.show');
+    Route::get('/job-description/{id}', [GigController::class, 'show'])->name('gig.show');
 
-    Route::get('/checkout/{id}', [GigController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/{id}', [GigController::class, 'checkout'])->name('gig.checkout');
 
 
     // seller dashboard route for order timeline

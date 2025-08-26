@@ -92,6 +92,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Get reviews written by this user
+     */
+    public function reviewsGiven()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    /**
+     * Get reviews received by this user
+     */
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+    }
+
+    /**
      * Get the categories for the user.
      * Assumes categories field stores JSON array of IDs
      */
