@@ -171,4 +171,36 @@ class GigController extends Controller
             // Return the gigs as a JSON response
             return response()->json($gigs);
         }
+
+        public function talent(): Response
+        {
+            // Fetch active gigs with user relationships for the talent page
+            $gigs = Gig::where('status', 'active')
+                      ->with(['user', 'category'])
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+    
+            // Decode the pricing JSON for each gig
+            foreach ($gigs as $gig) {
+                $gig->pricing = json_decode($gig->pricing, true);
+                
+                // Get the minimum price from all packages
+                $prices = [];
+                if (isset($gig->pricing['basic']['price'])) {
+                    $prices[] = $gig->pricing['basic']['price'];
+                }
+                if (isset($gig->pricing['standard']['price'])) {
+                    $prices[] = $gig->pricing['standard']['price'];
+                }
+                if (isset($gig->pricing['premium']['price'])) {
+                    $prices[] = $gig->pricing['premium']['price'];
+                }
+                
+                $gig->min_price = !empty($prices) ? min($prices) : 0;
+            }
+    
+            return Inertia::render('Talent', [
+                'gigs' => $gigs,
+            ]);
+        }
  }
