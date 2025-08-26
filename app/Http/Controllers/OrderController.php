@@ -21,7 +21,7 @@ class OrderController extends Controller
         $orders = BuyerCheckout::whereHas('gig', function($query) use ($sellerId) {
                 $query->where('user_id', $sellerId);
             })
-            ->with(['orderStatus', 'gig', 'gig.user', 'user']) // Load relationships
+            ->with(['orderStatus', 'gig', 'gig.user', 'user', 'buyerReviews', 'buyerReviews.reviewer', 'sellerReviews', 'sellerReviews.reviewer']) // Load relationships
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($checkout) {
@@ -63,6 +63,10 @@ class OrderController extends Controller
                     'updated_at' => $checkout->updated_at,
                     'user_id' => $checkout->user_id, // buyer user ID
                     'gig_id' => $checkout->gig_id,
+                    'buyer_review' => $checkout->buyerReviews->first(), // Get buyer's review of seller
+                    'has_buyer_review' => $checkout->hasBuyerReview(),
+                    'seller_review' => $checkout->sellerReviews->first(), // Get seller's review of buyer
+                    'has_seller_review' => $checkout->hasSellerReview(),
                 ];
             });
 
@@ -100,7 +104,7 @@ class OrderController extends Controller
         $orders = BuyerCheckout::whereHas('gig', function($query) use ($sellerId) {
                 $query->where('user_id', $sellerId);
             })
-            ->with(['orderStatus', 'gig', 'gig.user', 'user']) // Load relationships
+            ->with(['orderStatus', 'gig', 'gig.user', 'user', 'buyerReviews', 'buyerReviews.reviewer', 'sellerReviews', 'sellerReviews.reviewer']) // Load relationships
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($checkout) {
@@ -136,6 +140,10 @@ class OrderController extends Controller
                     'total_price' => $checkout->total_price,
                     'status' => $checkout->status,
                     'source' => 'buyer_checkout',
+                    'buyer_review' => $checkout->buyerReviews->first(), // Get buyer's review of seller
+                    'has_buyer_review' => $checkout->hasBuyerReview(),
+                    'seller_review' => $checkout->sellerReviews->first(), // Get seller's review of buyer
+                    'has_seller_review' => $checkout->hasSellerReview(),
                     'user' => [
                         'id' => $buyer ? $buyer->id : null,
                         'name' => $buyerName

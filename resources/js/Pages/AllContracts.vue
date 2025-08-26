@@ -2,9 +2,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import BreadcrumbDefault from "@/Components/Breadcrumbs/BreadcrumbDefault.vue";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { Link, router } from "@inertiajs/vue3";
+import axios from "axios";
 
 interface Seller {
     id: number | null;
@@ -36,6 +37,21 @@ interface Contract {
     gig_id: number | null;
     can_activate_milestone: boolean;
     can_rehire: boolean;
+    can_review?: boolean;
+    has_buyer_review?: boolean;
+    has_seller_review?: boolean;
+    buyer_review?: {
+        id: number;
+        rating: number;
+        review_text: string;
+        reviewed_at: string;
+    };
+    seller_review?: {
+        id: number;
+        rating: number;
+        review_text: string;
+        reviewed_at: string;
+    };
 }
 
 interface Props {
@@ -50,6 +66,27 @@ const props = defineProps<Props>();
 const pageTitle = ref("All Contracts");
 const searchQuery = ref("");
 const selectedFilter = ref("all");
+
+// Review modal state
+const showReviewModal = ref(false);
+const selectedContractForReview = ref<Contract | null>(null);
+const isLoading = ref(false);
+const reviewForm = ref({
+    rating: 5,
+    review_text: '',
+    is_public: true,
+    review_criteria: {
+        communication: 5,
+        work_quality: 5,
+        professionalism: 5,
+        deadline_adherence: 5
+    }
+});
+const reviewErrors = ref<Record<string, string>>({});
+
+// Show review details modal
+const showReviewDetailsModal = ref(false);
+const selectedReviewForDetails = ref<any>(null);
 
 // Filter contracts based on search and status
 const filteredContracts = computed(() => {
@@ -124,6 +161,88 @@ const handleImageError = (event: Event) => {
     if (target) {
         target.src = 'https://www.svgrepo.com/show/497407/profile-circle.svg';
     }
+};
+
+// Open review modal
+const openReviewModal = (contract: Contract) => {
+    selectedContractForReview.value = contract;
+    showReviewModal.value = true;
+    
+    // Reset form
+    reviewForm.value = {
+        rating: 5,
+        review_text: '',
+        is_public: true,
+        review_criteria: {
+            communication: 5,
+            work_quality: 5,
+            professionalism: 5,
+            deadline_adherence: 5
+        }
+    };
+    reviewErrors.value = {};
+};
+
+// Submit review
+const submitReview = async () => {
+    if (!selectedContractForReview.value) return;
+    
+    try {
+        isLoading.value = true;
+        reviewErrors.value = {};
+
+        const response = await axios.post(`/orders/${selectedContractForReview.value.id}/submit-buyer-review`, {
+            rating: reviewForm.value.rating,
+            review_text: reviewForm.value.review_text,
+            is_public: reviewForm.value.is_public,
+            review_criteria: reviewForm.value.review_criteria
+        });
+
+        if (response.data.success) {
+            // Update the local data
+            const contractIndex = props.contracts.findIndex(contract => contract.id === selectedContractForReview.value?.id);
+            if (contractIndex !== -1) {
+                props.contracts[contractIndex].has_buyer_review = true;
+                props.contracts[contractIndex].can_review = false;
+                props.contracts[contractIndex].buyer_review = response.data.review;
+            }
+
+            // Close modal and show success message
+            showReviewModal.value = false;
+            selectedContractForReview.value = null;
+            
+            alert('Review submitted successfully!');
+        }
+    } catch (error: any) {
+        console.error('Error submitting review:', error);
+        
+        if (error.response?.data?.errors) {
+            reviewErrors.value = error.response.data.errors;
+        } else {
+            alert(`Error submitting review: ${error.response?.data?.message || error.message}`);
+        }
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+// Close review modal
+const closeReviewModal = () => {
+    showReviewModal.value = false;
+    selectedContractForReview.value = null;
+    reviewErrors.value = {};
+};
+
+// Show review details
+const showReviewDetails = (review: any, type: 'buyer' | 'seller') => {
+    selectedReviewForDetails.value = { ...review, type };
+    showReviewDetailsModal.value = true;
+};
+
+// Close review details modal
+const closeReviewDetailsModal = () => {
+    showReviewDetailsModal.value = false;
+    selectedReviewForDetails.value = null;
 };
 </script>
 
@@ -340,8 +459,298 @@ const handleImageError = (event: Event) => {
                                     Details
                                 </button>
                             </div>
+
+                            <!-- Review Section -->
+                            <div v-if="contract.status === 'completed'" class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <!-- Review Button for Completed Orders -->
+                                <button
+                                    v-if="contract.can_review"
+                                    @click="openReviewModal(contract)"
+                                    class="w-full px-3 py-2 text-sm font-medium text-green-600 border border-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors duration-200 flex items-center justify-center"
+                                >
+                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                    </svg>
+                                    Review Seller
+                                </button>
+
+                                <!-- Show Review Status if Already Reviewed -->
+                                <div v-else-if="contract.has_buyer_review" class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-green-600 flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            You reviewed this seller
+                                        </span>
+                                        <button
+                                            @click="showReviewDetails(contract.buyer_review, 'buyer')"
+                                            class="text-xs text-blue-600 hover:text-blue-800 underline"
+                                        >
+                                            View Review
+                                        </button>
+                                    </div>
+                                    <div v-if="contract.buyer_review" class="text-sm text-gray-600 dark:text-gray-400">
+                                        ⭐ {{ contract.buyer_review.rating }}/5 stars
+                                    </div>
+                                </div>
+
+                                <!-- Show Seller's Review if Available -->
+                                <div v-if="contract.has_seller_review" class="mt-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                            Seller's Review of You
+                                        </span>
+                                        <button
+                                            @click="showReviewDetails(contract.seller_review, 'seller')"
+                                            class="text-xs text-blue-600 hover:text-blue-800 underline"
+                                        >
+                                            View Details
+                                        </button>
+                                    </div>
+                                    <div v-if="contract.seller_review" class="text-sm text-gray-600 dark:text-gray-400">
+                                        ⭐ {{ contract.seller_review.rating }}/5 stars
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Modal -->
+        <div v-if="showReviewModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white dark:bg-boxdark rounded-lg p-8 w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-black dark:text-white">Review Seller</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            Rate your experience with {{ selectedContractForReview?.seller?.name }}
+                        </p>
+                    </div>
+                    <button 
+                        @click="closeReviewModal"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <form @submit.prevent="submitReview">
+                    <!-- Overall Rating -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            Overall Rating *
+                        </label>
+                        <div class="flex items-center space-x-1">
+                            <button
+                                v-for="star in 5"
+                                :key="star"
+                                type="button"
+                                @click="reviewForm.rating = star"
+                                class="text-2xl focus:outline-none transition-colors"
+                                :class="star <= reviewForm.rating ? 'text-yellow-400' : 'text-gray-300'"
+                            >
+                                ⭐
+                            </button>
+                            <span class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ reviewForm.rating }}/5</span>
+                        </div>
+                        <div v-if="reviewErrors.rating" class="text-red-500 text-sm mt-1">{{ reviewErrors.rating[0] }}</div>
+                    </div>
+
+                    <!-- Detailed Criteria -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            Detailed Ratings
+                        </label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Communication -->
+                            <div>
+                                <label class="block text-xs text-gray-600 dark:text-gray-400 mb-1">Communication</label>
+                                <div class="flex items-center">
+                                    <button
+                                        v-for="star in 5"
+                                        :key="star"
+                                        type="button"
+                                        @click="reviewForm.review_criteria.communication = star"
+                                        class="text-lg focus:outline-none"
+                                        :class="star <= reviewForm.review_criteria.communication ? 'text-yellow-400' : 'text-gray-300'"
+                                    >
+                                        ⭐
+                                    </button>
+                                    <span class="text-xs text-gray-500 ml-2">{{ reviewForm.review_criteria.communication }}/5</span>
+                                </div>
+                            </div>
+
+                            <!-- Work Quality -->
+                            <div>
+                                <label class="block text-xs text-gray-600 dark:text-gray-400 mb-1">Work Quality</label>
+                                <div class="flex items-center">
+                                    <button
+                                        v-for="star in 5"
+                                        :key="star"
+                                        type="button"
+                                        @click="reviewForm.review_criteria.work_quality = star"
+                                        class="text-lg focus:outline-none"
+                                        :class="star <= reviewForm.review_criteria.work_quality ? 'text-yellow-400' : 'text-gray-300'"
+                                    >
+                                        ⭐
+                                    </button>
+                                    <span class="text-xs text-gray-500 ml-2">{{ reviewForm.review_criteria.work_quality }}/5</span>
+                                </div>
+                            </div>
+
+                            <!-- Professionalism -->
+                            <div>
+                                <label class="block text-xs text-gray-600 dark:text-gray-400 mb-1">Professionalism</label>
+                                <div class="flex items-center">
+                                    <button
+                                        v-for="star in 5"
+                                        :key="star"
+                                        type="button"
+                                        @click="reviewForm.review_criteria.professionalism = star"
+                                        class="text-lg focus:outline-none"
+                                        :class="star <= reviewForm.review_criteria.professionalism ? 'text-yellow-400' : 'text-gray-300'"
+                                    >
+                                        ⭐
+                                    </button>
+                                    <span class="text-xs text-gray-500 ml-2">{{ reviewForm.review_criteria.professionalism }}/5</span>
+                                </div>
+                            </div>
+
+                            <!-- Deadline Adherence -->
+                            <div>
+                                <label class="block text-xs text-gray-600 dark:text-gray-400 mb-1">Deadline Adherence</label>
+                                <div class="flex items-center">
+                                    <button
+                                        v-for="star in 5"
+                                        :key="star"
+                                        type="button"
+                                        @click="reviewForm.review_criteria.deadline_adherence = star"
+                                        class="text-lg focus:outline-none"
+                                        :class="star <= reviewForm.review_criteria.deadline_adherence ? 'text-yellow-400' : 'text-gray-300'"
+                                    >
+                                        ⭐
+                                    </button>
+                                    <span class="text-xs text-gray-500 ml-2">{{ reviewForm.review_criteria.deadline_adherence }}/5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Text -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Your Review *
+                        </label>
+                        <textarea
+                            v-model="reviewForm.review_text"
+                            placeholder="Share your experience working with this seller..."
+                            rows="4"
+                            class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white"
+                            :class="reviewErrors.review_text ? 'border-red-500' : ''"
+                        ></textarea>
+                        <div class="flex justify-between items-center mt-1">
+                            <div v-if="reviewErrors.review_text" class="text-red-500 text-sm">{{ reviewErrors.review_text[0] }}</div>
+                            <div class="text-xs text-gray-500">{{ reviewForm.review_text.length }}/1000 characters</div>
+                        </div>
+                    </div>
+
+                    <!-- Public Review Option -->
+                    <div class="mb-6">
+                        <div class="flex items-center">
+                            <input
+                                v-model="reviewForm.is_public"
+                                type="checkbox"
+                                id="is_public"
+                                class="mr-2 rounded border-gray-300 text-primary focus:ring-primary"
+                            >
+                            <label for="is_public" class="text-sm text-gray-700 dark:text-gray-300">
+                                Make this review public (visible to other users)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-600">
+                        <button
+                            type="button"
+                            @click="closeReviewModal"
+                            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+                            :disabled="isLoading"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            class="px-6 py-2 text-sm font-medium text-white bg-primary rounded hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
+                            :disabled="isLoading || !reviewForm.review_text.trim()"
+                        >
+                            <span v-if="isLoading" class="inline-flex items-center">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Submitting...
+                            </span>
+                            <span v-else>Submit Review</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Review Details Modal -->
+        <div v-if="showReviewDetailsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white dark:bg-boxdark rounded-lg p-8 w-full max-w-lg mx-4">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-black dark:text-white">
+                        {{ selectedReviewForDetails?.type === 'buyer' ? 'Your Review' : 'Seller\'s Review' }}
+                    </h3>
+                    <button 
+                        @click="closeReviewDetailsModal"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div v-if="selectedReviewForDetails">
+                    <!-- Rating -->
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <span class="text-lg mr-2">{{ selectedReviewForDetails.rating }}/5</span>
+                            <div class="flex">
+                                <span v-for="i in 5" :key="i" class="text-lg">
+                                    {{ i <= selectedReviewForDetails.rating ? '⭐' : '☆' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Text -->
+                    <div class="mb-4">
+                        <p class="text-gray-700 dark:text-gray-300">{{ selectedReviewForDetails.review_text }}</p>
+                    </div>
+
+                    <!-- Review Date -->
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                        Reviewed on {{ formatDate(selectedReviewForDetails.reviewed_at) }}
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button
+                        @click="closeReviewDetailsModal"
+                        class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+                    >
+                        Close
+                    </button>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ class BuyerContractsController extends Controller
         
         // Get all orders placed by the current buyer from buyer_checkout table
         $contracts = BuyerCheckout::where('user_id', $buyerId)
-            ->with(['orderStatus', 'gig', 'gig.user']) // Load relationships
+            ->with(['orderStatus', 'gig', 'gig.user', 'buyerReview', 'sellerReview']) // Load relationships including reviews
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($checkout) {
@@ -74,6 +74,11 @@ class BuyerContractsController extends Controller
                 // Determine status color and button text
                 $statusInfo = $this->getStatusInfo($checkout->status);
                 
+                // Check if reviews exist
+                $hasBuyerReview = $checkout->buyerReview !== null;
+                $hasSellerReview = $checkout->sellerReview !== null;
+                $canReview = strtolower($checkout->status) === 'completed' && !$hasBuyerReview;
+                
                 return [
                     'id' => $checkout->id,
                     'title' => $contractTitle,
@@ -96,6 +101,21 @@ class BuyerContractsController extends Controller
                     'gig_id' => $checkout->gig_id,
                     'can_activate_milestone' => in_array($checkout->status, ['active', 'pending']),
                     'can_rehire' => in_array($checkout->status, ['completed', 'delivered']),
+                    'can_review' => $canReview,
+                    'has_buyer_review' => $hasBuyerReview,
+                    'has_seller_review' => $hasSellerReview,
+                    'buyer_review' => $checkout->buyerReview ? [
+                        'id' => $checkout->buyerReview->id,
+                        'rating' => $checkout->buyerReview->rating,
+                        'review_text' => $checkout->buyerReview->review_text,
+                        'reviewed_at' => $checkout->buyerReview->created_at,
+                    ] : null,
+                    'seller_review' => $checkout->sellerReview ? [
+                        'id' => $checkout->sellerReview->id,
+                        'rating' => $checkout->sellerReview->rating,
+                        'review_text' => $checkout->sellerReview->review_text,
+                        'reviewed_at' => $checkout->sellerReview->created_at,
+                    ] : null,
                 ];
             });
         
